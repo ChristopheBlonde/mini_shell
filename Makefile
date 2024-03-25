@@ -1,0 +1,52 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: cblonde <marvin@42.fr>                     +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
+#    Updated: 2024/03/22 15:00:19 by cblonde          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+CC = gcc
+
+CFLAGS = -Werror -Wextra -Wall
+
+INCLUDE = -Iinclude -Ilib
+
+LIBRARIES = -Llib -lft
+
+LIBFT = lib/libft.a
+
+NAME = minishell
+
+UTILS = src/utils/
+
+SRC = src/main.c
+
+all : $(NAME)
+
+$(LIBFT) :
+	make -C lib --no-print-directory
+
+OBJ = $(SRC:.c=.o)
+
+.c.o :
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+
+$(NAME) : $(LIBFT) $(OBJ)
+	$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) -o $(NAME) $(LIBRARIES)
+
+clean :
+	rm -rf $(OBJ)
+	make clean -C lib --no-print-directory
+
+fclean : clean
+	rm -rf $(NAME)
+	make fclean -C lib --no-print-directory
+
+re : fclean $(NAME)
+
+.PHONY : all clean fclean re
