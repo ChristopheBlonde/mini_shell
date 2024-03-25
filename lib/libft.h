@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 14:11:31 by cblonde           #+#    #+#             */
-/*   Updated: 2023/12/11 11:37:18 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/03/25 13:44:27 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ size_t	ft_putlhex(unsigned long int nbr, char *base);
 size_t	ft_putlnbr_base(long int nbr, char *base);
 char	*ft_strfjoin(char *s1, char *s2, size_t n);
 char	*ft_get_next_line(int fd);
+int		ft_isspace(int c);
 
 #endif

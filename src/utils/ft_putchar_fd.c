@@ -6,12 +6,11 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:39:35 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/25 08:53:48 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/03/25 09:48:44 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "print.h"
-hahahah
 
 void	ft_putchar_fd(char c, int fd)
 {
