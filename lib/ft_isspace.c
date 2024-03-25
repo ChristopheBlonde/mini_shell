@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 13:44:08 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/26 16:59:55 by cblonde          ###   ########.fr       */
+/*   Created: 2024/03/25 13:40:46 by tsadouk           #+#    #+#             */
+/*   Updated: 2024/03/25 13:42:24 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "libft.h"
 
-#include "minishell.h"
-
-void	ft_free_array(void **arr);
-
-#endif
+int	ft_isspace(int c)
+{
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r')
+		return (1);
+	return (0);
+}
