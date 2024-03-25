@@ -6,7 +6,7 @@
 #    By: cblonde <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
-#    Updated: 2024/03/22 15:00:19 by cblonde          ###   ########.fr        #
+#    Updated: 2024/03/25 10:33:34 by cblonde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,9 @@ NAME = minishell
 
 UTILS = src/utils/
 
-SRC = src/main.c
+PARSE = src/parsing/
+
+SRC = src/main.c $(PARSE)ft_parse_env.c
 
 all : $(NAME)
 
