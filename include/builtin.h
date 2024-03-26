@@ -1,41 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/25 12:45:56 by tsadouk          ###   ########.fr       */
+/*   Created: 2024/03/26 15:43:25 by tsadouk           #+#    #+#             */
+/*   Updated: 2024/03/26 15:48:01 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
-static int	ft_usage(void)
-{
-	ft_putendl_fd("\033[1;34mUsage: [ minishell ]\033[m", 2);
-	return (1);
-}
+# include "minishell.h"
 
-/*
-int	main(int argc, char *argv[], char *env[])
-{
-	int	i;
 
-	i = 0;
-	(void) argv;
-	if (argc > 1)
-	{
-		ft_putstr_fd(argv[1], 2);
-		ft_putstr_fd("is not an option !\n", 2);
-		return (ft_usage());
-	}
-	while (env[i])
-	{
-		ft_putendl_fd(env[i], 1);
-		i++;
-	}
-	return (0);
-}
-*/
+/*			ECHO			*/
+char	ft_echo(char *str);
+
+
+#endif

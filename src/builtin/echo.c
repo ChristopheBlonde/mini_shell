@@ -1,41 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/25 12:45:56 by tsadouk          ###   ########.fr       */
+/*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
+/*   Updated: 2024/03/26 15:47:36 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/builtin.h"
 
-static int	ft_usage(void)
+char	ft_echo(char *str)
 {
-	ft_putendl_fd("\033[1;34mUsage: [ minishell ]\033[m", 2);
-	return (1);
-}
+	int	option;
 
-/*
-int	main(int argc, char *argv[], char *env[])
-{
-	int	i;
-
-	i = 0;
-	(void) argv;
-	if (argc > 1)
+	option = 0;
+	if (str == NULL)
+		return (1);
+	while (ft_isspace(*str))
+		str++;
+	if (*str == '\0')
 	{
-		ft_putstr_fd(argv[1], 2);
-		ft_putstr_fd("is not an option !\n", 2);
-		return (ft_usage());
+		putchar_fd('\n', 1);
+		return (0);
 	}
-	while (env[i])
+	if (*str == '-' && *(str + 1) == 'n')
 	{
-		ft_putendl_fd(env[i], 1);
-		i++;
+		str += 2;
+		option = 1;
+		while (ft_isspace(*str))
+			str++;
 	}
+	put_str_fd(str, 1);
+	if (!option)
+		putchar_fd('\n', 1);
 	return (0);
 }
-*/
