@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:32:29 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/26 15:04:08 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/03/26 16:23:25 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static char	**ft_cpy_env(char **env, size_t len)
 	size_t	i;
 
 	i = 0;
-	arr = (char **)ft_calloc(len, sizeof(char *));
+	arr = (char **)ft_calloc(len + 1, sizeof(char *));
 	if (!arr)
 		return (NULL);
 	while (i < len)
