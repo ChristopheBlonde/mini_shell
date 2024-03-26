@@ -6,13 +6,13 @@
 #    By: cblonde <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
-#    Updated: 2024/03/22 15:00:19 by cblonde          ###   ########.fr        #
+#    Updated: 2024/03/26 17:20:30 by cblonde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 
-CFLAGS = -Werror -Wextra -Wall
+CFLAGS = -Werror -Wextra -Wall -g
 
 INCLUDE = -Iinclude -Ilib
 
@@ -24,7 +24,9 @@ NAME = minishell
 
 UTILS = src/utils/
 
-SRC = src/main.c
+PARSE = src/parsing/
+
+SRC = src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c
 
 all : $(NAME)
 
