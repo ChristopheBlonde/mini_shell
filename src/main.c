@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/26 17:27:40 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/03/26 17:33:30 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ static int	ft_usage(void)
 int	main(int argc, char *argv[], char *env[])
 {
 	char	**arr_env;
-	int		i;i
+	int		i;
 
-	if (!arr)
-		return ;
 	i = 0;
+	(void) argv;
+	if (argc > 1)
+	{
 		ft_putstr_fd(argv[1], 2);
 		ft_putstr_fd(" is not option !\n", 2);
 		return (ft_usage());
@@ -40,3 +41,4 @@ int	main(int argc, char *argv[], char *env[])
 	}
 	ft_free_array((void **)arr_env);
 	return (0);
+}
