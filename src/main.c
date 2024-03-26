@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/26 14:11:53 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/03/26 15:08:48 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ int	main(int argc, char *argv[], char *env[])
 		ft_putendl_fd(arr_env[i], 1);
 		i++;
 	}
+	ft_free_array((void **)arr_env);
 	return (0);
 }

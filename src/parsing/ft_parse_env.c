@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:32:29 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/26 14:02:57 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/03/26 15:04:08 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	**ft_build_env(void)
 		ft_free_array((void **)arr_env);
 		return (NULL);
 	}
-	arr_env[1] = getcwd(NULL, 0);
+	arr_env[1] = ft_strfjoin("PWD=", getcwd(NULL, 0), 2);
 	if (!arr_env[1])
 	{
 		ft_free_array((void **)arr_env);
