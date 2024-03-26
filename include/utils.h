@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/20 12:30:59 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/26 14:18:50 by cblonde          ###   ########.fr       */
+/*   Created: 2024/03/26 13:44:08 by cblonde           #+#    #+#             */
+/*   Updated: 2024/03/26 13:45:53 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef UTILS_H
+# define UTILS_H
 
-# include "libft.h"
-# include "parsing.h"
-# include "utils.h"
+#include "minishell.h"
+
+void	ft_free_array(void **arr);
 
 #endif

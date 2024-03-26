@@ -6,13 +6,13 @@
 #    By: cblonde <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
-#    Updated: 2024/03/25 10:33:34 by cblonde          ###   ########.fr        #
+#    Updated: 2024/03/26 13:38:43 by cblonde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 
-CFLAGS = -Werror -Wextra -Wall
+CFLAGS = -Werror -Wextra -Wall -g
 
 INCLUDE = -Iinclude -Ilib
 
@@ -26,7 +26,7 @@ UTILS = src/utils/
 
 PARSE = src/parsing/
 
-SRC = src/main.c $(PARSE)ft_parse_env.c
+SRC = src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c
 
 all : $(NAME)
 

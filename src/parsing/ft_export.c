@@ -1,20 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/20 12:30:59 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/26 14:18:50 by cblonde          ###   ########.fr       */
+/*   Created: 2024/03/26 09:10:47 by cblonde           #+#    #+#             */
+/*   Updated: 2024/03/26 09:12:26 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-
-# include "libft.h"
-# include "parsing.h"
-# include "utils.h"
-
-#endif
+#include #include #include 

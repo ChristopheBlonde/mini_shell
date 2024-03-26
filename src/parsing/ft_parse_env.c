@@ -6,95 +6,82 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:32:29 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/25 17:01:40 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/03/26 14:02:57 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void ft_free_tmp_env(char **tmp_env)
+static char	**ft_build_env(void)
 {
-	if (!tmp_env)
-		return ;
-	if (tmp_env[0])
+	char	**arr_env;
+
+	arr_env = (char **)ft_calloc(4, sizeof(char *));
+	if (!arr_env)
+	return (NULL);
+	arr_env[0] = ft_strdup("SHLVL=1");
+	if (!arr_env[0])
 	{
-		free(tmp_env[0]);
-		tmp_env[0] = NULL;
+		ft_free_array((void **)arr_env);
+		return (NULL);
 	}
-	if (tmp_env[1])
+	arr_env[1] = getcwd(NULL, 0);
+	if (!arr_env[1])
 	{
-		free(tmp_env[1]);
-		tmp_env[1] = NULL;
+		ft_free_array((void **)arr_env);
+		return (NULL);
 	}
-	free(tmp_env);
+	arr_env[2] = ft_strdup("PATH=/usr/local/sbin:/usr/local/bin:\
+/usr/sbin:/usr/bin:/sbin:/bin");
+	if (!arr_env[2])
+	{
+		ft_free_array((void **)arr_env);
+		return (NULL);
+	}
+	return (arr_env);
 }
 
-static void	ft_build_env(int fd)
+static char	**ft_cpy_env(char **env, size_t len)
 {
-	char	**tmp_env;
-	t_env	*current;
+	char	**arr;
+	size_t	i;
 
-	current = ft_calloc(1, sizeof(t_env *));
-	if (!current)
-		return ;
-	current->full_env = ft_get_next_line(fd);
-	current->full_env[ft_strlen(current->full_env) - 1] = '\0';
-	tmp_env = ft_split(current->full_env, '=');
-	if (!tmp_env)
-		return ;
-	current->name = ft_strdup(tmp_env[0]);
-	if (!current->name)
-		return ;
-	tmp_env[1][ft_strlen(tmp_env[1]) - 1] = '\0';
-	current->value = ft_strdup(tmp_env[1]);
-	if (!current->value)
-		return ;
-	ft_free_tmp_env(tmp_env);
-	tmp_env = NULL;
-	ft_putendl_fd(current->name, 1);
-	ft_putendl_fd(current->value, 1);
-	ft_putendl_fd(current->full_env, 1);
+	i = 0;
+	arr = (char **)ft_calloc(len, sizeof(char *));
+	if (!arr)
+		return (NULL);
+	while (i < len)
+	{
+		arr[i] = ft_strdup(env[i]);
+		if (!arr[i])
+		{
+			ft_free_array((void **)arr);
+			return (NULL);
+		}
+		i++;
+	}
+	return (arr);
 }
 
 char	**ft_parse_env(char *env[])
 {
 	char	**arr_env;
-	//size_t	len;
-	int		tube[2];
-	pid_t	id;
-	//char	*str;
+	size_t	len;
 
-	//len = 0;
-	arr_env = env;
-	pipe(tube);
-	//str = NULL;
-	//while (arr_env[len])
-	//	len++;
-	if (access("/bin/env", X_OK))
-		return (NULL);
-	id = fork();
-	if (id < 0)
-		ft_putendl_fd("Error: parsing env", 2);
-	if (id == 0)
+	len = 0;
+	while (env[len])
+		len++;
+	if (len == 0)
 	{
-		close(tube[0]);
-		dup2(tube[1], 1);
-		close(tube[1]);
-		execve("/bin/env", env, NULL);
+		arr_env = ft_build_env();
+		if (!arr_env)
+			return (NULL);
 	}
-	close(tube[1]);
-	ft_build_env(tube[0]);
-	//str = ft_get_next_line(tube[0]);
-	//ft_putstr_fd(str, 1);
-	//while (str)
-	//{
-	//	free(str);
-	//	str = ft_get_next_line(tube[0]);
-	//	if (str)
-	//	{
-	//		ft_putstr_fd("bien la ", 1);
-	//		ft_putstr_fd(str, 1);
-	//	}
-	//}
+	else
+	{
+		arr_env = ft_cpy_env(env, len);
+		if (!arr_env)
+			return (NULL);
+	}
 	return (arr_env);
 }
