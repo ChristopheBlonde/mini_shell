@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/27 13:00:27 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/03/27 15:36:14 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ static int	ft_usage(void)
 int	main(int argc, char *argv[], char *env[])
 {
 	t_parse	parse;
-	int		i;
+	char *str;
 
-	i = 0;
 	(void) argv;
 	if (argc > 1)
 	{
@@ -35,12 +34,13 @@ int	main(int argc, char *argv[], char *env[])
 	if (!parse.env)
 		return (1);
 	ft_export(&parse, "TEST=good_test");
-	ft_unset(&parse, "TEST");
-	while (parse.env[i])
-	{
-		ft_putendl_fd(parse.env[i], 1);
-		i++;
-	}
+	str = ft_getenv(&parse, "USER");
+	ft_putendl_fd(str, 1);
+	if (str)
+		free(str);
+	ft_putstr_fd("\033[1;35m", 1);
+	ft_env(&parse);
+	ft_putstr_fd("\033[m", 1);
 	ft_free_array((void **)parse.env);
 	return (0);
 }
