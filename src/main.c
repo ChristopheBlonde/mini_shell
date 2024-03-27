@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/27 09:50:54 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/03/27 13:00:27 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(int argc, char *argv[], char *env[])
 	if (!parse.env)
 		return (1);
 	ft_export(&parse, "TEST=good_test");
+	ft_unset(&parse, "TEST");
 	while (parse.env[i])
 	{
 		ft_putendl_fd(parse.env[i], 1);
