@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:32:29 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/26 17:30:16 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/03/27 09:59:26 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	**ft_build_env(void)
 
 	arr_env = (char **)ft_calloc(4, sizeof(char *));
 	if (!arr_env)
-	return (NULL);
+		return (NULL);
 	arr_env[0] = ft_strdup("SHLVL=1");
 	if (!arr_env[0])
 	{
@@ -63,7 +63,7 @@ static char	**ft_cpy_env(char **env, size_t len)
 	return (arr);
 }
 
-char	**ft_parse_env(char *env[])
+void	ft_parse_env(t_parse *parse, char *env[])
 {
 	char	**arr_env;
 	size_t	len;
@@ -75,13 +75,13 @@ char	**ft_parse_env(char *env[])
 	{
 		arr_env = ft_build_env();
 		if (!arr_env)
-			return (NULL);
+			return ;
 	}
 	else
 	{
 		arr_env = ft_cpy_env(env, len);
 		if (!arr_env)
-			return (NULL);
+			return ;
 	}
-	return (arr_env);
+	parse->env = arr_env;
 }

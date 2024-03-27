@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/26 17:49:22 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/03/27 09:50:54 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	ft_usage(void)
 
 int	main(int argc, char *argv[], char *env[])
 {
-	char	**arr_env;
+	t_parse	parse;
 	int		i;
 
 	i = 0;
@@ -31,14 +31,15 @@ int	main(int argc, char *argv[], char *env[])
 		ft_putstr_fd(" is not option !\n", 2);
 		return (ft_usage());
 	}
-	arr_env = ft_parse_env(env);
-	if (!arr_env)
+	ft_parse_env(&parse, env);
+	if (!parse.env)
 		return (1);
-	while (arr_env[i])
+	ft_export(&parse, "TEST=good_test");
+	while (parse.env[i])
 	{
-		ft_putendl_fd(arr_env[i], 1);
+		ft_putendl_fd(parse.env[i], 1);
 		i++;
 	}
-	ft_free_array((void **)arr_env);
+	ft_free_array((void **)parse.env);
 	return (0);
 }

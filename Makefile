@@ -6,7 +6,7 @@
 #    By: cblonde <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
-#    Updated: 2024/03/26 17:20:30 by cblonde          ###   ########.fr        #
+#    Updated: 2024/03/27 09:53:08 by cblonde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,10 @@ UTILS = src/utils/
 
 PARSE = src/parsing/
 
-SRC = src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c
+BUILTIN = src/builtin/
+
+SRC = src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c $(UTILS)ft_arrlen.c\
+	  $(BUILTIN)ft_export.c
 
 all : $(NAME)
 

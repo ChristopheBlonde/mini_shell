@@ -1,13 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_export.c                                        :+:      :+:    :+:   */
+/*   ft_arrlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 09:10:47 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/26 17:47:18 by cblonde          ###   ########.fr       */
+/*   Created: 2024/03/27 08:42:37 by cblonde           #+#    #+#             */
+/*   Updated: 2024/03/27 09:43:09 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "utils.h"
+
+size_t	ft_arrlen(void **env)
+{
+	size_t	i;
+
+	i = 0;
+	if (!env)
+		return (0);
+	while (env[i])
+		i++;
+	return (i);
+}

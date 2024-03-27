@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/25 16:25:17 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/03/27 09:36:54 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 typedef struct s_parse
 {
 	char	***cmd;
-	t_list	*env;
+	char	**env;
 	char	**history;
 	char	**redirect;
 }	t_parse;
@@ -30,6 +30,6 @@ typedef struct s_env
 
 /* env */
 
-char	**ft_parse_env(char *env[]);
+void	ft_parse_env(t_parse *parse, char *env[]);
 
 #endif
