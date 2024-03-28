@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/28 08:30:16 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/03/28 15:50:41 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,28 @@ typedef struct s_parse
 	char	**redirect;
 }	t_parse;
 
-typedef struct s_env
+typedef enum e_link
+{	
+	PIPE,
+	OR,
+	AND,
+}	t_link;
+
+typedef enum e_priority
 {
-	char	*name;
-	char	*value;
-	char	*full_env;
-}	t_env;
+	LOW,
+	MEDIUM,
+	HIGH,
+}	t_priority;
+
+typedef struct s_object
+{
+	char	**cmd;
+	int		infile;
+	int		outfile;
+	t_link	link;
+	t_priority	priority;
+}	t_object;
 
 /* env */
 void	ft_parse_env(t_parse *parse, char *env[]);
