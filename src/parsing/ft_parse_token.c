@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   ft_parse_token.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/28 08:30:16 by cblonde          ###   ########.fr       */
+/*   Created: 2024/03/28 08:17:08 by cblonde           #+#    #+#             */
+/*   Updated: 2024/03/28 15:06:02 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include "minishell.h"
 
-typedef struct s_parse
+void	ft_parse_token(t_parse *parse, char *input)
 {
-	char	***cmd;
-	char	**env;
-	char	**history;
-	char	**redirect;
-}	t_parse;
+	size_t	i;
+	char	**arr;
 
-typedef struct s_env
-{
-	char	*name;
-	char	*value;
-	char	*full_env;
-}	t_env;
-
-/* env */
-void	ft_parse_env(t_parse *parse, char *env[]);
-
-/* token */
-void	ft_parse_token(t_parse *parse, char *input);
-
-#endif
+	(void)parse;
+	i = 0;
+	arr = ft_strtok(input, "<>|&\n");
+	while (arr[i])
+	{
+		if (i == ft_arrlen((void **)arr) - 1)
+			ft_putstr_fd(arr[i], 1);
+		else
+			ft_putendl_fd(arr[i], 1);
+		i++;
+	}
+	ft_free_array((void **)arr);
+}

@@ -6,7 +6,7 @@
 #    By: cblonde <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
-#    Updated: 2024/03/27 15:30:01 by cblonde          ###   ########.fr        #
+#    Updated: 2024/03/28 13:58:38 by cblonde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ BUILTIN = src/builtin/
 
 SRC = src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c $(UTILS)ft_arrlen.c\
 	  $(BUILTIN)ft_export.c $(BUILTIN)ft_unset.c $(BUILTIN)ft_get_index_env.c\
-	  $(BUILTIN)ft_getenv.c $(BUILTIN)ft_env.c
+	  $(BUILTIN)ft_getenv.c $(BUILTIN)ft_env.c $(PARSE)ft_parse_token.c\
+	  $(UTILS)ft_strtok.c
 
 all : $(NAME)
 

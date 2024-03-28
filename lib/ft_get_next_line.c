@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 08:09:05 by cblonde           #+#    #+#             */
-/*   Updated: 2023/12/11 11:25:20 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/03/28 11:54:13 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,17 @@ static bool	ft_check_line(char *buffer, char *line)
 	return (false);
 }
 
+char	*ft_clean(char **buffer, char **line)
+{
+	free(*buffer);
+	*buffer = NULL;
+	if (*line[0] != '\0')
+		return (*line);
+	free(*line);
+	line = NULL;
+	return (NULL);
+}
+
 char	*ft_get_next_line(int fd)
 {
 	static char	*buffer;
@@ -46,6 +57,11 @@ char	*ft_get_next_line(int fd)
 	line = ft_calloc(1, 1);
 	if (!buffer)
 		buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (fd == -42)
+	{
+		ft_clean(&buffer, &line);
+		return (NULL);
+	}
 	while (buffer && line)
 	{
 		line = ft_strfjoin(line, buffer, 1);
@@ -53,14 +69,7 @@ char	*ft_get_next_line(int fd)
 			return (line);
 		readbytes = read(fd, buffer, BUFFER_SIZE);
 		if (readbytes < 1)
-		{
-			free(buffer);
-			buffer = NULL;
-			if (line[0] != '\0')
-				return (line);
-			free(line);
-			return (NULL);
-		}
+			return (ft_clean(&buffer, &line));
 		buffer[readbytes] = '\0';
 	}
 	return (NULL);

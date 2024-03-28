@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/27 15:36:14 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/03/28 11:52:55 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	main(int argc, char *argv[], char *env[])
 	ft_parse_env(&parse, env);
 	if (!parse.env)
 		return (1);
+/*
 	ft_export(&parse, "TEST=good_test");
 	str = ft_getenv(&parse, "USER");
 	ft_putendl_fd(str, 1);
@@ -41,6 +42,11 @@ int	main(int argc, char *argv[], char *env[])
 	ft_putstr_fd("\033[1;35m", 1);
 	ft_env(&parse);
 	ft_putstr_fd("\033[m", 1);
+*/
+	str = ft_get_next_line(0);
+	ft_parse_token(&parse, str);
+	free(str);
+	ft_get_next_line(-42);
 	ft_free_array((void **)parse.env);
 	return (0);
 }
