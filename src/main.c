@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/28 11:52:55 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/03/28 17:13:35 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ static int	ft_usage(void)
 
 int	main(int argc, char *argv[], char *env[])
 {
-	t_parse	parse;
-	char *str;
+	t_parse		parse;
+	t_object	*object;
+	char		*str;
 
 	(void) argv;
 	if (argc > 1)
@@ -43,6 +44,13 @@ int	main(int argc, char *argv[], char *env[])
 	ft_env(&parse);
 	ft_putstr_fd("\033[m", 1);
 */
+
+	object = malloc(sizeof(t_object));
+
+
+
+
+
 	str = ft_get_next_line(0);
 	ft_parse_token(&parse, str);
 	free(str);

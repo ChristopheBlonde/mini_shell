@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_token.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 08:17:08 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/28 15:06:02 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/03/28 17:06:27 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+//TODO : classifier les tokens
+
+
 
 void	ft_parse_token(t_parse *parse, char *input)
 {
