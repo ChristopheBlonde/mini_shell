@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 08:17:08 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/29 14:14:00 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/03/29 14:27:27 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,10 @@ void	ft_parse_token(t_parse *parse, char *input)
 	ft_free_array((void **)arr);
 }
 
+void	ft_reparse_token(t_parse *parse)
+{
+	
+}
 
 /**
  * @brief Prints the tokens stored in the given parse structure.
