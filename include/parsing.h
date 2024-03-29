@@ -6,23 +6,27 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/28 15:50:41 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/03/29 11:15:24 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
+struct s_object;
+
 typedef struct s_parse
 {
-	char	***cmd;
+	struct s_object	**task;
 	char	**env;
 	char	**history;
 	char	**redirect;
+	
 }	t_parse;
 
 typedef enum e_link
 {	
+	NO_LINK,
 	PIPE,
 	OR,
 	AND,

@@ -6,11 +6,12 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/28 17:13:35 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/03/29 10:58:19 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 
 static int	ft_usage(void)
 {
@@ -21,7 +22,6 @@ static int	ft_usage(void)
 int	main(int argc, char *argv[], char *env[])
 {
 	t_parse		parse;
-	t_object	*object;
 	char		*str;
 
 	(void) argv;
@@ -45,12 +45,6 @@ int	main(int argc, char *argv[], char *env[])
 	ft_putstr_fd("\033[m", 1);
 */
 
-	object = malloc(sizeof(t_object));
-
-
-
-
-
 	str = ft_get_next_line(0);
 	ft_parse_token(&parse, str);
 	free(str);
@@ -58,3 +52,4 @@ int	main(int argc, char *argv[], char *env[])
 	ft_free_array((void **)parse.env);
 	return (0);
 }
+

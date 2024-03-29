@@ -6,11 +6,22 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:19:04 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/03/28 16:59:17 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/03/29 11:36:54 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static t_link	ft_get_link(char *cmd)
+{
+	if (ft_strcmp(cmd, "&&") == 0)
+		return (AND);
+	if (ft_strcmp(cmd, "||") == 0)
+		return (OR);
+	if (ft_strcmp(cmd, "|") == 0)
+		return (PIPE);
+	return (NO_LINK);
+}
 
 static t_priority	ft_get_priority(char *cmd)
 {
