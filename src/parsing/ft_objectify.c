@@ -6,26 +6,28 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:19:04 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/03/29 11:36:54 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/03/29 14:09:27 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
+
 static t_link	ft_get_link(char *cmd)
 {
-	if (ft_strcmp(cmd, "&&") == 0)
+	if (ft_strncmp(cmd, "&&", 2) == 0)
 		return (AND);
-	if (ft_strcmp(cmd, "||") == 0)
+	if (ft_strncmp(cmd, "||", 2) == 0)
 		return (OR);
-	if (ft_strcmp(cmd, "|") == 0)
+	if (ft_strncmp(cmd, "|", 1) == 0)
 		return (PIPE);
 	return (NO_LINK);
 }
 
 static t_priority	ft_get_priority(char *cmd)
 {
-	if (ft_strcmp(cmd, "&&") == 0 || ft_strcmp(cmd, "||") == 0)
+	if (ft_strncmp(cmd, "&&", 2) == 0 || ft_strncmp(cmd, "||", 2) == 0)
 		return (MEDIUM);
 	if (!ft_strncmp(cmd, ">", 1) || !ft_strncmp(cmd, ">>", 2)\
 		|| !ft_strncmp(cmd, "<", 1) || !ft_strncmp(cmd, "<<", 2))
@@ -33,26 +35,37 @@ static t_priority	ft_get_priority(char *cmd)
 	return (LOW);
 }
 
+/**
+ * @brief Objectifies the parsed commands by setting the link, priority, infile, and outfile values for each task.
+ *
+ * This function iterates through the tasks in the parse structure and sets the link, priority, infile, and outfile values for each task.
+ * The link value is obtained using the ft_get_link function, and the priority value is obtained using the ft_get_priority function.
+ * If the link value is NO_LINK, the infile and outfile values are set to 0 and 1 respectively.
+ * Otherwise, both infile and outfile values are set to 0.
+ *
+ * @param parse A pointer to the parse structure containing the parsed commands.
+ */
 void	ft_objectify(t_parse *parse)
 {
 	size_t	i;
-	size_t	j;
-	size_t	k;
-	t_object	*object;
 
 	i = 0;
-	j = 0;
-	k = 0;
-	object = malloc(sizeof(t_object) * ft_arrlen((void **)parse->cmd));
-	while (parse->cmd[i])
+	while (parse->task[i])
 	{
-		object[j].cmd = ft_strtok(parse->cmd[i], " ");
-		object[j].infile = -1;
-		object[j].outfile = -1;
-		object[j].link = PIPE;
-		object[j].priority = LOW;
-		j++;
-		i++;
+		parse->task[i]->link = ft_get_link(parse->task[i]->cmd[0]);
+		parse->task[i]->priority = ft_get_priority(parse->task[i]->cmd[0]);
+		if (parse->task[i]->link == NO_LINK)
+		{
+			parse->task[i]->infile = 0;
+			parse->task[i]->outfile = 1;
+			i++;
+		}
+		else
+		{
+			parse->task[i]->infile = 0;
+			parse->task[i]->outfile = 1;
+			i++;
+		}
 	}
-	parse->cmd = object;
 }
+

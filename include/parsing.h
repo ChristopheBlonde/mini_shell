@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/29 11:15:24 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/03/29 14:06:10 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ typedef struct s_object
 void	ft_parse_env(t_parse *parse, char *env[]);
 
 /* token */
-void	ft_parse_token(t_parse *parse, char *input);
+void		ft_parse_token(t_parse *parse, char *input);
+void		print_tokens(t_parse *parse);
+void		print_objects(t_parse *parse);
+void		ft_objectify(t_parse *parse);
 
 #endif
