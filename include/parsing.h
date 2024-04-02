@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/29 14:06:10 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/02 10:14:33 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define PARSING_H
 
 struct s_object;
+
+
 
 typedef struct s_parse
 {
@@ -56,5 +58,6 @@ void		ft_parse_token(t_parse *parse, char *input);
 void		print_tokens(t_parse *parse);
 void		print_objects(t_parse *parse);
 void		ft_objectify(t_parse *parse);
+void		free_objects(t_parse *parse);
 
 #endif

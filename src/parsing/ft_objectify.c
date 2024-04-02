@@ -6,13 +6,11 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:19:04 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/03/29 14:09:27 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/02 10:15:36 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 
 static t_link	ft_get_link(char *cmd)
 {
@@ -67,5 +65,27 @@ void	ft_objectify(t_parse *parse)
 			i++;
 		}
 	}
+}
+
+
+void	free_objects(t_parse *parse)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (parse->task[i])
+	{
+		j = 0;
+		while (parse->task[i]->cmd[j])
+		{
+			free(parse->task[i]->cmd[j]);
+			j++;
+		}
+		free(parse->task[i]->cmd);
+		free(parse->task[i]);
+		i++;
+	}
+	free(parse->task);
 }
 
