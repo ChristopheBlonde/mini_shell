@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:19:04 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/04/02 10:15:36 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/02 11:36:35 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static t_priority	ft_get_priority(char *cmd)
 	return (LOW);
 }
 
+
 /**
  * @brief Objectifies the parsed commands by setting the link, priority, infile, and outfile values for each task.
  *
@@ -52,18 +53,6 @@ void	ft_objectify(t_parse *parse)
 	{
 		parse->task[i]->link = ft_get_link(parse->task[i]->cmd[0]);
 		parse->task[i]->priority = ft_get_priority(parse->task[i]->cmd[0]);
-		if (parse->task[i]->link == NO_LINK)
-		{
-			parse->task[i]->infile = 0;
-			parse->task[i]->outfile = 1;
-			i++;
-		}
-		else
-		{
-			parse->task[i]->infile = 0;
-			parse->task[i]->outfile = 1;
-			i++;
-		}
 	}
 }
 

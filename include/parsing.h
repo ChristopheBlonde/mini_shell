@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/02 10:14:33 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/02 11:35:31 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 
 struct s_object;
 
+typedef enum e_file_operation
+{
+	READ,
+	WRITE,
+	APPEND,
+}	t_file_operation;
 
 
 typedef struct s_parse
@@ -25,6 +31,13 @@ typedef struct s_parse
 	char	**redirect;
 	
 }	t_parse;
+
+typedef struct	s_file_descriptor
+{
+	char *file_name;
+	int fd;
+	t_file_operation type;
+}	t_file_descriptor;
 
 typedef enum e_link
 {	
@@ -45,7 +58,7 @@ typedef struct s_object
 {
 	char	**cmd;
 	int		infile;
-	int		outfile;
+	int		outfile; // index du tableau de redirection
 	t_link	link;
 	t_priority	priority;
 }	t_object;
