@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/02 11:35:31 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/02 16:22:58 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,23 @@
 # define PARSING_H
 
 struct s_object;
+struct s_file_descriptor;
 
 typedef enum e_file_operation
 {
 	READ,
 	WRITE,
 	APPEND,
+	HEREDOC
 }	t_file_operation;
 
 
 typedef struct s_parse
 {
-	struct s_object	**task;
-	char	**env;
-	char	**history;
-	char	**redirect;
+	struct s_object		**task;
+	char				**env;
+	char				**history;
+	struct s_file_descriptor	**redirect;
 	
 }	t_parse;
 
@@ -72,5 +74,6 @@ void		print_tokens(t_parse *parse);
 void		print_objects(t_parse *parse);
 void		ft_objectify(t_parse *parse);
 void		free_objects(t_parse *parse);
+void		ft_fill_redirection(char **cmd, t_parse *parse);
 
 #endif

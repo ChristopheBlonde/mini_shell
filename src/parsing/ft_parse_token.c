@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 08:17:08 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/02 10:17:41 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/02 16:57:40 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,6 @@ void	ft_parse_token(t_parse *parse, char *input)
 			ft_putendl_fd(arr[i], 1);
 		i++;
 	}
-	ft_putstr_fd("\n", 1);
-	ft_putstr_fd("\n", 1);
-	ft_putstr_fd("\n", 1);
 	parse->task = (t_object **)ft_calloc(ft_arrlen((void **)arr) + 1, sizeof(t_object *));
 	i = 0;
 	size_t	len = ft_arrlen((void **)arr);
@@ -80,6 +77,10 @@ void	ft_parse_token(t_parse *parse, char *input)
 	{
 		parse->task[i] = (t_object *)ft_calloc(1, sizeof(t_object));
 		parse->task[i]->cmd = ft_split(arr[i], ' ');
+		//for (int k = 0; parse->task[i]->cmd[k]; k++)
+			//("cmd[%d] = %s\n", k, parse->task[i]->cmd[k]);
+		ft_fill_redirection(parse->task[i]->cmd, parse);
+		
 		i++;
 	}
 	i = 0;
