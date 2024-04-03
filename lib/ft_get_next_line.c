@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 08:09:05 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/28 11:54:13 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/03 14:50:12 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ char	*ft_get_next_line(int fd)
 		if (ft_check_line(buffer, line))
 			return (line);
 		readbytes = read(fd, buffer, BUFFER_SIZE);
+		ft_putstr_fd("read:", 1);
+		ft_putendl_fd(buffer, 1);
 		if (readbytes < 1)
 			return (ft_clean(&buffer, &line));
 		buffer[readbytes] = '\0';

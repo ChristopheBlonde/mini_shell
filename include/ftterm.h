@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   ftterm.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/04/02 11:26:41 by cblonde          ###   ########.fr       */
+/*   Created: 2024/04/03 09:11:18 by cblonde           #+#    #+#             */
+/*   Updated: 2024/04/03 14:19:07 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef FTTERM_H
+# define FTTERM_H
 
 # include "minishell.h"
-# include <fcntl.h>
+# include <curses.h>
+# include <term.h>
+# include <termios.h>
 
-void	ft_free_array(void **arr);
-size_t	ft_arrlen(void **env);
-char	**ft_strtok(char *str, char *tok);
-size_t	ft_get_random(size_t max);
-char	*ft_rand_str(size_t size);
-int		ft_open_tmp(char *name);
-int		ft_here_doc(void);
+int	ft_init_term(t_parse *parse);
+int	ft_init_attr(void);
 
 #endif
