@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/02 16:57:04 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/04 17:50:14 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,12 @@ int	main(int argc, char *argv[], char *env[])
 	ft_parse_env(&parse, env);
 	if (!parse.env)
 		return (1);
-/*
-	ft_export(&parse, "TEST=good_test");
-	str = ft_getenv(&parse, "USER");
-	ft_putendl_fd(str, 1);
-	if (str)
-		free(str);
-	ft_putstr_fd("\033[1;35m", 1);
-	ft_env(&parse);
-	ft_putstr_fd("\033[m", 1);
-*/
-
 	str = ft_get_next_line(0);
 	ft_parse_token(&parse, str);
+	//str = ft_quote_handeler(str);
 	free(str);
-	ft_objectify(&parse);
+	//ft_objectify(&parse);
+	//print_tokens(&parse);
 	//print_objects(&parse);
 	free_objects(&parse);
 	ft_get_next_line(-42);
