@@ -6,7 +6,7 @@
 #    By: cblonde <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
-#    Updated: 2024/04/03 11:16:48 by cblonde          ###   ########.fr        #
+#    Updated: 2024/04/04 12:42:28 by cblonde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS = -Werror -Wextra -Wall -g
 
 INCLUDE = -Iinclude -Ilib
 
-LIBRARIES = -Llib -lft -lncurses
+LIBRARIES = -Llib -lft -lncurses -lreadline
 
 LIBFT = lib/libft.a
 

@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/03 14:45:48 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/04 15:44:42 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	main(int argc, char *argv[], char *env[])
 	ft_parse_env(&parse, env);
 	if (!parse.env)
 		return (1);
-	ft_init_term(&parse);
-	ft_init_attr();
+//	ft_init_term(&parse);
+//	ft_init_attr();
 /*
 	ft_export(&parse, "TEST=good_test");
 	str = ft_getenv(&parse, "USER");
@@ -49,7 +49,7 @@ int	main(int argc, char *argv[], char *env[])
 	free(str);
 	ft_get_next_line(-42);
 */
-	ft_here_doc();
+	ft_here_doc(&parse, 0);
 	ft_free_array((void **)parse.env);
 	return (0);
 }

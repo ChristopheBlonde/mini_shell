@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 08:57:48 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/02 11:54:06 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/04 16:11:36 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 size_t	ft_get_random(size_t max)
 {
-	int 	fd;
+	int		fd;
 	size_t	count;
 	char	buffer[250];
 	size_t	i;
 
 	i = 0;
 	count = 0;
-	fd = open("/dev/random",O_RDONLY);
+	fd = open("/dev/random", O_RDONLY);
 	if (fd < 0)
 	{
 		ft_putendl_fd("\033[0;31mFail open file random\033[m", 2);
