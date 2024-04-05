@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/04 15:44:42 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/05 09:34:35 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ int	main(int argc, char *argv[], char *env[])
 	ft_parse_env(&parse, env);
 	if (!parse.env)
 		return (1);
+	parse.redirect = (t_file_descriptor **)ft_calloc(2, sizeof(t_file_descriptor *));
+	if (!parse.redirect)
+		return (2);
+	parse.redirect[0] = (t_file_descriptor *)ft_calloc(1, sizeof(t_file_descriptor));
+	parse.redirect[0]->file = ft_strdup("end\n");
 //	ft_init_term(&parse);
 //	ft_init_attr();
 /*

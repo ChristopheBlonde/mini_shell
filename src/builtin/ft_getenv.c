@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:40:36 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/27 15:02:16 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/05 16:04:05 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 char	*ft_getenv(t_parse *parse, char *var)
 {
-	char	*str;
 	size_t	arr_len;
 	size_t	var_len;
 	int		index;
@@ -24,8 +23,5 @@ char	*ft_getenv(t_parse *parse, char *var)
 	index = ft_get_index_env(parse->env, var, arr_len);
 	if (index < 0)
 		return (NULL);
-	str = ft_strdup(&parse->env[index][var_len + 1]);
-	if (!str)
-		return (NULL);
-	return (str);
+	return (&parse->env[index][var_len + 1]);
 }
