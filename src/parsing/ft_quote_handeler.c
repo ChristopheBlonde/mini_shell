@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:17:21 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/04/04 17:03:18 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/05 15:49:12 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 
 bool	check_quote(char *str)
 {
-	int		i;
-	int		quote;
-	int		dquote;
+	int quote;
+	int i;
 
-	i = 0;
-	quote = 0;
-	while (str[i])
+	i = -1;
+	quote = -1;
+	while (str[++i])
 	{
-		if (str[i] == '\'')
-			quote++;
-		else if (str[i] == '"')
-			dquote++;
-		i++;
+		if (str[i] == '\'' || str[i] == '"')
+		{
+			if (quote == -1)
+				quote = i;
+			else if (str[i] == str[quote])
+				quote = -1;
+		}
 	}
-	if (quote % 2 != 0 || dquote % 2 != 0)
-		return (false);
-	return (true);
+	return (quote == -1);
 }
+
 
 char	*ft_strjoin_char(char *s, char c)
 {
