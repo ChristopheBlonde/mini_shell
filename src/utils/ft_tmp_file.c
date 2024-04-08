@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:47:46 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/02 13:40:03 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/08 14:05:15 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,22 @@ char	*ft_rand_str(size_t size)
 	return (str);
 }
 
-int	ft_open_tmp(char *name)
+int	ft_open_tmp(char **name)
 {
 	int		fd;
 
-	name = ft_rand_str(52);
-	if (!name)
+	*name = ft_rand_str(52);
+	if (!*name)
 		return (-1);
-	if (!access(name, F_OK))
+	if (!access(*name, F_OK))
 	{
-		free(name);
+		free(*name);
 		ft_open_tmp(name);
 	}
-	fd = open(name, O_CREAT | O_WRONLY, 777);
+	fd = open(*name, O_CREAT | O_WRONLY, 0644);
 	if (fd < 0)
 	{
-		free(name);
+		free(*name);
 		ft_open_tmp(name);
 	}
 	return (fd);

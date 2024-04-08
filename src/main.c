@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/05 09:34:35 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/08 13:38:58 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ int	main(int argc, char *argv[], char *env[])
 	ft_get_next_line(-42);
 */
 	ft_here_doc(&parse, 0);
+	free(parse.redirect[0]->file);
+	free(parse.redirect[0]);
+	free(parse.redirect);
 	ft_free_array((void **)parse.env);
 	return (0);
 }

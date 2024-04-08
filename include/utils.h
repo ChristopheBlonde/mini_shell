@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/04/04 15:43:02 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/08 14:06:37 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ size_t	ft_arrlen(void **env);
 char	**ft_strtok(char *str, char *tok);
 size_t	ft_get_random(size_t max);
 char	*ft_rand_str(size_t size);
-int		ft_open_tmp(char *name);
+int		ft_open_tmp(char **name);
 int		ft_here_doc(t_parse *parse, int index);
+bool	ft_check_end_of_file(char *tmp, char *line, char *limiter);
+void	ft_error_heredoc(int n, char *limiter);
+int		ft_fail_open(char *name, char *line, char *tmp);
 
 #endif

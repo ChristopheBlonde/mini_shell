@@ -6,46 +6,20 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 10:13:03 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/05 16:03:15 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/08 14:00:39 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-static void	ft_error_heredoc(int n, char *limiter)
+static void	ft_add_value(t_parse *parse, char **var, char **str)
 {
-	if (n == 0)
-	{
-		ft_putstr_fd("\e[0;36mwarning: here-document\
- delimited by end-of-file (wanted `", 2);
-		write(2, limiter, ft_strlen(limiter) - 1);
-		ft_putendl_fd("')\e[0m", 2);
-	}
-	(void)limiter;
-}
-
-static bool	ft_check_end_of_file(char *tmp, char *line, char *limiter)
-{
-	size_t	i;
-	char	*str;
-	size_t	len;
-
-	i = ft_strlen(line);
-	len = ft_strlen(limiter);
-	if (!ft_strncmp(limiter, tmp, len))
-		return (true);
-	while (i > 0 && line[i - 1] != '\n')
-		i--;
-	str = ft_strjoin(&line[i], tmp);
-	if (!str)
-		return (false);
-	if (!ft_strncmp(limiter, str, len))
-	{
-		free(str);
-		return (true);
-	}
-	free(str);
-	return (false);
+	if (*var && (*var)[0] != '\0' && ft_getenv(parse, *var))
+		*str = ft_strfjoin(*str, ft_getenv(parse, *var), 1);
+	free(*var);
+	*var = NULL;
+	if (!*str)
+		return ;
 }
 
 static char	*ft_replace_env(t_parse *parse, char *line, char *str, char *var)
@@ -55,7 +29,7 @@ static char	*ft_replace_env(t_parse *parse, char *line, char *str, char *var)
 	size_t	k;
 
 	i = 0;
-	while (line[i])
+	while (i < ft_strlen(line))
 	{
 		k = i;
 		while (line[i] && line[i] != '$')
@@ -64,34 +38,44 @@ static char	*ft_replace_env(t_parse *parse, char *line, char *str, char *var)
 		if (!str)
 			return (NULL);
 		j = 0;
-		while ((line[i + j + 1] != '\n' && line[i + j + 1] != '\0')
-				&& line[i + j + 1] != ' ')
+		while (line[i] && (line[i + j + 1] != '\n' && line[i + j + 1] != '\0')
+			&& line[i + j + 1] != ' ')
 			j++;
 		var = ft_substr(line, i + 1, j);
-		if (var && var[0] != '\0' && ft_getenv(parse, var))
-			str = ft_strfjoin(str, ft_getenv(parse, var), 1);
-		if (!str)
+		if (!var)
 			return (NULL);
+		ft_add_value(parse, &var, &str);
 		i += ++j;
 	}
 	return (str);
 }
 
-static void	ft_write_file(t_parse *parse, char *line, int index)
+static void	ft_write_file(t_parse *parse, char *line, int index, char *tmp)
 {
 	char	*str;
 	char	*var;
 
-	(void)parse;
-	(void)index;
+	free(tmp);
 	str = (char *)ft_calloc(1, sizeof(char));
 	if (!str)
 		return ;
 	var = NULL;
-	str = ft_replace_env(parse, line, str, var);
-	ft_putstr_fd("\e[0;31m", 1);
-	ft_putstr_fd(str, 1);
-	ft_putstr_fd("\e[m\n", 1);
+	if (parse->redirect[index]->file[0] != '\''
+		&& parse->redirect[index]->file[0] != '"')
+	{
+		str = ft_replace_env(parse, line, str, var);
+		ft_putstr_fd(str, parse->redirect[index]->fd);
+		free(str);
+	}
+	else
+	{
+		free(str);
+		ft_putstr_fd(str, parse->redirect[index]->fd);
+	}
+	free(line);
+	if (var)
+		free(var);
+	close(parse->redirect[index]->fd);
 }
 
 static void	ft_read_line(t_parse *parse, char *line, char *tmp, int index)
@@ -120,7 +104,7 @@ static void	ft_read_line(t_parse *parse, char *line, char *tmp, int index)
 			break ;
 		}
 	}
-	ft_write_file(parse, line, index);
+	ft_write_file(parse, line, index, tmp);
 }
 
 int	ft_here_doc(t_parse *parse, int index)
@@ -138,15 +122,11 @@ int	ft_here_doc(t_parse *parse, int index)
 		free(line);
 	if (!tmp)
 		return (-1);
-	parse->redirect[index]->fd = ft_open_tmp(name);
+	parse->redirect[index]->fd = ft_open_tmp(&name);
 	if (parse->redirect[index]->fd < 0)
-	{
-		free(name);
-		free(line);
-		free(tmp);
-		return (-1);
-	}
+		return (ft_fail_open(name, line, tmp));
 	ft_read_line(parse, line, tmp, index);
-	free(tmp);
+	free(parse->redirect[index]->file);
+	parse->redirect[index]->file = name;
 	return (parse->redirect[index]->fd);
 }
