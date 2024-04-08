@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 08:17:08 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/04 20:08:26 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/08 11:21:59 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char **ft_split_with_quotes(const char *str, char delimiter)
 		{
 			in_quotes = !in_quotes; // Toggle the in_quotes flag when a quote is encountered
 		}
-		else if (!in_quotes && (str[i] == delimiter || str[i] == '\n'))
+		else if (!in_quotes && (str[i] == delimiter || str[i] == '\n')) // 
 		{
 			size_t word_length = i - word_start;
 			result[word_count] = malloc(word_length + 1);
@@ -105,6 +105,76 @@ char **ft_split_with_quotes(const char *str, char delimiter)
 
 	result[word_count] = NULL; // NULL-terminate the array
 	return result;
+}
+
+char	*ft_strqcpy(const char *s, char quote)
+{
+	size_t		len;
+	char	*result;
+	size_t		i;
+	size_t		j;
+
+	len = strlen(s);
+	result = (char *)ft_calloc(len - 1, sizeof(char));
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		if (s[i] != quote)
+		{
+			result[j++] = s[i];
+		}
+		i++;
+	}
+	return (result);
+}
+
+
+char **ft_split_with_quotes2(const char *str, char delimiter)
+{
+	size_t	i;
+	size_t	word_start;
+	size_t	word_length;
+	size_t	word_count;
+	int		in_quotes;
+	char	**result;
+	
+	i = 0;
+	word_start = 0;
+	word_count = 0;
+	in_quotes = -1;
+	result = (char **)malloc(sizeof(char *) * 100);
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '"')
+		{
+			if (in_quotes == -1)
+				in_quotes = i;
+			else if (str[i] == str[in_quotes])
+				in_quotes = -1;
+		}
+		if ((str[i] == delimiter || str[i] == '\n') && in_quotes == -1)
+		{
+			word_length = i - word_start;
+			result[word_count] = (char *)malloc(word_length + 1);
+			strncpy(result[word_count], str + word_start, word_length);
+			result[word_count][word_length] = '\0';
+			word_start = i + 1;
+			word_count++;
+		}
+		i++;
+	}
+	if (i > word_start)
+	{
+		word_length = i - word_start;
+		result[word_count] = (char *)malloc(word_length + 1);
+		strncpy(result[word_count], str + word_start, word_length);
+		result[word_count][word_length] = '\0';
+		word_count++;
+
+	}
+	result[word_count] = NULL;
+	return (result);
 }
 
 
@@ -138,7 +208,15 @@ void	ft_parse_token(t_parse *parse, char *input)
 	while ((size_t)i < len)
 	{
 		parse->task[i] = (t_object *)ft_calloc(1, sizeof(t_object));
-		parse->task[i]->cmd = ft_split_with_quotes(arr[i], ' ');
+		parse->task[i]->cmd = ft_split_with_quotes2(arr[i], ' ');
+		for (size_t j = 0; parse->task[i]->cmd[j]; j++)
+		{
+			if (parse->task[i]->cmd[j][0] == '\'' || parse->task[i]->cmd[j][0] == '"')
+			{
+				parse->task[i]->cmd[j] = ft_strqcpy(parse->task[i]->cmd[j], parse->task[i]->cmd[j][0]);
+			}
+		}
+		
 		for (size_t j = 0; parse->task[i]->cmd[j]; j++)
 			printf("cmd[%zu][%zu] = %s\n", i, j, parse->task[i]->cmd[j]);
 		// ft_fill_redirection(parse->task[i]->cmd, parse);
@@ -157,7 +235,7 @@ void	ft_parse_token(t_parse *parse, char *input)
  * @param parse The parse structure containing the tokens to be printed.
  */
 // void print_tokens(t_parse *parse)
-// {
+// { 
 // 	size_t i;
 // 	size_t j;
 
@@ -228,3 +306,4 @@ void	print_objects(t_parse *parse)
 		i++;
 	}
 }
+ 

@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/05 15:46:34 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/08 09:07:34 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,11 @@ int	main(int argc, char *argv[], char *env[])
 	{
 		ft_putendl_fd("Error: unmatched quote", 2);
 		free(str);
+		ft_get_next_line(-42);
+		ft_free_array((void **)parse.env);
 		return (1);
 	}
 	ft_parse_token(&parse, str);
-	//str = ft_quote_handeler(str);
 	free(str);
 	//ft_objectify(&parse);
 	//print_tokens(&parse);

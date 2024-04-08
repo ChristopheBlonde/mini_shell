@@ -25,8 +25,9 @@ typedef struct s_parse
 
 typedef struct	s_file_descriptor
 {
-	char *file_name;          
-	int fd;                   
+	char	*file;
+	bool	in_quote;
+	int		fd;                   
 	t_file_operation type;    
 }	t_file_descriptor;
 
@@ -67,6 +68,7 @@ void	print_redirection_tab(t_parse *parse);
 bool	check_quote(char *str);
 char	*ft_quote_handeler(char *cmd);
 char	*ft_strjoin_char(char *s, char c);
+char **ft_split_with_quotes2(const char *str, char delimiter);
 
 #endif
 
