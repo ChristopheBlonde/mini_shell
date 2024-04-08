@@ -69,6 +69,10 @@ bool	check_quote(char *str);
 char	*ft_quote_handeler(char *cmd);
 char	*ft_strjoin_char(char *s, char c);
 char **ft_split_with_quotes2(const char *str, char delimiter);
+int is_in_quote(const char *str, size_t index, int in_quotes);
+void copy_word(const char *str, size_t start, size_t end, char **result, size_t *word_count);
+void	print_tokens(t_parse *parse);
+
 
 #endif
 

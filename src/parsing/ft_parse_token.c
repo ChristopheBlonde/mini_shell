@@ -6,43 +6,13 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 08:17:08 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/08 11:21:59 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/08 14:10:01 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-//TODO : classifier les tokens
-
-/*
-void	ft_parse_token(t_parse *parse, char *input)
-{
-	size_t	i;
-	char	**arr;
-
-	(void)parse;
-	i = 0;
-	arr = ft_strtok(input, "<>|&\n");
-	parse->task = (t_object **)ft_calloc(ft_arrlen((void **)arr) + 1, sizeof(t_object *));
-	parse->task->cmd = (char **)
-	while (arr[i])
-	{
-		parse->task[i]->cmd[i] = (char *)ft_calloc(2, sizeof(char *));
-		parse->task[i]->cmd[i] = arr[i];
-		if (i == ft_arrlen((void **)arr) - 1)
-			ft_putstr_fd(arr[i], 1);
-		else
-			ft_putendl_fd(arr[i], 1);
-		i++;
-	}
-	ft_free_array((void **)arr);
-}
-*/
-
-void	print_tokens(t_parse *parse);
 #include <stdio.h>
-
-
+#include <string.h>
 
 
 /**
@@ -59,55 +29,7 @@ void	print_tokens(t_parse *parse);
  *         The last element of the array is set to NULL.
  */
 
-#include <string.h>
-
-char **ft_split_with_quotes(const char *str, char delimiter)
-{
-	size_t i = 0;
-	size_t word_start = 0;
-	bool in_quotes = false;
-	char **result = malloc(sizeof(char *) * 100); // Assuming a maximum of 100 words
-	size_t word_count = 0; // Variable to keep track of the number of words found
-
-	while (str[i] != '\0')
-	{
-		if (str[i] == '"')
-		{
-			in_quotes = !in_quotes; // Toggle the in_quotes flag when a quote is encountered
-		}
-		else if (!in_quotes && (str[i] == delimiter || str[i] == '\n')) // 
-		{
-			size_t word_length = i - word_start;
-			result[word_count] = malloc(word_length + 1);
-			strncpy(result[word_count], str + word_start, word_length);
-			result[word_count][word_length] = '\0';
-			word_start = i + 1;
-			word_count++; // Increment word_count for each word found
-		}
-		else if (in_quotes && str[i] == delimiter)
-		{
-			// If inside quotes, treat the delimiter as a normal character
-			i++;
-			continue;
-		}
-		i++;
-	}
-
-	// Handle the last word if it doesn't end with a delimiter
-	if (i > word_start)
-	{
-		size_t word_length = i - word_start;
-		result[word_count] = malloc(word_length + 1);
-		strncpy(result[word_count], str + word_start, word_length);
-		result[word_count][word_length] = '\0';
-		word_count++;
-	}
-
-	result[word_count] = NULL; // NULL-terminate the array
-	return result;
-}
-
-char	*ft_strqcpy(const char *s, char quote)
+char	*ft_strqcpy(char *s, char quote)
 {
 	size_t		len;
 	char	*result;
@@ -126,57 +48,90 @@ char	*ft_strqcpy(const char *s, char quote)
 		}
 		i++;
 	}
+	free(s);
 	return (result);
 }
 
+static inline char	*fill_word(const char *str, size_t word_start, size_t word_end)
+{
+	size_t word_length;
+	char *word;
 
-char **ft_split_with_quotes2(const char *str, char delimiter)
+	word_length = word_end - word_start;
+	word = (char *)malloc(word_length + 1);
+	strncpy(word, str + word_start, word_length);
+	word[word_length] = '\0';
+	return (word);
+}
+
+/**
+ * @brief Splits a string into tokens based on a delimiter, while handling quotes.
+ *
+ * This function takes a string and a delimiter character and splits the string into tokens.
+ * It handles quotes (single and double) by ignoring delimiters inside quotes.
+ *
+ * @param str The string to be split into tokens.
+ * @param delimiter The delimiter character used to split the string.
+ * @return An array of strings representing the tokens. The last element of the array is NULL.
+ */
+
+
+char	**ft_split_with_quotes2(const char *str, char delimiter)
 {
 	size_t	i;
 	size_t	word_start;
-	size_t	word_length;
 	size_t	word_count;
 	int		in_quotes;
 	char	**result;
-	
-	i = 0;
-	word_start = 0;
+
+	i = -1;
 	word_count = 0;
+	word_start = 0;
 	in_quotes = -1;
-	result = (char **)malloc(sizeof(char *) * 100);
-	while (str[i])
+	result = (char **)ft_calloc(ft_strlen(str) + 1, sizeof(char *));
+	if (!result)
+		return NULL;
+	while (str[++i])
 	{
-		if (str[i] == '\'' || str[i] == '"')
-		{
-			if (in_quotes == -1)
-				in_quotes = i;
-			else if (str[i] == str[in_quotes])
-				in_quotes = -1;
-		}
+		in_quotes = is_in_quote(str, i, in_quotes);
 		if ((str[i] == delimiter || str[i] == '\n') && in_quotes == -1)
 		{
-			word_length = i - word_start;
-			result[word_count] = (char *)malloc(word_length + 1);
-			strncpy(result[word_count], str + word_start, word_length);
-			result[word_count][word_length] = '\0';
+			copy_word(str, word_start, i, result, &word_count);
 			word_start = i + 1;
-			word_count++;
 		}
-		i++;
 	}
 	if (i > word_start)
-	{
-		word_length = i - word_start;
-		result[word_count] = (char *)malloc(word_length + 1);
-		strncpy(result[word_count], str + word_start, word_length);
-		result[word_count][word_length] = '\0';
-		word_count++;
-
-	}
-	result[word_count] = NULL;
-	return (result);
+		copy_word(str, word_start, i, result, &word_count);
+	return result;
 }
 
+int is_in_quote(const char *str, size_t index, int in_quotes)
+{
+	if (str[index] == '"' && (index == 0 || str[index - 1] != '\\'))
+	{
+		if (in_quotes == -1)
+			return index;
+		else
+			return -1;
+	}
+	return in_quotes;
+}
+
+void copy_word(const char *str, size_t start, size_t end, char **result, size_t *word_count)
+{
+	size_t word_length = end - start;
+	result[*word_count] = (char *)malloc(word_length + 1);
+	strncpy(result[*word_count], str + start, word_length);
+	result[*word_count][word_length] = '\0';
+	(*word_count)++;
+}
+
+
+static inline void print_cmds(char **cmd)
+{
+	for (size_t i = 0; cmd[i]; i++)
+		printf("cmd[%zu] = %s\n", i, cmd[i]);
+}
 
 
 /**
@@ -194,33 +149,26 @@ char **ft_split_with_quotes2(const char *str, char delimiter)
 void	ft_parse_token(t_parse *parse, char *input)
 {
 	size_t	i;
+	size_t	j;
+	size_t	len;
 	char	**arr;
 	
 	(void)parse;
-	i = 0;
 	arr = ft_strtok(input, "<>|&\n");
-	for (size_t j = 0; arr[j]; j++)
-		printf("arr[%zu] = %s\n", j, arr[j]);
-
 	parse->task = (t_object **)ft_calloc(ft_arrlen((void **)arr) + 1, sizeof(t_object *));
-	i = 0;
-	size_t	len = ft_arrlen((void **)arr);
-	while ((size_t)i < len)
+	i = -1;
+	len = ft_arrlen((void **)arr);
+	while ((size_t)++i < len)
 	{
 		parse->task[i] = (t_object *)ft_calloc(1, sizeof(t_object));
 		parse->task[i]->cmd = ft_split_with_quotes2(arr[i], ' ');
-		for (size_t j = 0; parse->task[i]->cmd[j]; j++)
-		{
+		j = -1;
+		while (parse->task[i]->cmd[++j])
 			if (parse->task[i]->cmd[j][0] == '\'' || parse->task[i]->cmd[j][0] == '"')
-			{
 				parse->task[i]->cmd[j] = ft_strqcpy(parse->task[i]->cmd[j], parse->task[i]->cmd[j][0]);
-			}
-		}
 		
-		for (size_t j = 0; parse->task[i]->cmd[j]; j++)
-			printf("cmd[%zu][%zu] = %s\n", i, j, parse->task[i]->cmd[j]);
+		print_cmds(parse->task[i]->cmd);
 		// ft_fill_redirection(parse->task[i]->cmd, parse);
-		i++;
 	}
 	ft_free_array((void **)arr);
 }
