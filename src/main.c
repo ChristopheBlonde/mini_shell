@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/08 13:38:58 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/09 10:14:31 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 
 static int	ft_usage(void)
 {
 	ft_putendl_fd("\033[1;34mUsage: [ minishell ]\033[m", 2);
 	return (1);
 }
+
+
 
 int	main(int argc, char *argv[], char *env[])
 {
@@ -50,8 +53,20 @@ int	main(int argc, char *argv[], char *env[])
 	ft_env(&parse);
 	ft_putstr_fd("\033[m", 1);
 	str = ft_get_next_line(0);
+	if (!check_quote(str))
+	{
+		ft_putendl_fd("Error: unmatched quote", 2);
+		free(str);
+		ft_get_next_line(-42);
+		ft_free_array((void **)parse.env);
+		return (1);
+	}
 	ft_parse_token(&parse, str);
 	free(str);
+	//ft_objectify(&parse);
+	//print_tokens(&parse);
+	//print_objects(&parse);
+	free_objects(&parse);
 	ft_get_next_line(-42);
 */
 	ft_here_doc(&parse, 0);
