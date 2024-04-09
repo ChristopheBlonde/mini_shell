@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/04/08 14:06:37 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/09 15:46:07 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,16 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-void	ft_free_array(void **arr);
+typedef struct s_quote
+{
+	int		i;
+	size_t	w_start;
+	size_t	w_count;
+	int		in_quotes;
+	char	**result;
+}	t_quote;
+
+void	*ft_free_array(void **arr);
 size_t	ft_arrlen(void **env);
 char	**ft_strtok(char *str, char *tok);
 size_t	ft_get_random(size_t max);

@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/09 10:14:31 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/09 15:19:30 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	ft_usage(void)
 int	main(int argc, char *argv[], char *env[])
 {
 	t_parse	parse;
-//	char *str;
+	char *str;
 
 	(void) argv;
 	if (argc > 1)
@@ -36,22 +36,21 @@ int	main(int argc, char *argv[], char *env[])
 	ft_parse_env(&parse, env);
 	if (!parse.env)
 		return (1);
-	parse.redirect = (t_file_descriptor **)ft_calloc(2, sizeof(t_file_descriptor *));
-	if (!parse.redirect)
-		return (2);
-	parse.redirect[0] = (t_file_descriptor *)ft_calloc(1, sizeof(t_file_descriptor));
-	parse.redirect[0]->file = ft_strdup("end\n");
+//	parse.redirect = (t_file_descriptor **)ft_calloc(2, sizeof(t_file_descriptor *));
+//	if (!parse.redirect)
+//		return (2);
+//	parse.redirect[0] = (t_file_descriptor *)ft_calloc(1, sizeof(t_file_descriptor));
+//	parse.redirect[0]->file = ft_strdup("end\n");
 //	ft_init_term(&parse);
 //	ft_init_attr();
-/*
-	ft_export(&parse, "TEST=good_test");
-	str = ft_getenv(&parse, "USER");
-	ft_putendl_fd(str, 1);
-	if (str)
-		free(str);
-	ft_putstr_fd("\033[1;35m", 1);
-	ft_env(&parse);
-	ft_putstr_fd("\033[m", 1);
+//	ft_export(&parse, "TEST=good_test");
+//	str = ft_getenv(&parse, "USER");
+//	ft_putendl_fd(str, 1);
+//	if (str)
+//		free(str);
+//	ft_putstr_fd("\033[1;35m", 1);
+//	ft_env(&parse);
+//	ft_putstr_fd("\033[m", 1);
 	str = ft_get_next_line(0);
 	if (!check_quote(str))
 	{
@@ -63,16 +62,15 @@ int	main(int argc, char *argv[], char *env[])
 	}
 	ft_parse_token(&parse, str);
 	free(str);
-	//ft_objectify(&parse);
+//	ft_objectify(&parse);
 	//print_tokens(&parse);
 	//print_objects(&parse);
 	free_objects(&parse);
 	ft_get_next_line(-42);
-*/
-	ft_here_doc(&parse, 0);
-	free(parse.redirect[0]->file);
-	free(parse.redirect[0]);
-	free(parse.redirect);
+//	ft_here_doc(&parse, 0);
+//	free(parse.redirect[0]->file);
+//	free(parse.redirect[0]);
+//	free(parse.redirect);
 	ft_free_array((void **)parse.env);
 	return (0);
 }

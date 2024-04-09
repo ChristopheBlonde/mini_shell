@@ -6,18 +6,18 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:35:06 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/26 17:30:42 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/09 15:35:59 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-void	ft_free_array(void **arr)
+void	*ft_free_array(void **arr)
 {
 	size_t	i;
 
 	if (!arr)
-		return ;
+		return (NULL);
 	i = 0;
 	while (arr[i])
 	{
@@ -29,4 +29,5 @@ void	ft_free_array(void **arr)
 		i++;
 	}
 	free(arr);
+	return (NULL);
 }

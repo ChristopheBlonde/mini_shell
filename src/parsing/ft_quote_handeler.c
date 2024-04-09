@@ -6,94 +6,71 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:17:21 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/04/05 15:49:12 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/09 15:38:05 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	check_quote(char *str)
+static void	ft_init_quote(t_quote *quote)
 {
-	int quote;
-	int i;
-
-	i = -1;
-	quote = -1;
-	while (str[++i])
-	{
-		if (str[i] == '\'' || str[i] == '"')
-		{
-			if (quote == -1)
-				quote = i;
-			else if (str[i] == str[quote])
-				quote = -1;
-		}
-	}
-	return (quote == -1);
+	quote->i = -1;
+	quote->w_count = 0;
+	quote->w_start = 0;
+	quote->in_quotes = -1;
+	quote->result = NULL;
 }
 
-
-char	*ft_strjoin_char(char *s, char c)
+static int	is_in_quote(const char *str, size_t index, int in_quotes)
 {
-	char	*new_str;
-	int		i;
+	if (str[index] == '"' && (index == 0 || str[index - 1] != '\\'))
+	{
+		if (in_quotes == -1)
+			return (index);
+		else
+			return (-1);
+	}
+	return (in_quotes);
+}
 
-	if (!s || !c)
-		return (NULL);
-	new_str = (char *)malloc(sizeof(char) * (ft_strlen(s) + 2)); // Allocate memory for the new string
+static char	*copy_word(const char *str, size_t start, size_t end,
+		size_t *word_count)
+{
+	size_t	word_length;
+	char	*new_str;
+
+	word_length = end - start;
+	new_str = (char *)ft_calloc(word_length + 1, sizeof(char));
 	if (!new_str)
 		return (NULL);
-	i = 0;
-	while (s[i]) // Copy the original string
-	{
-		new_str[i] = s[i];
-		i++;
-	}
-	new_str[i] = c; // Add the new character
-	new_str[i + 1] = '\0'; // Null-terminate the new string
-	free(s); // Free the original string
+	ft_strlcpy(new_str, str + start, word_length + 1);
+	(*word_count)++;
 	return (new_str);
 }
 
-char	*ft_quote_handeler(char *cmd)
+char	**ft_split_with_quotes(const char *str, char delimiter)
 {
-	int		i;
-	char	*new_cmd;
+	t_quote	q;
 
-	i = 0;
-	new_cmd = ft_strdup(""); // Initialize new_cmd with an empty string
-	while (cmd[i])
+	ft_init_quote(&q);
+	q.result = (char **)ft_calloc(ft_strlen(str) + 1, sizeof(char *));
+	if (!q.result)
+		return (NULL);
+	while (str[++q.i])
 	{
-		if (cmd[i] == '\'' || cmd[i] == '\"') // Check if the character is a quote
+		q.in_quotes = is_in_quote(str, q.i, q.in_quotes);
+		if ((str[q.i] == delimiter || str[q.i] == '\n') && q.in_quotes == -1)
 		{
-			i++; // Skip the quote
-			while (cmd[i] && cmd[i] != '\'' && cmd[i] != '\"') // Copy until the closing quote
-			{
-				char *temp = ft_strjoin_char(new_cmd, cmd[i]);
-				free(new_cmd);
-				new_cmd = temp;
-				i++;
-			}
-			if (cmd[i])
-				i++; // Skip the closing quote
+			q.result[q.w_count] = copy_word(str, q.w_start, q.i, &q.w_count);
+			if (!q.result[q.w_count - 1] && ft_free_array((void **)q.result))
+				return (NULL);
 		}
-		else
-		{
-			char *temp = ft_strjoin_char(new_cmd, cmd[i]);
-			free(new_cmd);
-			new_cmd = temp;
-			i++;
-		}
-		// Add a space after each command except the last one
-		if (cmd[i])
-		{
-			char *temp = ft_strjoin(new_cmd, " ");
-			free(new_cmd);
-			new_cmd = temp;
-		}
+		if ((str[q.i] == delimiter || str[q.i] == '\n') && q.in_quotes == -1)
+			q.w_start = q.i + 1;
 	}
-	return (new_cmd);
+	if (q.i > (int)q.w_start)
+		q.result[q.w_count] = copy_word(str, q.w_start, q.i, &q.w_count);
+	if (!q.result[q.w_count - 1] && ft_free_array((void **)q.result))
+		return (NULL);
+	return (q.result);
 }
-
-
-// TOK _> 
