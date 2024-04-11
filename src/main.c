@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/09 15:19:30 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/11 08:59:52 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,6 @@ int	main(int argc, char *argv[], char *env[])
 //	free(parse.redirect[0]);
 //	free(parse.redirect);
 	ft_free_array((void **)parse.env);
+	ft_putstr_fd("je ne sais pas pourquoi je suis ici\n", 1);
 	return (0);
 }

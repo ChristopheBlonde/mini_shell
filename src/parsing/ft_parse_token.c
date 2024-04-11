@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 08:17:08 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/09 14:22:57 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/11 09:14:18 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static inline void	print_cmds(char **cmd)
 void	ft_parse_token(t_parse *parse, char *input)
 {
 	size_t	i;
-	size_t	j;
 	size_t	len;
 	char	**arr;
 
@@ -43,12 +42,7 @@ void	ft_parse_token(t_parse *parse, char *input)
 	{
 		parse->task[i] = (t_object *)ft_calloc(1, sizeof(t_object));
 		parse->task[i]->cmd = ft_split_with_quotes(arr[i], ' ');
-		j = -1;
-		while (parse->task[i]->cmd[++j])
-			if (parse->task[i]->cmd[j][0] == '\''
-				|| parse->task[i]->cmd[j][0] == '"')
-				parse->task[i]->cmd[j] = ft_strqcpy(parse->task[i]->cmd[j],
-						parse->task[i]->cmd[j][0]);
+		ft_delete_quotes(parse, i);
 		print_cmds(parse->task[i]->cmd);
 	}
 	ft_free_array((void **)arr);

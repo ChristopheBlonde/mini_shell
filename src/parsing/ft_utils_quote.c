@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils_quote.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:56:25 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/09 13:59:27 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/11 09:13:01 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ char	*ft_strqcpy(char *s, char quote)
 	size_t		i;
 	size_t		j;
 
-	len = strlen(s);
+	len = ft_strlen(s);
 	result = (char *)ft_calloc(len - 1, sizeof(char));
+	if (!result)
+		return (NULL);
 	i = -1;
 	j = 0;
 	while (s[++i])
@@ -48,4 +50,16 @@ char	*ft_strqcpy(char *s, char quote)
 			result[j++] = s[i];
 	free(s);
 	return (result);
+}
+
+void	ft_delete_quotes(t_parse *parse, size_t i)
+{
+	size_t	j;
+
+	j = -1;
+	while (parse->task[i]->cmd[++j])
+		if (parse->task[i]->cmd[j][0] == '\''
+			|| parse->task[i]->cmd[j][0] == '"')
+			parse->task[i]->cmd[j] = ft_strqcpy(parse->task[i]->cmd[j],
+					parse->task[i]->cmd[j][0]);
 }
