@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/11 09:35:00 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/12 14:11:22 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	ft_parse_token(t_parse *parse, char *input);
 void	print_tokens(t_parse *parse);
 void	print_objects(t_parse *parse);
 void	ft_objectify(t_parse *parse);
-void	free_objects(t_parse *parse);
 void	ft_redirection(t_parse *parse);
 void	print_cmd(t_parse *parse);
 void	print_redirection_tab(t_parse *parse);

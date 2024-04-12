@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/11 09:37:55 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/12 16:10:52 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,11 @@ int	main(int argc, char *argv[], char *env[])
 //	ft_objectify(&parse);
 	//print_tokens(&parse);
 	//print_objects(&parse);
-	free_objects(&parse);
 	ft_get_next_line(-42);
+	ft_free_all(&parse);
 //	ft_here_doc(&parse, 0);
 //	free(parse.redirect[0]->file);
 //	free(parse.redirect[0]);
 //	free(parse.redirect);
-	ft_free_array((void **)parse.env);
 	return (0);
 }
