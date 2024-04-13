@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 08:17:08 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/13 14:39:48 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/13 15:02:05 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,6 @@ void	ft_parse_token(t_parse *parse, char *input)
 
 	(void)parse;
 	arr = ft_strtok(input, "<>|&\n");
-	for (i = 0; arr[i]; i++)
-	{
-		printf("arr[%zu] = %s\n", i, arr[i]);
-	}
-	printf("\n\n\n");
 	parse->task = (t_object **)ft_calloc(ft_arrlen((void **)arr) + 1,
 			sizeof(t_object *));
 	if (!parse->task)

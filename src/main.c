@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/13 14:37:09 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/13 15:03:24 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	main(int argc, char *argv[], char *env[])
 		ft_free_array((void **)parse.env);
 		return (1);
 	}
-	printf("str = %s\n", str);
 	ft_syntax_errors_handler(str);
 	ft_parse_token(&parse, str);
 	free(str);
