@@ -6,25 +6,13 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 10:58:31 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/04/12 17:34:42 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/13 15:11:25 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-/**
- * @brief Gère les guillemets dans une chaîne de caractères.
- *
- * Cette fonction vérifie si un caractère dans une chaîne de caractères est une guillemet simple ('\'') ou une guillemet double ('"').
- * Si le caractère est une guillemet simple ou double, la fonction met à jour la valeur de la variable quote en fonction de l'état actuel.
- * Si la variable quote est initialisée à -1, cela signifie qu'aucun guillemet n'a été rencontré jusqu'à présent.
- * Si la variable quote est égale à l'indice i, cela signifie que le guillemet actuel est le même que le guillemet précédent et donc la variable quote est réinitialisée à -1.
- *
- * @param input La chaîne de caractères à analyser.
- * @param quote Un pointeur vers la variable qui stocke l'état des guillemets.
- * @param i L'indice du caractère actuel dans la chaîne de caractères.
- */
-void in_quote(char *input, int *quote, int i)
+void	in_quote(char *input, int *quote, int i)
 {
 	if (input[i] == '\'' || input[i] == '"')
 	{
