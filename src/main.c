@@ -60,7 +60,6 @@ int	main(int argc, char *argv[], char *env[])
 		ft_free_array((void **)parse.env);
 		return (1);
 	}
-	printf("str = %s\n", str);
 	ft_syntax_errors_handler(str);
 	ft_parse_token(&parse, str);
 	free(str);
