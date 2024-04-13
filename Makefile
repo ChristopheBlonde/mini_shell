@@ -6,7 +6,7 @@
 #    By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
-#    Updated: 2024/04/13 14:20:59 by tsadouk          ###   ########.fr        #
+#    Updated: 2024/04/13 15:07:01 by tsadouk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,21 +41,23 @@ SRC = src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c $(UTILS)ft_arrle
 	  $(PARSE)ft_utils_quote.c $(UTILS)ft_free_all.c $(SYNTAX)ft_and_operator_handler.c\
 	  $(SYNTAX)ft_syntax_errors_handler.c $(SYNTAX)ft_parenthesis_handler.c
 
+OBJ_DIR = obj/
+OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
+
 all : $(NAME)
 
 $(LIBFT) :
 	make -C lib --no-print-directory
 
-OBJ = $(SRC:.c=.o)
-
-.c.o :
+$(OBJ_DIR)%.o : %.c
+	mkdir -p $(@D)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(NAME) : $(LIBFT) $(OBJ)
 	$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) -o $(NAME) $(LIBRARIES)
 
 clean :
-	rm -rf $(OBJ)
+	rm -rf $(OBJ_DIR)
 	make clean -C lib --no-print-directory
 
 fclean : clean
