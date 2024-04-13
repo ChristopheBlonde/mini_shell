@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/11 08:59:52 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/13 14:37:09 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int	main(int argc, char *argv[], char *env[])
 		ft_free_array((void **)parse.env);
 		return (1);
 	}
+	printf("str = %s\n", str);
+	ft_syntax_errors_handler(str);
 	ft_parse_token(&parse, str);
 	free(str);
 //	ft_objectify(&parse);
@@ -72,6 +74,5 @@ int	main(int argc, char *argv[], char *env[])
 //	free(parse.redirect[0]);
 //	free(parse.redirect);
 	ft_free_array((void **)parse.env);
-	ft_putstr_fd("je ne sais pas pourquoi je suis ici\n", 1);
 	return (0);
 }
