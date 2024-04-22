@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:56:25 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/11 09:13:01 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/22 10:59:48 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,15 @@ void	ft_delete_quotes(t_parse *parse, size_t i)
 			|| parse->task[i]->cmd[j][0] == '"')
 			parse->task[i]->cmd[j] = ft_strqcpy(parse->task[i]->cmd[j],
 					parse->task[i]->cmd[j][0]);
+}
+
+void	in_quote(char *input, int *quote, int i)
+{
+	if (input[i] == '\'' || input[i] == '"')
+	{
+		if (*quote == -1)
+			*quote = i;
+		else if (input[i] == input[*quote])
+			*quote = -1;
+	}
 }

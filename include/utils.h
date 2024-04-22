@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/04/13 14:54:37 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/22 14:25:22 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ typedef struct s_quote
 
 typedef struct s_tok
 {
-	size_t	i;
-	size_t	j;
-	size_t	last;
-	int		in_quotes;
+	int	i;
+	int	j;
+	int	last;
+	int	in_quotes;
 }	t_tok;
 
 void	*ft_free_array(void **arr);
@@ -48,5 +48,8 @@ void	ft_error_heredoc(int n, char *limiter);
 int		ft_fail_open(char *name, char *line, char *tmp);
 void	ft_delete_quotes(t_parse *parse, size_t i);
 void	in_quote(char *input, int *quote, int i);
+void	ft_free_file_descriptor(void *ptr);
+void	ft_free_arrstruct(void **arr, void (*f)(void *));
+void	ft_free_all(t_parse *parse);
 
 #endif

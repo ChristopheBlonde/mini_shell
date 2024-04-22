@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/13 15:13:05 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/22 14:23:02 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,13 @@ void	ft_parse_token(t_parse *parse, char *input);
 void	print_tokens(t_parse *parse);
 void	print_objects(t_parse *parse);
 void	ft_objectify(t_parse *parse);
-void	free_objects(t_parse *parse);
-void	ft_fill_redirection(char **cmd, t_parse *parse);
+void	ft_redirection(t_parse *parse);
 void	print_cmd(t_parse *parse);
 void	print_redirection_tab(t_parse *parse);
 bool	check_quote(char *str);
 char	*ft_strqcpy(char *s, char quote);
 char	**ft_split_with_quotes(const char *str, char delimiter);
+void	in_quote(char *input, int *quote, int i);
 
 /*---------SYNTAX-------------*/
 void	ft_syntax_errors_handler(char *input);

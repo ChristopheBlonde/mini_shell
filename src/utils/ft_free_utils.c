@@ -1,33 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_array.c                                    :+:      :+:    :+:   */
+/*   ft_free_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 13:35:06 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/12 14:48:01 by cblonde          ###   ########.fr       */
+/*   Created: 2024/04/12 13:39:59 by cblonde           #+#    #+#             */
+/*   Updated: 2024/04/12 13:41:02 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "minishell.h"
 
-void	*ft_free_array(void **arr)
+void ft_free_file_descriptor(void *ptr)
+{
+	t_file_descriptor	*fd;
+
+	fd = (t_file_descriptor *)ptr;
+	free(fd->file);
+	fd->file = NULL;
+	free(fd);
+}
+
+void	ft_free_arrstruct(void **arr, void (*f)(void *))
 {
 	size_t	i;
 
-	if (!arr)
-		return (NULL);
+	if (!arr || !f)
+		return ;
 	i = 0;
 	while (arr[i])
 	{
 		if (arr[i])
 		{
-			free(arr[i]);
+			f((void *)arr[i]);
 			arr[i] = NULL;
 		}
 		i++;
 	}
 	free(arr);
-	return (NULL);
 }

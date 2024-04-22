@@ -6,25 +6,11 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 08:17:08 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/13 15:02:05 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/22 14:25:58 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
-#include <string.h>
-
-static inline void	print_cmds(char **cmd)
-{
-	int	i;
-
-	i = 0;
-	while (cmd[i])
-	{
-		printf("cmd[%d] = %s\n", i, cmd[i]);
-		i++;
-	}
-}
 
 void	ft_parse_token(t_parse *parse, char *input)
 {
@@ -33,7 +19,7 @@ void	ft_parse_token(t_parse *parse, char *input)
 	char	**arr;
 
 	(void)parse;
-	arr = ft_strtok(input, "<>|&\n");
+	arr = ft_strtok(input, "|&\n");
 	parse->task = (t_object **)ft_calloc(ft_arrlen((void **)arr) + 1,
 			sizeof(t_object *));
 	if (!parse->task)
@@ -47,7 +33,12 @@ void	ft_parse_token(t_parse *parse, char *input)
 			return ;
 		parse->task[i]->cmd = ft_split_with_quotes(arr[i], ' ');
 		ft_delete_quotes(parse, i);
-		print_cmds(parse->task[i]->cmd);
+	}
+	ft_redirection(parse);
+	if (parse->redirect)
+	{
+		ft_putendl_fd(parse->redirect[0]->file, 1);
+		ft_putendl_fd(parse->redirect[1]->file, 1);
 	}
 	ft_free_array((void **)arr);
 }
