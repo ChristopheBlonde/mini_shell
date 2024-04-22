@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:17:21 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/04/24 15:58:10 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/22 14:30:05 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ char	**ft_split_with_quotes(char *str, char delimiter)
 	while (str[++q.i])
 	{
 		q.in_quotes = is_in_quote(str, q.i, q.in_quotes);
+		if (q.in_quotes == -1) 
+			skip_spaces(str, &q.i);
 		if ((str[q.i] == delimiter || str[q.i] == '\n')
 			&& q.in_quotes == -1 && (int)q.w_start != q.i)
 		{

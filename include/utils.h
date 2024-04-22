@@ -71,5 +71,6 @@ void	ft_lstto_arr(t_object **task, t_list *lst, int i);
 void	ft_sortwc(t_list *lst);
 void	ft_delete_quotes(t_parse *parse, size_t i);
 void	in_quote(char *input, int *quote, int i);
+void	skip_spaces(char *input, int *i);
 
 #endif
