@@ -6,7 +6,7 @@
 #    By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
-#    Updated: 2024/04/22 14:24:44 by tsadouk          ###   ########.fr        #
+#    Updated: 2024/04/22 14:49:05 by tsadouk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,8 @@ SRC = src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c $(UTILS)ft_arrle
 	  $(UTILS)ft_here_doc.c $(UTILS)ft_utils_heredoc.c $(TERM)ft_init_term.c\
 	  $(PARSE)ft_objectify.c $(PARSE)ft_quote_handler.c $(PARSE)ft_redirect.c\
 	  $(PARSE)ft_utils_quote.c $(UTILS)ft_free_all.c $(SYNTAX)ft_and_operator_handler.c\
-	  $(SYNTAX)ft_syntax_errors_handler.c $(SYNTAX)ft_parenthesis_handler.c
+	  $(SYNTAX)ft_syntax_errors_handler.c $(SYNTAX)ft_parenthesis_handler.c $(UTILS)ft_free_utils.c\
+	  $(SYNTAX)ft_or_operator_handler.c
 
 OBJ_DIR = obj/
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))

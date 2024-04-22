@@ -6,15 +6,15 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 14:28:07 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/04/13 15:40:22 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/22 16:59:46 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include	"minishell.h"
 
-static void	skip_spaces(char *input, int *i)
+void skip_spaces(char *input, int *i)
 {
-	while (input[*i] == ' ' && input[*i] >= 9 && input[*i] <= 13)
+	while (input[*i] && (input[*i] == ' ' || (input[*i] >= 9 && input[*i] <= 13)))
 		(*i)++;
 }
 
@@ -52,7 +52,7 @@ static int	ft_and_operator_handler(char *input)
 	return (0);
 }
 
-void	ft_check_and_operator(char *input)
+int	ft_check_and_operator(char *input)
 {
 	int	check;
 
@@ -60,6 +60,7 @@ void	ft_check_and_operator(char *input)
 	if (check != 0)
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token `&&'\n", 2);
-		exit(0);
+		return (1);
 	}
+	return (0);
 }

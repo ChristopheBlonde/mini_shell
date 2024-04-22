@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:56:02 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/22 14:26:32 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/22 14:30:19 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,6 @@ static void	ft_tokcpy(char ***arr, char *str, size_t n)
 	ft_memcpy((void *)new_arr[i], (void *)str, n);
 	ft_free_array(*(void **)arr);
 	*arr = new_arr;
-}
-
-static void	init_tok(t_tok *tok)
-{
-	tok->i = -1;
-	tok->j = -1;
-	tok->last = 0;
-	tok->in_quotes = -1;
 }
 
 static void	init_tok(t_tok *tok)
