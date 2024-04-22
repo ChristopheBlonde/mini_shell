@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 08:17:08 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/12 14:54:06 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/22 10:25:51 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ void	ft_parse_token(t_parse *parse, char *input)
 		ft_delete_quotes(parse, i);
 	}
 	ft_redirection(parse);
-	ft_putendl_fd(parse->redirect[0]->file, 1);
-	ft_putendl_fd(parse->redirect[1]->file, 1);
+	if (parse->redirect)
+	{
+		ft_putendl_fd(parse->redirect[0]->file, 1);
+		ft_putendl_fd(parse->redirect[1]->file, 1);
+	}
 	ft_free_array((void **)arr);
 }

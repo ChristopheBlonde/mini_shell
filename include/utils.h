@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/04/12 14:12:12 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/22 11:00:49 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ typedef struct s_quote
 	int		in_quotes;
 	char	**result;
 }	t_quote;
+
+typedef struct s_tok
+{
+	int	i;
+	int	j;
+	int	last;
+	int	in_quotes;
+}	t_tok;
 
 void	*ft_free_array(void **arr);
 size_t	ft_arrlen(void **env);

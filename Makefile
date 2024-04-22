@@ -6,7 +6,7 @@
 #    By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
-#    Updated: 2024/04/12 13:54:27 by cblonde          ###   ########.fr        #
+#    Updated: 2024/04/22 11:00:17 by cblonde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ UTILS = src/utils/
 
 PARSE = src/parsing/
 
+SYNTAX = src/parsing/syntax/
+
 BUILTIN = src/builtin/
 
 TERM = src/term/
@@ -36,23 +38,26 @@ SRC = src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c $(UTILS)ft_arrle
 	  $(UTILS)ft_strtok.c $(UTILS)ft_get_random.c $(UTILS)ft_tmp_file.c\
 	  $(UTILS)ft_here_doc.c $(UTILS)ft_utils_heredoc.c $(TERM)ft_init_term.c\
 	  $(PARSE)ft_objectify.c $(PARSE)ft_quote_handler.c $(PARSE)ft_redirect.c\
-	  $(PARSE)ft_utils_quote.c $(UTILS)ft_free_all.c $(UTILS)ft_free_utils.c
+	  $(PARSE)ft_utils_quote.c $(UTILS)ft_free_all.c $(UTILS)ft_free_utils.c\
+
+OBJ_DIR = obj/
+
+OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
 all : $(NAME)
 
 $(LIBFT) :
 	make -C lib --no-print-directory
 
-OBJ = $(SRC:.c=.o)
-
-.c.o :
+$(OBJ_DIR)%.o : %.c
+	mkdir -p $(@D)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(NAME) : $(LIBFT) $(OBJ)
 	$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) -o $(NAME) $(LIBRARIES)
 
 clean :
-	rm -rf $(OBJ)
+	rm -rf $(OBJ_DIR)
 	make clean -C lib --no-print-directory
 
 fclean : clean

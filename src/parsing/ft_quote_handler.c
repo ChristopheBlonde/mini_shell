@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_quote_handeler.c                                :+:      :+:    :+:   */
+/*   ft_quote_handler.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:17:21 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/04/09 15:38:05 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/22 10:37:05 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ char	**ft_split_with_quotes(const char *str, char delimiter)
 	while (str[++q.i])
 	{
 		q.in_quotes = is_in_quote(str, q.i, q.in_quotes);
-		if ((str[q.i] == delimiter || str[q.i] == '\n') && q.in_quotes == -1)
+		if ((str[q.i] == delimiter || str[q.i] == '\n')
+			&& q.in_quotes == -1 && (int)q.w_start != q.i)
 		{
 			q.result[q.w_count] = copy_word(str, q.w_start, q.i, &q.w_count);
 			if (!q.result[q.w_count - 1] && ft_free_array((void **)q.result))

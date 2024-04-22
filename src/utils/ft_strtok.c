@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:56:02 by cblonde           #+#    #+#             */
-/*   Updated: 2024/03/29 10:07:28 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/22 10:33:09 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,29 +49,36 @@ static void	ft_tokcpy(char ***arr, char *str, size_t n)
 	*arr = new_arr;
 }
 
+static void	init_tok(t_tok *tok)
+{
+	tok->i = -1;
+	tok->j = -1;
+	tok->last = 0;
+	tok->in_quotes = -1;
+}
+
 char	**ft_strtok(char *str, char *tok)
 {
-	char	**arr;
-	size_t	i;
-	size_t	j;
-	size_t	last;
+	char    **arr;
+	t_tok    token;
 
-	i = -1;
-	last = 0;
+	init_tok(&token);
 	arr = (char **)ft_calloc(1, sizeof(char *));
 	if (!arr)
-		return (NULL);
-	while (str[++i])
+	return (NULL);
+	while (str[++token.i])
 	{
-		j = -1;
-		while (tok[++j])
+		token.j = -1;
+		while (tok[++token.j])
 		{
-			if (i != 0 && str[i] == tok[j])
+			in_quote(str, &token.in_quotes, token.i);
+			if (token.i != 0 && str[token.i] == tok[token.j] \
+				&& token.in_quotes == -1)
 			{
-				ft_tokcpy(&arr, &str[last], i - last);
-				last = i;
-				if (str[i + 1] == tok[j])
-					i++;
+				ft_tokcpy(&arr, &str[token.last], token.i - token.last);
+				token.last = token.i;
+				if (str[token.i + 1] == tok[token.j])
+					token.i++;
 			}
 		}
 	}

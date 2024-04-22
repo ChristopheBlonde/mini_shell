@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/12 14:11:22 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/22 11:01:04 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ void	print_redirection_tab(t_parse *parse);
 bool	check_quote(char *str);
 char	*ft_strqcpy(char *s, char quote);
 char	**ft_split_with_quotes(const char *str, char delimiter);
+void	in_quote(char *input, int *quote, int i);
 
 #endif
