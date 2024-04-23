@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 13:40:27 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/04/22 15:37:02 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/23 09:52:55 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,3 +19,4 @@ int	ft_syntax_errors_handler(char *input)
 
 	return (0);
 }
+

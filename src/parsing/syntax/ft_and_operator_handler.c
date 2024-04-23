@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 14:28:07 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/04/22 16:59:46 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/23 10:00:57 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ static int	ft_and_operator_handler(char *input)
 	int	in_quotes;
 
 	i = -1;
-	check = 0;
 	in_quotes = -1;
 	while (input[++i])
 	{
+		check = 0;
 		in_quote(input, &in_quotes, i);
 		if (input[i] == '&' && in_quotes == -1)
 		{

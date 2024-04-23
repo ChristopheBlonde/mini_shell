@@ -6,14 +6,13 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 10:58:31 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/04/22 15:35:03 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/04/23 09:48:42 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-
-static	int	ft_parenthesis_handler(char *input)
+static int	ft_parenthesis_handler(char *input)
 {
 	int	check;
 	int	quote;
@@ -41,23 +40,18 @@ static	int	ft_parenthesis_handler(char *input)
 
 int	ft_check_parenthesis(char *input)
 {
-	int		check;
-	char	*tmp;
+	int	check;
 
-	tmp = ft_strdup(input);
-	check = ft_parenthesis_handler(tmp);
+	check = ft_parenthesis_handler(input);
 	if (check == (int) '(')
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token `('\n", 2);
-		free(tmp);
 		return (1);
 	}
 	if (check == (int) ')')
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token `)'\n", 2);
-		free(tmp);
 		return (1);
 	}
-	free(tmp);
 	return (0);
 }
