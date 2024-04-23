@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:17:21 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/04/22 10:37:05 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/23 08:26:39 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ char	**ft_split_with_quotes(const char *str, char delimiter)
 	}
 	if (q.i > (int)q.w_start)
 		q.result[q.w_count] = copy_word(str, q.w_start, q.i, &q.w_count);
-	if (!q.result[q.w_count - 1] && ft_free_array((void **)q.result))
+	if (q.w_count != 0
+			&& !q.result[q.w_count - 1] && ft_free_array((void **)q.result))
 		return (NULL);
 	return (q.result);
 }

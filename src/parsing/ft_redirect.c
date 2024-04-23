@@ -6,21 +6,34 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 11:01:13 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/22 11:07:55 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/23 12:05:54 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	ft_is_redirect(char *cmd)
+/*static bool	ft_is_redirect(char *cmd)
 {
 	if (!ft_strncmp(cmd, ">", 1) || !ft_strncmp(cmd, ">>", 2)
 		|| !ft_strncmp(cmd, "<", 1) || !ft_strncmp(cmd, "<<", 2))
 		return (true);
 	return (false);
+}*/
+
+static t_file_operation	ft_redirect_type(char *file)
+{
+	if (!ft_strncmp(file, ">>", 2))
+		return (APPEND);
+	if (!ft_strncmp(file, "<<", 2))
+		return (HEREDOC);
+	if (!ft_strncmp(file, "<", 1))
+		return (READ);
+	if (!ft_strncmp(file, ">", 1))
+		return (WRITE);
+	return (NO_OP);
 }
 
-static t_file_descriptor	*ft_create_redirect(char *file)
+static t_file_descriptor	*ft_create_redirect(char *op, char *file)
 {
 	t_file_descriptor	*fd;
 
@@ -30,9 +43,11 @@ static t_file_descriptor	*ft_create_redirect(char *file)
 	if (!fd)
 		return (NULL);
 	fd->file = file;
-	fd->in_quote = false;
+	fd->in_quote = ft_quoted(file);
 	fd->fd = -1;
-	fd->type = NO_OP;
+	fd->type = ft_redirect_type(op);
+	if (fd->in_quote)
+		fd->file = ft_strqcpy(file);
 	return (fd);
 }
 
@@ -85,8 +100,7 @@ void	ft_redirection(t_parse *parse)
 		j = 0;
 		while (parse->task[i]->cmd[j])
 		{
-			ft_printf("task[%d], cmd[%d], value %s\n", i, j,parse->task[i]->cmd[j], 1);
-			if (ft_is_redirect(parse->task[i]->cmd[j]))
+			if (ft_redirect_type(parse->task[i]->cmd[j]) != NO_OP)
 			{
 				parse->redirect = ft_realloc_redirect(parse->redirect, k);
 				if (!parse->redirect)
@@ -96,6 +110,7 @@ void	ft_redirection(t_parse *parse)
 					return ;
 				}
 				parse->redirect[k] = ft_create_redirect(
+						parse->task[i]->cmd[j],
 						ft_getfile_name(parse->task[i]->cmd, j));
 				k++;
 			}

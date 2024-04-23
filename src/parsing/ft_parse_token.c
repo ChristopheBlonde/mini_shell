@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 08:17:08 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/22 10:25:51 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/23 11:43:07 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,28 @@ void	ft_parse_token(t_parse *parse, char *input)
 		if (!parse->task[i])
 			return ;
 		parse->task[i]->cmd = ft_split_with_quotes(arr[i], ' ');
-		ft_delete_quotes(parse, i);
 	}
 	ft_redirection(parse);
+	ft_delete_quotes(parse);
 	if (parse->redirect)
 	{
-		ft_putendl_fd(parse->redirect[0]->file, 1);
-		ft_putendl_fd(parse->redirect[1]->file, 1);
+		i = 0;
+		while (parse->redirect[i])
+		{
+			ft_printf("enum:%d, quoted:%d, name:%s\n", parse->redirect[i]->type, parse->redirect[i]->in_quote, parse->redirect[i]->file);
+			i++;
+		}
+	}
+	i = 0;
+	while (parse->task[i])
+	{
+		int j = 0;
+		while (parse->task[i]->cmd[j])
+		{
+			ft_printf("task[%d], cmd[%d], value:%s\n", i, j, parse->task[i]->cmd[j]);
+			j++;
+		}
+		i++;
 	}
 	ft_free_array((void **)arr);
 }
