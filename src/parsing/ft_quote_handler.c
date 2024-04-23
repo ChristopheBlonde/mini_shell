@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:17:21 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/04/23 08:26:39 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/23 15:28:41 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	ft_init_quote(t_quote *quote)
 
 static int	is_in_quote(const char *str, size_t index, int in_quotes)
 {
-	if (str[index] == '"' && (index == 0 || str[index - 1] != '\\'))
+	if (str[index] == '"' || str[index] == '\'')
 	{
 		if (in_quotes == -1)
 			return (index);

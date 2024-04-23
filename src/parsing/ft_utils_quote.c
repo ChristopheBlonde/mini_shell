@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:56:25 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/23 13:46:48 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/23 15:32:31 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,12 @@ bool	check_quote(char *str)
 
 char	*ft_strqcpy(char *s)
 {
-	size_t	len;
 	char	*result;
 	int		quote;
 	size_t	i;
 	size_t	j;
 
-	len = ft_strlen(s);
-	result = (char *)ft_calloc(len - 1, sizeof(char));
+	result = (char *)ft_calloc(ft_strlen(s) - 1, sizeof(char));
 	if (!result)
 		return (NULL);
 	i = 0;
@@ -50,12 +48,13 @@ char	*ft_strqcpy(char *s)
 	while (s[i])
 	{
 		if (quote == -1 && (s[i] == '\'' || s[i] == '\"'))
-			quote = i;
-		if ((i == 0 && quote == -1) || (quote != (int)i && s[i] != s[quote]))
+			quote = i++;
+		if (quote == -1 || (quote != (int)i && s[i] != s[quote]))
 			result[j++] = s[i];
 		else
 			quote = -1;
-		i++;
+		if (s[i] != '\0')
+			i++;
 	}
 	free(s);
 	return (result);
