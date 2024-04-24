@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:56:02 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/22 10:33:09 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/24 16:56:24 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ static void	init_tok(t_tok *tok)
 
 char	**ft_strtok(char *str, char *tok)
 {
-	char    **arr;
-	t_tok    token;
+	char	**arr;
+	t_tok	token;
 
 	init_tok(&token);
 	arr = (char **)ft_calloc(1, sizeof(char *));
 	if (!arr)
-	return (NULL);
+		return (NULL);
 	while (str[++token.i])
 	{
 		token.j = -1;

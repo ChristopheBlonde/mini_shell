@@ -6,7 +6,7 @@
 #    By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
-#    Updated: 2024/04/22 11:00:17 by cblonde          ###   ########.fr        #
+#    Updated: 2024/04/24 16:52:55 by cblonde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS = -Werror -Wextra -Wall -g
 
 INCLUDE = -Iinclude -Ilib
 
-LIBRARIES = -Llib -lft -lncurses -lreadline
+LIBRARIES = -Llib -lft -lreadline
 
 LIBFT = lib/libft.a
 
@@ -30,15 +30,14 @@ SYNTAX = src/parsing/syntax/
 
 BUILTIN = src/builtin/
 
-TERM = src/term/
-
 SRC = src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c $(UTILS)ft_arrlen.c\
 	  $(BUILTIN)ft_export.c $(BUILTIN)ft_unset.c $(BUILTIN)ft_get_index_env.c\
 	  $(BUILTIN)ft_getenv.c $(BUILTIN)ft_env.c $(PARSE)ft_parse_token.c\
 	  $(UTILS)ft_strtok.c $(UTILS)ft_get_random.c $(UTILS)ft_tmp_file.c\
-	  $(UTILS)ft_here_doc.c $(UTILS)ft_utils_heredoc.c $(TERM)ft_init_term.c\
+	  $(UTILS)ft_here_doc.c $(UTILS)ft_utils_heredoc.c \
 	  $(PARSE)ft_objectify.c $(PARSE)ft_quote_handler.c $(PARSE)ft_redirect.c\
 	  $(PARSE)ft_utils_quote.c $(UTILS)ft_free_all.c $(UTILS)ft_free_utils.c\
+	  $(PARSE)ft_utils_redirect.c $(PARSE)ft_reduce_cmd.c
 
 OBJ_DIR = obj/
 

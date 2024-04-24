@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/23 12:09:08 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/24 16:50:44 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,21 @@ typedef struct s_object
 	t_priority	priority;
 }	t_object;
 
-void	ft_parse_env(t_parse *parse, char *env[]);
-void	ft_parse_token(t_parse *parse, char *input);
-void	print_tokens(t_parse *parse);
-void	print_objects(t_parse *parse);
-void	ft_objectify(t_parse *parse);
-void	ft_redirection(t_parse *parse);
-void	print_cmd(t_parse *parse);
-void	print_redirection_tab(t_parse *parse);
-bool	check_quote(char *str);
-char	*ft_strqcpy(char *s);
-char	**ft_split_with_quotes(const char *str, char delimiter);
-void	in_quote(char *input, int *quote, int i);
+void				ft_parse_env(t_parse *parse, char *env[]);
+void				ft_parse_token(t_parse *parse, char *input);
+void				print_tokens(t_parse *parse);
+void				print_objects(t_parse *parse);
+void				ft_objectify(t_parse *parse);
+void				ft_redirection(t_parse *parse);
+void				print_cmd(t_parse *parse);
+void				print_redirection_tab(t_parse *parse);
+bool				check_quote(char *str);
+char				*ft_strqcpy(char *s);
+char				**ft_split_with_quotes(const char *str, char delimiter);
+void				in_quote(char *input, int *quote, int i);
+void				ft_clean_task(t_object *task,
+						size_t i_cmd, size_t i_redirect);
+char				**ft_reduce_cmd(char **cmd, size_t index);
+t_file_operation	ft_redirect_type(char *file);
 
 #endif
