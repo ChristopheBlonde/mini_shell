@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 10:13:03 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/08 14:00:39 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/24 10:39:12 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ static void	ft_write_file(t_parse *parse, char *line, int index, char *tmp)
 	}
 	else
 	{
-		free(str);
 		ft_putstr_fd(str, parse->redirect[index]->fd);
+		free(str);
 	}
 	free(line);
 	if (var)

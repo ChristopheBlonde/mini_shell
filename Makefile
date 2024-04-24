@@ -36,11 +36,11 @@ SRC = src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c $(UTILS)ft_arrle
 	  $(BUILTIN)ft_export.c $(BUILTIN)ft_unset.c $(BUILTIN)ft_get_index_env.c\
 	  $(BUILTIN)ft_getenv.c $(BUILTIN)ft_env.c $(PARSE)ft_parse_token.c\
 	  $(UTILS)ft_strtok.c $(UTILS)ft_get_random.c $(UTILS)ft_tmp_file.c\
-	  $(UTILS)ft_here_doc.c $(UTILS)ft_utils_heredoc.c $(TERM)ft_init_term.c\
+	  $(UTILS)ft_here_doc.c $(UTILS)ft_utils_heredoc.c\
 	  $(PARSE)ft_objectify.c $(PARSE)ft_quote_handler.c $(PARSE)ft_redirect.c\
 	  $(PARSE)ft_utils_quote.c $(UTILS)ft_free_all.c $(SYNTAX)ft_and_operator_handler.c\
 	  $(SYNTAX)ft_syntax_errors_handler.c $(SYNTAX)ft_parenthesis_handler.c $(UTILS)ft_free_utils.c\
-	  $(SYNTAX)ft_or_operator_handler.c
+	  $(SYNTAX)ft_or_operator_handler.c $(SYNTAX)ft_dollar_handler.c
 
 OBJ_DIR = obj/
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
