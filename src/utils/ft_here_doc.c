@@ -69,8 +69,8 @@ static void	ft_write_file(t_parse *parse, char *line, int index, char *tmp)
 	}
 	else
 	{
-		free(str);
 		ft_putstr_fd(str, parse->redirect[index]->fd);
+		free(str);
 	}
 	free(line);
 	if (var)

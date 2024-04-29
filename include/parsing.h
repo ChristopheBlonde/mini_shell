@@ -75,7 +75,7 @@ void				print_cmd(t_parse *parse);
 void				print_redirection_tab(t_parse *parse);
 bool				check_quote(char *str);
 char				*ft_strqcpy(char *s);
-char				**ft_split_with_quotes(const char *str, char delimiter);
+char				**ft_split_with_quotes(char *str, char delimiter);
 void				in_quote(char *input, int *quote, int i);
 void				ft_clean_task(t_object *task,
 						size_t i_cmd, size_t i_redirect);

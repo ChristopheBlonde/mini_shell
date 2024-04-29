@@ -12,7 +12,7 @@
 
 CC = gcc
 
-CFLAGS = -Werror -Wextra -Wall -g
+CFLAGS = -Werror -Wextra -Wall -gdwarf-4
 
 INCLUDE = -Iinclude -Ilib
 

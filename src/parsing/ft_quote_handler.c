@@ -33,22 +33,19 @@ static int	is_in_quote(const char *str, size_t index, int in_quotes)
 	return (in_quotes);
 }
 
-static char	*copy_word(const char *str, size_t start, size_t end,
-		size_t *word_count)
+static void	copy_word(char *str, t_quote *q)
 {
 	size_t	word_length;
-	char	*new_str;
 
-	word_length = end - start;
-	new_str = (char *)ft_calloc(word_length + 1, sizeof(char));
-	if (!new_str)
-		return (NULL);
-	ft_strlcpy(new_str, str + start, word_length + 1);
-	(*word_count)++;
-	return (new_str);
+	word_length = q->i - q->w_start;
+	q->result[q->w_count] = (char *)ft_calloc(word_length + 1, sizeof(char));
+	if (!q->result[q->w_count])
+		return ;
+	ft_strlcpy(q->result[q->w_count], str + q->w_start, word_length + 1);
+	q->w_count++;
 }
 
-char	**ft_split_with_quotes(const char *str, char delimiter)
+char	**ft_split_with_quotes(char *str, char delimiter)
 {
 	t_quote	q;
 
@@ -62,7 +59,7 @@ char	**ft_split_with_quotes(const char *str, char delimiter)
 		if ((str[q.i] == delimiter || str[q.i] == '\n')
 			&& q.in_quotes == -1 && (int)q.w_start != q.i)
 		{
-			q.result[q.w_count] = copy_word(str, q.w_start, q.i, &q.w_count);
+			copy_word(str, &q);
 			if (!q.result[q.w_count - 1] && ft_free_array((void **)q.result))
 				return (NULL);
 		}
@@ -70,7 +67,7 @@ char	**ft_split_with_quotes(const char *str, char delimiter)
 			q.w_start = q.i + 1;
 	}
 	if (q.i > (int)q.w_start)
-		q.result[q.w_count] = copy_word(str, q.w_start, q.i, &q.w_count);
+		copy_word(str, &q);
 	if (q.w_count != 0
 		&& !q.result[q.w_count - 1] && ft_free_array((void **)q.result))
 		return (NULL);

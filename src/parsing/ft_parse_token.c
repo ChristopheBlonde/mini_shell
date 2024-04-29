@@ -52,7 +52,7 @@ void	ft_parse_token(t_parse *parse, char *input)
 		i++;
 	}
 	ft_free_array((void **)arr);
-}
+} //NORM
 /*
 	if (parse->redirect)
 	{
