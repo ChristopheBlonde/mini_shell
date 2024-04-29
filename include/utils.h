@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/04/23 11:33:58 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/29 15:09:19 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "minishell.h"
 # include <fcntl.h>
 # include <stdio.h>
+# include <dirent.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -51,5 +52,6 @@ bool	ft_quoted(char *str);
 void	ft_free_file_descriptor(void *ptr);
 void	ft_free_arrstruct(void **arr, void (*f)(void *));
 void	ft_free_all(t_parse *parse);
+void	ft_listdir(void);
 
 #endif

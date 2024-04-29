@@ -6,7 +6,7 @@
 #    By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
-#    Updated: 2024/04/24 16:52:55 by cblonde          ###   ########.fr        #
+#    Updated: 2024/04/29 14:58:56 by cblonde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ SRC = src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c $(UTILS)ft_arrle
 	  $(UTILS)ft_here_doc.c $(UTILS)ft_utils_heredoc.c \
 	  $(PARSE)ft_objectify.c $(PARSE)ft_quote_handler.c $(PARSE)ft_redirect.c\
 	  $(PARSE)ft_utils_quote.c $(UTILS)ft_free_all.c $(UTILS)ft_free_utils.c\
-	  $(PARSE)ft_utils_redirect.c $(PARSE)ft_reduce_cmd.c
+	  $(PARSE)ft_utils_redirect.c $(PARSE)ft_reduce_cmd.c $(UTILS)ft_listdir.c
 
 OBJ_DIR = obj/
 

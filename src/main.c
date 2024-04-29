@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/12 16:10:52 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/29 15:08:38 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	main(int argc, char *argv[], char *env[])
 //	ft_putstr_fd("\033[1;35m", 1);
 //	ft_env(&parse);
 //	ft_putstr_fd("\033[m", 1);
+	ft_listdir();
 	str = ft_get_next_line(0);
 	if (!check_quote(str))
 	{
