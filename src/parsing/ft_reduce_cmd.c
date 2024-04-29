@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:13:34 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/24 15:25:35 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/29 09:34:49 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ char	**ft_reduce_cmd(char **cmd, size_t index)
 	char	**new_cmd;
 
 	cmd_len = ft_arrlen((void **)cmd);
-	if (cmd[index][0] != '<' && cmd[index][0] != '>'
-			&& cmd[index][0] != '&' && cmd[index][0] != '|')
+	if (!cmd[index] || (cmd[index][0] != '<' && cmd[index][0] != '>'
+			&& cmd[index][0] != '&' && cmd[index][0] != '|'))
 		return (cmd);
 	if (ft_strlen(cmd[index]) > 2)
 	{
