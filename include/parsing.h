@@ -77,9 +77,9 @@ bool				check_quote(char *str);
 char				*ft_strqcpy(char *s);
 char				**ft_split_with_quotes(char *str, char delimiter);
 void				in_quote(char *input, int *quote, int i);
-void				ft_clean_task(t_object *task,
-						size_t i_cmd, size_t i_redirect);
-char				**ft_reduce_cmd(char **cmd, size_t index);
+void				ft_redirect_task(t_object *task, char *input,
+						size_t index);
+char				**ft_reduce_cmd(t_object *task);
 t_file_operation	ft_redirect_type(char *file);
 
 #endif

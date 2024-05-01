@@ -81,10 +81,10 @@ bool	ft_redirect_end(t_parse *parse, size_t *i, size_t *j, size_t *k)
 			parse->redirect[*k] = ft_create_redirect(
 					parse->task[*i]->cmd[*j],
 					ft_getfile_name(parse->task[*i]->cmd, *j));
-			ft_clean_task(parse->task[*i], *j, (*k)++);
+			ft_redirect_task(parse->task[*i], parse->task[*i]->cmd[*j],
+				(*k)++);
 		}
-		else
-			(*j)++;
+		(*j)++;
 	}
 	return (true);
 }
@@ -95,14 +95,15 @@ void	ft_redirection(t_parse *parse)
 	size_t	j;
 	size_t	k;
 
-	i = -1;
+	i = 0;
 	k = 0;
 	parse->redirect = NULL;
-	while (parse->task[++i])
+	while (parse->task[i])
 	{
 		j = 0;
 		if (!ft_redirect_end(parse, &i, &j, &k))
 			return ;
-		parse->task[i]->cmd = ft_reduce_cmd(parse->task[i]->cmd, 0);
+		ft_reduce_cmd(parse->task[i]);
+		i++;
 	}
 }
