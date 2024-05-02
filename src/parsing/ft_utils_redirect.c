@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:37:51 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/24 16:38:53 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/02 11:19:02 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 t_file_operation	ft_redirect_type(char *file)
 {
-	if (!ft_strncmp(file, ">>", 2))
+	size_t	file_len;
+
+	file_len = ft_strlen(file);
+	if (file_len >= 2 && !ft_strncmp(file, ">>", 2))
 		return (APPEND);
-	if (!ft_strncmp(file, "<<", 2))
+	if (file_len >= 2 && !ft_strncmp(file, "<<", 2))
 		return (HEREDOC);
 	if (!ft_strncmp(file, "<", 1))
 		return (READ);
@@ -36,16 +39,3 @@ void	ft_redirect_task(t_object *task, char *input, size_t index)
 	if (!ft_strncmp(input, ">", 1))
 		task->outfile = index;
 }
-/*
-void	ft_clean_task(t_object *task, size_t i_cmd, size_t i_redirect)
-{
-	ft_redirect_task(task, task->cmd[i_cmd], i_redirect);
-
-	task->cmd = ft_reduce_cmd(task->cmd, i_cmd);
-	if (!task->cmd)
-	{
-		ft_putendl_fd("Error: reduce cmd", 2);
-		return ;
-	}
-}
-*/

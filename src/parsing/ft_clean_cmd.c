@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:13:34 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/29 09:34:49 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/02 11:11:38 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static size_t	ft_check_redirect(char *str)
 {
 	t_file_operation	type;
 
+	if (!str)
+		return (0);
 	type = ft_redirect_type(str);
 	if (type == NO_OP)
 		return (0);
@@ -83,10 +85,10 @@ static void	ft_cmdcpy(char **n_cmd, t_object *task)
 		if (ft_check_redirect(task->cmd[i]) == 0
 			&& ft_check_link(task->cmd[i]) == 0)
 			n_cmd[++j] = task->cmd[i];
-		if (ft_check_redirect(task->cmd[i]) == 1
+		else if (ft_check_redirect(task->cmd[i]) == 1
 			|| ft_check_link(task->cmd[i]) == 1)
 			free(task->cmd[i]);
-		if (ft_check_redirect(task->cmd[i]) == 2)
+		else if (ft_check_redirect(task->cmd[i]) == 2)
 		{
 			free(task->cmd[i]);
 			i++;
