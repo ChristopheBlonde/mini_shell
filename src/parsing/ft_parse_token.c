@@ -49,6 +49,31 @@ void	ft_parse_token(t_parse *parse, char *input)
 		i++;
 	}
 	ft_delete_quotes(parse);
+	if (parse->redirect)
+	{
+		i = 0;
+		while (parse->redirect[i])
+		{
+			ft_printf("enum:%d, quoted:%d, name:%s\n",
+			parse->redirect[i]->type,
+			parse->redirect[i]->in_quote, parse->redirect[i]->file);
+			i++;
+		}
+	}
+	i = 0;
+	while (parse->task[i])
+	{
+		int j = 0;
+		ft_printf("task[%d], input:%d, output:%d\n",
+		i, parse->task[i]->infile, parse->task[i]->outfile);
+		while (parse->task[i]->cmd[j])
+		{
+			ft_printf("task[%d], cmd[%d], value:%s\n", i,
+			j, parse->task[i]->cmd[j]);
+			j++;
+		}
+		i++;
+	}
 	ft_free_array((void **)arr);
 } //NORM
 /*

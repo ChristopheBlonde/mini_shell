@@ -12,6 +12,29 @@
 
 #include "utils.h"
 
+bool	ft_check_wildcard(char *args)
+{
+	size_t	i;
+	char quote;
+
+	i = 0;
+	quote = '\0';
+	while (args[i])
+	{
+		if (args[i] == '\'' || args[i] == '"')
+		{
+			if (quote == args[i])
+				quote = '\0';
+			else
+				quote = args[i];
+		}
+		else if (args[i] == '*' && !in_quote)
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
 static bool	ft_match_start(t_wc *wc, char *str, char **file)
 {
 	size_t	len;
@@ -125,5 +148,12 @@ t_list	*ft_listdir(t_wc *wc)
 	free(pwd);
 	ft_free_wc(wc);
 	ft_sortwc(lst);
+	return (lst);
+}
+
+t_list	*ft_init_wildcad(char *str)
+{
+	t_list	*lst;
+
 	return (lst);
 }
