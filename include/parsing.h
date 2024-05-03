@@ -74,6 +74,7 @@ void				ft_redirection(t_parse *parse);
 void				print_cmd(t_parse *parse);
 void				print_redirection_tab(t_parse *parse);
 bool				check_quote(char *str);
+bool				ft_quoted(char *str);
 char				*ft_strqcpy(char *s);
 char				**ft_split_with_quotes(char *str, char delimiter);
 void				in_quote(char *input, int *quote, int i);
@@ -81,5 +82,6 @@ void				ft_redirect_task(t_object *task, char *input,
 						size_t index);
 char				**ft_reduce_cmd(t_object *task);
 t_file_operation	ft_redirect_type(char *file);
+void				ft_wildcard(t_parse *parse);
 
 #endif

@@ -37,7 +37,8 @@ SRC = src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c $(UTILS)ft_arrle
 	  $(UTILS)ft_here_doc.c $(UTILS)ft_utils_heredoc.c \
 	  $(PARSE)ft_objectify.c $(PARSE)ft_quote_handler.c $(PARSE)ft_redirect.c\
 	  $(PARSE)ft_utils_quote.c $(UTILS)ft_free_all.c $(UTILS)ft_free_utils.c\
-	  $(PARSE)ft_utils_redirect.c $(PARSE)ft_clean_cmd.c $(UTILS)ft_listdir.c
+	  $(PARSE)ft_utils_redirect.c $(PARSE)ft_clean_cmd.c $(UTILS)ft_listdir.c\
+	  $(PARSE)ft_build_wildcard.c
 
 OBJ_DIR = obj/
 
@@ -46,7 +47,7 @@ OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 all : $(NAME)
 
 $(LIBFT) :
-	make -C lib --no-print-directory
+	make bonus -C lib --no-print-directory
 
 $(OBJ_DIR)%.o : %.c
 	mkdir -p $(@D)

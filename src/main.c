@@ -51,7 +51,6 @@ int	main(int argc, char *argv[], char *env[])
 //	ft_putstr_fd("\033[1;35m", 1);
 //	ft_env(&parse);
 //	ft_putstr_fd("\033[m", 1);
-	ft_listdir();
 	str = ft_get_next_line(0);
 	if (!check_quote(str))
 	{
