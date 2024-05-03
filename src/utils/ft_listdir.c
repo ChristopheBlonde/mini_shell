@@ -150,10 +150,3 @@ t_list	*ft_listdir(t_wc *wc)
 	ft_sortwc(lst);
 	return (lst);
 }
-
-t_list	*ft_init_wildcad(char *str)
-{
-	t_list	*lst;
-
-	return (lst);
-}
