@@ -37,6 +37,16 @@ typedef struct s_tok
 	int	in_quotes;
 }	t_tok;
 
+typedef struct s_wc
+{
+	char	*start;
+	char	*end;
+	t_list	*middle;
+	int		i;
+	int		quote;
+	size_t	len;
+}	t_wc;
+
 void	*ft_free_array(void **arr);
 size_t	ft_arrlen(void **env);
 char	**ft_strtok(char *str, char *tok);
@@ -52,6 +62,10 @@ bool	ft_quoted(char *str);
 void	ft_free_file_descriptor(void *ptr);
 void	ft_free_arrstruct(void **arr, void (*f)(void *));
 void	ft_free_all(t_parse *parse);
-void	ft_listdir(void);
+t_list	*ft_listdir(t_wc *wc);
+t_wc	*ft_init_wc(void);
+void	ft_unquote(t_wc *wc);
+void	ft_print_wc(t_wc *wc);
+void	ft_free_wc(t_wc *wc);
 
 #endif

@@ -11,33 +11,8 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-typedef struct s_wc
-{
-	char	*start;
-	char	*end;
-	t_list	*middle;
-	int		i;
-	int		quote;
-	size_t	len;
-}	t_wc;
 
-t_wc	*ft_init_wc(void)
-{
-	t_wc	*wc;
-
-	wc = (t_wc *)ft_calloc(1, sizeof(t_wc));
-	if (!wc)
-		return (NULL);
-	wc->start = NULL;
-	wc->middle = NULL;
-	wc->end	= NULL;
-	wc->i = -1;
-	wc->quote = -1;
-	wc->len = 0;
-	return (wc);
-}
-
-bool	ft_check_wildcard(char *args)
+static bool	ft_check_wildcard(char *args)
 {
 	size_t	i;
 	char quote;
@@ -60,7 +35,7 @@ bool	ft_check_wildcard(char *args)
 	return (false);
 }
 
-size_t	ft_getsize(char *str)
+static size_t	ft_getsize(char *str)
 {
 	size_t	i;
 	char	quote;
@@ -85,7 +60,7 @@ size_t	ft_getsize(char *str)
 	return (i);
 }
 
-t_wc	*ft_wc_template(char *str)
+static t_wc	*ft_wc_template(char *str)
 {
 	t_wc	*wc;
 
@@ -114,47 +89,7 @@ t_wc	*ft_wc_template(char *str)
 	return (wc);
 }
 
-void	ft_print_wc(t_wc *wc)
-{
-	t_list	*current;
-
-	current = wc->middle;
-	ft_putstr_fd("start: ", 1);
-	if (wc->start)
-		ft_putendl_fd(wc->start, 1);
-	else
-		ft_putendl_fd("NULL", 1);
-	while (current)
-	{
-		ft_putstr_fd("middle: ", 1);
-		ft_putendl_fd(current->content, 1);
-		current = current->next;
-	}
-	ft_putstr_fd("end: ", 1);
-	if (wc->end)
-		ft_putendl_fd(wc->end, 1);
-	else
-		ft_putendl_fd("NULL", 1);
-}
-
-void	ft_unquote(t_wc *wc)
-{
-	t_list *current;
-
-	current = wc->middle;
-	if (wc->start && ft_quoted(wc->start))
-		wc->start = ft_strqcpy(wc->start);
-	if (wc->end && ft_quoted(wc->end))
-		wc->end = ft_strqcpy(wc->end);
-	while (current)
-	{
-		if (ft_quoted(current->content))
-			current->content = ft_strqcpy(current->content);
-		current = current->next;
-	}
-}
-
-t_list	*ft_cmd_to_list(t_object *task)
+static t_list	*ft_cmd_to_list(t_object *task)
 {
 	t_list	*lst;
 	t_list	*current;
@@ -166,21 +101,30 @@ t_list	*ft_cmd_to_list(t_object *task)
 	while (task->cmd[++i])
 		ft_lstadd_back(&lst, ft_lstnew((void *)task->cmd[i]));
 	current = lst;
+	i = 0;
 	while (current)
 	{
 		if (ft_check_wildcard((char *)current->content))
 		{
 			wc = ft_wc_template((char *)current->content);
-			//ft_unquote(wc);
+			ft_unquote(wc);
 			ft_print_wc(wc);
+			ft_listdir(wc);
 		}
 		current = current->next;
+		i++;
 	}
 	return (lst);
 }
 
 void	ft_wildcard(t_parse *parse)
 {
-	ft_cmd_to_list(parse->task[0]);
+	size_t	i;
 
+	i = 0;
+	while (parse->task[i])
+	{
+		ft_cmd_to_list(parse->task[i]);
+		i++;
+	}
 }
