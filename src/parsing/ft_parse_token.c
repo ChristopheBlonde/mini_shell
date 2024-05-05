@@ -18,7 +18,6 @@ void	ft_parse_token(t_parse *parse, char *input)
 	size_t	len;
 	char	**arr;
 
-	(void)parse;
 	arr = ft_strtok(input, "|&\n");
 	parse->task = (t_object **)ft_calloc(ft_arrlen((void **)arr) + 1,
 			sizeof(t_object *));
@@ -37,6 +36,18 @@ void	ft_parse_token(t_parse *parse, char *input)
 	}
 	ft_redirection(parse);
 	ft_wildcard(parse);
+	i = 0;
+	while (parse->task[i])
+	{
+		int j = 0;
+		while (parse->task[i]->cmd[j])
+		{
+			printf("task[%zu], cmd[%d], value:%s\n", i,
+			j, parse->task[i]->cmd[j]);
+			j++;
+		}
+		i++;
+	}
 	ft_delete_quotes(parse);
 	ft_free_array((void **)arr);
 } //NORM

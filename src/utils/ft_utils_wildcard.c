@@ -19,6 +19,8 @@ t_wc	*ft_init_wc(void)
 
 void	ft_free_wc(t_wc *wc)
 {
+	if (!wc)
+		return ;
 	if (wc->start)
 	{
 		free(wc->start);
@@ -31,6 +33,7 @@ void	ft_free_wc(t_wc *wc)
 	}
 	if (wc->middle)
 		ft_lstclear(&wc->middle, free);
+	free(wc);
 }
 
 void	ft_unquote(t_wc *wc)
@@ -71,4 +74,25 @@ void	ft_print_wc(t_wc *wc)
 		ft_putendl_fd(wc->end, 1);
 	else
 		ft_putendl_fd("NULL", 1);
+}
+
+void	ft_lstinsert(t_list **lst, t_list *addlst, t_list **ptr)
+{
+	t_list	*current;
+	t_list	*last;
+	t_list	*tmp;
+
+	current = (t_list *)*lst;
+	last = ft_lstlast(addlst);
+	tmp = *ptr;
+	if (!addlst)
+		return ;
+	if (current != tmp)
+		while (current->next != tmp)
+			current = current->next;
+	current->next = addlst;
+	ft_lstadd_back(&addlst, tmp->next);
+	free(tmp->content);
+	free(*ptr);
+	*ptr = last;
 }

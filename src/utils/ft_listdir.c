@@ -12,7 +12,7 @@
 
 #include "utils.h"
 
-char	*ft_get_pwd(void)
+char	*ft_getpwd(void)
 {
 	char	*pwd;
 
@@ -20,7 +20,7 @@ char	*ft_get_pwd(void)
 	return pwd;
 }
 
-bool	ft_match_start(t_wc *wc, char *str, char **file)
+static bool	ft_match_start(t_wc *wc, char *str, char **file)
 {
 	size_t	len;
 
@@ -38,7 +38,7 @@ bool	ft_match_start(t_wc *wc, char *str, char **file)
 	return (true);
 }
 
-bool	ft_match_middle(t_list **c, char **file)
+static bool	ft_match_middle(t_list **c, char **file)
 {
 	size_t	len;
 	t_list	*current;
@@ -59,27 +59,32 @@ bool	ft_match_middle(t_list **c, char **file)
 	return (false);
 }
 
-bool	ft_match_end(t_list **lst, t_wc *wc, char *str, char **file)
+static bool	ft_match_end(t_list **lst, t_wc *wc, char *str, char **file)
 {
+	size_t	len;
+	size_t	file_len;
+
+	file_len = ft_strlen(*file);
 	if (wc->end)
 	{
-		if (ft_strncmp(*file, wc->end, ft_strlen(wc->end)))
-			*file += 1;
-		else
+		len = ft_strlen(wc->end);
+		if (file_len == len && !ft_strncmp(*file, wc->end, len))
 		{
-			ft_lstadd_back(lst, ft_lstnew(str));
+			ft_lstadd_back(lst, ft_lstnew(ft_strdup(str)));
 			return (true);
 		}
+		else
+			*file += 1;
 	}
 	else
 	{
-		ft_lstadd_back(lst, ft_lstnew(str));
+		ft_lstadd_back(lst, ft_lstnew(ft_strdup(str)));
 		return (true);
 	}
 	return (false);
 }
 
-void	ft_match_tempalte(t_wc *wc, t_list **lst, char *str)
+static void	ft_match_tempalte(t_wc *wc, t_list **lst, char *str)
 {
 	t_list	*current;
 	char	*file;
@@ -104,7 +109,7 @@ t_list	*ft_listdir(t_wc *wc)
 	struct dirent	*current;
 	t_list			*lst;
 
-	pwd = ft_get_pwd();
+	pwd = ft_getpwd();
 	dir = opendir(pwd);
 	current = readdir(dir);
 	lst = NULL;
@@ -116,12 +121,14 @@ t_list	*ft_listdir(t_wc *wc)
 	closedir(dir);
 	free(pwd);
 	ft_free_wc(wc);
-	while (lst) //NORM
+/*
+ 	 while (lst) //NORM
 	{
 		ft_putstr_fd("\e[1;36m", 1);
 		ft_putendl_fd(lst->content, 1);
 		ft_putstr_fd("\e[m", 1);
 		lst = lst->next;
 	}
+*/
 	return (lst);
 }

@@ -67,5 +67,6 @@ t_wc	*ft_init_wc(void);
 void	ft_unquote(t_wc *wc);
 void	ft_print_wc(t_wc *wc);
 void	ft_free_wc(t_wc *wc);
+void	ft_lstinsert(t_list **lst, t_list *addlst, t_list **ptr);
 
 #endif

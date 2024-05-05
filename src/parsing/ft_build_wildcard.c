@@ -89,6 +89,34 @@ static t_wc	*ft_wc_template(char *str)
 	return (wc);
 }
 
+void	ft_lstto_arr(t_object **task, t_list *lst, int i)
+{
+	size_t	j;
+	size_t	lst_len;
+	t_list	*tmp;
+	char	**n_arr;
+
+	j = 0;
+	lst_len = ft_lstsize(lst);
+	n_arr = (char **)ft_calloc(lst_len + 1, sizeof(char *));
+	if (!n_arr)
+	{
+		ft_lstclear(&lst, free);
+		return ;
+	}
+	while (lst)
+	{
+		n_arr[j] = lst->content;
+		tmp = lst;
+		lst = lst->next;
+		free(tmp);
+		j++;
+	}
+	free(lst);
+	ft_free_array((void **)task[i]->cmd);
+	task[i]->cmd = n_arr;
+}
+
 static t_list	*ft_cmd_to_list(t_object *task)
 {
 	t_list	*lst;
@@ -99,7 +127,7 @@ static t_list	*ft_cmd_to_list(t_object *task)
 	i = -1;
 	lst = NULL;
 	while (task->cmd[++i])
-		ft_lstadd_back(&lst, ft_lstnew((void *)task->cmd[i]));
+		ft_lstadd_back(&lst, ft_lstnew((void *)ft_strdup(task->cmd[i])));
 	current = lst;
 	i = 0;
 	while (current)
@@ -108,8 +136,7 @@ static t_list	*ft_cmd_to_list(t_object *task)
 		{
 			wc = ft_wc_template((char *)current->content);
 			ft_unquote(wc);
-			ft_print_wc(wc);
-			ft_listdir(wc);
+			ft_lstinsert(&lst, ft_listdir(wc), &current);
 		}
 		current = current->next;
 		i++;
@@ -117,14 +144,47 @@ static t_list	*ft_cmd_to_list(t_object *task)
 	return (lst);
 }
 
+t_list	*ft_suppdouble(t_list *lst)
+{
+	t_list	*n_lst;
+	t_list	*current;
+	t_list	*tmp;
+	bool	present;
+
+	n_lst = NULL;
+	tmp = lst;
+	present = false;
+	while (tmp)
+	{
+		current = n_lst;
+		while (current)
+		{
+			if (!ft_strncmp(tmp->content, current->content,
+				ft_strlen(tmp->content)))
+				present = true;
+			current = current->next;
+		}
+		if (!present)
+			ft_lstadd_back(&n_lst, ft_lstnew(ft_strdup(tmp->content)));
+		present = false;
+		tmp = tmp->next;
+	}
+	ft_lstclear(&lst, free);
+	return (n_lst);
+}
+
 void	ft_wildcard(t_parse *parse)
 {
 	size_t	i;
+	t_list	*lst;
 
+	lst = NULL;
 	i = 0;
 	while (parse->task[i])
 	{
-		ft_cmd_to_list(parse->task[i]);
+		lst = ft_cmd_to_list(parse->task[i]);	
+		lst = ft_suppdouble(lst);
+		ft_lstto_arr(parse->task, lst, i);
 		i++;
 	}
 }
