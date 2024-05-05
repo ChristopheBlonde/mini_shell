@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_utils_wildcard.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/29 14:43:47 by cblonde           #+#    #+#             */
+/*   Updated: 2024/05/02 16:40:15 by cblonde          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -10,7 +21,7 @@ t_wc	*ft_init_wc(void)
 		return (NULL);
 	wc->start = NULL;
 	wc->middle = NULL;
-	wc->end	= NULL;
+	wc->end = NULL;
 	wc->i = -1;
 	wc->quote = -1;
 	wc->len = 0;
@@ -38,7 +49,7 @@ void	ft_free_wc(t_wc *wc)
 
 void	ft_unquote(t_wc *wc)
 {
-	t_list *current;
+	t_list	*current;
 
 	current = wc->middle;
 	if (wc->start && ft_quoted(wc->start))
@@ -51,29 +62,6 @@ void	ft_unquote(t_wc *wc)
 			current->content = ft_strqcpy(current->content);
 		current = current->next;
 	}
-}
-
-void	ft_print_wc(t_wc *wc)
-{
-	t_list	*current;
-
-	current = wc->middle;
-	ft_putstr_fd("start: ", 1);
-	if (wc->start)
-		ft_putendl_fd(wc->start, 1);
-	else
-		ft_putendl_fd("NULL", 1);
-	while (current)
-	{
-		ft_putstr_fd("middle: ", 1);
-		ft_putendl_fd(current->content, 1);
-		current = current->next;
-	}
-	ft_putstr_fd("end: ", 1);
-	if (wc->end)
-		ft_putendl_fd(wc->end, 1);
-	else
-		ft_putendl_fd("NULL", 1);
 }
 
 void	ft_lstinsert(t_list **lst, t_list *addlst, t_list **ptr)

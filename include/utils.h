@@ -65,8 +65,9 @@ void	ft_free_all(t_parse *parse);
 t_list	*ft_listdir(t_wc *wc);
 t_wc	*ft_init_wc(void);
 void	ft_unquote(t_wc *wc);
-void	ft_print_wc(t_wc *wc);
 void	ft_free_wc(t_wc *wc);
 void	ft_lstinsert(t_list **lst, t_list *addlst, t_list **ptr);
+t_list	*ft_suppdouble(t_list *lst);
+void	ft_lstto_arr(t_object **task, t_list *lst, int i);
 
 #endif

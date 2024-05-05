@@ -12,14 +12,6 @@
 
 #include "utils.h"
 
-char	*ft_getpwd(void)
-{
-	char	*pwd;
-
-	pwd = getcwd(NULL, 1024);
-	return pwd;
-}
-
 static bool	ft_match_start(t_wc *wc, char *str, char **file)
 {
 	size_t	len;
@@ -90,11 +82,12 @@ static void	ft_match_tempalte(t_wc *wc, t_list **lst, char *str)
 	t_list	*current;
 	char	*file;
 	int		middle;
+
 	current = wc->middle;
 	file = str;
 	while (*file)
 	{
-		if(!ft_match_start(wc, str, &file))
+		if (!ft_match_start(wc, str, &file))
 			return ;
 		middle = ft_match_middle(&current, &file);
 		if (middle)
@@ -116,7 +109,7 @@ t_list	*ft_listdir(t_wc *wc)
 	struct dirent	*current;
 	t_list			*lst;
 
-	pwd = ft_getpwd();
+	pwd = getcwd(NULL, 1024);
 	dir = opendir(pwd);
 	current = readdir(dir);
 	lst = NULL;
@@ -128,14 +121,5 @@ t_list	*ft_listdir(t_wc *wc)
 	closedir(dir);
 	free(pwd);
 	ft_free_wc(wc);
-/*
- 	 while (lst) //NORM
-	{
-		ft_putstr_fd("\e[1;36m", 1);
-		ft_putendl_fd(lst->content, 1);
-		ft_putstr_fd("\e[m", 1);
-		lst = lst->next;
-	}
-*/
 	return (lst);
 }
