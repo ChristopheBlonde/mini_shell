@@ -160,7 +160,7 @@ t_list	*ft_suppdouble(t_list *lst)
 		while (current)
 		{
 			if (!ft_strncmp(tmp->content, current->content,
-				ft_strlen(tmp->content)))
+				ft_strlen(current->content)))
 				present = true;
 			current = current->next;
 		}

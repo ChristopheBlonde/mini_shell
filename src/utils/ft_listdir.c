@@ -38,7 +38,7 @@ static bool	ft_match_start(t_wc *wc, char *str, char **file)
 	return (true);
 }
 
-static bool	ft_match_middle(t_list **c, char **file)
+static int	ft_match_middle(t_list **c, char **file)
 {
 	size_t	len;
 	t_list	*current;
@@ -51,12 +51,13 @@ static bool	ft_match_middle(t_list **c, char **file)
 		{
 			*file += len;
 			*c = current->next;
+			return (2);
 		}
 		else
 			*file += 1;
-		return (true);
+		return (1);
 	}
-	return (false);
+	return (0);
 }
 
 static bool	ft_match_end(t_list **lst, t_wc *wc, char *str, char **file)
@@ -88,14 +89,20 @@ static void	ft_match_tempalte(t_wc *wc, t_list **lst, char *str)
 {
 	t_list	*current;
 	char	*file;
+	int		middle;
 	current = wc->middle;
 	file = str;
 	while (*file)
 	{
 		if(!ft_match_start(wc, str, &file))
 			return ;
-		if (ft_match_middle(&current, &file))
+		middle = ft_match_middle(&current, &file);
+		if (middle)
+		{
+			if (middle == 2 && !wc->end)
+				ft_lstadd_back(lst, ft_lstnew(ft_strdup(str)));
 			continue ;
+		}
 		if (ft_match_end(lst, wc, str, &file))
 			return ;
 	}
