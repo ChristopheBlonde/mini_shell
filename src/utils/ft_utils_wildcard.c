@@ -84,3 +84,24 @@ void	ft_lstinsert(t_list **lst, t_list *addlst, t_list **ptr)
 	free(*ptr);
 	*ptr = last;
 }
+
+void	ft_lstinsert(t_list **lst, t_list *addlst, t_list **ptr)
+{
+	t_list	*current;
+	t_list	*last;
+	t_list	*tmp;
+
+	current = (t_list *)*lst;
+	last = ft_lstlast(addlst);
+	tmp = *ptr;
+	if (!addlst)
+		return ;
+	if (current != tmp)
+		while (current->next != tmp)
+			current = current->next;
+	current->next = addlst;
+	ft_lstadd_back(&addlst, tmp->next);
+	free(tmp->content);
+	free(*ptr);
+	*ptr = last;
+}
