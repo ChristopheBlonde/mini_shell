@@ -46,7 +46,7 @@ SRC = src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c $(UTILS)ft_arrle
 	  $(SYNTAX)ft_syntax_errors_handler.c $(PARSE)ft_build_wildcard.c
 	  $(PARSE)ft_build_wildcard.c $(UTILS)ft_utils_wildcard.c
 	  $(PARSE)ft_build_wildcard.c $(UTILS)ft_utils_wildcard.c\
-	  $(UTILS)ft_utils_list.c
+	  $(UTILS)ft_utils_list.c $(UTILS)ft_sortwildcard.c
 
 OBJ_DIR = obj/
 
