@@ -52,6 +52,8 @@ int	main(int argc, char *argv[], char *env[])
 //	ft_env(&parse);
 //	ft_putstr_fd("\033[m", 1);
 	str = ft_get_next_line(0);
+	if (ft_syntax_errors_handler(str))
+		return 1;
 	if (!check_quote(str))
 	{
 		ft_putendl_fd("Error: unmatched quote", 2);

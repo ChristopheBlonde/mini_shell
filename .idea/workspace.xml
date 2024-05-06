@@ -17,7 +17,13 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7142c460-430f-4d4a-b7a8-43e4095cadd0" name="Changes" comment="" />
+    <list default="true" id="7142c460-430f-4d4a-b7a8-43e4095cadd0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/minishell.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/minishell.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/utils.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/utils.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.c" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -88,6 +94,7 @@
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -105,7 +112,7 @@
       <window_info id="Pull Requests" show_stripe_button="false" />
       <window_info id="Learn" show_stripe_button="false" />
       <window_info id="DFA" show_stripe_button="false" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13619792" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18411458" />
       <window_info id="Commit" order="1" weight="0.25" />
       <window_info id="Welcome to GitHub Copilot" order="2" weight="0.12890625" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
@@ -120,11 +127,11 @@
       <window_info anchor="bottom" id="Version Control" order="0" />
       <window_info anchor="bottom" id="Problems" order="1" />
       <window_info anchor="bottom" id="Problems View" order="2" weight="0.25254866" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="3" visible="true" weight="0.25254866" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="3" visible="true" weight="0.36376274" />
       <window_info anchor="bottom" id="Services" order="4" />
       <window_info anchor="bottom" id="CMake" order="5" />
       <window_info anchor="bottom" id="Build" order="6" weight="0.3303985" />
-      <window_info anchor="bottom" id="Run" order="6" weight="0.3211307" />
+      <window_info anchor="bottom" id="Run" order="7" weight="0.3211307" />
       <window_info anchor="right" id="Key Promoter X" show_stripe_button="false" />
       <window_info anchor="right" id="make" show_stripe_button="false" side_tool="true" />
       <window_info anchor="right" id="Coverage" show_stripe_button="false" side_tool="true" />
@@ -200,6 +207,7 @@
       <workItem from="1714052876862" duration="226000" />
       <workItem from="1714053583500" duration="164000" />
       <workItem from="1714844329135" duration="717000" />
+      <workItem from="1714984870481" duration="765000" />
     </task>
     <servers />
   </component>
