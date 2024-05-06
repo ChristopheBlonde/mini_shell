@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 08:17:08 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/22 14:25:58 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/06 10:33:08 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,37 @@ void	ft_parse_token(t_parse *parse, char *input)
 		if (!parse->task[i])
 			return ;
 		parse->task[i]->cmd = ft_split_with_quotes(arr[i], ' ');
-		ft_delete_quotes(parse, i);
+		parse->task[i]->infile = -1;
+		parse->task[i]->outfile = -1;
 	}
 	ft_redirection(parse);
+	ft_delete_quotes(parse);
+	ft_free_array((void **)arr);
+} //NORM
+/*
 	if (parse->redirect)
 	{
-		ft_putendl_fd(parse->redirect[0]->file, 1);
-		ft_putendl_fd(parse->redirect[1]->file, 1);
+		i = 0;
+		while (parse->redirect[i])
+		{
+			ft_printf("enum:%d, quoted:%d, name:%s\n",
+			parse->redirect[i]->type,
+			parse->redirect[i]->in_quote, parse->redirect[i]->file);
+			i++;
+		}
 	}
-	ft_free_array((void **)arr);
-}
+	i = 0;
+	while (parse->task[i])
+	{
+		int j = 0;
+		ft_printf("task[%d], input:%d, output:%d\n",
+		i, parse->task[i]->infile, parse->task[i]->outfile);
+		while (parse->task[i]->cmd[j])
+		{
+			ft_printf("task[%d], cmd[%d], value:%s\n", i,
+			j, parse->task[i]->cmd[j]);
+			j++;
+		}
+		i++;
+	}
+*/

@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/23 10:02:23 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/06 10:32:34 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,57 @@ static inline int	ft_usage(void)
 	return (1);
 }
 
-int main()
+
+
+int	main(int argc, char *argv[], char *env[])
 {
-    char *tests[] = {
-        "command1 \"quoted text\"",            // Correct: Chaîne entre guillemets
-        "command2 'quoted text'",             // Correct: Chaîne entre apostrophes
-        "command3 |& command4",               // Incorrect: Caractère |& inattendu
-        "command5 &&& command6",              // Incorrect: Caractère &&& inattendu
-        "command7 (subcommand",               // Incorrect: Parenthèse non fermée
-        "command8 )subcommand",               // Incorrect: Parenthèse fermée non précédée d'une ouverture
-        "command9 && command10 ||command11", // Correct: Combinaison d'opérateurs logiques
-        "command12 \"quoted 'text'\"",        // Correct: Chaîne entre guillemets avec apostrophe à l'intérieur
-        "command13 'quoted \"text\"'",        // Correct: Chaîne entre apostrophes avec guillemets à l'intérieur
-        "command14 (subcommand)",             // Correct: Parenthèses utilisées pour regrouper une sous-commande
-        NULL // Marqueur de fin de liste
-    };
+	t_parse	parse;
+	char *str;
 
-    for (int i = 0; tests[i] != NULL; ++i)
-    {
-        printf("Test #%d: %s\n", i + 1, tests[i]);
-        if (ft_syntax_errors_handler(tests[i]) == 1)
-			printf("  Résultat: Incorrect\n");
-		else
-        	printf("  Résultat: Correct\n");
-    }
-
-    return 0;
+	(void) argv;
+	if (argc > 1)
+	{
+		ft_putstr_fd(argv[1], 2);
+		ft_putstr_fd(" is not option !\n", 2);
+		return (ft_usage());
+	}
+	ft_parse_env(&parse, env);
+	if (!parse.env)
+		return (1);
+//	parse.redirect = (t_file_descriptor **)ft_calloc(2, sizeof(t_file_descriptor *));
+//	if (!parse.redirect)
+//		return (2);
+//	parse.redirect[0] = (t_file_descriptor *)ft_calloc(1, sizeof(t_file_descriptor));
+//	parse.redirect[0]->file = ft_strdup("end\n");
+//	ft_init_term(&parse);
+//	ft_init_attr();
+//	ft_export(&parse, "TEST=good_test");
+//	str = ft_getenv(&parse, "USER");
+//	ft_putendl_fd(str, 1);
+//	if (str)
+//		free(str);
+//	ft_putstr_fd("\033[1;35m", 1);
+//	ft_env(&parse);
+//	ft_putstr_fd("\033[m", 1);
+	str = ft_get_next_line(0);
+	if (!check_quote(str))
+	{
+		ft_putendl_fd("Error: unmatched quote", 2);
+		free(str);
+		ft_get_next_line(-42);
+		ft_free_array((void **)parse.env);
+		return (1);
+	}
+	ft_parse_token(&parse, str);
+	free(str);
+//	ft_objectify(&parse);
+	//print_tokens(&parse);
+	//print_objects(&parse);
+	ft_get_next_line(-42);
+	ft_free_all(&parse);
+//	ft_here_doc(&parse, 0);
+//	free(parse.redirect[0]->file);
+//	free(parse.redirect[0]);
+//	free(parse.redirect);
+	return (0);
 }

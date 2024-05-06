@@ -6,13 +6,13 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:39:59 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/12 13:41:02 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/04/24 16:55:13 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_free_file_descriptor(void *ptr)
+void	ft_free_file_descriptor(void *ptr)
 {
 	t_file_descriptor	*fd;
 

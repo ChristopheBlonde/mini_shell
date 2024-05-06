@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:56:25 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/23 09:44:37 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/06 10:34:05 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,36 +32,51 @@ bool	check_quote(char *str)
 	return (quote == -1);
 }
 
-char	*ft_strqcpy(char *s, char quote)
+char	*ft_strqcpy(char *s)
 {
-	size_t		len;
-	char		*result;
-	size_t		i;
-	size_t		j;
+	char	*result;
+	int		quote;
+	size_t	i;
+	size_t	j;
 
-	len = ft_strlen(s);
-	result = (char *)ft_calloc(len - 1, sizeof(char));
+	result = (char *)ft_calloc(ft_strlen(s) - 1, sizeof(char));
 	if (!result)
 		return (NULL);
-	i = -1;
+	i = 0;
 	j = 0;
-	while (s[++i])
-		if (s[i] != quote)
+	quote = -1;
+	while (s[i])
+	{
+		if (quote == -1 && (s[i] == '\'' || s[i] == '\"'))
+			quote = i++;
+		if (quote == -1 || (quote != (int)i && s[i] != s[quote]))
 			result[j++] = s[i];
+		else
+			quote = -1;
+		if (s[i] != '\0')
+			i++;
+	}
 	free(s);
 	return (result);
 }
 
-void	ft_delete_quotes(t_parse *parse, size_t i)
+void	ft_delete_quotes(t_parse *parse)
 {
 	size_t	j;
+	size_t	i;
 
-	j = -1;
-	while (parse->task[i]->cmd[++j])
-		if (parse->task[i]->cmd[j][0] == '\''
-			|| parse->task[i]->cmd[j][0] == '"')
-			parse->task[i]->cmd[j] = ft_strqcpy(parse->task[i]->cmd[j],
-					parse->task[i]->cmd[j][0]);
+	i = 0;
+	while (parse->task[i])
+	{
+		j = 0;
+		while (parse->task[i]->cmd[j])
+		{
+			if (ft_quoted(parse->task[i]->cmd[j]))
+				parse->task[i]->cmd[j] = ft_strqcpy(parse->task[i]->cmd[j]);
+			j++;
+		}
+		i++;
+	}
 }
 
 void	in_quote(char *input, int *quote, int i)
@@ -73,4 +88,18 @@ void	in_quote(char *input, int *quote, int i)
 		else if (input[i] == input[*quote])
 			*quote = -1;
 	}
+}
+
+bool	ft_quoted(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+			return (true);
+		i++;
+	}
+	return (false);
 }
