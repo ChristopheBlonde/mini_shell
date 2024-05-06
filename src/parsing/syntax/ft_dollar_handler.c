@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:31:12 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/05/05 22:46:51 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/06 08:55:14 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,18 @@
 // 	}
 // }
 
-t_list	*cmd_to_list(t_parse *parse)
-{
-	t_list	*list = NULL;
-	t_task	*current_task = parse->task;
 
-	while (current_task)
+static t_list	*cmd_to_list(t_parse *parse)
+{
+	t_list	*list;
+	int		i;
+
+	list = NULL;
+	while (parse->task[i])
 	{
-		if (current_task->cmd)
-			ft_lstadd_back(&list, ft_lstnew(current_task->cmd));
-		current_task = current_task->next;
+		if (parse->task[i]->cmd)
+			ft_lstadd_back(&list, ft_lstnew(parse->task[i]->cmd));
+		i++;
 	}
 	return (list);
 }
@@ -116,15 +118,12 @@ void	replace_variable(char **content, int start, int end, char *env)
 	*content = new_cmd;
 }
 
-
-
 void    ft_dollar_handler(t_parse *parse)
 {
 	t_list	*list;
 	int		in_quote;
 	int		i;
 	int		j;
-	char	*new_cmd;
 	char	*env;
 	char	*var;
 
