@@ -126,7 +126,7 @@ void	ft_wildcard(t_parse *parse)
 	while (parse->task[i])
 	{
 		lst = ft_cmd_to_list(parse->task[i]);
-		lst = ft_suppdouble(lst);
+		//lst = ft_suppdouble(lst);
 		ft_lstto_arr(parse->task, lst, i);
 		i++;
 	}

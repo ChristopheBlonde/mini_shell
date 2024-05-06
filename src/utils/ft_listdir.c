@@ -85,6 +85,9 @@ static void	ft_match_tempalte(t_wc *wc, t_list **lst, char *str)
 
 	current = wc->middle;
 	file = str;
+	if (((wc->start && ft_strncmp(wc->start, ".", 1)) || !wc->start)
+			&& !ft_strncmp(str, ".", 1))
+			return ;
 	while (*file)
 	{
 		if (!ft_match_start(wc, str, &file))
@@ -121,5 +124,6 @@ t_list	*ft_listdir(t_wc *wc)
 	closedir(dir);
 	free(pwd);
 	ft_free_wc(wc);
+	ft_sortwc(lst);
 	return (lst);
 }
