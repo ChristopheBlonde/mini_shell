@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/06 10:32:34 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/06 10:53:55 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	main(int argc, char *argv[], char *env[])
 //	ft_env(&parse);
 //	ft_putstr_fd("\033[m", 1);
 	str = ft_get_next_line(0);
+	if (ft_syntax_errors_handler(str))
+		return 1;
 	if (!check_quote(str))
 	{
 		ft_putendl_fd("Error: unmatched quote", 2);

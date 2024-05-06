@@ -6,7 +6,7 @@
 #    By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
-#    Updated: 2024/05/06 10:24:21 by tsadouk          ###   ########.fr        #
+#    Updated: 2024/05/06 10:39:46 by tsadouk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,11 @@ SRC = src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c $(UTILS)ft_arrle
 	  $(UTILS)ft_here_doc.c $(UTILS)ft_utils_heredoc.c \
 	  $(PARSE)ft_objectify.c $(PARSE)ft_quote_handler.c $(PARSE)ft_redirect.c\
 	  $(PARSE)ft_utils_quote.c $(UTILS)ft_free_all.c $(UTILS)ft_free_utils.c\
-	  $(PARSE)ft_utils_redirect.c $(PARSE)ft_clean_cmd.c $(UTILS)ft_listdir.c
+	  $(PARSE)ft_utils_redirect.c $(PARSE)ft_clean_cmd.c $(UTILS)ft_listdir.c\
+	  $(SYNTAX)ft_and_operator_handler.c $(SYNTAX)ft_or_operator_handler.c\
+	  $(SYNTAX)ft_parenthesis_handler.c $(SYNTAX)ft_prompt_errors.c\
+	  $(SYNTAX)ft_syntax_errors_handler.c
+	  
 
 OBJ_DIR = obj/
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
@@ -45,7 +49,7 @@ OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 all : $(NAME)
 
 $(LIBFT) :
-	make -C lib --no-print-directory
+	make bonus -C lib --no-print-directory
 
 $(OBJ_DIR)%.o : %.c
 	mkdir -p $(@D)
