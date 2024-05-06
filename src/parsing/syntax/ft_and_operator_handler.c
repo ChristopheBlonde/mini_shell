@@ -6,15 +6,16 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 14:28:07 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/04/23 10:00:57 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/06 10:09:48 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"minishell.h"
+#include "minishell.h"
 
-void skip_spaces(char *input, int *i)
+void	skip_spaces(char *input, int *i)
 {
-	while (input[*i] && (input[*i] == ' ' || (input[*i] >= 9 && input[*i] <= 13)))
+	while (input[*i] && (input[*i] == ' '
+			|| (input[*i] >= 9 && input[*i] <= 13)))
 		(*i)++;
 }
 
