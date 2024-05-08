@@ -83,11 +83,9 @@ void				ft_redirect_task(t_object *task, char *input,
 char				**ft_reduce_cmd(t_object *task);
 t_file_operation	ft_redirect_type(char *file);
 void				ft_wildcard(t_parse *parse);
-
-/*---------SYNTAX-------------*/
-void				ft_syntax_errors_handler(char *input);
-void				ft_check_and_operator(char *input);
-void				ft_check_parenthesis(char *input);
+int					ft_syntax_errors_handler(char *input);
+int					ft_check_and_operator(char *input);
+int					ft_check_parenthesis(char *input);
 int					ft_check_or_operator(char *input);
 
 #endif

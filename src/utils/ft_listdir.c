@@ -28,7 +28,7 @@ bool	ft_check_wildcard(char *args)
 			else
 				quote = args[i];
 		}
-		else if (args[i] == '*' && !in_quote)
+		else if (args[i] == '*' && !quote)
 			return (true);
 		i++;
 	}
