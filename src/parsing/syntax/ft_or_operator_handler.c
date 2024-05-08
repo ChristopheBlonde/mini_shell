@@ -12,14 +12,14 @@
 
 #include "minishell.h"
 
-static inline int	check_after_spaces_without_pipe(char *input, int i)
+/*static inline int	check_after_spaces_without_pipe(char *input, int i)
 {
 	skip_spaces(input, &i);
 	if (input[i] == '&' || input[i] == ';' \
 		|| input[i] == '<' || input[i] == '>' || input[i] == '\n')
 		return (1);
 	return (0);
-}
+}*/
 
 static int	check_after_spaces(char *input, int i)
 {

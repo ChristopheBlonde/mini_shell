@@ -22,6 +22,7 @@ t_wc	*ft_init_wc(void)
 	wc->start = NULL;
 	wc->middle = NULL;
 	wc->end = NULL;
+	wc->str = NULL;
 	wc->i = -1;
 	wc->quote = -1;
 	wc->len = 0;

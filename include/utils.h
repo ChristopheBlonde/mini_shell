@@ -41,6 +41,7 @@ typedef struct s_wc
 {
 	char	*start;
 	char	*end;
+	char	*str;
 	t_list	*middle;
 	int		i;
 	int		quote;

@@ -56,8 +56,6 @@ char	**ft_split_with_quotes(char *str, char delimiter)
 	while (str[++q.i])
 	{
 		q.in_quotes = is_in_quote(str, q.i, q.in_quotes);
-		if (q.in_quotes == -1) 
-			skip_spaces(str, &q.i);
 		if ((str[q.i] == delimiter || str[q.i] == '\n')
 			&& q.in_quotes == -1 && (int)q.w_start != q.i)
 		{

@@ -53,7 +53,7 @@ static bool	ft_match_start(t_wc *wc, char *str, char **file)
 	return (true);
 }
 
-static int	ft_match_middle(t_list **c, char **file)
+static bool	ft_match_middle(t_list **c, char **file, t_wc *wc, t_list **lst)
 {
 	size_t	len;
 	t_list	*current;
@@ -66,13 +66,19 @@ static int	ft_match_middle(t_list **c, char **file)
 		{
 			*file += len;
 			*c = current->next;
-			return (2);
+			if (*c == NULL && !wc->end && !*file)
+			{
+				ft_putstr_fd("dans middle: ", 1);
+				ft_putendl_fd(wc->str, 1);
+				ft_lstadd_back(lst, ft_lstnew(ft_strdup(wc->str)));
+				return (true);
+			}
 		}
 		else
 			*file += 1;
-		return (1);
+		return (true);
 	}
-	return (0);
+	return (false);
 }
 
 static bool	ft_match_end(t_list **lst, t_wc *wc, char *str, char **file)
@@ -94,6 +100,9 @@ static bool	ft_match_end(t_list **lst, t_wc *wc, char *str, char **file)
 	}
 	else
 	{
+	//	ft_putstr_fd("end str: ", 1);
+	//	ft_putendl_fd(*file + 1, 1);
+	//	if (*(*file + 1) != '\0')
 		ft_lstadd_back(lst, ft_lstnew(ft_strdup(str)));
 		return (true);
 	}
@@ -104,24 +113,19 @@ static void	ft_match_tempalte(t_wc *wc, t_list **lst, char *str)
 {
 	t_list	*current;
 	char	*file;
-	int		middle;
 
+	wc->str = str;
 	current = wc->middle;
 	file = str;
 	if (((wc->start && ft_strncmp(wc->start, ".", 1)) || !wc->start)
-			&& !ft_strncmp(str, ".", 1))
-			return ;
+		&& !ft_strncmp(str, ".", 1))
+		return ;
 	while (*file)
 	{
 		if (!ft_match_start(wc, str, &file))
 			return ;
-		middle = ft_match_middle(&current, &file);
-		if (middle)
-		{
-			if (middle == 2 && !wc->end)
-				ft_lstadd_back(lst, ft_lstnew(ft_strdup(str)));
+		if (ft_match_middle(&current, &file, wc, lst))
 			continue ;
-		}
 		if (ft_match_end(lst, wc, str, &file))
 			return ;
 	}
@@ -146,7 +150,7 @@ t_list	*ft_listdir(t_wc *wc)
 	}
 	closedir(dir);
 	free(pwd);
+	ft_sortwc(&lst);
 	ft_free_wc(wc);
-	ft_sortwc(lst);
 	return (lst);
 }
