@@ -12,6 +12,15 @@
 
 #include "minishell.h"
 
+static int	check_after_spaces_without_pipe(char *input, int i)
+{
+	skip_spaces(input, &i);
+	if (input[i] == '&' || input[i] == ';' \
+			|| input[i] == '<' || input[i] == '>' || input[i] == '\n')
+		return (1);
+	return (0);
+}
+
 static int	check_after_spaces(char *input, int i)
 {
 	skip_spaces(input, &i);
@@ -54,7 +63,7 @@ static int	ft_or_operator_handler(char *input)
 		check = handle_or_operator(input, i, in_quotes);
 		if (check == 1 && check_after_spaces(input, i))
 			return (1);
-		else if (check == 2 && check_after_spaces(input, i))
+		else if (check == 2 && check_after_spaces_without_pipe(input, i))
 			return (1);
 	}
 	return (0);
