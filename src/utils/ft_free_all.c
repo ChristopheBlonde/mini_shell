@@ -36,6 +36,21 @@ void	ft_free_env(t_parse *parse)
 	ft_free_array((void **)parse->env);
 }
 
+void	ft_free_parsing(t_parse *parse)
+{
+
+	if (parse->task)
+	{
+		ft_free_task(parse);
+		parse->task = NULL;
+	}
+	if (parse->redirect)
+	{
+		ft_free_redirect(parse);
+		parse->redirect = NULL;
+	}
+}
+
 void	ft_free_all(t_parse *parse)
 {
 	if (parse->task)

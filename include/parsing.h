@@ -65,7 +65,6 @@ typedef struct s_object
 	t_priority	priority;
 }	t_object;
 
-int					ft_syntax_errors_handler(char *input);
 int					ft_check_and_operator(char *input);
 int					ft_check_parenthesis(char *input);
 int					ft_check_or_operator(char *input);
@@ -91,5 +90,6 @@ int					ft_syntax_errors_handler(char *input);
 int					ft_check_and_operator(char *input);
 int					ft_check_parenthesis(char *input);
 int					ft_check_or_operator(char *input);
+void				ft_free_parsing(t_parse *parse);
 
 #endif

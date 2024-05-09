@@ -17,5 +17,10 @@ int	ft_syntax_errors_handler(char *input)
 	if (ft_check_and_operator(input) || ft_check_or_operator(input)
 		||ft_check_parenthesis(input))
 		return (1);
+	if (!check_quote(input))
+	{
+		ft_putendl_fd("Error: unmatched quote", 2);
+		return (1);
+	}
 	return (0);
 }

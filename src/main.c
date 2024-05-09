@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
 
 static inline int	ft_usage(void)
 {
@@ -19,14 +18,11 @@ static inline int	ft_usage(void)
 	return (1);
 }
 
-
-
 int	main(int argc, char *argv[], char *env[])
 {
 	t_parse	parse;
 	char *str;
 
-	(void) argv;
 	if (argc > 1)
 	{
 		ft_putstr_fd(argv[1], 2);
@@ -36,44 +32,30 @@ int	main(int argc, char *argv[], char *env[])
 	ft_parse_env(&parse, env);
 	if (!parse.env)
 		return (1);
-//	parse.redirect = (t_file_descriptor **)ft_calloc(2, sizeof(t_file_descriptor *));
-//	if (!parse.redirect)
-//		return (2);
-//	parse.redirect[0] = (t_file_descriptor *)ft_calloc(1, sizeof(t_file_descriptor));
-//	parse.redirect[0]->file = ft_strdup("end\n");
-//	ft_init_term(&parse);
-//	ft_init_attr();
-//	ft_export(&parse, "TEST=good_test");
-//	str = ft_getenv(&parse, "USER");
-//	ft_putendl_fd(str, 1);
-//	if (str)
-//		free(str);
-//	ft_putstr_fd("\033[1;35m", 1);
-//	ft_env(&parse);
-//	ft_putstr_fd("\033[m", 1);
-	str = ft_get_next_line(0);
-	if (ft_syntax_errors_handler(str))
-		return 1;
-	if (!check_quote(str))
+	while (true)
 	{
-		ft_putendl_fd("Error: unmatched quote", 2);
+		str = readline("minishell>");
+		str = ft_strfjoin(str, "\n", 1);
+		if (!str)
+		{
+			ft_free_all(&parse);
+			return (1);
+		}
+		if (ft_syntax_errors_handler(str))
+		{
+			ft_free_parsing(&parse);
+			free(str);
+			continue ;
+		}
+		ft_parse_token(&parse, str);
+		ft_free_parsing(&parse);
+		if (!ft_strncmp(str, "exit", 4))
+		{
+			free(str);
+			break ;
+		}
 		free(str);
-		ft_get_next_line(-42);
-		ft_free_array((void **)parse.env);
-		return (1);
 	}
-	ft_syntax_errors_handler(str);
-	ft_parse_token(&parse, str);
-	free(str);
-//	ft_objectify(&parse);
-	//print_tokens(&parse);
-	//print_objects(&parse);
-	ft_get_next_line(-42);
 	ft_free_all(&parse);
-//	ft_here_doc(&parse, 0);
-//	free(parse.redirect[0]->file);
-//	free(parse.redirect[0]);
-//	free(parse.redirect);
-	ft_free_array((void **)parse.env);
 	return (0);
 }
