@@ -12,29 +12,6 @@
 
 #include "utils.h"
 
-bool	ft_check_wildcard(char *args)
-{
-	size_t	i;
-	char quote;
-
-	i = 0;
-	quote = '\0';
-	while (args[i])
-	{
-		if (args[i] == '\'' || args[i] == '"')
-		{
-			if (quote == args[i])
-				quote = '\0';
-			else
-				quote = args[i];
-		}
-		else if (args[i] == '*' && !quote)
-			return (true);
-		i++;
-	}
-	return (false);
-}
-
 static bool	ft_match_start(t_wc *wc, char *str, char **file)
 {
 	size_t	len;
@@ -100,9 +77,6 @@ static bool	ft_match_end(t_list **lst, t_wc *wc, char *str, char **file)
 	}
 	else
 	{
-	//	ft_putstr_fd("end str: ", 1);
-	//	ft_putendl_fd(*file + 1, 1);
-	//	if (*(*file + 1) != '\0')
 		ft_lstadd_back(lst, ft_lstnew(ft_strdup(str)));
 		return (true);
 	}

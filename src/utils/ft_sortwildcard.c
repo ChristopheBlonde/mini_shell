@@ -12,83 +12,90 @@
 
 #include "minishell.h"
 
-t_list	*ft_lstget_prev(t_list **lst, t_list *target)
+static char	**ft_dupentries(char *s1, char *s2)
 {
-	t_list	*current;
+	char	**arr;
 
-	current = NULL;
-	if (!lst || !target)
-		return (current);
-	current = (t_list *)*lst;
-	if (current == target)
-		return (target);
-	while (current->next != target)
-		current = current->next;
-	return (current);
-}
-
-bool	ft_alpha_str(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
+	if (!s2 || !s2)
+		return (NULL);
+	arr = (char **)ft_calloc(3, sizeof(char *));
+	if (!arr)
+		return (NULL);
+	arr[0] = ft_strdup(s1);
+	if (!arr[0])
 	{
-		if (ft_isalpha(str[i]))
-			return (true);
-		i++;
+		free(arr);
+		return (NULL);
 	}
-	return (false);
+	arr[1] = ft_strdup(s2);
+	if (!arr[1])
+	{
+		ft_free_array((void **)arr);
+		return (NULL);
+	}
+	return (arr);
 }
 
-bool	ft_isfirst(char *s1, char *s2)
+static void	ft_arrtolower(char **arr)
 {
 	size_t	i;
 	size_t	j;
-	int		k;
 
-	if (!s1 || !s2)
+	i = 0;
+	while (arr[i])
+	{
+		j = 0;
+		while (arr[i][j])
+		{
+			arr[i][j] = ft_tolower(arr[i][j]);
+			j++;
+		}
+		i++;
+	}
+}
+
+static bool	ft_isfirst(char *s1, char *s2)
+{
+	size_t	i;
+	size_t	j;
+	char	**strs;
+	bool	result;
+
+	strs = ft_dupentries(s1, s2);
+	if (!strs)
 		return (true);
 	i = 0;
 	j = 0;
-	while (s1 && !ft_isalpha(s1[i]))
+	while (strs[0][i] && !ft_isalpha(strs[0][i]))
 		i++;
-	while (s2 && !ft_isalpha(s2[j]))
+	while (strs[1][j] && !ft_isalpha(strs[1][j]))
 		j++;
-	k = i - 1;
-	while (s1 && s1[++k])
-		s1[k] = ft_tolower(s1[k]);
-	k = j - 1;
-	while (s2 && s2[++k])
-		s2[k] = ft_tolower(s2[k]);
-	while (s1 && s2 && s1[i] == s2[j])
-	{
-		i++;
-		j++;
-	}
-	if (s1[i] > s2[j])
-		return (true);
-	return (false);
+	ft_arrtolower(strs);
+	while (strs[0] && strs[1] && strs[0][i] == strs[1][j] && i++ && j++)
+		;
+	result = strs[0][i] > strs[1][j];
+	ft_free_array((void **)strs);
+	return (result);
+}
+
+static void	ft_lstswap(t_list *lst)
+{
+	void	*tmp;
+
+	tmp = NULL;
+	tmp = lst->content;
+	lst->content = lst->next->content;
+	lst->next->content = tmp;
 }
 
 void	ft_sortwc(t_list **lst)
 {
 	char	*s1;
 	char	*s2;
-	void	*tmp;
 	t_list	*current;
 	int		i;
 
-	tmp = NULL;
 	i = -1;
-	t_list *curr = *lst;
-	while (curr)
-	{
-		ft_putendl_fd("------------", 1);
-		ft_putendl_fd(curr->content, 1);
-		ft_putendl_fd("____________", 1);
-		curr = curr->next;
-	}
 	while (++i < ft_lstsize(*lst))
 	{
 		current = *lst;
@@ -100,20 +107,8 @@ void	ft_sortwc(t_list **lst)
 			else
 				s2 = NULL;
 			if (s2 && ft_isfirst(s1, s2))
-			{
-				tmp = current->content;
-				current->content = current->next->content;
-				current->next->content = tmp;
-			}
+				ft_lstswap(current);
 			current = current->next;
 		}
-	}
-	curr = *lst;
-	while (curr)
-	{
-		ft_putendl_fd("------------", 1);
-		ft_putendl_fd(curr->content, 1);
-		ft_putendl_fd("------------", 1);
-		curr = curr->next;
 	}
 }
