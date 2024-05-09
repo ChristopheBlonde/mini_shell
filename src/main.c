@@ -49,6 +49,8 @@ int	main(int argc, char *argv[], char *env[])
 		}
 		ft_parse_token(&parse, str);
 		ft_free_parsing(&parse);
+		if (!ft_strncmp(str, "export", 6))
+			ft_putexport(parse.env);
 		if (!ft_strncmp(str, "exit", 4))
 		{
 			free(str);

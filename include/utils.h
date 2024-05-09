@@ -73,5 +73,6 @@ void	ft_sortwc(t_list **lst);
 void	ft_delete_quotes(t_parse *parse);
 void	in_quote(char *input, int *quote, int i);
 void	skip_spaces(char *input, int *i);
+char	**ft_strsort_arr(char **arr);
 
 #endif

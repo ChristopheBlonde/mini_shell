@@ -52,3 +52,21 @@ void	ft_export(t_parse *parse, char *new)
 	ft_free_array((void **)parse->env);
 	parse->env = arr;
 }
+
+void	ft_putexport(char **env)
+{
+	char	**arr;
+	size_t	i;
+
+	i = 0;
+	arr = ft_strsort_arr(env);
+	if (!arr)
+		return ;
+	while (arr[i])
+	{
+		ft_putstr_fd("declare -x ", 1);
+		ft_putendl_fd(arr[i], 1);
+		i++;
+	}
+	ft_free_array((void **)arr);
+}

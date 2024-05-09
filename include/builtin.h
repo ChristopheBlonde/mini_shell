@@ -20,6 +20,7 @@ char	ft_echo(char *str);
 
 /*			EXPORT			*/
 void	ft_export(t_parse *parse, char *new);
+void	ft_putexport(char **env);
 
 /*			UNSET			*/
 void	ft_unset(t_parse *parse, char *var);
