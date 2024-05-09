@@ -6,14 +6,14 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/29 15:08:38 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/06 10:53:55 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdio.h>
 
-static int	ft_usage(void)
+static inline int	ft_usage(void)
 {
 	ft_putendl_fd("\033[1;34mUsage: [ minishell ]\033[m", 2);
 	return (1);

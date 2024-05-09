@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/24 16:50:44 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/06 10:25:52 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,10 @@ typedef struct s_object
 	t_priority	priority;
 }	t_object;
 
+int					ft_syntax_errors_handler(char *input);
+int					ft_check_and_operator(char *input);
+int					ft_check_parenthesis(char *input);
+int					ft_check_or_operator(char *input);
 void				ft_parse_env(t_parse *parse, char *env[]);
 void				ft_parse_token(t_parse *parse, char *input);
 void				print_tokens(t_parse *parse);
