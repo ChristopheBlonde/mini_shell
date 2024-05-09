@@ -34,7 +34,7 @@ int	main(int argc, char *argv[], char *env[])
 		return (1);
 	while (true)
 	{
-		str = readline("minishell>");
+		str = readline("minishell> ");
 		str = ft_strfjoin(str, "\n", 1);
 		if (!str)
 		{

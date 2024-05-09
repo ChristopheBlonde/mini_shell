@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:43:25 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/04/24 10:34:46 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/09 18:33:23 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ void	ft_env(t_parse *parse);
 /*			UTILS			*/
 int		ft_get_index_env(char **arr, char *var, int arr_len);
 char	*ft_getenv(t_parse *parse, char *var);
+void	ft_builtin(t_parse *parse);
 
 #endif

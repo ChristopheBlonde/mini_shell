@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/06 10:25:52 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/09 17:59:36 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,25 @@ typedef enum e_priority
 	HIGH,
 }	t_priority;
 
+typedef enum e_builtin
+{
+	NO_BUILTIN,
+	ECHO,
+	CD,
+	PWD,
+	EXPORT,
+	UNSET,
+	ENV,
+	EXIT,
+}	t_builtin;
+
 typedef struct s_object
 {
 	char		**cmd;
 	int			infile;
 	int			outfile;
 	t_link		link;
+	t_builtin	builtin;
 	t_priority	priority;
 }	t_object;
 

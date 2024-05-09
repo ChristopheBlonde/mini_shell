@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 08:17:08 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/06 10:33:08 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/09 18:06:13 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	ft_parse_token(t_parse *parse, char *input)
 		parse->task[i]->infile = -1;
 		parse->task[i]->outfile = -1;
 	}
+	ft_builtin(parse);
 	ft_redirection(parse);
 	ft_wildcard(parse);
 	i = 0;

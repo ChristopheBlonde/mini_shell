@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:43:47 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/02 16:40:15 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/09 18:52:11 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	**ft_strarrcpy(char **arr)
 
 static void	ft_swap_strarr(char **arr, int i, int j)
 {
-	char *tmp;
+	char	*tmp;
 
 	tmp = arr[i];
 	arr[i] = arr[j];
@@ -52,7 +52,7 @@ char	**ft_strsort_arr(char **arr)
 	int		j;
 	int		k;
 	size_t	len;
-	
+
 	i = -1;
 	n_arr = ft_strarrcpy(arr);
 	len = ft_arrlen((void **)n_arr);
@@ -67,7 +67,7 @@ char	**ft_strsort_arr(char **arr)
 			while (n_arr[i][k] == n_arr[j][k])
 				k++;
 			if (n_arr[i][k] > n_arr[j][k])
-				ft_swap_strarr(arr, i, j);
+				ft_swap_strarr(n_arr, i, j);
 		}
 	}
 	return (n_arr);
