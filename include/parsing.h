@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/09 17:59:36 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/10 07:55:47 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,6 @@ int					ft_check_and_operator(char *input);
 int					ft_check_parenthesis(char *input);
 int					ft_check_or_operator(char *input);
 void				ft_free_parsing(t_parse *parse);
+void				ft_init_parse(t_parse *parse);
 
 #endif

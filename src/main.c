@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/06 10:53:55 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/10 07:54:35 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	main(int argc, char *argv[], char *env[])
 		ft_putstr_fd(" is not option !\n", 2);
 		return (ft_usage());
 	}
+	ft_init_parse(&parse);
 	ft_parse_env(&parse, env);
 	if (!parse.env)
 		return (1);

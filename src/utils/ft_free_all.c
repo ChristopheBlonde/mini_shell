@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:41:17 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/09 18:53:04 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/10 07:43:44 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,23 @@ void	ft_free_task(t_parse *parse)
 	i = 0;
 	while (parse->task[i])
 	{
-		ft_free_array((void **)parse->task[i]->cmd);
-		free(parse->task[i]);
+		if (parse->task[i] && parse->task[i]->cmd)
+		{
+			ft_free_array((void **)parse->task[i]->cmd);
+			parse->task[i]->cmd = NULL;
+		}
+		if (parse->task[i])
+		{
+			free(parse->task[i]);
+			parse->task[i] = NULL;
+		}
 		i++;
 	}
-	free(parse->task);
+	if (parse->task)
+	{
+		free(parse->task);
+		parse->task = NULL;
+	}
 }
 
 void	ft_free_env(t_parse *parse)

@@ -6,11 +6,19 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:55:51 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/04/11 09:24:03 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/10 07:57:40 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_init_parse(t_parse *parse)
+{
+	parse->task = NULL;
+	parse->env = NULL;
+	parse->redirect = NULL;
+	parse->history = NULL;
+}
 
 void	ft_init_data(t_parse *parse)
 {

@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:45:50 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/05/06 10:15:30 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/10 07:27:08 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 static int	check_after_spaces_without_pipe(char *input, int i)
 {
 	skip_spaces(input, &i);
-	if (input[i] == '&' || input[i] == ';' \
-			|| input[i] == '<' || input[i] == '>' || input[i] == '\n')
+	if (input[i] == '&' || input[i] == ';'
+			|| input[i] == '<' || input[i] == '>' || input[i] == '\n'
+			|| input[i] == '\0')
 		return (1);
 	return (0);
 }
@@ -24,8 +25,9 @@ static int	check_after_spaces_without_pipe(char *input, int i)
 static int	check_after_spaces(char *input, int i)
 {
 	skip_spaces(input, &i);
-	if (input[i] == '&' || input[i] == '|' || input[i] == ';' \
-		|| input[i] == '<' || input[i] == '>' || input[i] == '\n')
+	if (input[i] == '&' || input[i] == '|' || input[i] == ';'
+		|| input[i] == '<' || input[i] == '>' || input[i] == '\n'
+		|| input[i] == '\0')
 		return (1);
 	return (0);
 }
@@ -37,7 +39,7 @@ static int	handle_or_operator(char *input, int i, int in_quotes)
 	check = 0;
 	if (input[i] == '|' && in_quotes == -1)
 	{
-		if (input[i + 1] == '\n')
+		if (input[i + 1] == '\n' || input[i + 1] == '\0')
 			return (1);
 		if (input[i + 1] == '|')
 			check = 1;
@@ -61,9 +63,9 @@ static int	ft_or_operator_handler(char *input)
 		check = 0;
 		in_quote(input, &in_quotes, i);
 		check = handle_or_operator(input, i, in_quotes);
-		if (check == 1 && check_after_spaces(input, i))
+		if (check == 1 && check_after_spaces_without_pipe(input, i + 1))
 			return (1);
-		else if (check == 2 && check_after_spaces_without_pipe(input, i))
+		else if (check == 2 && check_after_spaces(input, i + 1))
 			return (1);
 	}
 	return (0);
