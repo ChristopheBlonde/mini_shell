@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:43:25 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/05/16 16:31:24 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/17 12:02:56 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@
 char	ft_echo(char *str);
 
 /*			EXPORT			*/
-void	ft_export(t_parse *parse, char *new);
+void	ft_exec_export(t_parse *parse, t_object *task);
+void	ft_excmd_result(t_parse *parse, int n);
+bool	ft_replace_env(t_parse *parse, char *new);
 void	ft_error_env(char *env);
 void	ft_putexport(char **env);
-void	ft_exec_export(t_parse *parse, t_object *task);
 char	*ft_getkey_env(char *env);
 
 /*			UNSET			*/
@@ -30,6 +31,9 @@ void	ft_unset(t_parse *parse, char *var);
 
 /*			ENV				*/
 void	ft_env(t_parse *parse);
+
+/* 			PWD 			*/
+void	ft_pwd(t_parse *parse);
 
 /*			UTILS			*/
 int		ft_get_index_env(char **arr, char *var, int arr_len);

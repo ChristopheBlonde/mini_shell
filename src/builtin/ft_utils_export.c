@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 13:25:34 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/16 16:57:18 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/17 12:13:04 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,17 @@ char	*ft_getkey_env(char *env)
 void	ft_putexport(char **env)
 {
 	char	**arr;
-	size_t	i;
+	int		i;
 	size_t	j;
 
-	i = 0;
+	i = -1;
 	arr = ft_strsort_arr(env);
 	if (!arr)
 		return ;
-	while (arr[i])
+	while (arr[++i])
 	{
+		if (arr[i][0] == '?')
+			continue ;
 		j = 0;
 		while (arr[i][j] && arr[i][j] != '=')
 			j++;
@@ -56,7 +58,34 @@ void	ft_putexport(char **env)
 		if (arr[i][j] == '=')
 			ft_putstr_fd("\"", 1);
 		ft_putstr_fd("\n", 1);
-		i++;
 	}
 	ft_free_array((void **)arr);
+}
+
+bool	ft_replace_env(t_parse *parse, char *new)
+{
+	char	*name;
+	size_t	i;
+	size_t	len;
+
+	i = 0;
+	name = ft_getkey_env(new);
+	if (!name)
+		return (true);
+	len = ft_strlen(name);
+	while (parse->env[i])
+	{
+		if (!ft_strncmp(parse->env[i], name, len))
+		{
+			free(parse->env[i]);
+			parse->env[i] = ft_strdup(new);
+			if (!parse->env[i])
+				ft_putendl_fd("Error export", 2);
+			free(name);
+			return (true);
+		}
+		i++;
+	}
+	free(name);
+	return (false);
 }

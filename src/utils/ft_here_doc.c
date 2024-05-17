@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 10:13:03 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/24 10:39:12 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/17 12:08:35 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	ft_add_value(t_parse *parse, char **var, char **str)
 		return ;
 }
 
-static char	*ft_replace_env(t_parse *parse, char *line, char *str, char *var)
+static char	*ft_replace_var(t_parse *parse, char *line, char *str, char *var)
 {
 	size_t	i;
 	size_t	j;
@@ -63,7 +63,7 @@ static void	ft_write_file(t_parse *parse, char *line, int index, char *tmp)
 	if (parse->redirect[index]->file[0] != '\''
 		&& parse->redirect[index]->file[0] != '"')
 	{
-		str = ft_replace_env(parse, line, str, var);
+		str = ft_replace_var(parse, line, str, var);
 		ft_putstr_fd(str, parse->redirect[index]->fd);
 		free(str);
 	}
