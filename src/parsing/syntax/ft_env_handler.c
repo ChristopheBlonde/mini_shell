@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:25:46 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/05/21 20:02:42 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/21 20:13:47 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,10 @@ static t_list	*ft_cmd_to_list(t_object *task, t_parse *parse)
 	current = lst;
 	while (current)
 	{
-		if (((char*)current->content)[0] == '\'')
-		{
+		if (((char *)current->content)[0] == '\'')
 			current = current->next;
+		if (((char *)current->content)[0] == '\'')
 			continue ;
-		}
 		if (((char *)current->content)[0] == '"')
 			current->content = ft_strqcpy((char *)current->content);
 		if (check_if_dollar(current->content))
@@ -91,7 +90,7 @@ static t_list	*ft_cmd_to_list(t_object *task, t_parse *parse)
 		if (!check_if_dollar(current->content))
 			current = current->next;
 		else
-			continue;
+			continue ;
 	}
 	return (lst);
 }

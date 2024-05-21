@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/21 11:17:04 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/21 20:24:22 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char *argv[], char *env[])
 {
 	t_parse	parse;
 	char *str;
+	char *history_str;
 
 	if (argc > 1)
 	{
@@ -37,11 +38,14 @@ int	main(int argc, char *argv[], char *env[])
 	{
 		str = readline("minishell> ");
 		str = ft_strfjoin(str, "\n", 1);
+		history_str = ft_strdup(str);
+		history_str[strlen(str) - 1] = '\0';
 		if (!str)
 		{
 			ft_free_all(&parse);
 			return (1);
 		}
+		add_history(history_str);
 		if (ft_syntax_errors_handler(str))
 		{
 			ft_free_parsing(&parse);

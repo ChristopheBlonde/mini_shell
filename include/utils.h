@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/05/21 19:22:53 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/21 20:15:27 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_env_handler
 	int		var_end_size;
 }	t_env_handler;
 
-typedef	struct s_stuff
+typedef struct s_stuff
 {
 	int		z;
 	int		k;
@@ -81,9 +81,9 @@ void	ft_free_all(t_parse *parse);
 void	skip_spaces(char *input, int *i);
 bool	check_if_dollar(char *str);
 void	add_env_to_list(t_list **new_list, t_list *current,
-	t_stuff *stuff, t_env_handler env_handler);
+			t_stuff	*stuff, t_env_handler env_handler);
 void	add_env_to_new_list(t_list **new_list, t_list *current,
-	t_stuff *stuff, t_env_handler *e);
+			t_stuff	*stuff, t_env_handler *e);
 void	ft_env_handler(t_parse *parse);
 void	ft_lstinsert(t_list **lst, t_list *addlst, t_list **ptr);
 void	ft_lstto_arr(t_object **task, t_list *lst, int i);

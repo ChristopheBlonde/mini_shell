@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_and_operator_handler.c                          :+:      :+:    :+:   */
+/*   ft_temp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 14:28:07 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/05/09 19:34:22 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/21 20:16:25 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	add_env_to_list(t_list **new_list, t_list *current,
 						env_handler.var_end_size), 2)));
 		return ;
 	}
-
-	ft_lstadd_back(new_list, ft_lstnew(ft_strdup(env_handler.new_env[stuff->k])));
+	ft_lstadd_back(new_list, ft_lstnew
+		(ft_strdup(env_handler.new_env[stuff->k])));
 }
 
 void	add_env_to_new_list(t_list **new_list, t_list *current,
@@ -58,7 +58,7 @@ void	add_env_to_new_list(t_list **new_list, t_list *current,
 
 	temp = NULL;
 	temp = ft_strfjoin(ft_substr((char *)current->content,
-					0, stuff->z), e->new_env[0], 1);
+				0, stuff->z), e->new_env[0], 1);
 	temp = ft_strfjoin(temp, ft_substr((char *)current->content,
 				ft_strlen(stuff->var) + 1 + stuff->z, e->var_end_size), 3);
 	ft_lstadd_back(new_list, ft_lstnew(temp));
