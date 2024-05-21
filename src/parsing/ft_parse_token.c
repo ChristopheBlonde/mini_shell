@@ -36,6 +36,7 @@ void	ft_parse_token(t_parse *parse, char *input)
 	}
 	ft_builtin(parse);
 	ft_redirection(parse);
+	ft_env_handler(parse);
 	ft_wildcard(parse);
 	i = 0;
 	while (parse->task[i])
@@ -43,8 +44,10 @@ void	ft_parse_token(t_parse *parse, char *input)
 		int j = 0;
 		while (parse->task[i]->cmd[j])
 		{
-			printf("task[%zu], cmd[%d], value:%s\n", i,
-			j, parse->task[i]->cmd[j]);
+			// printf("task[%zu], cmd[%d], value:%s\n", i,
+			// j, parse->task[i]->cmd[j]);
+			ft_putstr_fd(parse->task[i]->cmd[j], 1);
+			ft_putstr_fd("$\n", 1);
 			j++;
 		}
 		i++;

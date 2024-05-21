@@ -44,7 +44,8 @@ SRC = src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c $(UTILS)ft_arrle
 	  $(SYNTAX)ft_parenthesis_handler.c $(SYNTAX)ft_prompt_errors.c\
 	  $(SYNTAX)ft_syntax_errors_handler.c $(UTILS)ft_sortarray.c\
 	  $(BUILTIN)ft_checkbuiltin.c $(PARSE)ft_init_data.c\
-	  $(BUILTIN)ft_utils_export.c $(BUILTIN)ft_pwd.c $(BUILTIN)ft_cd.c
+	  $(BUILTIN)ft_utils_export.c $(BUILTIN)ft_pwd.c $(BUILTIN)ft_cd.c\
+	  $(SYNTAX)ft_temp.c $(SYNTAX)ft_env_handler.c
 
 OBJ_DIR = obj/
 
