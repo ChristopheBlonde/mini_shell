@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsadouk <tsadouk@student.42angouleme.fr>   +#+  +:+       +#+        */
+/*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:25:46 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/05/21 14:46:08 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/21 20:02:42 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,12 @@ static t_list	*ft_list_to_add(t_list *current, t_parse *parse)
 	{
 		if (((char *)current->content)[z] == '$')
 		{
-			index = z;
+			index = z + 1;
 			while (((char *)current->content)[index] &&
 				((char *)current->content)[index] != ' ' &&
-				((char *)current->content)[index] != '"')
+				((char *)current->content)[index] != '"' &&
+				((char *)current->content)[index] != '$' &&
+				((char *)current->content)[index] != '\n')
 				index++;
 			var = ft_substr(current->content, z + 1, index - z - 1);
 			new = ft_list_to_split(var, parse, current, z);
@@ -73,7 +75,7 @@ static t_list	*ft_cmd_to_list(t_object *task, t_parse *parse)
 	i = -1;
 	lst = NULL;
 	while (task->cmd[++i])
-		ft_lstadd_back(&lst, ft_lstnew((void *)ft_strdup(task->cmd[i])));
+		ft_lstadd_back(&lst, ft_lstnew(ft_strdup(task->cmd[i])));
 	current = lst;
 	while (current)
 	{
@@ -81,46 +83,18 @@ static t_list	*ft_cmd_to_list(t_object *task, t_parse *parse)
 		{
 			current = current->next;
 			continue ;
-			
 		}
-		current->content = ft_strqcpy((char *)current->content);
+		if (((char *)current->content)[0] == '"')
+			current->content = ft_strqcpy((char *)current->content);
 		if (check_if_dollar(current->content))
 			ft_lstinsert(&lst, ft_list_to_add(current, parse), &current);
 		if (!check_if_dollar(current->content))
 			current = current->next;
 		else
-			current = current->next;
+			continue;
 	}
 	return (lst);
 }
-
-// static void	ft_lstto_arr(t_object **task, t_list *lst, int i)
-// {
-// 	size_t	j;
-// 	size_t	lst_len;
-// 	t_list	*tmp;
-// 	char	**n_arr;
-
-// 	j = 0;
-// 	lst_len = ft_lstsize(lst);
-// 	n_arr = (char **)ft_calloc(lst_len + 1, sizeof(char *));
-// 	if (!n_arr)
-// 	{
-// 		ft_lstclear(&lst, free);
-// 		return ;
-// 	}
-// 	while (lst)
-// 	{
-// 		n_arr[j] = lst->content;
-// 		tmp = lst;
-// 		lst = lst->next;
-// 		free(tmp);
-// 		j++;
-// 	}
-// 	free(lst);
-// 	ft_free_array((void **)task[i]->cmd);
-// 	task[i]->cmd = n_arr;
-// }
 
 void	ft_env_handler(t_parse *parse)
 {

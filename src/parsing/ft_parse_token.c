@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 08:17:08 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/09 18:06:13 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/21 19:30:05 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ void	ft_parse_token(t_parse *parse, char *input)
 		int j = 0;
 		while (parse->task[i]->cmd[j])
 		{
-			// printf("task[%zu], cmd[%d], value:%s\n", i,
-			// j, parse->task[i]->cmd[j]);
-			ft_putstr_fd(parse->task[i]->cmd[j], 1);
-			ft_putstr_fd("$\n", 1);
+			printf("task[%zu], cmd[%d], value:%s\n", i,
+			j, parse->task[i]->cmd[j]);
+			// ft_putstr_fd(parse->task[i]->cmd[j], 1);
+			// ft_putstr_fd("$\n", 1);
 			j++;
 		}
 		i++;
