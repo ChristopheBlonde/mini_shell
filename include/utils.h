@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/05/06 10:47:01 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/21 19:22:53 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ bool	ft_quoted(char *str);
 void	ft_free_file_descriptor(void *ptr);
 void	ft_free_arrstruct(void **arr, void (*f)(void *));
 void	ft_free_all(t_parse *parse);
-void	ft_listdir(void);
 void	skip_spaces(char *input, int *i);
 bool	check_if_dollar(char *str);
 void	add_env_to_list(t_list **new_list, t_list *current,
@@ -88,5 +87,14 @@ void	add_env_to_new_list(t_list **new_list, t_list *current,
 void	ft_env_handler(t_parse *parse);
 void	ft_lstinsert(t_list **lst, t_list *addlst, t_list **ptr);
 void	ft_lstto_arr(t_object **task, t_list *lst, int i);
-
+t_list	*ft_listdir(t_wc *wc);
+t_wc	*ft_init_wc(void);
+void	ft_unquote(t_wc *wc);
+void	ft_free_wc(t_wc *wc);
+void	ft_sortwc(t_list **lst);
+void	ft_delete_quotes(t_parse *parse);
+void	in_quote(char *input, int *quote, int i);
+void	skip_spaces(char *input, int *i);
+char	**ft_strsort_arr(char **arr);
+t_list	*ft_suppdouble(t_list *lst);
 #endif
