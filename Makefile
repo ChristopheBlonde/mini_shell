@@ -6,7 +6,7 @@
 #    By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
-#    Updated: 2024/05/17 12:01:57 by cblonde          ###   ########.fr        #
+#    Updated: 2024/05/21 11:14:35 by cblonde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ SRC = src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c $(UTILS)ft_arrle
 	  $(SYNTAX)ft_parenthesis_handler.c $(SYNTAX)ft_prompt_errors.c\
 	  $(SYNTAX)ft_syntax_errors_handler.c $(UTILS)ft_sortarray.c\
 	  $(BUILTIN)ft_checkbuiltin.c $(PARSE)ft_init_data.c\
-	  $(BUILTIN)ft_utils_export.c $(BUILTIN)ft_pwd.c
+	  $(BUILTIN)ft_utils_export.c $(BUILTIN)ft_pwd.c $(BUILTIN)ft_cd.c
 
 OBJ_DIR = obj/
 
