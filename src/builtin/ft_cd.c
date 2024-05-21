@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 21:17:26 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/21 13:25:13 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/21 18:59:07 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static void	ft_handle_cd_error(t_parse *parse, char *path, char **pwd,
 {
 	free(*pwd);
 	*pwd = NULL;
-	if (*n_path)
-		free(*n_path);
 	ft_excmd_result(parse, 1);
 	ft_putstr_fd("minishell: cd: ", 2);
 	perror(path);
+	if (*n_path && ft_strncmp(*n_path, path, ft_strlen(*n_path)))
+		free(*n_path);
 }
 
 void	ft_getcd_path(bool *modified, char **n_path, char **pwd, int *res)
@@ -32,6 +32,23 @@ void	ft_getcd_path(bool *modified, char **n_path, char **pwd, int *res)
 	*pwd = ft_strfjoin(*pwd, "/", 1);
 	*n_path = ft_strfjoin(*pwd, *n_path, 0);
 	*res = chdir(*n_path);
+}
+
+static void	ft_update_env(t_parse *parse, char *n_path,
+		char *path, bool modified)
+{
+	char	*pwd;
+	char	*result;
+
+	if (modified)
+		result = n_path;
+	else
+		result = path;
+	pwd = ft_getenv(parse, "PWD");
+	if (!ft_strncmp(result, pwd, ft_strlen(pwd)))
+		return ;
+	ft_export(parse, ft_strjoin("OLDPWD=", pwd));
+	ft_export(parse, ft_strjoin("PWD=", result));
 }
 
 void	ft_cd(t_parse *parse, char *path)
@@ -52,10 +69,11 @@ void	ft_cd(t_parse *parse, char *path)
 	if (n_path[0] != '/')
 		ft_getcd_path(&modified, &n_path, &pwd, &res);
 	else
-		res = chdir(pwd);
+		res = chdir(path);
 	if (res)
 		return (ft_handle_cd_error(parse, path, &pwd, &n_path));
 	free(pwd);
+	ft_update_env(parse, n_path, path, modified);
 	if (modified)
 		free(n_path);
 	return (ft_excmd_result(parse, 0));
