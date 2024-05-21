@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 09:10:47 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/21 13:45:57 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/21 16:31:46 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static bool	ft_syntax_env(char *env)
 	return (true);
 }
 
-static void	ft_export(t_parse *parse, char *new)
+void	ft_export(t_parse *parse, char *new)
 {
 	size_t	len;
 	size_t	i;
