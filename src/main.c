@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/21 11:17:04 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/22 14:04:35 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	main(int argc, char *argv[], char *env[])
 			continue ;
 		}
 		ft_parse_token(&parse, str);
+		if (!ft_strncmp(str, "test", 4))
+			ft_env_trim(parse.task[0]->cmd[1]);
 		if (!ft_strncmp(str, "export", 6))
 			ft_exec_export(&parse, parse.task[0]);
 		if (!ft_strncmp(str, "pwd", 3))

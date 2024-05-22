@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 13:25:34 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/17 12:13:04 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/22 14:34:42 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,32 @@ bool	ft_replace_env(t_parse *parse, char *new)
 	}
 	free(name);
 	return (false);
+}
+
+void	ft_env_trim(char *str)
+{
+	int		i;
+	int		j;
+	size_t	count;
+	int		start;
+
+	i = -1;
+	j = 0;
+	count = 0;
+	start = 0;
+	while (str[++i] != '=' && ++j)
+		start++;
+	while (str[++i] == ' ')
+		start++;
+	while (str[++i])
+		if (str[i] != ' ' || (i != 0 && str[i + 1] != ' '
+					&& str[i + 1] != '\0' && str[i + 1] != '\n'))
+			count++;
+	j--;
+	start--;
+	while (str[++start])
+		if (str[start] != ' ' || (i != 0 && str[start + 1] != '\0'
+					&& str[start + 1] != ' ' && str[start + 1] != '\n'))
+			str[++j] = str[start];
+	str[++j] = '\0';
 }
