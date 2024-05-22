@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/22 17:29:24 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/22 18:06:34 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int	main(int argc, char *argv[], char *env[])
 			continue ;
 		}
 		ft_parse_token(&parse, str);
+		if (!ft_strncmp(str, "test", 4))
+			ft_env_trim(parse.task[0]->cmd[1]);
 		if (!ft_strncmp(str, "clear", 5))
 			write(STDOUT_FILENO, "\033[H\033[J", 7);
 		if (!ft_strncmp(str, "echo", 4))

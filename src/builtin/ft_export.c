@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 09:10:47 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/21 16:31:46 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/22 17:39:05 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	ft_export(t_parse *parse, char *new)
 	if (!ft_cpy_env(parse, arr, len))
 		return (ft_excmd_result(parse, 1));
 	arr[i] = ft_strdup(new);
+	ft_env_trim(arr[i]);
 	if (!arr[i])
 	{
 		ft_free_array((void **)arr);
