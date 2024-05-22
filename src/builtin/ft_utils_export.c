@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 13:25:34 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/22 17:53:04 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/22 17:56:29 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ bool	ft_replace_env(t_parse *parse, char *new)
 			parse->env[i] = ft_strdup(new);
 			if (!parse->env[i])
 				ft_putendl_fd("Error export", 2);
+			ft_env_trim(parse->env[i]);
 			free(name);
 			return (true);
 		}
