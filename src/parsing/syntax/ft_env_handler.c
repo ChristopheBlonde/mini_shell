@@ -55,6 +55,7 @@ static t_list	*ft_list_to_add(t_list *current, t_parse *parse)
 				((char *)current->content)[index] != ' ' &&
 				((char *)current->content)[index] != '"' &&
 				((char *)current->content)[index] != '$' &&
+				((char *)current->content)[index] != '\'' &&
 				((char *)current->content)[index] != '\n')
 				index++;
 			var = ft_substr(current->content, z + 1, index - z - 1);
@@ -80,9 +81,10 @@ static t_list	*ft_cmd_to_list(t_object *task, t_parse *parse)
 	while (current)
 	{
 		if (((char *)current->content)[0] == '\'')
+		{
 			current = current->next;
-		if (((char *)current->content)[0] == '\'')
-			continue ;
+			continue;
+		}
 		if (((char *)current->content)[0] == '"')
 			current->content = ft_strqcpy((char *)current->content);
 		if (check_if_dollar(current->content))
