@@ -6,13 +6,13 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/05/22 16:42:31 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/22 17:27:10 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-static void	ft_echo(t_parse *parse)
+static void	ft_echo(t_parse *parse, t_object *task)
 {
 	int		i;
 	int		option;
@@ -20,22 +20,23 @@ static void	ft_echo(t_parse *parse)
 
 	i = 1;
 	option = 0;
-	while (parse->task[0]->cmd[i]
-		&& !ft_strncmp(parse->task[0]->cmd[i], "-n", 2))
+	if (task->cmd[1]
+		&& !ft_strncmp(task->cmd[1], "-n", ft_strlen(task->cmd[1])))
 	{
 		option = 1;
 		i++;
 	}
-	while (parse->task[0]->cmd[i])
+	while (task->cmd[i])
 	{
-		str = parse->task[0]->cmd[i];
+		str = task->cmd[i];
 		ft_putstr_fd(str, 1);
-		if (parse->task[0]->cmd[i + 1])
+		if (task->cmd[i + 1])
 			ft_putstr_fd(" ", 1);
 		i++;
 	}
 	if (!option)
 		ft_putstr_fd("\n", 1);
+	ft_excmd_result(parse, 0);
 }
 
 void	ft_exec_echo(t_parse *parse, t_object *task)
@@ -44,6 +45,5 @@ void	ft_exec_echo(t_parse *parse, t_object *task)
 		return ;
 	if (!task->cmd)
 		return ;
-	ft_echo(parse);
-	ft_excmd_result(parse, 0);
+	ft_echo(parse, task);
 }
