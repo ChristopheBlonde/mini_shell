@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 13:25:34 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/22 17:56:29 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/23 17:22:28 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_getkey_env(char *env)
 	size_t	i;
 
 	i = 0;
-	while (env[i] && env[i] != '=')
+	while (env[i] && env[i] != '=' && ft_strncmp("+=", &env[i], 2))
 		i++;
 	key = ft_substr(env, 0, i);
 	if (!key)
@@ -62,6 +62,35 @@ void	ft_putexport(char **env)
 	ft_free_array((void **)arr);
 }
 
+static bool	ft_replace_append(t_parse *parse, size_t i, char **name, char *new)
+{
+	size_t	len;
+
+	len = ft_strlen(*name);
+	if (new[len] == '+')
+	{
+		parse->env[i] = ft_strfjoin(parse->env[i], &new[len + 2], 1);
+		if (!parse->env[i])
+		{
+			ft_putendl_fd("Error: export", 2);
+			return (false);
+		}
+	}
+	else
+	{
+		free(parse->env[i]);
+		parse->env[i] = ft_strdup(new);
+		if (!parse->env[i])
+		{
+			ft_putendl_fd("Error export", 2);
+			return (false);
+		}
+		ft_env_trim(parse->env[i]);
+		free(*name);
+	}
+	return (true);
+}
+
 bool	ft_replace_env(t_parse *parse, char *new)
 {
 	char	*name;
@@ -77,45 +106,11 @@ bool	ft_replace_env(t_parse *parse, char *new)
 	{
 		if (!ft_strncmp(parse->env[i], name, len))
 		{
-			free(parse->env[i]);
-			parse->env[i] = ft_strdup(new);
-			if (!parse->env[i])
-				ft_putendl_fd("Error export", 2);
-			ft_env_trim(parse->env[i]);
-			free(name);
-			return (true);
+			if (ft_replace_append(parse, i, &name, new))
+				return (true);
 		}
 		i++;
 	}
 	free(name);
 	return (false);
-}
-
-void	ft_env_trim(char *str)
-{
-	int		i;
-	int		j;
-	size_t	count;
-	int		start;
-
-	i = -1;
-	j = 0;
-	count = 0;
-	start = 0;
-	while (str[++i] != '=')
-	{
-		start++;
-		j++;
-	}
-	while (str[++i] == ' ')
-		start++;
-	while (str[++i])
-		if (str[i] != ' ' || (i != 0 && str[i + 1] != ' '
-					&& str[i + 1] != '\0' && str[i + 1] != '\n'))
-			count++;
-	while (str[++start])
-		if (str[start] != ' ' || (i != 0 && str[start + 1] != '\0'
-					&& str[start + 1] != ' ' && str[start + 1] != '\n'))
-			str[++j] = str[start];
-	str[++j] = '\0';
 }

@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 09:10:47 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/22 17:39:05 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/23 17:20:57 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static bool	ft_syntax_env(char *env)
 		ft_error_env(env);
 		return (false);
 	}
-	while (env[i] && env[i] != '=')
+	while (env[i] && env[i] != '=' && ft_strncmp(&env[i], "+=", 2))
 	{
 		if (!ft_isalnum(env[i]) && env[i] != '_')
 		{
@@ -50,6 +50,26 @@ static bool	ft_syntax_env(char *env)
 		i++;
 	}
 	return (true);
+}
+
+void	ft_add_env(char **arr, size_t index, char *new)
+{
+	char	*name;
+	size_t	i;
+	size_t	len;
+
+	name = ft_getkey_env(new);
+	len = ft_strlen(name);
+	i = len;
+	if (new[len] == '+')
+	{
+		while (new[i])
+		{
+			new[i] = new[i + 1];
+			i++;
+		}
+	}
+	arr[index] = ft_strdup(new);
 }
 
 void	ft_export(t_parse *parse, char *new)
@@ -69,8 +89,7 @@ void	ft_export(t_parse *parse, char *new)
 		return (ft_excmd_result(parse, 1));
 	if (!ft_cpy_env(parse, arr, len))
 		return (ft_excmd_result(parse, 1));
-	arr[i] = ft_strdup(new);
-	ft_env_trim(arr[i]);
+	ft_add_env(arr, i, new);
 	if (!arr[i])
 	{
 		ft_free_array((void **)arr);
@@ -106,20 +125,4 @@ void	ft_excmd_result(t_parse *parse, int n)
 	arr[i] = env;
 	ft_free_array((void **)parse->env);
 	parse->env = arr;
-}
-
-void	ft_exec_export(t_parse *parse, t_object *task)
-{
-	size_t	i;
-
-	i = 1;
-	if (task->builtin != EXPORT)
-		return ;
-	if (!task->cmd[i])
-		ft_putexport(parse->env);
-	while (task->cmd[i])
-	{
-		ft_export(parse, task->cmd[i]);
-		i++;
-	}
 }

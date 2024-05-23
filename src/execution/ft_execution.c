@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/23 15:10:15 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/23 17:13:51 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static void	ft_exec_builtin(t_parse *parse, t_object *task)
 		ft_free_all(parse);
 		exit(0);
 	}
-
 }
 
 bool	ft_execution(t_parse *parse)
@@ -48,4 +47,3 @@ bool	ft_execution(t_parse *parse)
 	}
 	return (true);
 }
-
