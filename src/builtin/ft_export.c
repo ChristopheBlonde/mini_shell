@@ -70,6 +70,7 @@ void	ft_add_env(char **arr, size_t index, char *new)
 		}
 	}
 	arr[index] = ft_strdup(new);
+	free(name);
 }
 
 void	ft_export(t_parse *parse, char *new)

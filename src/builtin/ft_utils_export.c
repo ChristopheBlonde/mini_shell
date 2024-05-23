@@ -64,15 +64,14 @@ void	ft_putexport(char **env)
 
 static bool	ft_replace_append(t_parse *parse, size_t i, char **name, char *new)
 {
-	size_t	len;
-
-	len = ft_strlen(*name);
-	if (new[len] == '+')
+	if (new[ft_strlen(*name)] == '+')
 	{
-		parse->env[i] = ft_strfjoin(parse->env[i], &new[len + 2], 1);
+		parse->env[i] = ft_strfjoin(parse->env[i],
+				&new[ft_strlen(*name) + 2], 1);
 		if (!parse->env[i])
 		{
 			ft_putendl_fd("Error: export", 2);
+			free(*name);
 			return (false);
 		}
 	}
@@ -83,10 +82,10 @@ static bool	ft_replace_append(t_parse *parse, size_t i, char **name, char *new)
 		if (!parse->env[i])
 		{
 			ft_putendl_fd("Error export", 2);
+			free(*name);
 			return (false);
 		}
 		ft_env_trim(parse->env[i]);
-		free(*name);
 	}
 	return (true);
 }
@@ -107,7 +106,10 @@ bool	ft_replace_env(t_parse *parse, char *new)
 		if (!ft_strncmp(parse->env[i], name, len))
 		{
 			if (ft_replace_append(parse, i, &name, new))
+			{
+				free(name);
 				return (true);
+			}
 		}
 		i++;
 	}
