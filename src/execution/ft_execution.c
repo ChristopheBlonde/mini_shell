@@ -6,28 +6,46 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/23 09:45:38 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/23 15:10:15 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	ft_exec_builtin(t_parse *parse, t_object *task)
+{
+	if (task->builtin == ECHO)
+		ft_exec_echo(parse, task);
+	if (task->builtin == CD)
+		ft_cd(parse, task->cmd[1]);
+	if (task->builtin == PWD)
+		ft_pwd(parse);
+	if (task->builtin == EXPORT)
+		ft_exec_export(parse, task);
+	if (task->builtin == UNSET)
+		ft_exec_unset(parse, task);
+	if (task->builtin == ENV)
+		ft_env(parse);
+	if (task->builtin == EXIT)
+	{
+		ft_free_all(parse);
+		exit(0);
+	}
+
+}
+
 bool	ft_execution(t_parse *parse)
 {
-	if (!ft_strncmp(parse->input, "test", 4))
-		ft_env_trim(parse->task[0]->cmd[1]);
-	if (!ft_strncmp(parse->input, "clear", 5))
-		write(STDOUT_FILENO, "\033[H\033[J", 7);
-	if (!ft_strncmp(parse->input, "echo", 4))
-		ft_exec_echo(parse, parse->task[0]);
-	if (!ft_strncmp(parse->input, "export", 6))
-		ft_exec_export(parse, parse->task[0]);
-	if (!ft_strncmp(parse->input, "pwd", 3))
-		ft_pwd(parse);
-	if (!ft_strncmp(parse->input, "cd", 2))
-		ft_cd(parse, parse->task[0]->cmd[1]);
-	if (!ft_strncmp(parse->input, "exit", 4))
-		return (false);
+	size_t	i;
+
+	i = 0;
+	ft_exec_redirect(parse);
+	while (parse->task && parse->task[i])
+	{
+		if (parse->task[i]->builtin != NO_BUILTIN)
+			ft_exec_builtin(parse, parse->task[i]);
+		i++;
+	}
 	return (true);
 }
 
