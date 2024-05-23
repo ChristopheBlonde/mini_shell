@@ -41,6 +41,7 @@ bool	ft_init_tasks(t_parse *parse, char **arr)
 			return (false);
 		parse->task[i]->infile = -1;
 		parse->task[i]->outfile = -1;
+		parse->task[i]->is_quoted = 0;
 		i++;
 	}
 	return (true);

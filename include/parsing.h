@@ -71,6 +71,7 @@ typedef enum e_builtin
 typedef struct s_object
 {
 	char		**cmd;
+	int			is_quoted;
 	int			infile;
 	int			outfile;
 	t_link		link;

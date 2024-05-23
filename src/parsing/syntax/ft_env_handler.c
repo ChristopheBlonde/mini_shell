@@ -83,11 +83,15 @@ static t_list	*ft_cmd_to_list(t_object *task, t_parse *parse)
 	{
 		if (((char *)current->content)[0] == '\'')
 		{
+			task->is_quoted = 1;
 			current = current->next;
 			continue;
 		}
 		if (((char *)current->content)[0] == '"')
+		{
+			task->is_quoted = 2;
 			current->content = ft_strqcpy((char *)current->content);
+		}
 		if (check_if_dollar(current->content))
 			ft_lstinsert(&lst, ft_list_to_add(current, parse), &current);
 		if (!check_if_dollar(current->content))

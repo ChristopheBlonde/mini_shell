@@ -63,11 +63,13 @@ char	*ft_strqcpy(char *s)
 void	ft_delete_quotes(t_parse *parse)
 {
 	size_t	j;
-	size_t	i;
+	int		i;
 
-	i = 0;
-	while (parse->task[i])
+	i = -1;
+	while (parse->task[++i])
 	{
+		if (parse->task[i]->is_quoted)
+			continue ;
 		j = 0;
 		while (parse->task[i]->cmd[j])
 		{
@@ -75,7 +77,6 @@ void	ft_delete_quotes(t_parse *parse)
 				parse->task[i]->cmd[j] = ft_strqcpy(parse->task[i]->cmd[j]);
 			j++;
 		}
-		i++;
 	}
 }
 
