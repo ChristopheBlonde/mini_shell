@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:41:17 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/10 07:43:44 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/23 07:41:45 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ void	ft_free_parsing(t_parse *parse)
 		ft_free_redirect(parse);
 		parse->redirect = NULL;
 	}
+	if (parse->input)
+	{
+		free(parse->input);
+		parse->input = NULL;
+	}
 }
 
 void	ft_free_all(t_parse *parse)
@@ -78,5 +83,10 @@ void	ft_free_all(t_parse *parse)
 	{
 		ft_free_env(parse);
 		parse->env = NULL;
+	}
+	if (parse->input)
+	{
+		free(parse->input);
+		parse->input = NULL;
 	}
 }

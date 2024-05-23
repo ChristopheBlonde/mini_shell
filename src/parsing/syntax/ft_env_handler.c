@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:25:46 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/05/21 20:13:47 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/23 08:05:08 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static t_list	*ft_list_to_add(t_list *current, t_parse *parse)
 	char	*var;
 
 	z = -1;
+	new = NULL;
 	while (((char *)current->content)[++z])
 	{
 		if (((char *)current->content)[z] == '$')

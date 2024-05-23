@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/10 07:55:47 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/23 09:30:38 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_parse
 {
 	struct s_object				**task;
 	char						**env;
-	char						**history;
+	char						*input;
 	struct s_file_descriptor	**redirect;
 }	t_parse;
 
@@ -82,7 +82,7 @@ int					ft_check_and_operator(char *input);
 int					ft_check_parenthesis(char *input);
 int					ft_check_or_operator(char *input);
 void				ft_parse_env(t_parse *parse, char *env[]);
-void				ft_parse_token(t_parse *parse, char *input);
+bool				ft_parse_token(t_parse *parse, char *input);
 void				print_tokens(t_parse *parse);
 void				print_objects(t_parse *parse);
 void				ft_objectify(t_parse *parse);
@@ -105,5 +105,6 @@ int					ft_check_parenthesis(char *input);
 int					ft_check_or_operator(char *input);
 void				ft_free_parsing(t_parse *parse);
 void				ft_init_parse(t_parse *parse);
+bool				ft_init_tasks(t_parse *parse, char **arr);
 
 #endif

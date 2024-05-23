@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:55:51 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/05/10 07:57:40 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/23 09:24:10 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,31 @@ void	ft_init_parse(t_parse *parse)
 	parse->task = NULL;
 	parse->env = NULL;
 	parse->redirect = NULL;
-	parse->history = NULL;
+	parse->input = NULL;
 }
 
-void	ft_init_data(t_parse *parse)
+bool	ft_init_tasks(t_parse *parse, char **arr)
 {
-	parse->task = (t_object **)ft_calloc(1, sizeof(t_object *));
+	size_t	i;
+	size_t	len;
+
+	i = 0;
+	parse->task = (t_object **)ft_calloc(ft_arrlen((void **)arr) + 1,
+			sizeof(t_object *));
 	if (!parse->task)
-		return ;
-	parse->env = (char **)ft_calloc(1, sizeof(char *));
-	if (!parse->env)
-		return ;
-	parse->history = (char **)ft_calloc(1, sizeof(char *));
-	if (!parse->history)
-		return ;
-	parse->redirect = (t_file_descriptor **)ft_calloc(1,
-			sizeof(t_file_descriptor *));
-	if (!parse->redirect)
-		return ;
+		return (false);
+	len = ft_arrlen((void **)arr);
+	while (i < len)
+	{
+		parse->task[i] = (t_object *)ft_calloc(1, sizeof(t_object));
+		if (!parse->task[i])
+			return (false);
+		parse->task[i]->cmd = ft_split_with_quotes(arr[i], ' ');
+		if (!parse->task[i]->cmd)
+			return (false);
+		parse->task[i]->infile = -1;
+		parse->task[i]->outfile = -1;
+		i++;
+	}
+	return (true);
 }

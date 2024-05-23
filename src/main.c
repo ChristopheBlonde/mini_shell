@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/22 18:06:34 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/23 09:45:44 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,43 @@ static inline int	ft_usage(void)
 	return (1);
 }
 
+static bool	ft_empty_input(t_parse *parse)
+{
+	int	i;
+
+	i = -1;
+	while (ft_isspace(parse->input[++i]))
+		if (parse->input[i + 1] == '\n')
+			return (false);
+	return (true);
+}
+
+static bool	ft_input(t_parse *parse)
+{
+	parse->input = readline("minishell> ");
+	if (!parse->input || parse->input[0] == '\0')
+	{
+		ft_free_parsing(parse);
+		return (false);
+	}
+	add_history(parse->input);
+	parse->input = ft_strfjoin(parse->input, "\n", 1);
+	if (!parse->input || !ft_empty_input(parse))
+	{
+		ft_free_parsing(parse);
+		return (false);
+	}
+	if (ft_syntax_errors_handler(parse->input))
+	{
+		ft_free_parsing(parse);
+		return (false);
+	}
+	return (true);
+}
+
 int	main(int argc, char *argv[], char *env[])
 {
 	t_parse	parse;
-	char *str;
-	char *history_str;
 
 	if (argc > 1)
 	{
@@ -36,43 +68,17 @@ int	main(int argc, char *argv[], char *env[])
 		return (1);
 	while (true)
 	{
-		str = readline("minishell> ");
-		str = ft_strfjoin(str, "\n", 1);
-		history_str = ft_strdup(str);
-		history_str[strlen(str) - 1] = '\0';
-		if (!str)
+		if (!ft_input(&parse))
+			continue ;
+		if (!ft_parse_token(&parse, parse.input))
 		{
-			ft_free_all(&parse);
-			return (1);
-		}
-		add_history(history_str);
-		if (ft_syntax_errors_handler(str))
-		{
+			ft_putendl_fd("Error: fail parsing !", 2);
 			ft_free_parsing(&parse);
-			free(str);
 			continue ;
 		}
-		ft_parse_token(&parse, str);
-		if (!ft_strncmp(str, "test", 4))
-			ft_env_trim(parse.task[0]->cmd[1]);
-		if (!ft_strncmp(str, "clear", 5))
-			write(STDOUT_FILENO, "\033[H\033[J", 7);
-		if (!ft_strncmp(str, "echo", 4))
-			ft_exec_echo(&parse, parse.task[0]);
-		if (!ft_strncmp(str, "export", 6))
-			ft_exec_export(&parse, parse.task[0]);
-		if (!ft_strncmp(str, "pwd", 3))
-			ft_pwd(&parse);
-		if (!ft_strncmp(str, "cd", 2))
-			ft_cd(&parse, parse.task[0]->cmd[1]);
-		if (!ft_strncmp(str, "exit", 4))
-		{
-			ft_free_parsing(&parse);
-			free(str);
+		if (!ft_execution(&parse))
 			break ;
-		}
 		ft_free_parsing(&parse);
-		free(str);
 	}
 	ft_free_all(&parse);
 	return (0);
