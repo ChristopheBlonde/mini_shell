@@ -6,7 +6,7 @@
 #    By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
-#    Updated: 2024/05/23 17:27:06 by cblonde          ###   ########.fr        #
+#    Updated: 2024/05/24 11:55:07 by cblonde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ SRC = src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c\
 	  $(BUILTIN)ft_checkbuiltin.c $(PARSE)ft_init_data.c\
 	  $(BUILTIN)ft_utils_export.c $(BUILTIN)ft_pwd.c $(BUILTIN)ft_cd.c\
 	  $(SYNTAX)ft_temp.c $(SYNTAX)ft_env_handler.c $(BUILTIN)ft_utils_env_export.c\
+	  $(EXEC)ft_get_path.c
 	  
 OBJ_DIR = obj/
 

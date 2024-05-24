@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/23 17:13:51 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/24 11:51:37 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ bool	ft_execution(t_parse *parse)
 
 	i = 0;
 	ft_exec_redirect(parse);
+	ft_get_path(parse);
 	while (parse->task && parse->task[i])
 	{
 		if (parse->task[i]->builtin != NO_BUILTIN)

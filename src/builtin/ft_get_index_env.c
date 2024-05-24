@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:10:27 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/24 08:21:14 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/24 13:09:10 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	ft_get_index_env(char **arr, char *var, int arr_len)
 	i = 0;
 	while (i < arr_len)
 	{
-			if (!ft_isalnum(arr[i][len])
+		if (!ft_isalnum(arr[i][len])
 			&& !ft_strncmp(arr[i], var, len))
-				return (i);
+			return (i);
 		i++;
 	}
 	return (-1);
