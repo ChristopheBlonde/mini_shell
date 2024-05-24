@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 13:25:34 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/23 17:22:28 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/24 08:28:17 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ bool	ft_replace_env(t_parse *parse, char *new)
 	len = ft_strlen(name);
 	while (parse->env[i])
 	{
-		if (!ft_strncmp(parse->env[i], name, len))
+		if (!ft_strncmp(parse->env[i], name, len)
+				&& !ft_isalnum(parse->env[i][len]))
 		{
 			if (ft_replace_append(parse, i, &name, new))
 			{
