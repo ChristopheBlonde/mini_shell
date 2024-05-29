@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/05/23 14:20:03 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/29 10:42:57 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	add_env_to_new_list(t_list **new_list, t_list *current,
 			t_stuff	*stuff, t_env_handler *e);
 void	ft_env_handler(t_parse *parse);
 void	ft_lstinsert(t_list **lst, t_list *addlst, t_list **ptr);
-void	ft_lstto_arr(t_object **task, t_list *lst, int i);
+void	ft_lstto_arr(t_object *task, t_list *lst);
 t_list	*ft_listdir(t_wc *wc);
 t_wc	*ft_init_wc(void);
 void	ft_unquote(t_wc *wc);
@@ -98,4 +98,8 @@ void	in_quote(char *input, int *quote, int i);
 void	skip_spaces(char *input, int *i);
 char	**ft_strsort_arr(char **arr);
 t_list	*ft_suppdouble(t_list *lst);
+int		count_dollar(char *str);
+void	ft_process_env(t_object *task, t_parse *parse);
+char	*ft_replace_var(t_parse *parse, char *line, char *str, char *var);
+
 #endif

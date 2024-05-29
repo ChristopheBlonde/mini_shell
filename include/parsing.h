@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/23 09:30:38 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/29 13:55:27 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,15 @@ typedef struct s_object
 	t_priority	priority;
 }	t_object;
 
+typedef	struct s_cmd_lst
+{
+	t_list	*lst;
+	t_list	*current;
+	t_list	*current_tmp;
+	int		i;
+	int		nb_dollar;
+}	t_cmd_lst;
+
 int					ft_check_and_operator(char *input);
 int					ft_check_parenthesis(char *input);
 int					ft_check_or_operator(char *input);
@@ -107,5 +116,8 @@ int					ft_check_or_operator(char *input);
 void				ft_free_parsing(t_parse *parse);
 void				ft_init_parse(t_parse *parse);
 bool				ft_init_tasks(t_parse *parse, char **arr);
+void				ft_skip_envchar(t_list *current, int *i);
+void				ft_init_cmd_lst(t_cmd_lst *s, t_object *task);
+void				ft_cmd_quoted(t_parse *parse, t_object *task, t_cmd_lst *s);
 
 #endif

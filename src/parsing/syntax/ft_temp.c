@@ -6,11 +6,27 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 14:28:07 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/05/21 20:16:25 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/29 10:30:44 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	count_dollar(char *str)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (str[i] == '$')
+			count++;
+		i++;
+	}
+	return (count);
+}
 
 bool	check_if_dollar(char *str)
 {

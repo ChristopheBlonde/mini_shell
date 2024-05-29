@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:43:47 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/21 19:45:43 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/29 10:17:58 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void	ft_wildcard(t_parse *parse)
 	while (parse->task[i])
 	{
 		lst = ft_cmd_to_list(parse->task[i]);
-		ft_lstto_arr(parse->task, lst, i);
+		ft_lstto_arr(parse->task[i], lst);
 		i++;
 	}
 }

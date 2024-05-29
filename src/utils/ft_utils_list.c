@@ -6,13 +6,13 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:43:47 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/02 16:40:15 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/29 10:19:49 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	ft_lstto_arr(t_object **task, t_list *lst, int i)
+void	ft_lstto_arr(t_object *task, t_list *lst)
 {
 	size_t	j;
 	size_t	lst_len;
@@ -36,8 +36,8 @@ void	ft_lstto_arr(t_object **task, t_list *lst, int i)
 		j++;
 	}
 	free(lst);
-	ft_free_array((void **)task[i]->cmd);
-	task[i]->cmd = n_arr;
+	ft_free_array((void **)task->cmd);
+	task->cmd = n_arr;
 }
 
 t_list	*ft_suppdouble(t_list *lst)

@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 10:13:03 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/17 12:08:35 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/29 10:44:06 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	ft_add_value(t_parse *parse, char **var, char **str)
 		return ;
 }
 
-static char	*ft_replace_var(t_parse *parse, char *line, char *str, char *var)
+char	*ft_replace_var(t_parse *parse, char *line, char *str, char *var)
 {
 	size_t	i;
 	size_t	j;
