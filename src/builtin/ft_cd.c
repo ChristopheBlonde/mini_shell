@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 21:17:26 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/21 18:59:07 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/29 09:09:12 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	ft_handle_cd_error(t_parse *parse, char *path, char **pwd,
 void	ft_getcd_path(bool *modified, char **n_path, char **pwd, int *res)
 {
 	*modified = true;
-	while (*n_path[0] == '.' || *n_path[0] == '/')
+	while (*n_path[0] == '/')
 		*n_path += 1;
 	*pwd = ft_strfjoin(*pwd, "/", 1);
 	*n_path = ft_strfjoin(*pwd, *n_path, 0);
