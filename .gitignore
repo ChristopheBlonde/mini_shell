@@ -7,3 +7,4 @@ tags
 .idea
 lib/libft.a
 wild/
+.tfs*
