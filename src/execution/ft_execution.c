@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/30 14:16:28 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/30 16:48:03 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,21 @@ void	ft_exec(t_parse *parse, t_object *task, size_t i)
 	}
 	else
 	{
+
 		close(task->pipe[1]);
 		if (task->link == PIPE)
 			close(parse->task[i - 1]->pipe[0]);
 		if (!parse->task[i + 1] || parse->task[i + 1]->link != PIPE)
+		{
 			close(task->pipe[0]);
+			waitpid(pid, NULL, 0);
+		}
 	}
 }
 
 bool	ft_execution(t_parse *parse)
 {
 	size_t	i;
-	int		status;
 
 	i = 0;
 	ft_exec_redirect(parse);
@@ -100,10 +103,6 @@ bool	ft_execution(t_parse *parse)
 		}
 		i++;
 	}
-	waitpid(-1, &status, 0);
-	if (WIFEXITED(status))
-		ft_putendl_fd("exit normaly", 1);
-	else
-		ft_putendl_fd("no exit normaly", 1);
+	waitpid(-1, NULL, 0);
 	return (true);
 }

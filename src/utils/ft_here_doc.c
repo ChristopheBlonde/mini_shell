@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 10:13:03 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/29 10:44:06 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/30 15:53:36 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,7 @@ int	ft_here_doc(t_parse *parse, int index)
 	ft_read_line(parse, line, tmp, index);
 	free(parse->redirect[index]->file);
 	parse->redirect[index]->file = name;
+	close(parse->redirect[index]->fd);
+	parse->redirect[index]->fd = open(parse->redirect[index]->file, O_RDONLY);
 	return (parse->redirect[index]->fd);
 }
