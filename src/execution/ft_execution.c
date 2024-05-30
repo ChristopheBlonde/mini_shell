@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/29 15:58:18 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/30 14:16:28 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,11 @@ static void	ft_exec_builtin(t_parse *parse, t_object *task)
 	}
 }
 
-void	ft_exec(t_parse *parse, t_object *task)
+void	ft_exec(t_parse *parse, t_object *task, size_t i)
 {
 	pid_t	pid;
-	int		tube[2];
 
-	pipe(tube);
+	pipe(task->pipe);
 	pid = fork();
 	if (pid < 0)
 	{
@@ -47,25 +46,46 @@ void	ft_exec(t_parse *parse, t_object *task)
 	}
 	if (pid == 0)
 	{
-		close(tube[0]);
 		if (task->infile != -1)
-			dup2(parse->redirect[task->infile]->fd, STDIN_FILENO);
-		dup2(tube[1], STDOUT_FILENO);
+		{
+			dup2(parse->redirect[task->infile]->fd, 0);
+			close(parse->redirect[task->infile]->fd);
+		}
+		else if (task->link == PIPE)
+		{
+			dup2(parse->task[i - 1]->pipe[0], 0);
+			close(parse->task[i - 1]->pipe[0]);
+		}
+		if (!parse->task[i + 1] || parse->task[i + 1]->link != PIPE)
+		{
+			if (task->outfile != -1)
+			{
+				dup2(parse->redirect[task->outfile]->fd, 1);
+				close(parse->redirect[task->outfile]->fd);
+			}
+		}
+		else
+		{
+			dup2(task->pipe[1], 1);
+			close(task->pipe[1]);
+		}
 		execve(task->cmd[0], task->cmd, parse->env);
 		exit(0);
 	}
 	else
 	{
-		close(tube[1]);
-		if (task->outfile != -1)
-			dup2(parse->redirect[task->outfile]->fd, STDOUT_FILENO);
-		dup2(tube[0], STDOUT_FILENO);
+		close(task->pipe[1]);
+		if (task->link == PIPE)
+			close(parse->task[i - 1]->pipe[0]);
+		if (!parse->task[i + 1] || parse->task[i + 1]->link != PIPE)
+			close(task->pipe[0]);
 	}
 }
 
 bool	ft_execution(t_parse *parse)
 {
 	size_t	i;
+	int		status;
 
 	i = 0;
 	ft_exec_redirect(parse);
@@ -75,8 +95,15 @@ bool	ft_execution(t_parse *parse)
 		if (parse->task[i]->builtin != NO_BUILTIN)
 			ft_exec_builtin(parse, parse->task[i]);
 		else
-			ft_exec(parse, parse->task[i]);
+		{
+			ft_exec(parse, parse->task[i], i);
+		}
 		i++;
 	}
+	waitpid(-1, &status, 0);
+	if (WIFEXITED(status))
+		ft_putendl_fd("exit normaly", 1);
+	else
+		ft_putendl_fd("no exit normaly", 1);
 	return (true);
 }

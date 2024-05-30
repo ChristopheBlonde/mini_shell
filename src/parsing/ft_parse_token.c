@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 08:17:08 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/24 13:06:10 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/30 12:15:55 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ bool	ft_parse_token(t_parse *parse, char *input)
 		ft_free_array((void **)arr);
 		return (false);
 	}
+	ft_objectify(parse);
 	ft_redirection(parse);
 	ft_builtin(parse);
 	ft_env_handler(parse);

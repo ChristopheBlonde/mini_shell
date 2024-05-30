@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/29 13:55:27 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/30 11:41:28 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_object
 	int			is_quoted;
 	int			infile;
 	int			outfile;
+	int			pipe[2];
 	t_link		link;
 	t_builtin	builtin;
 	t_priority	priority;

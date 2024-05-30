@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 09:01:00 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/24 13:06:56 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/30 14:51:41 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,6 @@ void	ft_get_path(t_parse *parse)
 	{
 		if (parse->task[i]->builtin == NO_BUILTIN)
 			ft_replace_path(parse->task[i], paths);
-		ft_putstr_fd("\e[0;36m", 1);
-		ft_putstr_fd(parse->task[i]->cmd[0], 1);
-		ft_putstr_fd("\e[0m\n", 1);
 	}
 	ft_free_array((void **)paths);
 }

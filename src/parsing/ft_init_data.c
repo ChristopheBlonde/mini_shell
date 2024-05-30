@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:55:51 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/05/23 09:24:10 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/30 11:51:57 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ bool	ft_init_tasks(t_parse *parse, char **arr)
 		parse->task[i]->infile = -1;
 		parse->task[i]->outfile = -1;
 		parse->task[i]->is_quoted = 0;
+		parse->task[i]->pipe[0] = -1;
+		parse->task[i]->pipe[1] = -1;
 		i++;
 	}
 	return (true);

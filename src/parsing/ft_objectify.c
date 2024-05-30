@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:19:04 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/04/09 15:49:37 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/30 12:17:23 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ void	ft_objectify(t_parse *parse)
 	{
 		parse->task[i]->link = ft_get_link(parse->task[i]->cmd[0]);
 		parse->task[i]->priority = ft_get_priority(parse->task[i]->cmd[0]);
+		i++;
 	}
 }
