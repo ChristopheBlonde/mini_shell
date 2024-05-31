@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:59:40 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/08 14:05:15 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/31 14:06:14 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_error_heredoc(int n, char *limiter)
 	{
 		ft_putstr_fd("\e[0;36mwarning: here-document\
  delimited by end-of-file (wanted `", 2);
-		write(2, limiter, ft_strlen(limiter) - 1);
+		write(2, limiter, ft_strlen(limiter));
 		ft_putendl_fd("')\e[0m", 2);
 	}
 	(void)limiter;

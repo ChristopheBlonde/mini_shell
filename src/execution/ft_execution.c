@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/31 13:00:18 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/31 14:17:39 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,8 @@ bool	ft_execution(t_parse *parse)
 			ft_exec_builtin(parse, parse->task[i]);
 		else
 		{
-			ft_exec(parse, parse->task[i], i);
+			if (parse->task[i]->cmd && parse->task[i]->cmd[0])
+				ft_exec(parse, parse->task[i], i);
 		}
 		i++;
 	}
