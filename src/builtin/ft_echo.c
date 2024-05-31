@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/05/22 17:27:10 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/05/31 10:01:12 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	ft_echo(t_parse *parse, t_object *task)
 
 	i = 1;
 	option = 0;
-	if (task->cmd[1]
+	if (task->cmd[1] && task->cmd[1][0] != '\0'
 		&& !ft_strncmp(task->cmd[1], "-n", ft_strlen(task->cmd[1])))
 	{
 		option = 1;

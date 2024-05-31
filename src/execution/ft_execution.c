@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/30 16:48:03 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/31 13:00:18 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,55 +33,65 @@ static void	ft_exec_builtin(t_parse *parse, t_object *task)
 	}
 }
 
+void	ft_close_fds(t_parse *parse, size_t index)
+{
+	size_t	i;
+
+	i = 0;
+	while (parse->redirect && parse->redirect[i])
+	{
+		if (parse->redirect[i]->fd != -1)
+		{
+			close(parse->redirect[i]->fd);
+		}
+		i++;
+	}
+	i = 0;
+	while (i <= index)
+	{
+		if (parse->task[i]->pipe[0] > 0)
+			close(parse->task[i]->pipe[0]);
+		if (parse->task[i]->pipe[1] > 0)
+			close(parse->task[i]->pipe[1]);
+		i++;
+	}
+}
+
 void	ft_exec(t_parse *parse, t_object *task, size_t i)
 {
-	pid_t	pid;
-
 	pipe(task->pipe);
-	pid = fork();
-	if (pid < 0)
+	task->pid = fork();
+	if (task->pid < 0)
 	{
 		ft_putendl_fd(strerror(errno), 2);
 		return ;
 	}
-	if (pid == 0)
+	if (task->pid == 0)
 	{
 		if (task->infile != -1)
-		{
 			dup2(parse->redirect[task->infile]->fd, 0);
-			close(parse->redirect[task->infile]->fd);
-		}
 		else if (task->link == PIPE)
-		{
 			dup2(parse->task[i - 1]->pipe[0], 0);
-			close(parse->task[i - 1]->pipe[0]);
-		}
 		if (!parse->task[i + 1] || parse->task[i + 1]->link != PIPE)
 		{
 			if (task->outfile != -1)
-			{
 				dup2(parse->redirect[task->outfile]->fd, 1);
-				close(parse->redirect[task->outfile]->fd);
-			}
 		}
 		else
-		{
 			dup2(task->pipe[1], 1);
-			close(task->pipe[1]);
-		}
+		ft_close_fds(parse, i);
 		execve(task->cmd[0], task->cmd, parse->env);
 		exit(0);
 	}
 	else
 	{
-
 		close(task->pipe[1]);
 		if (task->link == PIPE)
 			close(parse->task[i - 1]->pipe[0]);
 		if (!parse->task[i + 1] || parse->task[i + 1]->link != PIPE)
 		{
 			close(task->pipe[0]);
-			waitpid(pid, NULL, 0);
+			waitpid(task->pid, &task->status, 0);
 		}
 	}
 }
@@ -103,6 +113,11 @@ bool	ft_execution(t_parse *parse)
 		}
 		i++;
 	}
-	waitpid(-1, NULL, 0);
+	i = 0;
+	while (parse->task[i])
+	{
+		waitpid(parse->task[i]->pid, &parse->task[i]->status, 0);
+		i++;
+	}
 	return (true);
 }

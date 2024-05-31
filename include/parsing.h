@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/30 15:54:35 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/31 08:56:47 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ typedef struct s_object
 	int			infile;
 	int			outfile;
 	int			pipe[2];
+	int			status;
+	pid_t		pid;
 	t_link		link;
 	t_builtin	builtin;
 	t_priority	priority;
