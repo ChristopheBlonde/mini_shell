@@ -18,5 +18,8 @@
 # include "utils.h"
 # include "builtin.h"
 # include "execution.h"
+# include "signal.h"
+
+extern int	g_exit_code;
 
 #endif

@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+int g_exit_code = 0;
+
 static inline int	ft_usage(void)
 {
 	ft_putendl_fd("\033[1;34mUsage: [ minishell ]\033[m", 2);
@@ -32,6 +34,12 @@ static bool	ft_empty_input(t_parse *parse)
 static bool	ft_input(t_parse *parse)
 {
 	parse->input = readline("minishell> ");
+	if (parse->input == NULL)
+	{
+		printf("exit\n");
+		ft_free_all(parse);
+		exit(0);
+	}
 	if (!parse->input || parse->input[0] == '\0')
 	{
 		ft_free_parsing(parse);
@@ -56,6 +64,7 @@ int	main(int argc, char *argv[], char *env[])
 {
 	t_parse	parse;
 
+	ft_sig_init(1);
 	if (argc > 1)
 	{
 		ft_putstr_fd(argv[1], 2);
@@ -64,10 +73,12 @@ int	main(int argc, char *argv[], char *env[])
 	}
 	ft_init_parse(&parse);
 	ft_parse_env(&parse, env);
+	//ft_excmd_result(&parse, 0);
 	if (!parse.env)
 		return (1);
 	while (true)
 	{
+		ft_excmd_result(&parse, g_exit_code);
 		if (!ft_input(&parse))
 			continue ;
 		if (!ft_parse_token(&parse, parse.input))

@@ -14,6 +14,8 @@
 
 static void	ft_check_builtin(t_object *task, char *cmd, size_t len)
 {
+	if (!cmd)
+		return ;
 	if (!ft_strncmp(cmd, "echo", len))
 		task->builtin = ECHO;
 	else if (!ft_strncmp(cmd, "cd", len))

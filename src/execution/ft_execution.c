@@ -103,6 +103,7 @@ bool	ft_execution(t_parse *parse)
 	i = 0;
 	ft_exec_redirect(parse);
 	ft_get_path(parse);
+	ft_sig_init(0);
 	while (parse->task && parse->task[i])
 	{
 		if (parse->task[i]->builtin != NO_BUILTIN)
@@ -117,7 +118,9 @@ bool	ft_execution(t_parse *parse)
 	while (parse->task[i])
 	{
 		waitpid(parse->task[i]->pid, &parse->task[i]->status, 0);
+		ft_sig_exit(parse->task[i]->status);
 		i++;
 	}
+	ft_sig_init(1);
 	return (true);
 }

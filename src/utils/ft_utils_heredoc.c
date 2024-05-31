@@ -42,7 +42,7 @@ void	ft_error_heredoc(int n, char *limiter)
 	{
 		ft_putstr_fd("\e[0;36mwarning: here-document\
  delimited by end-of-file (wanted `", 2);
-		write(2, limiter, ft_strlen(limiter) - 1);
+		write(2, limiter, ft_strlen(limiter));
 		ft_putendl_fd("')\e[0m", 2);
 	}
 	(void)limiter;

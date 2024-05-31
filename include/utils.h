@@ -102,4 +102,11 @@ int		count_dollar(char *str);
 void	ft_process_env(t_object *task, t_parse *parse);
 char	*ft_replace_var(t_parse *parse, char *line, char *str, char *var);
 
+/*	SIGNAL	*/
+void	sig_handler(int sig);
+void	ft_sig_init(int mode);
+void	sig_handle_nothing(int sig);
+void	ft_sig_exit(int status);
+void    sig_handler_heredoc(int sig);
+
 #endif
