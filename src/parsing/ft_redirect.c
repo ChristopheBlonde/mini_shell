@@ -6,13 +6,14 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 11:01:13 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/24 16:39:01 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/02 11:27:22 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_file_descriptor	*ft_create_redirect(char *op, char *file)
+static t_file_descriptor	*ft_create_redirect(t_parse *parse, char *op,
+		char *file, size_t i)
 {
 	t_file_descriptor	*fd;
 
@@ -24,7 +25,7 @@ static t_file_descriptor	*ft_create_redirect(char *op, char *file)
 	fd->file = file;
 	fd->in_quote = ft_quoted(file);
 	fd->fd = -1;
-	fd->type = ft_redirect_type(op);
+	fd->type = ft_redirect_type(parse, op, i);
 	if (fd->in_quote)
 		fd->file = ft_strqcpy(file);
 	return (fd);
@@ -69,7 +70,7 @@ bool	ft_redirect_end(t_parse *parse, size_t *i, size_t *j, size_t *k)
 {
 	while (parse->task[*i]->cmd[*j])
 	{
-		if (ft_redirect_type(parse->task[*i]->cmd[*j]) != NO_OP)
+		if (ft_redirect_type(parse, parse->task[*i]->cmd[*j], *i) != NO_OP)
 		{
 			parse->redirect = ft_realloc_redirect(parse->redirect, *k);
 			if (!parse->redirect)
@@ -78,9 +79,9 @@ bool	ft_redirect_end(t_parse *parse, size_t *i, size_t *j, size_t *k)
 					ft_free_file_descriptor);
 				return (false);
 			}
-			parse->redirect[*k] = ft_create_redirect(
+			parse->redirect[*k] = ft_create_redirect(parse,
 					parse->task[*i]->cmd[*j],
-					ft_getfile_name(parse->task[*i]->cmd, *j));
+					ft_getfile_name(parse->task[*i]->cmd, *j), *i);
 			ft_redirect_task(parse->task[*i], parse->task[*i]->cmd[*j],
 				(*k)++);
 		}
@@ -103,7 +104,14 @@ void	ft_redirection(t_parse *parse)
 		j = 0;
 		if (!ft_redirect_end(parse, &i, &j, &k))
 			return ;
-		ft_reduce_cmd(parse->task[i]);
+		ft_reduce_cmd(parse, parse->task[i], i);
+		i++;
+	}
+	i = 0;
+	while (parse->task[i])
+	{
+		if (parse->task[i]->outfile != -1)
+			parse->redirect[parse->task[i]->outfile]->type = APPEND;
 		i++;
 	}
 }

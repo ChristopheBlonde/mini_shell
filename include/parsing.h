@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/31 08:56:47 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/02 11:31:45 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,9 @@ char				**ft_split_with_quotes(char *str, char delimiter);
 void				in_quote(char *input, int *quote, int i);
 void				ft_redirect_task(t_object *task, char *input,
 						size_t index);
-char				**ft_reduce_cmd(t_object *task);
-t_file_operation	ft_redirect_type(char *file);
+char				**ft_reduce_cmd(t_parse *parse,
+						t_object *task, size_t index);
+t_file_operation	ft_redirect_type(t_parse *parse, char *file, size_t i);
 void				ft_wildcard(t_parse *parse);
 int					ft_syntax_errors_handler(char *input);
 int					ft_check_and_operator(char *input);
@@ -122,5 +123,6 @@ bool				ft_init_tasks(t_parse *parse, char **arr);
 void				ft_skip_envchar(t_list *current, int *i);
 void				ft_init_cmd_lst(t_cmd_lst *s, t_object *task);
 void				ft_cmd_quoted(t_parse *parse, t_object *task, t_cmd_lst *s);
+bool				ft_is_heredoc(t_parse *parse, size_t i);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 10:13:03 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/30 15:53:36 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/05/31 22:16:24 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ static void	ft_write_file(t_parse *parse, char *line, int index, char *tmp)
 	if (!str)
 		return ;
 	var = NULL;
-	if (parse->redirect[index]->file[0] != '\''
-		&& parse->redirect[index]->file[0] != '"')
+	if (!parse->redirect[index]->in_quote)
 	{
 		str = ft_replace_var(parse, line, str, var);
 		ft_putstr_fd(str, parse->redirect[index]->fd);
@@ -69,7 +68,7 @@ static void	ft_write_file(t_parse *parse, char *line, int index, char *tmp)
 	}
 	else
 	{
-		ft_putstr_fd(str, parse->redirect[index]->fd);
+		ft_putstr_fd(line, parse->redirect[index]->fd);
 		free(str);
 	}
 	free(line);
