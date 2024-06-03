@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/03 11:53:30 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/03 20:16:10 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_object
 {
 	char		**cmd;
 	int			is_quoted;
+	bool		*unquoted;
 	int			infile;
 	int			outfile;
 	int			pipe[2];

@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:01:18 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/29 13:53:14 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/03 19:24:24 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ft_cmd_quoted(t_parse *parse, t_object *task, t_cmd_lst *s)
 	{
 		task->is_quoted = 1;
 		s->current = s->current->next;
+		return ;
 	}
 	if (((char *)s->current->content)[0] == '"')
 	{

@@ -6,7 +6,7 @@
 #    By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
-#    Updated: 2024/06/02 11:52:20 by cblonde          ###   ########.fr        #
+#    Updated: 2024/06/03 14:54:13 by cblonde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,9 @@ CC = gcc
 
 CFLAGS = -Werror -Wextra -Wall -gdwarf-4
 
-INCLUDE = -Iinclude -Ilib
+INCLUDE = -Iinclude -Ilib -I/opt/homebrew/opt/readline/include
 
-LIBRARIES = -Llib -lft -lreadline
+LIBRARIES = -Llib -lft -lreadline -L/opt/homebrew/opt/readline/lib
 
 LIBFT = lib/libft.a
 
