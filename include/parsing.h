@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/31 08:56:47 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/03 11:53:30 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,8 @@ int					ft_check_parenthesis(char *input);
 int					ft_check_or_operator(char *input);
 void				ft_parse_env(t_parse *parse, char *env[]);
 bool				ft_parse_token(t_parse *parse, char *input);
-void				print_tokens(t_parse *parse);
-void				print_objects(t_parse *parse);
 void				ft_objectify(t_parse *parse);
 void				ft_redirection(t_parse *parse);
-void				print_cmd(t_parse *parse);
-void				print_redirection_tab(t_parse *parse);
 bool				check_quote(char *str);
 bool				ft_quoted(char *str);
 char				*ft_strqcpy(char *s);
@@ -113,9 +109,6 @@ char				**ft_reduce_cmd(t_object *task);
 t_file_operation	ft_redirect_type(char *file);
 void				ft_wildcard(t_parse *parse);
 int					ft_syntax_errors_handler(char *input);
-int					ft_check_and_operator(char *input);
-int					ft_check_parenthesis(char *input);
-int					ft_check_or_operator(char *input);
 void				ft_free_parsing(t_parse *parse);
 void				ft_init_parse(t_parse *parse);
 bool				ft_init_tasks(t_parse *parse, char **arr);

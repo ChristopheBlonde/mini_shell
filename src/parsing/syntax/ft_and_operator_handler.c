@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 14:28:07 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/05/06 10:14:23 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/02 11:30:17 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	skip_spaces(char *input, int *i)
 static int	check_after_spaces(char *input, int i)
 {
 	skip_spaces(input, &i);
-	if (input[i] == '&' || input[i] == '|' || input[i] == ';' \
-		|| input[i] == '<' || input[i] == '>')
+	if (input[i] == '&' || input[i] == '|' || input[i] == ';'
+		|| input[i] == '\0' || input[i] == '\n')
 		return (1);
 	return (0);
 }

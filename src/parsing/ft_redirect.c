@@ -6,13 +6,14 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 11:01:13 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/24 16:39:01 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/03 11:49:50 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_file_descriptor	*ft_create_redirect(char *op, char *file)
+static t_file_descriptor	*ft_create_redirect(char *op,
+		char *file)
 {
 	t_file_descriptor	*fd;
 
