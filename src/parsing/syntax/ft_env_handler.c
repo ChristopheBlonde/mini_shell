@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:25:46 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/03 20:30:01 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/03 21:18:53 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ static t_list	*ft_cmd_to_list(t_object *task, t_parse *parse)
 			ft_lstinsert(&s.lst, new_lst, &s.current);
 			s.nb_dollar -= 1;
 		}
+		k++;
 	}
 	return (s.lst);
 }

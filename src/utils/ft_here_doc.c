@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 10:13:03 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/03 19:11:25 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/03 21:16:25 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ char	*ft_replace_var(t_parse *parse, char *line, char *str, char *var)
 			return (NULL);
 		j = 0;
 		while (line[i] && (line[i + j + 1] != '\n' && line[i + j + 1] != '\0')
-			&& line[i + j + 1] != ' ' && line[i + j + 1] != '$')
+			&& line[i + j + 1] != ' ' && line[i + j + 1] != '$'
+			&& line[i + j + 1] != '\'')
 			j++;
 		var = ft_substr(line, i + 1, j);
 		if (!var)
