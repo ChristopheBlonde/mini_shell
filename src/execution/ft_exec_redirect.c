@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:43:17 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/01 16:28:20 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/03 10:25:14 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ bool	ft_exec_redirect(t_parse *parse)
 		if (file->type == APPEND)
 			file->fd = open(file->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (file->type == HEREDOC)
-		{
-			ft_is_heredoc(parse, -1);
 			ft_here_doc(parse, i);
-		}
 		if (file->fd < 0)
 			ft_putendl_fd(strerror(errno), 2);
 		i++;

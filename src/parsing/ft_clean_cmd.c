@@ -6,19 +6,19 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:13:34 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/02 11:29:14 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/03 11:50:11 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static size_t	ft_check_redirect(t_parse *parse, char *str, size_t i)
+static size_t	ft_check_redirect(char *str)
 {
 	t_file_operation	type;
 
 	if (!str)
 		return (0);
-	type = ft_redirect_type(parse, str, i);
+	type = ft_redirect_type(str);
 	if (type == NO_OP)
 		return (0);
 	if (type == APPEND || type == HEREDOC)
@@ -71,8 +71,7 @@ static size_t	ft_check_link(char *str)
 	return (0);
 }
 
-static void	ft_cmdcpy(t_parse *parse,
-		char **n_cmd, t_object *task, size_t index)
+static void	ft_cmdcpy(char **n_cmd, t_object *task)
 {
 	int	i;
 	int	j;
@@ -83,13 +82,13 @@ static void	ft_cmdcpy(t_parse *parse,
 	{
 		if (ft_check_link(task->cmd[i]) == 2)
 			ft_rewrite(task->cmd[i]);
-		if (ft_check_redirect(parse, task->cmd[i], index) == 0
+		if (ft_check_redirect(task->cmd[i]) == 0
 			&& ft_check_link(task->cmd[i]) == 0)
 			n_cmd[++j] = task->cmd[i];
-		else if (ft_check_redirect(parse, task->cmd[i], index) == 1
+		else if (ft_check_redirect(task->cmd[i]) == 1
 			|| ft_check_link(task->cmd[i]) == 1)
 			free(task->cmd[i]);
-		else if (ft_check_redirect(parse, task->cmd[i], index) == 2)
+		else if (ft_check_redirect(task->cmd[i]) == 2)
 		{
 			free(task->cmd[i]);
 			i++;
@@ -100,7 +99,7 @@ static void	ft_cmdcpy(t_parse *parse,
 	task->cmd = n_cmd;
 }
 
-char	**ft_reduce_cmd(t_parse *parse, t_object *task, size_t index)
+char	**ft_reduce_cmd(t_object *task)
 {
 	size_t	cmd_len;
 	char	**n_cmd;
@@ -110,7 +109,7 @@ char	**ft_reduce_cmd(t_parse *parse, t_object *task, size_t index)
 	cmd_len = ft_arrlen((void **)task->cmd);
 	while (task->cmd[i])
 	{
-		cmd_len -= ft_check_redirect(parse, task->cmd[i], index);
+		cmd_len -= ft_check_redirect(task->cmd[i]);
 		if (ft_check_link(task->cmd[i]) == 1)
 			cmd_len--;
 		i++;
@@ -118,6 +117,6 @@ char	**ft_reduce_cmd(t_parse *parse, t_object *task, size_t index)
 	n_cmd = (char **)ft_calloc(cmd_len + 1, sizeof(char *));
 	if (!n_cmd)
 		return (task->cmd);
-	ft_cmdcpy(parse, n_cmd, task, index);
+	ft_cmdcpy(n_cmd, task);
 	return (n_cmd);
 }
