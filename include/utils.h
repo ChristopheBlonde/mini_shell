@@ -107,6 +107,6 @@ void	sig_handler(int sig);
 void	ft_sig_init(int mode);
 void	sig_handle_nothing(int sig);
 void	ft_sig_exit(int status);
-void    sig_handler_heredoc(int sig);
+void	sig_handler_heredoc(int sig);
 
 #endif
