@@ -107,7 +107,7 @@ bool	ft_execution(t_parse *parse)
 	ft_sig_init(0);
 	while (parse->task && parse->task[i])
 	{
-		if (parse->task[i]->builtin != NO_BUILTIN 
+		if (parse->task[i]->builtin != NO_BUILTIN
 			&& parse->task[i]->builtin != ECHO)
 			ft_exec_builtin(parse, parse->task[i++]);
 		else
