@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 21:17:26 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/04 14:29:31 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/04 14:37:31 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static bool	ft_error_cd(t_parse *parse, t_object *task, char *str)
 		ft_excmd_result(parse, 1);
 		return (true);
 	}
-	if (ft_arrlen((void **)task->cmd) > 1)
+	if (ft_arrlen((void **)task->cmd) > 2)
 	{
 		ft_putendl_fd("minishell: cd: too many arguments", 2);
 		ft_excmd_result(parse, 1);
