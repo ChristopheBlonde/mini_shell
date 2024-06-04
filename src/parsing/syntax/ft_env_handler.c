@@ -78,7 +78,6 @@ static t_list	*ft_list_to_add(t_list *current, t_parse *parse, int nb_dollar,
 static t_list	*ft_cmd_to_list(t_object *task, t_parse *parse)
 {
 	t_cmd_lst	s;
-	bool		*new_unquoted;
 	size_t		j;
 	size_t		k;
 	t_list		*new_lst;
@@ -96,14 +95,9 @@ static t_list	*ft_cmd_to_list(t_object *task, t_parse *parse)
 		if (s.current != s.current_tmp)
 			s.current_tmp = s.current;
 		ft_cmd_quoted(parse, task, &s);
-		if (task->is_quoted == 1)
+		if (task->is_quoted == 1 || task->is_quoted == 2)
 		{
-			case_if_1(&s, task, &k);
-			continue ;
-		}
-		if (task->is_quoted == 2)
-		{
-			case_if_2(&s, task, &k);
+			case_if_1_or_2(&s, task, &k, task->is_quoted);
 			continue ;
 		}
 		if (s.nb_dollar == -1)
@@ -111,19 +105,7 @@ static t_list	*ft_cmd_to_list(t_object *task, t_parse *parse)
 		if (s.nb_dollar > 0)
 		{
 			new_lst = ft_list_to_add(s.current, parse, s.nb_dollar, 0);
-			new_unquoted = (bool *)ft_calloc(s.i + ft_lstsize(new_lst),
-				sizeof(bool));
-			if (!new_unquoted)
-				return (NULL);
-			while (task->unquoted[j])
-			{
-				new_unquoted[j] = task->unquoted[j];
-				j--;
-			}
-			while (j < (s.i + (size_t)ft_lstsize(new_lst)))
-				new_unquoted[j++] = true; 
-			free(task->unquoted);
-			task->unquoted = new_unquoted;
+			handle_new_unquoted(s, task, j, new_lst);
 			ft_lstinsert(&s.lst, new_lst, &s.current);
 			s.nb_dollar -= 1;
 		}

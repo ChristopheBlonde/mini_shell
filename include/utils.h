@@ -113,7 +113,7 @@ void	sig_handler_heredoc(int sig);
 
 /*ENV*/
 void	case_if_0(t_cmd_lst *s);
-void	case_if_1(t_cmd_lst *s, t_object *task, size_t *k);
-void	case_if_2(t_cmd_lst *s, t_object *task, size_t *k);
+void	case_if_1_or_2(t_cmd_lst *s, t_object *task, size_t *k, int case_nb);
+void	handle_new_unquoted(t_cmd_lst s, t_object *task, size_t j, t_list *new_lst);
 
 #endif
