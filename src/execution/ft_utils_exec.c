@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/04 14:31:28 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/04 16:35:44 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,19 @@ void	ft_exec(t_parse *parse, t_object *task, size_t i)
 	if (task->pid == 0)
 	{
 		ft_handle_child(parse, task, i);
-		execve(task->cmd[0], task->cmd, parse->env);
+		if (task->builtin != NO_BUILTIN)
+			execve(task->cmd[0], task->cmd, parse->env);
+		ft_exec_builtin(parse, task, i);
 		exit(0);
 	}
 	else
 		ft_handle_parent(parse, task, i);
 }
 
-void	ft_exec_builtin(t_parse *parse, t_object *task)
+void	ft_exec_builtin(t_parse *parse, t_object *task, int index)
 {
 	if (task->builtin == ECHO)
-		ft_exec_echo(parse, task);
+		ft_exec_echo(parse, task, index);
 	if (task->builtin == CD)
 		ft_cd(parse, task, task->cmd[1]);
 	if (task->builtin == PWD)

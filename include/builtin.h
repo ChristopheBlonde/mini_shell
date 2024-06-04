@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:43:25 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/04 14:30:16 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/04 15:55:46 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "errno.h"
 
 /*			ECHO			*/
-void	ft_exec_echo(t_parse *parse, t_object *task);
+void	ft_exec_echo(t_parse *parse, t_object *task, int index);
 
 /*			EXPORT			*/
 void	ft_exec_export(t_parse *parse, t_object *task);
@@ -33,7 +33,7 @@ void	ft_env_trim(char *str);
 void	ft_exec_unset(t_parse *parse, t_object *task);
 
 /*			ENV				*/
-void	ft_env(t_parse *parse);
+int		ft_env(t_parse *parse);
 
 /* 			PWD 			*/
 void	ft_pwd(t_parse *parse);

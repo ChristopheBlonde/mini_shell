@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/02 13:23:30 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/04 16:06:23 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ static void	ft_exec_pipe(t_parse *parse, size_t *i)
 		&& parse->task[*i]->link != AND)
 	{
 		if (parse->task[*i]->builtin != NO_BUILTIN)
-			ft_exec_builtin(parse, parse->task[*i]);
+			ft_exec_builtin(parse, parse->task[*i], *i);
 		else
 			ft_exec(parse, parse->task[*i], *i);
 		*i += 1;
 		while (parse->task[*i] && parse->task[*i]->link == PIPE)
 		{
 			if (parse->task[*i]->builtin != NO_BUILTIN)
-				ft_exec_builtin(parse, parse->task[*i]);
+				ft_exec_builtin(parse, parse->task[*i], *i);
 			else
 				ft_exec(parse, parse->task[*i], *i);
 			*i += 1;
@@ -40,14 +40,14 @@ static bool	ft_exec_or(t_parse *parse, size_t *i)
 		if (parse->task[*i - 1]->status > 0)
 		{
 			if (parse->task[*i]->builtin != NO_BUILTIN)
-				ft_exec_builtin(parse, parse->task[*i]);
+				ft_exec_builtin(parse, parse->task[*i], *i);
 			else
 				ft_exec(parse, parse->task[*i], *i);
 			*i += 1;
 			while (parse->task[*i] && parse->task[*i]->link == PIPE)
 			{
 				if (parse->task[*i]->builtin != NO_BUILTIN)
-					ft_exec_builtin(parse, parse->task[*i]);
+					ft_exec_builtin(parse, parse->task[*i], *i);
 				else
 					ft_exec(parse, parse->task[*i], *i);
 				*i += 1;
@@ -66,14 +66,14 @@ static bool	ft_exec_and(t_parse *parse, size_t *i)
 		if (parse->task[*i - 1]->status == 0)
 		{
 			if (parse->task[*i]->builtin != NO_BUILTIN)
-				ft_exec_builtin(parse, parse->task[*i]);
+				ft_exec_builtin(parse, parse->task[*i], *i);
 			else
 				ft_exec(parse, parse->task[*i], *i);
 			*i += 1;
 			while (parse->task[*i] && parse->task[*i]->link == PIPE)
 			{
 				if (parse->task[*i]->builtin != NO_BUILTIN)
-					ft_exec_builtin(parse, parse->task[*i]);
+					ft_exec_builtin(parse, parse->task[*i], *i);
 				else
 					ft_exec(parse, parse->task[*i], *i);
 				*i += 1;
@@ -108,8 +108,12 @@ bool	ft_execution(t_parse *parse)
 	while (parse->task && parse->task[i])
 	{
 		if (parse->task[i]->builtin != NO_BUILTIN
-			&& parse->task[i]->builtin != ECHO)
-			ft_exec_builtin(parse, parse->task[i++]);
+			&& parse->task[i]->builtin != ECHO
+			&& parse->task[i]->builtin != ENV)
+		{
+			ft_exec_builtin(parse, parse->task[i], i);
+			i++;
+		}
 		else
 		{
 			if (parse->task[i] && parse->task[i]->cmd && parse->task[i]->cmd[0])
