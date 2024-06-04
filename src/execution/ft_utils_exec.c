@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/04 08:41:07 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/04 14:31:28 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ft_exec_builtin(t_parse *parse, t_object *task)
 	if (task->builtin == ECHO)
 		ft_exec_echo(parse, task);
 	if (task->builtin == CD)
-		ft_cd(parse, task->cmd[1]);
+		ft_cd(parse, task, task->cmd[1]);
 	if (task->builtin == PWD)
 		ft_pwd(parse);
 	if (task->builtin == EXPORT)

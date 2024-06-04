@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:43:25 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/04 08:42:41 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/04 14:30:16 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_env(t_parse *parse);
 void	ft_pwd(t_parse *parse);
 
 /*			CD				*/
-void	ft_cd(t_parse *parse, char *path);
+void	ft_cd(t_parse *parse,t_object *task, char *path);
 
 /*			EXIT 			*/
 int		ft_exit(t_parse *parse, t_object *task);
