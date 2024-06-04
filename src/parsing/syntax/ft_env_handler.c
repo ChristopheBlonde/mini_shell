@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:25:46 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/03 21:18:53 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/04 00:14:03 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ static t_list	*ft_list_to_add(t_list *current, t_parse *parse, int nb_dollar,
 			index = z + 1;
 			ft_skip_envchar(current, &index);
 			var = ft_substr(current->content, z + 1, index - z - 1);
-			new = ft_list_to_split(var, parse, current, z);
+			if (var && var[0] == '\0')
+				new = ft_list_to_split("$", parse, current, z);
+			else
+				new = ft_list_to_split(var, parse, current, z);
 			free(var);
 			break ;
 		}
@@ -92,6 +95,7 @@ static t_list	*ft_cmd_to_list(t_object *task, t_parse *parse)
 		if (task->is_quoted == 1)
 		{
 			task->unquoted[k++] = false;
+			s.nb_dollar = 0;
 			continue ;
 		}
 		if (task->is_quoted == 2)

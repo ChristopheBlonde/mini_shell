@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/02 13:02:02 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/04 08:41:07 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,5 @@ void	ft_exec_builtin(t_parse *parse, t_object *task)
 	if (task->builtin == ENV)
 		ft_env(parse);
 	if (task->builtin == EXIT)
-	{
-		ft_free_all(parse);
-		exit(0);
-	}
+		ft_exit(parse, task);
 }

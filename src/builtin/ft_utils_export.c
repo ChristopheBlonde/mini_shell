@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 13:25:34 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/24 13:08:27 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/03 23:45:47 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_putexport(char **env)
 		return ;
 	while (arr[++i])
 	{
-		if (arr[i][0] == '?')
+		if (arr[i][0] == '?' || (arr[i][0] == '_' && arr[i][1] == '='))
 			continue ;
 		j = 0;
 		while (arr[i][j] && arr[i][j] != '=')
