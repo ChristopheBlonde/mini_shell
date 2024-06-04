@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/05/29 10:42:57 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/04 15:34:50 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,9 @@ void	sig_handle_nothing(int sig);
 void	ft_sig_exit(int status);
 void	sig_handler_heredoc(int sig);
 
-
 /*ENV*/
-void	case_if_0(t_cmd_lst *s);
-void	case_if_1_or_2(t_cmd_lst *s, t_object *task, size_t *k, int case_nb);
-void	handle_new_unquoted(t_cmd_lst s, t_object *task, size_t j, t_list *new_lst);
+t_list	*ft_list_to_add(t_list *current, t_parse *parse, int nb_dollar,
+			int random);
+t_list	*ft_cmd_to_list_env(t_object *task, t_parse *parse);
 
 #endif
