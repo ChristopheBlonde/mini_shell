@@ -76,9 +76,11 @@ int	main(int argc, char *argv[], char *env[])
 	//ft_excmd_result(&parse, 0);
 	if (!parse.env)
 		return (1);
+	ft_excmd_result(&parse, 0);
 	while (true)
 	{
-		ft_excmd_result(&parse, g_exit_code);
+		if (g_exit_code != 0)
+			ft_excmd_result(&parse, g_exit_code);
 		if (!ft_input(&parse))
 			continue ;
 		if (!ft_parse_token(&parse, parse.input))

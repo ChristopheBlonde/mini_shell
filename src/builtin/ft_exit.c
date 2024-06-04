@@ -28,9 +28,9 @@ static bool	ft_is_number(char *str)
 			&& str[i] != '-' && str[i] != '+')
 			return (false);
 		nbr = nbr * 10 + (str[i] - '0');
-		ft_putstr_fd("\e[0;36m", 2);
-		ft_putnbr_fd(nbr, 2);
-		ft_putstr_fd("\e[0;36m\n", 2);
+		//ft_putstr_fd("\e[0;36m", 2);
+		//ft_putnbr_fd(nbr, 2);
+		//ft_putstr_fd("\e[0;36m\n", 2);
 		if ((nbr > 922337203685477580 && str[i + 1])
 				|| (nbr < -922337203685477580 && str[i + 1])
 				|| (nbr == 922337203685477580 && str[i] > '7')

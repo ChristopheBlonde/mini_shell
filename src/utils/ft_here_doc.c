@@ -12,9 +12,11 @@
 
 #include "utils.h"
 
-static void	ft_add_value(t_parse *parse, char **var, char **str)
+static void	ft_add_value(t_parse *parse, char **var, char **str, int check, char c)
 {
-	if (*var && (*var)[0] != '\0' && ft_getenv(parse, *var))
+	if (check == 0 && c == '$')
+		*str = ft_strfjoin(*str, "$", 1);
+	else if (*var && (*var)[0] != '\0' && ft_getenv(parse, *var))
 		*str = ft_strfjoin(*str, ft_getenv(parse, *var), 1);
 	free(*var);
 	*var = NULL;
@@ -31,8 +33,6 @@ char	*ft_replace_var(t_parse *parse, char *line, char *str, char *var)
 	i = 0;
 	while (i < ft_strlen(line))
 	{
-		ft_putstr_fd(line, 1); //TODO
-		ft_putstr_fd("!\n", 1); //TODO
 		k = i;
 		while (line[i] && line[i] != '$')
 			i++;
@@ -47,7 +47,7 @@ char	*ft_replace_var(t_parse *parse, char *line, char *str, char *var)
 		var = ft_substr(line, i + 1, j);
 		if (!var)
 			return (NULL);
-		ft_add_value(parse, &var, &str);
+		ft_add_value(parse, &var, &str, j, line[i]);
 		i += ++j;
 	}
 	return (str);
