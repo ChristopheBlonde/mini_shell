@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/04 16:19:07 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/04 16:54:49 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,14 @@ void	ft_exec_echo(t_parse *parse, t_object *task, int index)
 {
 	int	fd;
 
+	(void)index;
 	fd = 1;
 	if (task->builtin != ECHO)
 		return ;
 	if (!task->cmd)
 		return ;
-	if ((parse->task[index + 1] && parse->task[index + 1]->link == PIPE)
-		|| task->outfile != -1)
-		fd = task->pipe[0];
+	// if ((parse->task[index + 1] && parse->task[index + 1]->link == PIPE)
+	// 	|| task->outfile != -1)
+	// 	fd = task->pipe[1];
 	ft_echo(parse, task, fd);
 }

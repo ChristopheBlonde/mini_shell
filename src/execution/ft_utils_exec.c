@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils_exec.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/04 16:35:44 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/04 17:07:41 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_exec(t_parse *parse, t_object *task, size_t i)
 	if (task->pid == 0)
 	{
 		ft_handle_child(parse, task, i);
-		if (task->builtin != NO_BUILTIN)
+		if (task->builtin == NO_BUILTIN)
 			execve(task->cmd[0], task->cmd, parse->env);
 		ft_exec_builtin(parse, task, i);
 		exit(0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execution.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/04 16:06:23 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/04 16:52:37 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ static void	ft_exec_pipe(t_parse *parse, size_t *i)
 	if (parse->task[*i] && parse->task[*i]->link != OR
 		&& parse->task[*i]->link != AND)
 	{
-		if (parse->task[*i]->builtin != NO_BUILTIN)
-			ft_exec_builtin(parse, parse->task[*i], *i);
-		else
+		// if (parse->task[*i]->builtin != NO_BUILTIN)
+		// 	ft_exec_builtin(parse, parse->task[*i], *i);
+		// else
 			ft_exec(parse, parse->task[*i], *i);
 		*i += 1;
 		while (parse->task[*i] && parse->task[*i]->link == PIPE)
 		{
-			if (parse->task[*i]->builtin != NO_BUILTIN)
-				ft_exec_builtin(parse, parse->task[*i], *i);
-			else
+			// if (parse->task[*i]->builtin != NO_BUILTIN)
+			// 	ft_exec_builtin(parse, parse->task[*i], *i);
+			// else
 				ft_exec(parse, parse->task[*i], *i);
 			*i += 1;
 		}
