@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/05/29 10:42:57 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/04 15:34:50 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ t_list	*ft_suppdouble(t_list *lst);
 int		count_dollar(char *str);
 void	ft_process_env(t_object *task, t_parse *parse);
 char	*ft_replace_var(t_parse *parse, char *line, char *str, char *var);
+int		pre_check(int check, char c);
 
 /*	SIGNAL	*/
 void	sig_handler(int sig);
@@ -108,5 +109,10 @@ void	ft_sig_init(int mode);
 void	sig_handle_nothing(int sig);
 void	ft_sig_exit(int status);
 void	sig_handler_heredoc(int sig);
+
+/*ENV*/
+t_list	*ft_list_to_add(t_list *current, t_parse *parse, int nb_dollar,
+			int random);
+t_list	*ft_cmd_to_list_env(t_object *task, t_parse *parse);
 
 #endif

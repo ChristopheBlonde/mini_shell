@@ -39,7 +39,7 @@ int		ft_env(t_parse *parse);
 void	ft_pwd(t_parse *parse);
 
 /*			CD				*/
-void	ft_cd(t_parse *parse,t_object *task, char *path);
+void	ft_cd(t_parse *parse, t_object *task, char *path);
 
 /*			EXIT 			*/
 int		ft_exit(t_parse *parse, t_object *task);

@@ -52,7 +52,8 @@ SRC = src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c\
 	  $(BUILTIN)ft_checkbuiltin.c $(PARSE)ft_init_data.c\
 	  $(BUILTIN)ft_utils_export.c $(BUILTIN)ft_pwd.c $(BUILTIN)ft_cd.c\
 	  $(SYNTAX)ft_temp.c $(SYNTAX)ft_env_handler.c $(BUILTIN)ft_utils_env_export.c\
-	  $(EXEC)ft_get_path.c $(SYNTAX)ft_utils_env_handler.c $(EXEC)ft_utils_exec.c $(SIGNAL)ft_signal.c $(BUILTIN)ft_exit.c
+	  $(EXEC)ft_get_path.c $(SYNTAX)ft_utils_env_handler.c $(EXEC)ft_utils_exec.c $(SIGNAL)ft_signal.c \
+	  $(BUILTIN)ft_exit.c $(SYNTAX)ft_env_utils2.c
 	  
 OBJ_DIR = obj/
 

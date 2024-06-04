@@ -55,3 +55,10 @@ int	ft_fail_open(char *name, char *line, char *tmp)
 	free(tmp);
 	return (-1);
 }
+
+int	pre_check(int check, char c)
+{
+	if (check == 0 && c == '$')
+		return (1);
+	return (0);
+}
