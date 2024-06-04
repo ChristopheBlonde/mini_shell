@@ -91,7 +91,7 @@ int	ft_exit(t_parse *parse, t_object *task)
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(task->cmd[1], 2);
 		ft_putendl_fd(": numeric argument required", 2);
-		exit(255);
+		exit(2);
 	}
 	if (task->cmd[1])
 		nbr = ft_atol_exit(task->cmd[1]);

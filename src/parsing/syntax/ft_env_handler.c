@@ -38,6 +38,14 @@ static t_list	*ft_list_to_split(char *var, t_parse *parse,
 	return (new_list);
 }
 
+static t_list	*get_new(char *var, t_parse *parse, t_list *current, int z)
+{
+	if (var && var[0] == '\0')
+		return (ft_list_to_split("$", parse, current, z));
+	else
+		return (ft_list_to_split(var, parse, current, z));
+}
+
 static t_list	*ft_list_to_add(t_list *current, t_parse *parse, int nb_dollar,
 		int random)
 {
@@ -59,10 +67,7 @@ static t_list	*ft_list_to_add(t_list *current, t_parse *parse, int nb_dollar,
 			index = z + 1;
 			ft_skip_envchar(current, &index);
 			var = ft_substr(current->content, z + 1, index - z - 1);
-			if (var && var[0] == '\0')
-				new = ft_list_to_split("$", parse, current, z);
-			else
-				new = ft_list_to_split(var, parse, current, z);
+			new = get_new(var, parse, current, z);
 			free(var);
 			break ;
 		}
@@ -85,8 +90,7 @@ static t_list	*ft_cmd_to_list(t_object *task, t_parse *parse)
 	{
 		if (s.nb_dollar == 0)
 		{
-			s.nb_dollar = -1;
-			s.current = s.current->next;
+			case_if_0(&s);
 			continue ;
 		}
 		if (s.current != s.current_tmp)
@@ -94,14 +98,12 @@ static t_list	*ft_cmd_to_list(t_object *task, t_parse *parse)
 		ft_cmd_quoted(parse, task, &s);
 		if (task->is_quoted == 1)
 		{
-			task->unquoted[k++] = false;
-			s.nb_dollar = 0;
+			case_if_1(&s, task, &k);
 			continue ;
 		}
 		if (task->is_quoted == 2)
 		{
-			task->unquoted[k++] = true;
-			s.nb_dollar = 0;
+			case_if_2(&s, task, &k);
 			continue ;
 		}
 		if (s.nb_dollar == -1)
@@ -116,14 +118,10 @@ static t_list	*ft_cmd_to_list(t_object *task, t_parse *parse)
 			while (task->unquoted[j])
 			{
 				new_unquoted[j] = task->unquoted[j];
-				j++;
+				j--;
 			}
-			j--;
 			while (j < (s.i + (size_t)ft_lstsize(new_lst)))
-			{
-				new_unquoted[j] = true; 
-				j++;
-			}
+				new_unquoted[j++] = true; 
 			free(task->unquoted);
 			task->unquoted = new_unquoted;
 			ft_lstinsert(&s.lst, new_lst, &s.current);

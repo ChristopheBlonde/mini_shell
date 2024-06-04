@@ -25,13 +25,13 @@ bool	ft_init_tasks(t_parse *parse, char **arr)
 	size_t	i;
 	size_t	len;
 
-	i = 0;
+	i = -1;
 	parse->task = (t_object **)ft_calloc(ft_arrlen((void **)arr) + 1,
 			sizeof(t_object *));
 	if (!parse->task)
 		return (false);
 	len = ft_arrlen((void **)arr);
-	while (i < len)
+	while (++i < len)
 	{
 		parse->task[i] = (t_object *)ft_calloc(1, sizeof(t_object));
 		if (!parse->task[i])
@@ -45,7 +45,6 @@ bool	ft_init_tasks(t_parse *parse, char **arr)
 		parse->task[i]->is_quoted = 0;
 		parse->task[i]->pipe[0] = -1;
 		parse->task[i]->pipe[1] = -1;
-		i++;
 	}
 	return (true);
 }
