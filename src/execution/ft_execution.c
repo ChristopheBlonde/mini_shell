@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/04 16:52:37 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/05 09:46:22 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,11 @@ static void	ft_exec_pipe(t_parse *parse, size_t *i)
 	if (parse->task[*i] && parse->task[*i]->link != OR
 		&& parse->task[*i]->link != AND)
 	{
-		// if (parse->task[*i]->builtin != NO_BUILTIN)
-		// 	ft_exec_builtin(parse, parse->task[*i], *i);
-		// else
-			ft_exec(parse, parse->task[*i], *i);
+		ft_exec(parse, parse->task[*i], *i);
 		*i += 1;
 		while (parse->task[*i] && parse->task[*i]->link == PIPE)
 		{
-			// if (parse->task[*i]->builtin != NO_BUILTIN)
-			// 	ft_exec_builtin(parse, parse->task[*i], *i);
-			// else
-				ft_exec(parse, parse->task[*i], *i);
+			ft_exec(parse, parse->task[*i], *i);
 			*i += 1;
 		}
 	}
@@ -39,17 +33,11 @@ static bool	ft_exec_or(t_parse *parse, size_t *i)
 	{
 		if (parse->task[*i - 1]->status > 0)
 		{
-			if (parse->task[*i]->builtin != NO_BUILTIN)
-				ft_exec_builtin(parse, parse->task[*i], *i);
-			else
-				ft_exec(parse, parse->task[*i], *i);
+			ft_exec(parse, parse->task[*i], *i);
 			*i += 1;
 			while (parse->task[*i] && parse->task[*i]->link == PIPE)
 			{
-				if (parse->task[*i]->builtin != NO_BUILTIN)
-					ft_exec_builtin(parse, parse->task[*i], *i);
-				else
-					ft_exec(parse, parse->task[*i], *i);
+				ft_exec(parse, parse->task[*i], *i);
 				*i += 1;
 			}
 		}
@@ -65,17 +53,11 @@ static bool	ft_exec_and(t_parse *parse, size_t *i)
 	{
 		if (parse->task[*i - 1]->status == 0)
 		{
-			if (parse->task[*i]->builtin != NO_BUILTIN)
-				ft_exec_builtin(parse, parse->task[*i], *i);
-			else
-				ft_exec(parse, parse->task[*i], *i);
+			ft_exec(parse, parse->task[*i], *i);
 			*i += 1;
 			while (parse->task[*i] && parse->task[*i]->link == PIPE)
 			{
-				if (parse->task[*i]->builtin != NO_BUILTIN)
-					ft_exec_builtin(parse, parse->task[*i], *i);
-				else
-					ft_exec(parse, parse->task[*i], *i);
+				ft_exec(parse, parse->task[*i], *i);
 				*i += 1;
 			}
 		}
@@ -107,13 +89,9 @@ bool	ft_execution(t_parse *parse)
 	ft_sig_init(0);
 	while (parse->task && parse->task[i])
 	{
-		if (parse->task[i]->builtin != NO_BUILTIN
-			&& parse->task[i]->builtin != ECHO
-			&& parse->task[i]->builtin != ENV)
-		{
-			ft_exec_builtin(parse, parse->task[i], i);
-			i++;
-		}
+		if (parse->task[i]->builtin != NO_BUILTIN && parse->task[i]->builtin
+			!= ECHO && parse->task[i]->builtin != ENV)
+			ft_exec_builtin(parse, parse->task[i++]);
 		else
 		{
 			if (parse->task[i] && parse->task[i]->cmd && parse->task[i]->cmd[0])

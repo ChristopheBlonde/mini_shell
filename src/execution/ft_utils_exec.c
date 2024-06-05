@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/04 17:07:41 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/05 09:39:40 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,17 @@ void	ft_exec(t_parse *parse, t_object *task, size_t i)
 		ft_handle_child(parse, task, i);
 		if (task->builtin == NO_BUILTIN)
 			execve(task->cmd[0], task->cmd, parse->env);
-		ft_exec_builtin(parse, task, i);
+		ft_exec_builtin(parse, task);
 		exit(0);
 	}
 	else
 		ft_handle_parent(parse, task, i);
 }
 
-void	ft_exec_builtin(t_parse *parse, t_object *task, int index)
+void	ft_exec_builtin(t_parse *parse, t_object *task)
 {
 	if (task->builtin == ECHO)
-		ft_exec_echo(parse, task, index);
+		ft_exec_echo(parse, task);
 	if (task->builtin == CD)
 		ft_cd(parse, task, task->cmd[1]);
 	if (task->builtin == PWD)
