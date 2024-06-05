@@ -6,13 +6,13 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/05 09:31:12 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/05 13:57:50 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-static void	ft_echo(t_parse *parse, t_object *task)
+static int	ft_echo(t_parse *parse, t_object *task)
 {
 	int		i;
 	int		option;
@@ -37,6 +37,7 @@ static void	ft_echo(t_parse *parse, t_object *task)
 	if (!option)
 		ft_putstr_fd("\n", 1);
 	ft_excmd_result(parse, 0);
+	return (0);
 }
 
 void	ft_exec_echo(t_parse *parse, t_object *task)
