@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirect.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 11:01:13 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/03 11:49:50 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/05 19:08:35 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,12 @@ bool	ft_redirect_end(t_parse *parse, size_t *i, size_t *j, size_t *k)
 			parse->redirect[*k] = ft_create_redirect(
 					parse->task[*i]->cmd[*j],
 					ft_getfile_name(parse->task[*i]->cmd, *j));
-			ft_redirect_task(parse->task[*i], parse->task[*i]->cmd[*j],
-				(*k)++);
+			if ((parse->redirect[*k]->type == READ
+					&& (!access(parse->redirect[*k]->file, 4)
+						|| parse->task[*i]->infile == -1))
+				|| parse->redirect[*k]->type != READ)
+				ft_redirect_task(parse->task[*i], parse->task[*i]->cmd[*j],
+					(*k)++);
 		}
 		(*j)++;
 	}

@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:43:17 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/05 15:21:53 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/05 18:35:51 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ static int	ft_check_if_exist(t_parse *parse, char *file, int index)
 	i = 0;
 	while (parse->redirect[i])
 	{
-		if ((int)i != index && !ft_strncmp(parse->redirect[i]->file, file,
-				ft_strlen(file)))
+		if ((int)i != index && !ft_strncmp(parse->redirect[i]->file, file, -1))
 			return (i);
 		i++;
 	}

@@ -8,3 +8,4 @@ tags
 lib/libft.a
 wild/
 .tfs*
+minishell_tester

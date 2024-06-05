@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/05 15:18:16 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/05 19:09:25 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static void	ft_handle_child(t_parse *parse, t_object *task, size_t i)
 		dup2(parse->redirect[task->infile]->fd, 0);
 	else if (task->link == PIPE)
 		dup2(parse->task[i - 1]->pipe[0], 0);
-	if (!parse->task[i + 1] || parse->task[i + 1]->link != PIPE)
+	if ((!parse->task[i + 1] || parse->task[i + 1]->link != PIPE)
+		|| parse->task[i]->builtin == ECHO)
 	{
 		if (task->outfile != -1)
 			dup2(parse->redirect[task->outfile]->fd, 1);
