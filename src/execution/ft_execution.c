@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/05 09:46:22 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/05 12:22:17 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,7 @@ bool	ft_execution(t_parse *parse)
 	ft_sig_init(0);
 	while (parse->task && parse->task[i])
 	{
-		if (parse->task[i]->builtin != NO_BUILTIN && parse->task[i]->builtin
-			!= ECHO && parse->task[i]->builtin != ENV)
+		if (!ft_is_fork(parse, i))
 			ft_exec_builtin(parse, parse->task[i++]);
 		else
 		{
@@ -102,6 +101,7 @@ bool	ft_execution(t_parse *parse)
 				if (ft_exec_and(parse, &i))
 					break ;
 			}
+			i++;
 		}
 	}
 	ft_wait_all(parse);

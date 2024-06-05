@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:48:47 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/05 09:38:58 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/05 12:23:57 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ bool	ft_exec_redirect(t_parse *parse);
 void	ft_get_path(t_parse *parse);
 void	ft_exec(t_parse *parse, t_object *task, size_t i);
 void	ft_exec_builtin(t_parse *parse, t_object *task);
+bool	ft_is_fork(t_parse *parse, size_t i);
 
 #endif

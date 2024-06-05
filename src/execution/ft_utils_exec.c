@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/05 09:39:40 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/05 12:23:36 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,22 +84,4 @@ void	ft_exec(t_parse *parse, t_object *task, size_t i)
 	}
 	else
 		ft_handle_parent(parse, task, i);
-}
-
-void	ft_exec_builtin(t_parse *parse, t_object *task)
-{
-	if (task->builtin == ECHO)
-		ft_exec_echo(parse, task);
-	if (task->builtin == CD)
-		ft_cd(parse, task, task->cmd[1]);
-	if (task->builtin == PWD)
-		ft_pwd(parse);
-	if (task->builtin == EXPORT)
-		ft_exec_export(parse, task);
-	if (task->builtin == UNSET)
-		ft_exec_unset(parse, task);
-	if (task->builtin == ENV)
-		ft_env(parse);
-	if (task->builtin == EXIT)
-		ft_exit(parse, task);
 }
