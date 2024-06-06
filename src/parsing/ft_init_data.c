@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:55:51 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/03 20:20:01 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/06 12:08:26 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@ void	ft_init_parse(t_parse *parse)
 	parse->env = NULL;
 	parse->redirect = NULL;
 	parse->input = NULL;
+}
+
+static void	ft_init_task(t_object *task)
+{
+	task->unquoted = NULL;
+	task->infile = -1;
+	task->outfile = -1;
+	task->is_quoted = 0;
+	task->pipe[0] = -1;
+	task->pipe[1] = -1;
+	task->errinfile = 0;
+	task->erroutfile = 0;
 }
 
 bool	ft_init_tasks(t_parse *parse, char **arr)
@@ -39,12 +51,7 @@ bool	ft_init_tasks(t_parse *parse, char **arr)
 		parse->task[i]->cmd = ft_split_with_quotes(arr[i], ' ');
 		if (!parse->task[i]->cmd)
 			return (false);
-		parse->task[i]->unquoted = NULL;
-		parse->task[i]->infile = -1;
-		parse->task[i]->outfile = -1;
-		parse->task[i]->is_quoted = 0;
-		parse->task[i]->pipe[0] = -1;
-		parse->task[i]->pipe[1] = -1;
+		ft_init_task(parse->task[i]);
 	}
 	return (true);
 }

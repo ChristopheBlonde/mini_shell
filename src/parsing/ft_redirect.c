@@ -6,14 +6,14 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 11:01:13 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/05 19:08:35 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/06 11:41:58 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static t_file_descriptor	*ft_create_redirect(char *op,
-		char *file)
+		int index, char *file)
 {
 	t_file_descriptor	*fd;
 
@@ -28,6 +28,7 @@ static t_file_descriptor	*ft_create_redirect(char *op,
 	fd->type = ft_redirect_type(op);
 	if (fd->in_quote)
 		fd->file = ft_strqcpy(file);
+	fd->task = index;
 	return (fd);
 }
 
@@ -80,7 +81,7 @@ bool	ft_redirect_end(t_parse *parse, size_t *i, size_t *j, size_t *k)
 				return (false);
 			}
 			parse->redirect[*k] = ft_create_redirect(
-					parse->task[*i]->cmd[*j],
+					parse->task[*i]->cmd[*j], *i,
 					ft_getfile_name(parse->task[*i]->cmd, *j));
 			if ((parse->redirect[*k]->type == READ
 					&& (!access(parse->redirect[*k]->file, 4)
