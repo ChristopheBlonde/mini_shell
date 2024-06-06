@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:25:46 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/04 15:36:32 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/06 16:33:01 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,41 +38,12 @@ static t_list	*ft_list_to_split(char *var, t_parse *parse,
 	return (new_list);
 }
 
-static t_list	*get_new(char *var, t_parse *parse, t_list *current, int z)
+t_list	*get_new(char *var, t_parse *parse, t_list *current, int z)
 {
 	if (var && var[0] == '\0')
 		return (ft_list_to_split("$", parse, current, z));
 	else
 		return (ft_list_to_split(var, parse, current, z));
-}
-
-t_list	*ft_list_to_add(t_list *current, t_parse *parse, int nb_dollar,
-		int random)
-{
-	t_list	*new;
-	int		z;
-	int		index;
-	char	*var;
-	int		cur_dollar;
-
-	cur_dollar = count_dollar(current->content) - nb_dollar + 1;
-	z = -1;
-	new = NULL;
-	while (((char *)current->content)[++z])
-	{
-		if (((char *)current->content)[z] == '$' && (bool)++random)
-		{
-			if (random != cur_dollar)
-				continue ;
-			index = z + 1;
-			ft_skip_envchar(current, &index);
-			var = ft_substr(current->content, z + 1, index - z - 1);
-			new = get_new(var, parse, current, z);
-			free(var);
-			break ;
-		}
-	}
-	return (new);
 }
 
 void	ft_process_env(t_object *task, t_parse *parse)

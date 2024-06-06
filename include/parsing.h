@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/03 20:16:10 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/06 16:33:20 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,6 @@ bool				ft_init_tasks(t_parse *parse, char **arr);
 void				ft_skip_envchar(t_list *current, int *i);
 void				ft_init_cmd_lst(t_cmd_lst *s, t_object *task);
 void				ft_cmd_quoted(t_parse *parse, t_object *task, t_cmd_lst *s);
+t_list				*get_new(char *var, t_parse *parse, t_list *current, int z);
 
 #endif
