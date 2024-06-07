@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/06 16:58:16 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/07 14:03:51 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,31 @@ static void	ft_handle_parent(t_parse *parse, t_object *task, size_t i)
 	}
 }
 
+static void	ft_handle_status(t_parse *parse, t_object *task)
+{
+	int	status;
+
+	status = 0;
+	if (!task->cmd || !task->cmd[0])
+	{
+		exit(127);
+	}
+	if (access(task->cmd[0], F_OK) == -1)
+		status = 127;
+	else if (access(task->cmd[0], X_OK) == -1)
+		status = 126;
+	if (access(task->cmd[0], X_OK) == -1
+		&& task->cmd[0][0] != '.' && task->cmd[0][0] != '/')
+		status = 127;
+	if (opendir(task->cmd[0]))
+		status = 127;
+	if (opendir(task->cmd[0])
+		&& (task->cmd[0][0] == '.' || task->cmd[0][0] == '/'))
+		status = 126;
+	ft_free_all(parse);
+	exit(status);
+}
+
 void	ft_exec(t_parse *parse, t_object *task, size_t i)
 {
 	pipe(task->pipe);
@@ -92,8 +117,13 @@ void	ft_exec(t_parse *parse, t_object *task, size_t i)
 			&& parse->task[i + 1]->link == PIPE && task->outfile == -1)
 			exit(0);
 		if (task->builtin == NO_BUILTIN)
-			execve(task->cmd[0], task->cmd, parse->env);
+			if (execve(task->cmd[0], task->cmd, parse->env) == -1)
+			{
+				perror("minishell");
+				ft_handle_status(parse, task);
+			}
 		ft_exec_builtin(parse, task);
+		ft_free_all(parse);
 		exit(0);
 	}
 	else
