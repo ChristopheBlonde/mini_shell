@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:43:17 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/05 18:35:51 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/06 17:12:55 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,26 @@ static int	ft_check_if_exist(t_parse *parse, char *file, int index)
 
 static void	handle_open(t_file_descriptor *file, t_parse *parse, int i)
 {
+	if ((file->type == WRITE || file->type == APPEND)
+		&& parse->task[file->task]->erroutfile != 0)
+		return ;
+	if ( file->type == READ && parse->task[file->task]->errinfile != 0)
+		return ;
 	if (file->type == READ)
+	{
 		file->fd = open(file->file, O_RDONLY);
+		parse->task[file->task]->erroutfile = errno;
+	}
 	if (file->type == WRITE)
+	{
 		file->fd = open(file->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		parse->task[file->task]->erroutfile = errno;
+	}
 	if (file->type == APPEND)
+	{
 		file->fd = open(file->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		parse->task[file->task]->erroutfile = errno;
+	}
 	if (file->type == HEREDOC)
 		ft_here_doc(parse, i);
 }
@@ -52,8 +66,8 @@ bool	ft_exec_redirect(t_parse *parse)
 		file = (t_file_descriptor *)parse->redirect[i];
 		exist = ft_check_if_exist(parse, file->file, i);
 		if (exist != -1 && exist < (int)i
-			&& file->type == parse->redirect[exist]->type && i++)
-			continue ;
+			&& file->type != parse->redirect[exist]->type)
+			close(parse->redirect[exist]->fd);
 		handle_open(file, parse, i);
 		i++;
 	}

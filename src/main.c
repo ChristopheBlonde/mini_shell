@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/07 13:56:39 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/07 14:12:54 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	main(int argc, char *argv[], char *env[])
 	}
 	ft_init_parse(&parse);
 	ft_parse_env(&parse, env);
-	//ft_excmd_result(&parse, 0);
 	if (!parse.env)
 		return (1);
 	ft_excmd_result(&parse, 0);

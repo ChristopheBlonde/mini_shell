@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/07 13:56:26 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/07 14:12:44 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_file_descriptor
 	bool				in_quote;
 	int					fd;
 	t_file_operation	type;
+	int					task;
 }	t_file_descriptor;
 
 typedef enum e_link
@@ -77,6 +78,8 @@ typedef struct s_object
 	int			outfile;
 	int			pipe[2];
 	int			status;
+	int			errinfile;
+	int			erroutfile;
 	pid_t		pid;
 	t_link		link;
 	t_builtin	builtin;

@@ -6,18 +6,18 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:15:30 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/05 17:37:58 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/06 16:16:13 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	put_error_msg(t_file_descriptor *file)
+static void	put_error_msg(t_file_descriptor *file, size_t n)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(file->file, 2);
 	ft_putstr_fd(": ", 2);
-	ft_putendl_fd(strerror(ENOENT), 2);
+	ft_putendl_fd(strerror(n), 2);
 }
 
 void	handle_bad_fd(t_parse *parse, t_object *task)
@@ -25,8 +25,8 @@ void	handle_bad_fd(t_parse *parse, t_object *task)
 	if (task->infile != -1)
 	{
 		if (parse->redirect[task->infile]->fd == -1)
-		{
-			put_error_msg(parse->redirect[task->infile]);
+		{	
+			put_error_msg(parse->redirect[task->infile], task->errinfile);
 			ft_free_all(parse);
 			exit(1);
 		}
@@ -35,7 +35,7 @@ void	handle_bad_fd(t_parse *parse, t_object *task)
 	{
 		if (parse->redirect[task->outfile]->fd == -1)
 		{
-			put_error_msg(parse->redirect[task->outfile]);
+			put_error_msg(parse->redirect[task->outfile], task->outfile);
 			ft_free_all(parse);
 			exit(1);
 		}
