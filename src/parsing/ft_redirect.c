@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 11:01:13 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/05 19:08:35 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/07 14:04:31 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static char	*ft_getfile_name(char **cmd, size_t index)
 	while (cmd[index][i] == '<' || cmd[index][i] == ' ' || cmd[index][i] == '>')
 		i++;
 	if (cmd[index][i])
-		return (ft_strdup(&cmd[index][i]));
+		return (ft_strdup(&cmd[index][i]));	
 	return (ft_strdup(cmd[index + 1]));
 }
 

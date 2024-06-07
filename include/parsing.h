@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/06 16:33:20 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/07 13:56:26 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void				ft_redirect_task(t_object *task, char *input,
 char				**ft_reduce_cmd(t_object *task);
 t_file_operation	ft_redirect_type(char *file);
 void				ft_wildcard(t_parse *parse);
-int					ft_syntax_errors_handler(char *input);
+int					ft_syntax_errors_handler(t_parse *parse, char *input);
 void				ft_free_parsing(t_parse *parse);
 void				ft_init_parse(t_parse *parse);
 bool				ft_init_tasks(t_parse *parse, char **arr);

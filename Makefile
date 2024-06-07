@@ -6,7 +6,7 @@
 #    By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
-#    Updated: 2024/06/06 16:34:50 by tsadouk          ###   ########.fr        #
+#    Updated: 2024/06/07 13:18:40 by tsadouk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ SRC = src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c\
 	  $(SYNTAX)ft_temp.c $(SYNTAX)ft_env_handler.c $(BUILTIN)ft_utils_env_export.c\
 	  $(EXEC)ft_get_path.c $(SYNTAX)ft_utils_env_handler.c $(EXEC)ft_utils_exec.c $(SIGNAL)ft_signal.c \
 	  $(BUILTIN)ft_exit.c $(SYNTAX)ft_env_utils_2.c $(EXEC)ft_utils_exec_builtin.c $(EXEC)ft_fd_utils.c\
-	  $(SYNTAX)ft_env_utils_3.c
+	  $(SYNTAX)ft_env_utils_3.c $(SYNTAX)ft_syntax_utils.c
 	  
 OBJ_DIR = obj/
 

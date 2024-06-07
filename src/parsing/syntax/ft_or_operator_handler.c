@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:45:50 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/01 14:21:41 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/07 13:46:11 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,14 @@ static int	ft_or_operator_handler(char *input)
 int	ft_check_or_operator(char *input)
 {
 	int	check;
+	int	code;
 
+	code = check_before_operator(input, 0);
+	if (code > 0)
+	{
+		print_good_error_msg(code);
+		return (1);
+	}
 	check = ft_or_operator_handler(input);
 	if (check != 0)
 	{

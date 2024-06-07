@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/05 15:19:08 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/07 13:29:28 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,4 +115,7 @@ t_list	*ft_list_to_add(t_list *current, t_parse *parse, int nb_dollar,
 			int random);
 t_list	*ft_cmd_to_list_env(t_object *task, t_parse *parse);
 
+/*	SYNTAX	*/
+int		check_before_operator(char *input, int i);
+void	print_good_error_msg(int code_error);
 #endif

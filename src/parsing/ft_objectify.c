@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:19:04 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/05/30 12:17:23 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/07 13:13:25 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static t_link	ft_get_link(char *cmd)
 {
+	if (!ft_strncmp(cmd, "|", 1))
+		return (PIPE);
 	if (!ft_strncmp(cmd, "&&", 2))
 		return (AND);
 	if (!ft_strncmp(cmd, "||", 2))
 		return (OR);
-	if (!ft_strncmp(cmd, "|", 1))
-		return (PIPE);
 	return (NO_LINK);
 }
 
