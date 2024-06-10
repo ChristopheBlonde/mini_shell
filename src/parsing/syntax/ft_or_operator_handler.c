@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:45:50 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/07 13:46:11 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/10 13:21:49 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,31 @@ static int	check_after_spaces(char *input, int i)
 	return (0);
 }
 
+int	check_after_redirection(char *input, int i)
+{
+	skip_spaces(input, &i);
+	if (input[i] == '\n' || input[i] == '\0')
+		return (1);
+	return (0);
+}
+
+static int check_after_pipe(char *input, int i)
+{
+	skip_spaces(input, &i);
+	if (input[i] == '<' || input[i] == '>')
+	{
+		if (input[i] == '<' && input[i + 1] == '<')
+			if (check_after_redirection(input, i + 2))
+				return (1);
+		if (input[i] == '>' && input[i + 1] == '>')
+			if (check_after_redirection(input, i + 2))
+				return (1);
+		if (check_after_redirection(input, i + 1))
+			return (1);
+	}
+	return (0);
+}
+
 static int	handle_or_operator(char *input, int i, int in_quotes)
 {
 	int	check;
@@ -38,6 +63,8 @@ static int	handle_or_operator(char *input, int i, int in_quotes)
 	check = 0;
 	if (input[i] == '|' && in_quotes == -1)
 	{
+		if (check_after_pipe(input, i + 1))
+			return (1);
 		if (input[i + 1] == '\n' || input[i + 1] == '\0')
 			return (1);
 		if (input[i + 1] == '|')
@@ -47,6 +74,38 @@ static int	handle_or_operator(char *input, int i, int in_quotes)
 		i += 2;
 	}
 	return (check);
+}
+/* If input[i] == '|', skip_spaces, if input[i] == '<' || input[i] == '>', check_after_redirection */
+/* If input[i] == '|', skip_spaces, if input[i] == '|', return 1, else return 2 */
+
+static int check_line(char *input)
+{
+	int	i;
+	int	in_quotes;
+
+	i = -1;
+	in_quotes = -1;
+	while (input[++i])
+	{
+		in_quote(input, &in_quotes, i);
+		if (input[i] == '|' && in_quotes == -1)
+		{
+			if (check_after_pipe(input, i + 1))
+				return (1);
+			if (input[i + 1] == '\n' || input[i + 1] == '\0')
+				return (1);
+			if (input[i + 1] == '|')
+				return (1);
+			i += 2;
+		}
+		if ((input[i] == '<' || input[i] == '>') && in_quotes == -1)
+		{
+			if (check_after_redirection(input, i + 1))
+				return (1);
+		}
+	}
+	return (0);
+
 }
 
 static int	ft_or_operator_handler(char *input)
@@ -79,6 +138,10 @@ int	ft_check_or_operator(char *input)
 	if (code > 0)
 	{
 		print_good_error_msg(code);
+		return (1);
+	}
+	if (check_line(input))
+	{
 		return (1);
 	}
 	check = ft_or_operator_handler(input);

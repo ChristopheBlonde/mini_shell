@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 08:17:08 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/10 09:49:52 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/10 10:42:14 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ bool	ft_parse_token(t_parse *parse, char *input)
 {
 	char	**arr;
 
-	arr = ft_strtok(input, "|&$\n");
+	arr = ft_strtok(input, "|&\n");
 	if (!arr)
 		return (false);
 	if (!ft_init_tasks(parse, arr))
@@ -30,8 +30,8 @@ bool	ft_parse_token(t_parse *parse, char *input)
 		j = 0;
 		while (parse->task[i]->cmd[j])
 		{
-			ft_printf("task[%d]->cmd[%d]: ", i, j);
-			ft_putendl_fd(parse->task[i]->cmd[j], 1);
+			// ft_printf("task[%d]->cmd[%d]: ", i, j);
+			// ft_putendl_fd(parse->task[i]->cmd[j], 1);
 			j++;
 		}
 		i++;
