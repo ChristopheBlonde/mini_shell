@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/11 08:43:04 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/11 11:26:03 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ static void	ft_handle_status(t_parse *parse, t_object *task)
 		&& (task->cmd[0][0] == '.' || task->cmd[0][0] == '/'))
 		status = 126;
 	ft_free_all(parse);
+	perror("minishell");
 	exit(status);
 }
 
@@ -118,10 +119,7 @@ void	ft_exec(t_parse *parse, t_object *task, size_t i)
 			exit(0);
 		if (task->builtin == NO_BUILTIN)
 			if (execve(task->cmd[0], task->cmd, parse->env) == -1)
-			{
-				perror("minishell");
 				ft_handle_status(parse, task);
-			}
 		ft_exec_builtin(parse, task);
 		ft_free_all(parse);
 		exit(0);

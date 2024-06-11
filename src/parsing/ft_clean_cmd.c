@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:13:34 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/10 09:35:20 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/11 12:10:06 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,25 +71,6 @@ static size_t	ft_check_link(char *str)
 		return (2);
 	}
 	return (0);
-}
-
-bool ft_check_envvar(t_parse *parse, t_object *task, size_t index)
-{
-	char *env;
-
-	//ft_putendl_fd(task->cmd[index], 1);
-	if (task->cmd[index] && task->cmd[index][0] == '$')
-	{
-		env = ft_getenv(parse, &task->cmd[index][1]);
-		//ft_putendl_fd(env, 1);	
-		if ((index == 0 || task->cmd[index - 1] == NULL) && env == NULL)
-		{
-			free(task->cmd[index]);
-			task->cmd[index] = NULL;
-			return (true);
-		}
-	}
-	return (false);
 }
 
 static void	ft_cmdcpy(t_parse *parse, char **n_cmd, t_object *task)
