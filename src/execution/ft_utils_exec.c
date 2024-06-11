@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/11 11:26:03 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/11 15:14:15 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,17 @@ static void	ft_handle_child(t_parse *parse, t_object *task, size_t i)
 		dup2(parse->redirect[task->infile]->fd, 0);
 	else if (task->link == PIPE)
 		dup2(parse->task[i - 1]->pipe[0], 0);
-	if ((!parse->task[i + 1] || parse->task[i + 1]->link != PIPE)
-		|| parse->task[i]->builtin == ECHO)
+	if (!parse->task[i + 1] || parse->task[i + 1]->link != PIPE)
 	{
 		if (task->outfile != -1)
 			dup2(parse->redirect[task->outfile]->fd, 1);
 	}
 	else
-		dup2(task->pipe[1], 1);
+	{	if (task->outfile != -1)
+			dup2(parse->redirect[task->outfile]->fd, 1);
+		else	
+			dup2(task->pipe[1], 1);
+	}
 	ft_close_fds(parse, i);
 }
 
@@ -114,9 +117,9 @@ void	ft_exec(t_parse *parse, t_object *task, size_t i)
 	{
 		ft_handle_child(parse, task, i);
 		handle_bad_fd(parse, task, i);
-		if (task->builtin == ECHO && parse->task[i + 1]
-			&& parse->task[i + 1]->link == PIPE && task->outfile == -1)
-			exit(0);
+		//if (task->builtin == ECHO && parse->task[i + 1]
+		//	&& parse->task[i + 1]->link == PIPE && task->outfile == -1)
+		//	exit(0);
 		if (task->builtin == NO_BUILTIN)
 			if (execve(task->cmd[0], task->cmd, parse->env) == -1)
 				ft_handle_status(parse, task);
