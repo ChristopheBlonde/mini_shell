@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/07 15:17:04 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/11 08:43:04 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	ft_exec(t_parse *parse, t_object *task, size_t i)
 	if (task->pid == 0)
 	{
 		ft_handle_child(parse, task, i);
-		handle_bad_fd(parse, task);
+		handle_bad_fd(parse, task, i);
 		if (task->builtin == ECHO && parse->task[i + 1]
 			&& parse->task[i + 1]->link == PIPE && task->outfile == -1)
 			exit(0);

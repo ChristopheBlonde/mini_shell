@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 12:18:42 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/04 14:39:35 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/10 13:07:24 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ int	ft_exit(t_parse *parse, t_object *task)
 	if (task->cmd[1])
 		nbr = ft_atol_exit(task->cmd[1]);
 	ft_get_exit_code(&nbr);
+	if (nbr == 0 && !task->cmd[1])
+		nbr = ft_atoi(ft_getenv(parse, "?"));
 	ft_free_all(parse);
 	exit(nbr);
 	return (0);

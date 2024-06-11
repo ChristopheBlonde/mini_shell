@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:48:47 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/05 15:19:14 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/11 08:32:38 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ void	ft_get_path(t_parse *parse);
 void	ft_exec(t_parse *parse, t_object *task, size_t i);
 void	ft_exec_builtin(t_parse *parse, t_object *task);
 bool	ft_is_fork(t_parse *parse, size_t i);
-void	handle_bad_fd(t_parse *parse, t_object *task);
+void	handle_bad_fd(t_parse *parse, t_object *task, size_t index);
 
 #endif
