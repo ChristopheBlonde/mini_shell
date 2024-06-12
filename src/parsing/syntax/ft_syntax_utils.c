@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 13:17:45 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/07 14:04:03 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/12 14:15:14 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ void	print_good_error_msg(int code_error)
 		ft_putendl_fd("Error: syntax error near unexpected token `newline'", 2);
 	else if (code_error == 7)
 		ft_putendl_fd("Error: syntax error near unexpected token `end of file'", 2);
+	else if (code_error == 8)
+		ft_putendl_fd("Error: syntax error near unexpected token `>'", 2);
+	else if (code_error == 9)
+		ft_putendl_fd("Error: syntax error near unexpected token `>>'", 2);
+	else if (code_error == 10)
+		ft_putendl_fd("Error: syntax error near unexpected token `<'", 2);
+	else if (code_error == 11)
+		ft_putendl_fd("Error: syntax error near unexpected token `<<'", 2);
 }
 
 int check_before_operator(char *input, int i)
