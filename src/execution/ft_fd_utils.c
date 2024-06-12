@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:15:30 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/11 12:04:39 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/12 08:55:50 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,27 @@ void	handle_bad_fd(t_parse *parse, t_object *task, size_t index)
 				parse->task[index]->erroutfile);
 		exit(1);
 	}
+}
+
+void	ft_handle_error_exec(char *str)
+{
+	int	fd;
+	DIR	*folder;
+
+	fd = open(str, O_WRONLY);
+	folder = opendir(str);
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(str, 2);
+	if (!ft_strchr(str, '/'))
+		ft_putendl_fd(": command not found", 2);
+	else if (fd != -1 && folder == NULL)
+		ft_putendl_fd(": Permission denied", 2);
+	else if (fd == -1 && folder == NULL)
+		ft_putendl_fd(": No such file or directory", 2);
+	else if (fd == -1 && folder != NULL)
+		ft_putendl_fd(": is a directory", 2);
+	if (folder)
+		closedir(folder);
+	if (fd != -1)
+		close(fd);
 }
