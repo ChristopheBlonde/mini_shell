@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 10:13:03 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/04 08:14:28 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/12 12:56:03 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void	ft_write_file(t_parse *parse, char *line, int index, char *tmp)
 	close(parse->redirect[index]->fd);
 }
 
-static void	ft_read_line(t_parse *parse, char *line, char *tmp, int index)
+void	ft_read_line(t_parse *parse, char *line, char *tmp, int index)
 {
 	while (true)
 	{
@@ -127,7 +127,7 @@ int	ft_here_doc(t_parse *parse, int index)
 	parse->redirect[index]->fd = ft_open_tmp(&name);
 	if (parse->redirect[index]->fd < 0)
 		return (ft_fail_open(name, line, tmp));
-	ft_read_line(parse, line, tmp, index);
+	ft_fork_heredoc(parse, line, tmp, index);
 	free(parse->redirect[index]->file);
 	parse->redirect[index]->file = name;
 	close(parse->redirect[index]->fd);

@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:59:40 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/31 14:06:14 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/12 12:52:45 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,21 @@ int	pre_check(int check, char c)
 	if (check == 0 && c == '$')
 		return (1);
 	return (0);
+}
+
+void	ft_fork_heredoc(t_parse *parse, char *line, char *tmp, int index)
+{
+	pid_t	pid;
+	int		status;
+
+	pid = fork();
+	if (pid < 0)
+		perror("minishell");
+	if (pid == 0)
+	{
+		ft_read_line(parse, line, tmp, index);
+		ft_free_all(parse);
+		exit(0);
+	}
+	waitpid(pid, &status, 0);
 }
