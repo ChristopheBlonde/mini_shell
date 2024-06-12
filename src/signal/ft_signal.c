@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_signal.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/23 09:45:44 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/12 16:21:05 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,9 @@ void	sig_handler_heredoc(int sig)
 {
 	if (sig == SIGINT)
 	{
-		ft_putstr_fd("\n", 1);
-		rl_replace_line("", 0);
 		g_exit_code = 130;
-		close(0);
+		ft_putstr_fd("\n", 1);
+		exit(1);
 	}
 }
 
@@ -45,6 +44,11 @@ void	ft_sig_init(int mode)
 	else if (mode == 1)
 	{
 		signal(SIGINT, sig_handler);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else if (mode == 2)
+	{
+		signal(SIGINT, sig_handler_heredoc);
 		signal(SIGQUIT, SIG_IGN);
 	}
 }

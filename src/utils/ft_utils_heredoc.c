@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:59:40 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/12 12:52:45 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/12 16:05:41 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	ft_fork_heredoc(t_parse *parse, char *line, char *tmp, int index)
 		perror("minishell");
 	if (pid == 0)
 	{
+		ft_sig_init(2);
 		ft_read_line(parse, line, tmp, index);
 		ft_free_all(parse);
 		exit(0);
