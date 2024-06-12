@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 16:29:13 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/12 15:56:49 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/12 18:01:59 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,15 @@ t_list	*ft_list_to_add(t_list *current, t_parse *parse, int nb_dollar, int rando
 			else if (quote == ((char *)current->content)[arr[0]])
 				quote = '\0';
 		}
-		if (((char *)current->content)[arr[0]] == '$' && quote != '\0' && (bool)++random)
+		if (((char *)current->content)[arr[0]] == '$' && (bool)++random)
 		{
 			if (random != arr[2])
 				continue;
-			if (ft_quoted(&((char *)current->content)[arr[0] + 1]))
-				
+			if (ft_quoted(&((char *)current->content)[arr[0] + 1]) && quote != '\0')
 			{
 				remove_quoted_dollars(current, &arr[3]);
 				printf("Current content: %s\n", (char *)current->content);
+				continue;
 			}
 			if (arr[3] == 1)
 			{

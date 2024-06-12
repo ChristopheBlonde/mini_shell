@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 15:29:31 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/12 16:28:02 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/12 17:03:17 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,6 @@ static void	process_nb_dollar(t_cmd_lst *s, t_object *task, t_parse *parse,
 	if (s->nb_dollar > 0)
 	{
 		new_lst = ft_list_to_add(s->current, parse, s->nb_dollar, 0);
-		if (new_lst != NULL)
-		{
-			printf("new_lst->content: %s\n", (char *)new_lst->content);
-		}
 		handle_new_unquoted(*s, task, j, new_lst);
 		ft_lstinsert(&s->lst, new_lst, &s->current);
 		s->nb_dollar -= 1;
