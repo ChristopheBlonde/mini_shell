@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:45:50 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/12 14:18:28 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/12 14:51:48 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ int	check_after_redirection(char *input, int i)
 	if (input[i] == '<')
 		return (10);
 	if (input[i] == '\n' || input[i] == '\0')
-	{
-		printf("I'm here 3\n");
-		return (1);
-	}
+		return (6);
 	return (0);
 }
 
@@ -55,14 +52,14 @@ static int check_after_pipe(char *input, int i)
 	skip_spaces(input, &i);
 	if (input[i] == '<' || input[i] == '>')
 	{
-		if (input[i] == '<' && input[i + 1] == '<')
+		if (input[i] == '<' && input[i + 1] == '<' && input[i + 2] && (input[i + 2] == '\n' || input[i + 2] == '\0'))
 			if (check_after_redirection(input, i + 2))
-				return (6);
+				return (check_after_redirection(input, i + 2));
 		if (input[i] == '>' && input[i + 1] == '>')
-			if (check_after_redirection(input, i + 2))
-				return (6);
+			if (check_after_redirection(input, i + 2) && input[i + 2] && (input[i + 2] == '\n' || input[i + 2] == '\0'))
+				return (check_after_redirection(input, i + 2));
 		if (check_after_redirection(input, i + 1))
-			return (6);
+			return (check_after_redirection(input, i + 2));
 	}
 	return (0);
 }
@@ -119,7 +116,6 @@ static int check_line(char *input)
 			}
 			if (input[i + 1] == '\n' || input[i + 1] == '\0')
 			{
-				// printf("Here ?\n");
 				return (1);
 			}
 			if (input[i + 1] == '|' && (input[i + 2] == '\0' || input[i + 2] == '\n'))
@@ -132,8 +128,6 @@ static int check_line(char *input)
 			{
 				return (check_after_redirection(input, i + 1));
 			}
-			else
-				printf("ELSE\n");
 		}
 	}
 	return (0);
@@ -168,14 +162,12 @@ int	ft_check_or_operator(char *input)
 	code = check_before_operator(input, 0);
 	if (code > 0)
 	{
-		//printf("Error line 164\n");
 		print_good_error_msg(code);
 		return (1);
 	}
 	if (check_line(input))
 	{
 		code = check_line(input);
-		//printf("Error line 171\n");
 		print_good_error_msg(code);
 		return (1);
 	}
