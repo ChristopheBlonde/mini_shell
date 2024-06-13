@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:45:50 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/13 15:55:57 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/13 17:19:10 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,31 +99,25 @@ static int	check_line(char *input)
 {
 	int	i;
 	int	in_quotes;
-	int	code_error;
 
-	code_error = 0;
 	i = -1;
 	in_quotes = -1;
 	while (input[++i])
 	{
 		in_quote(input, &in_quotes, i);
-		if (input[i] == '|' && in_quotes == -1)
+		if (in_quotes != -1)
+			continue ;
+		if (input[i] == '|')
 		{
 			if (input[i + 1] && (input[i + 1] == '\n' || input[i + 1] == '\0'))
 				return (4);
 			if (check_after_pipe(input, i + 1))
-			{
-				code_error = check_after_pipe(input, i + 1);
-				return (code_error);
-			}
-			if (input[i + 1] == '\n' || input[i + 1] == '\0')
-				return (1);
-			if (input[i + 1] == '|'
-				&& (input[i + 2] == '\0' || input[i + 2] == '\n'))
+				return (check_after_pipe(input, i + 1));
+			if (input[i + 1] == '|')
 				return (3);
-			i += 2;
+			i += 1;
 		}
-		if ((input[i] == '<' || input[i] == '>') && in_quotes == -1)
+		else if (input[i] == '<' || input[i] == '>')
 			if (check_after_redirection(input, i + 1))
 				return (check_after_redirection(input, i + 1));
 	}
@@ -144,13 +138,9 @@ static int	ft_or_operator_handler(char *input)
 		in_quote(input, &in_quotes, i);
 		check = handle_or_operator(input, i, in_quotes);
 		if (check == 1 && check_after_spaces_without_pipe(input, i + 1))
-		{
 			return (1);
-		}
 		else if (check == 2 && check_after_spaces(input, i + 1))
-		{
 			return (1);
-		}
 	}
 	return (0);
 }
