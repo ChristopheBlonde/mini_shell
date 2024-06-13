@@ -6,16 +6,21 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/07 14:12:54 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/13 23:01:57 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int g_exit_code = 0;
+int	g_exit_code = 0;
 
-static inline int	ft_usage(void)
+static int	ft_usage(char **argv)
 {
+	if (argv[1])
+	{
+		ft_putstr_fd(argv[1], 2);
+		ft_putstr_fd(" is not option !\n", 2);
+	}
 	ft_putendl_fd("\033[1;34mUsage: [ minishell ]\033[m", 2);
 	return (1);
 }
@@ -60,22 +65,28 @@ static bool	ft_input(t_parse *parse)
 	return (true);
 }
 
+static bool	ft_initialize(int argc, char **argv, char **env, t_parse *parse)
+{
+	ft_sig_init(1);
+	if (argc > 1)
+	{
+		ft_usage(argv);
+		return (false);
+	}
+	ft_init_parse(parse);
+	ft_parse_env(parse, env);
+	if (!parse->env)
+		return (false);
+	ft_excmd_result(parse, 0);
+	return (true);
+}
+
 int	main(int argc, char *argv[], char *env[])
 {
 	t_parse	parse;
 
-	ft_sig_init(1);
-	if (argc > 1)
-	{
-		ft_putstr_fd(argv[1], 2);
-		ft_putstr_fd(" is not option !\n", 2);
-		return (ft_usage());
-	}
-	ft_init_parse(&parse);
-	ft_parse_env(&parse, env);
-	if (!parse.env)
+	if (!ft_initialize(argc, argv, env, &parse))
 		return (1);
-	ft_excmd_result(&parse, 0);
 	while (true)
 	{
 		if (g_exit_code != 0)

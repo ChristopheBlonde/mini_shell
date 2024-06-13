@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/13 15:24:27 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/13 22:47:01 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,4 +122,8 @@ t_list	*ft_cmd_to_list_env(t_object *task, t_parse *parse);
 int		check_before_operator(char *input, int i);
 void	print_good_error_msg(int code_error);
 int		check_after_redirection(char *input, int i);
+int		check_after_spaces_without_pipe(char *input, int i);
+int		check_after_spaces(char *input, int i);
+int		check_after_pipe(char *input, int i);
+
 #endif

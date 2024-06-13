@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 14:28:07 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/07 14:09:15 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/13 23:12:31 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,6 @@ void	skip_spaces(char *input, int *i)
 	while (input[*i] && (input[*i] == ' '
 			|| (input[*i] >= 9 && input[*i] <= 13)))
 		(*i)++;
-}
-
-static int	check_after_spaces(char *input, int i)
-{
-	skip_spaces(input, &i);
-	if (input[i] == '&' || input[i] == '|' || input[i] == ';'
-		|| input[i] == '\0' || input[i] == '\n')
-		return (1);
-	return (0);
 }
 
 static int	ft_and_operator_handler(char *input)

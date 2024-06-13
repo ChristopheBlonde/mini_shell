@@ -6,9 +6,11 @@
 #    By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
-#    Updated: 2024/06/13 15:29:35 by tsadouk          ###   ########.fr        #
+#    Updated: 2024/06/13 23:48:34 by tsadouk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+MAKEFLAGS += --silent
 
 CC = gcc
 
@@ -54,31 +56,39 @@ SRC = src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c\
 	  $(SYNTAX)ft_temp.c $(SYNTAX)ft_env_handler.c $(BUILTIN)ft_utils_env_export.c\
 	  $(EXEC)ft_get_path.c $(SYNTAX)ft_utils_env_handler.c $(EXEC)ft_utils_exec.c $(SIGNAL)ft_signal.c \
 	  $(BUILTIN)ft_exit.c $(SYNTAX)ft_env_utils_2.c $(EXEC)ft_utils_exec_builtin.c $(EXEC)ft_fd_utils.c\
-	  $(SYNTAX)ft_env_utils_3.c $(SYNTAX)ft_syntax_utils.c $(SYNTAX)ft_env_utils_4.c 
+	  $(SYNTAX)ft_env_utils_3.c $(SYNTAX)ft_syntax_utils.c $(SYNTAX)ft_env_utils_4.c $(SYNTAX)ft_syntax_checkers.c\
 	  
 OBJ_DIR = obj/
 
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
+INDEX = 0
+
 all : $(NAME)
+	@if [ $(INDEX) -eq 0 ]; then \
+		echo "Nothing to compile"; \
+	fi
+
 
 $(LIBFT) :
-	make bonus -C lib --no-print-directory
+	@make bonus -C lib --no-print-directory
 
 $(OBJ_DIR)%.o : %.c
-	mkdir -p $(@D)
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+	@mkdir -p $(@D)
+	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+	@$(eval INDEX=$(shell echo $$(($(INDEX) + 1))))
 
 $(NAME) : $(LIBFT) $(OBJ)
-	$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) -o $(NAME) $(LIBRARIES)
+	@$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) -o $(NAME) $(LIBRARIES)
+	@echo "Compilation finished!"
 
 clean :
-	rm -rf $(OBJ_DIR)
-	make clean -C lib --no-print-directory
+	@rm -rf $(OBJ_DIR)
+	@make clean -C lib --no-print-directory
 
 fclean : clean
-	rm -rf $(NAME)
-	make fclean -C lib --no-print-directory
+	@rm -rf $(NAME)
+	@make fclean -C lib --no-print-directory
 
 re : fclean $(NAME)
 

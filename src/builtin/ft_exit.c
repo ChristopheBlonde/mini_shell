@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 12:18:42 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/10 10:33:38 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/13 23:48:56 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,7 @@ int	ft_exit(t_parse *parse, t_object *task)
 		nbr = ft_atol_exit(task->cmd[1]);
 	ft_get_exit_code(&nbr);
 	if (nbr == 0 && !task->cmd[1])
-	{
 		nbr = ft_atoi(ft_getenv(parse, "?"));
-	}
 	ft_free_all(parse);
 	exit(nbr);
 	return (0);

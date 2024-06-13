@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:43:17 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/06 17:12:55 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/13 22:48:31 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	handle_open(t_file_descriptor *file, t_parse *parse, int i)
 	if ((file->type == WRITE || file->type == APPEND)
 		&& parse->task[file->task]->erroutfile != 0)
 		return ;
-	if ( file->type == READ && parse->task[file->task]->errinfile != 0)
+	if (file->type == READ && parse->task[file->task]->errinfile != 0)
 		return ;
 	if (file->type == READ)
 	{
