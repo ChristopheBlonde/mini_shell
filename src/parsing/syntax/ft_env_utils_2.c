@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 15:29:31 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/13 11:08:41 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/13 15:30:28 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,12 @@ static void	handle_new_unquoted(t_cmd_lst s, t_object *task, size_t j,
 	new_unquoted = (bool *)ft_calloc(s.i + ft_lstsize(new_lst), sizeof(bool));
 	if (!new_unquoted)
 		return ;
-
 	i = 0;
-	
 	while (i < s.i)
 	{
 		new_unquoted[i] = task->unquoted[i];
 		i++;
 	}
-
 	while (i < (s.i + ft_lstsize(new_lst)))
 		new_unquoted[i++] = true;
 	free(task->unquoted);

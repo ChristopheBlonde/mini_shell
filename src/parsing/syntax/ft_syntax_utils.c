@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 13:17:45 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/12 14:15:14 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/13 15:46:13 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,29 @@
 
 void	print_good_error_msg(int code_error)
 {
-	if (code_error == 1)
-		ft_putendl_fd("Error: syntax error near unexpected token `&&'", 2);
-	else if (code_error == 2)
-		ft_putendl_fd("Error: syntax error near unexpected token `&'", 2);
-	else if (code_error == 3)
-		ft_putendl_fd("Error: syntax error near unexpected token `||'", 2);
-	else if (code_error == 4)
-		ft_putendl_fd("Error: syntax error near unexpected token `|'", 2);
-	else if (code_error == 5)
-		ft_putendl_fd("Error: syntax error near unexpected token `;'", 2);
-	else if (code_error == 6)
-		ft_putendl_fd("Error: syntax error near unexpected token `newline'", 2);
-	else if (code_error == 7)
-		ft_putendl_fd("Error: syntax error near unexpected token `end of file'", 2);
-	else if (code_error == 8)
-		ft_putendl_fd("Error: syntax error near unexpected token `>'", 2);
-	else if (code_error == 9)
-		ft_putendl_fd("Error: syntax error near unexpected token `>>'", 2);
-	else if (code_error == 10)
-		ft_putendl_fd("Error: syntax error near unexpected token `<'", 2);
-	else if (code_error == 11)
-		ft_putendl_fd("Error: syntax error near unexpected token `<<'", 2);
+	const char	*error_messages[] = {
+		"",
+		"syntax error near unexpected token `&&'",
+		"syntax error near unexpected token `&'",
+		"syntax error near unexpected token `||'",
+		"syntax error near unexpected token `|'",
+		"syntax error near unexpected token `;'",
+		"syntax error near unexpected token `newline'",
+		"syntax error near unexpected token `end of file'",
+		"syntax error near unexpected token `>`",
+		"syntax error near unexpected token `>>'",
+		"syntax error near unexpected token `<'",
+		"syntax error near unexpected token `<<'"
+	};
+
+	if (code_error >= 1 && code_error <= 11)
+	{
+		ft_putendl_fd("Error: syntax error near unexpected token", 2);
+		ft_putendl_fd(error_messages[code_error], 2);
+	}
 }
 
-int check_before_operator(char *input, int i)
+int	check_before_operator(char *input, int i)
 {
 	skip_spaces(input, &i);
 	if (input[i] == '&')

@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:45:50 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/13 10:48:33 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/13 15:55:57 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,29 +34,35 @@ static int	check_after_spaces(char *input, int i)
 int	check_after_redirection(char *input, int i)
 {
 	skip_spaces(input, &i);
-	if (input[i] == '>' && input[i + 1] == '>' && input[i + 2] && (input[i + 2] == '\n' || input[i + 2] == '\0'))
+	if (input[i] == '>' && input[i + 1] == '>' && input[i + 2]
+		&& (input[i + 2] == '\n' || input[i + 2] == '\0'))
 		return (9);
-	if (input[i] == '<' && input[i + 1] == '<' && input[i + 2] && (input[i + 2] == '\n' || input[i + 2] == '\0'))
+	if (input[i] == '<' && input[i + 1] == '<' && input[i + 2]
+		&& (input[i + 2] == '\n' || input[i + 2] == '\0'))
 		return (11);
-	if (input[i] == '>' && input[i + 1] && (input[i + 1] == '\n' || input[i + 1] == '\0'))
+	if (input[i] == '>' && input[i + 1] && (input[i + 1] == '\n'
+			|| input[i + 1] == '\0'))
 		return (8);
-	if (input[i] == '<' && input[i + 1] && (input[i + 1] == '\n' || input[i + 1] == '\0'))
+	if (input[i] == '<' && input[i + 1] && (input[i + 1] == '\n'
+			|| input[i + 1] == '\0'))
 		return (10);
 	if (input[i] == '\n' || input[i] == '\0')
 		return (6);
 	return (0);
 }
 
-static int check_after_pipe(char *input, int i)
+static int	check_after_pipe(char *input, int i)
 {
 	skip_spaces(input, &i);
 	if (input[i] == '<' || input[i] == '>')
 	{
-		if (input[i] == '<' && input[i + 1] == '<' && input[i + 2] && (input[i + 2] == '\n' || input[i + 2] == '\0'))
+		if (input[i] == '<' && input[i + 1] == '<'
+			&& input[i + 2] && (input[i + 2] == '\n' || input[i + 2] == '\0'))
 			if (check_after_redirection(input, i + 2))
 				return (check_after_redirection(input, i + 2));
 		if (input[i] == '>' && input[i + 1] == '>')
-			if (check_after_redirection(input, i + 2) && input[i + 2] && (input[i + 2] == '\n' || input[i + 2] == '\0'))
+			if (check_after_redirection(input, i + 2) && input[i + 2]
+				&& (input[i + 2] == '\n' || input[i + 2] == '\0'))
 				return (check_after_redirection(input, i + 2));
 		if (check_after_redirection(input, i + 1))
 			return (check_after_redirection(input, i + 2));
@@ -79,9 +85,7 @@ static int	handle_or_operator(char *input, int i, int in_quotes)
 			return (code_error);
 		}
 		if (input[i + 1] == '\n' || input[i + 1] == '\0')
-		{
 			return (1);
-		}
 		if (input[i + 1] == '|')
 			check = 1;
 		else
@@ -90,10 +94,8 @@ static int	handle_or_operator(char *input, int i, int in_quotes)
 	}
 	return (check);
 }
-/* If input[i] == '|', skip_spaces, if input[i] == '<' || input[i] == '>', check_after_redirection */
-/* If input[i] == '|', skip_spaces, if input[i] == '|', return 1, else return 2 */
 
-static int check_line(char *input)
+static int	check_line(char *input)
 {
 	int	i;
 	int	in_quotes;
@@ -115,20 +117,15 @@ static int check_line(char *input)
 				return (code_error);
 			}
 			if (input[i + 1] == '\n' || input[i + 1] == '\0')
-			{
 				return (1);
-			}
-			if (input[i + 1] == '|' && (input[i + 2] == '\0' || input[i + 2] == '\n'))
+			if (input[i + 1] == '|'
+				&& (input[i + 2] == '\0' || input[i + 2] == '\n'))
 				return (3);
 			i += 2;
 		}
 		if ((input[i] == '<' || input[i] == '>') && in_quotes == -1)
-		{
 			if (check_after_redirection(input, i + 1))
-			{
 				return (check_after_redirection(input, i + 1));
-			}
-		}
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:15:30 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/06 16:16:13 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/13 15:34:45 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	handle_bad_fd(t_parse *parse, t_object *task)
 	if (task->infile != -1)
 	{
 		if (parse->redirect[task->infile]->fd == -1)
-		{	
+		{
 			put_error_msg(parse->redirect[task->infile], task->errinfile);
 			ft_free_all(parse);
 			exit(1);

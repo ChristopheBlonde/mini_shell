@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 08:17:08 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/12 16:56:46 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/13 15:35:24 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,6 @@ bool	ft_parse_token(t_parse *parse, char *input)
 	{
 		ft_free_array((void **)arr);
 		return (false);
-	}
-	int i = 0, j;
-	while (parse->task[i])
-	{
-		j = 0;
-		while (parse->task[i]->cmd[j])
-		{
-			// ft_printf("task[%d]->cmd[%d]: ", i, j);
-			// ft_putendl_fd(parse->task[i]->cmd[j], 1);
-			j++;
-		}
-		i++;
 	}
 	ft_objectify(parse);
 	ft_redirection(parse);

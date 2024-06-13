@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 16:29:13 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/13 15:21:58 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/13 15:29:34 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ static t_list	*process_env_handler(t_list *current, t_parse *parse,
 	return (new);
 }
 
-static t_list	*process_dollars_and_envs(t_list *current, t_parse *parse
-	, int random, int *arr)
+static t_list	*process_dollars_and_envs(t_list *current, t_parse *parse,
+	int random, int *arr)
 {
 	char	quote;
 
