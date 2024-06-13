@@ -6,11 +6,11 @@
 #    By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
-#    Updated: 2024/06/11 12:11:58 by cblonde          ###   ########.fr        #
+#    Updated: 2024/06/13 08:58:45 by cblonde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
+CC = cc
 
 CFLAGS = -Werror -Wextra -Wall -gdwarf-4
 

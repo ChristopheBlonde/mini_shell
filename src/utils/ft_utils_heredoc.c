@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:59:40 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/12 16:05:41 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/13 08:24:19 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,26 @@ bool	ft_check_end_of_file(char *tmp, char *line, char *limiter)
 {
 	size_t	i;
 	char	*str;
-	size_t	len;
+	char	*delimiter;
 
 	i = ft_strlen(line);
-	len = ft_strlen(limiter);
-	if (!ft_strncmp(limiter, tmp, len))
+	delimiter = ft_strjoin(limiter, "\n");
+	if (!delimiter)
+		return (false);
+	if (!ft_strncmp(delimiter, tmp, -1))
 		return (true);
 	while (i > 0 && line[i - 1] != '\n')
 		i--;
 	str = ft_strjoin(&line[i], tmp);
 	if (!str)
 		return (false);
-	if (!ft_strncmp(limiter, str, len))
+	if (!ft_strncmp(delimiter, str, -1))
 	{
 		free(str);
 		return (true);
 	}
 	free(str);
+	free(delimiter);
 	return (false);
 }
 
