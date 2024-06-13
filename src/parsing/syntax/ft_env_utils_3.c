@@ -6,16 +6,11 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 16:29:13 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/13 11:09:20 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/13 15:21:58 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	is_quote(char c)
-{
-	return (c == '\'' || c == '\"');
-}
 
 static void	remove_quoted_dollars(t_list *current, int *check)
 {
@@ -24,35 +19,24 @@ static void	remove_quoted_dollars(t_list *current, int *check)
 	size_t	i;
 	char	quote;
 
-	new_content = (char *)malloc(ft_strlen(current->content) + 1);
+	new_content = ft_calloc(ft_strlen(current->content) + 1, sizeof(char));
 	if (!new_content)
 		return ;
 	new_content_index = 0;
-	i = 0;
+	i = -1;
 	quote = '\0';
-	while (((char *)current->content)[i])
+	while (((char *)current->content)[++i])
 	{
 		if (is_quote(((char *)current->content)[i]))
-		{
-			if (quote == '\0')
-				quote = ((char *)current->content)[i];
-			else if (quote == ((char *)current->content)[i])
-				quote = '\0';
-		}
+			update_quotes_status(current, i, &quote);
 		if (((char *)current->content)[i] == '$' && quote == '\0')
-		{
-			i++;
 			continue ;
-		}
 		new_content[new_content_index++] = ((char *)current->content)[i];
-		i++;
 	}
-	new_content[new_content_index] = '\0';
 	free(current->content);
 	current->content = new_content;
 	*check = 1;
 }
-
 
 static t_list	*process_env_handler(t_list *current, t_parse *parse,
 	int z, int *index)
@@ -68,46 +52,42 @@ static t_list	*process_env_handler(t_list *current, t_parse *parse,
 	return (new);
 }
 
-t_list	*ft_list_to_add(t_list *current, t_parse *parse, int nb_dollar, int random)
+static t_list	*process_dollars_and_envs(t_list *current, t_parse *parse
+	, int random, int *arr)
 {
-	t_list	*new;
-	int		arr[4];
 	char	quote;
 
-	arr[2] = count_dollar(current->content) - nb_dollar + 1;
-	arr[0] = -1;
-	new = NULL;
 	quote = '\0';
-	//parse->task->unquoted = false;
 	while (((char *)current->content)[++arr[0]])
 	{
 		arr[3] = 0;
-		if (is_quote(((char *)current->content)[arr[0]]))
-		{
-			if (quote == '\0')
-				quote = ((char *)current->content)[arr[0]];
-			else if (quote == ((char *)current->content)[arr[0]])
-				quote = '\0';
-		}
-		if ((((char *)current->content)[arr[0]] == '$' && (bool)++random) || arr[3] == 1)
+		handle_quotes(current, arr[0], &quote);
+		if ((((char *)current->content)[arr[0]] == '$'
+			&& (bool)++random) || arr[3] == 1)
 		{
 			if (random != arr[2])
-				continue;
-			if (ft_quoted(&((char *)current->content)[arr[0] + 1]) && quote == '\0')
+				continue ;
+			if (ft_quoted(&((char *)current->content)[arr[0] + 1])
+				&& quote == '\0')
 			{
 				remove_quoted_dollars(current, &arr[3]);
-				printf("Current content: %s\n", (char *)current->content);
 				continue ;
 			}
-			// if (arr[3] == 1)
-			// {
-			// 	current->content = ft_strqcpy((char *)current->content);
-			// 	printf("2 Current content: %s\n", (char *)current->content);
-			// 	continue ;
-			// }
-			new = process_env_handler(current, parse, arr[0], &arr[1]);
-			break;
+			return (process_env_handler(current, parse, arr[0], &arr[1]));
 		}
 	}
+	return (NULL);
+}
+
+t_list	*ft_list_to_add(t_list *current, t_parse *parse,
+	int nb_dollar, int random)
+{
+	t_list	*new;
+	int		arr[4];
+
+	new = NULL;
+	arr[2] = count_dollar(current->content) - nb_dollar + 1;
+	arr[0] = -1;
+	new = process_dollars_and_envs(current, parse, random, arr);
 	return (new);
 }

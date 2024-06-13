@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/10 11:12:06 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/13 15:24:27 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,9 @@ int		count_dollar(char *str);
 void	ft_process_env(t_object *task, t_parse *parse);
 char	*ft_replace_var(t_parse *parse, char *line, char *str, char *var);
 int		pre_check(int check, char c);
+void	handle_quotes(t_list *current, int index, char *quote);
+void	update_quotes_status(t_list *current, size_t i, char *quote);
+int		is_quote(char c);
 
 /*	SIGNAL	*/
 void	sig_handler(int sig);
