@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 16:29:13 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/12 18:01:59 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/13 11:09:20 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ t_list	*ft_list_to_add(t_list *current, t_parse *parse, int nb_dollar, int rando
 	arr[0] = -1;
 	new = NULL;
 	quote = '\0';
+	//parse->task->unquoted = false;
 	while (((char *)current->content)[++arr[0]])
 	{
 		arr[3] = 0;
@@ -88,21 +89,22 @@ t_list	*ft_list_to_add(t_list *current, t_parse *parse, int nb_dollar, int rando
 			else if (quote == ((char *)current->content)[arr[0]])
 				quote = '\0';
 		}
-		if (((char *)current->content)[arr[0]] == '$' && (bool)++random)
+		if ((((char *)current->content)[arr[0]] == '$' && (bool)++random) || arr[3] == 1)
 		{
 			if (random != arr[2])
 				continue;
-			if (ft_quoted(&((char *)current->content)[arr[0] + 1]) && quote != '\0')
+			if (ft_quoted(&((char *)current->content)[arr[0] + 1]) && quote == '\0')
 			{
 				remove_quoted_dollars(current, &arr[3]);
 				printf("Current content: %s\n", (char *)current->content);
-				continue;
+				continue ;
 			}
-			if (arr[3] == 1)
-			{
-				current->content = ft_strqcpy((char *)current->content);
-				continue;
-			}
+			// if (arr[3] == 1)
+			// {
+			// 	current->content = ft_strqcpy((char *)current->content);
+			// 	printf("2 Current content: %s\n", (char *)current->content);
+			// 	continue ;
+			// }
 			new = process_env_handler(current, parse, arr[0], &arr[1]);
 			break;
 		}
