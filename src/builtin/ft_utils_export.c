@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 13:25:34 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/03 23:45:47 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/14 12:30:36 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ static bool	ft_replace_append(t_parse *parse, size_t i, char **name, char *new)
 			free(*name);
 			return (false);
 		}
-		ft_env_trim(parse->env[i]);
 	}
 	return (true);
 }

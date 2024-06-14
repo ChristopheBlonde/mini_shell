@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:43:25 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/05 09:31:40 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/14 12:30:58 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ bool	ft_replace_env(t_parse *parse, char *new);
 void	ft_error_env(char *env);
 void	ft_putexport(char **env);
 char	*ft_getkey_env(char *env);
-void	ft_env_trim(char *str);
 
 /*			UNSET			*/
 void	ft_exec_unset(t_parse *parse, t_object *task);
