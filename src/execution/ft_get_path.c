@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 09:01:00 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/30 14:51:41 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/07 15:36:19 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,25 @@ static void	ft_replace_path(t_object *task, char **paths)
 {
 	char	*path;
 	int		i;
+	int		j;
 
 	i = -1;
-	if (!task || !task->cmd || !task->cmd[0])
+	j = 0;
+	while (task->cmd[j] && task->cmd[j][0] == '$')
+		j++;
+	if (!task || !task->cmd || !task->cmd[j])
 		return ;
-	if (ft_abs_path(task->cmd[0]))
+	if (ft_abs_path(task->cmd[j]))
 		return ;
 	while (paths[++i])
 	{
-		path = ft_strjoin(paths[i], task->cmd[0]);
+		path = ft_strjoin(paths[i], task->cmd[j]);
 		if (!path)
 			continue ;
 		if (!access(path, X_OK))
 		{
-			free(task->cmd[0]);
-			task->cmd[0] = path;
+			free(task->cmd[j]);
+			task->cmd[j] = path;
 		}
 		else
 			free(path);

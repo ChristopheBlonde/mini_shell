@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:25:46 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/07 14:13:03 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/14 14:00:19 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	ft_process_env(t_object *task, t_parse *parse)
 	if (!task->unquoted)
 		return ;
 	list = ft_cmd_to_list_env(task, parse);
-	ft_lstto_arr(task, list);
+	if (list)
+		ft_lstto_arr(task, list);
 }
 
 void	ft_env_handler(t_parse *parse)

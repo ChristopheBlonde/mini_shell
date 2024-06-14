@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/07 14:12:44 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/14 13:59:10 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ char				**ft_split_with_quotes(char *str, char delimiter);
 void				in_quote(char *input, int *quote, int i);
 void				ft_redirect_task(t_object *task, char *input,
 						size_t index);
-char				**ft_reduce_cmd(t_object *task);
+char				**ft_reduce_cmd(t_parse *parse, t_object *task);
 t_file_operation	ft_redirect_type(char *file);
 void				ft_wildcard(t_parse *parse);
 int					ft_syntax_errors_handler(t_parse *parse, char *input);
@@ -120,5 +120,7 @@ void				ft_skip_envchar(t_list *current, int *i);
 void				ft_init_cmd_lst(t_cmd_lst *s, t_object *task);
 void				ft_cmd_quoted(t_parse *parse, t_object *task, t_cmd_lst *s);
 t_list				*get_new(char *var, t_parse *parse, t_list *current, int z);
+bool				ft_check_envvar(t_parse *parse, t_object *task,
+						size_t index);
 
 #endif

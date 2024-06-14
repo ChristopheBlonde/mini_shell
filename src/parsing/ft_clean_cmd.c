@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:13:34 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/03 11:50:11 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/11 12:10:06 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static void	ft_rewrite(char *str)
 
 static size_t	ft_check_link(char *str)
 {
+	if (!str)
+		return (0);
 	if (str[0] == '|' || str[0] == '&')
 	{
 		if (str[1] == '\0')
@@ -71,7 +73,7 @@ static size_t	ft_check_link(char *str)
 	return (0);
 }
 
-static void	ft_cmdcpy(char **n_cmd, t_object *task)
+static void	ft_cmdcpy(t_parse *parse, char **n_cmd, t_object *task)
 {
 	int	i;
 	int	j;
@@ -83,7 +85,8 @@ static void	ft_cmdcpy(char **n_cmd, t_object *task)
 		if (ft_check_link(task->cmd[i]) == 2)
 			ft_rewrite(task->cmd[i]);
 		if (ft_check_redirect(task->cmd[i]) == 0
-			&& ft_check_link(task->cmd[i]) == 0)
+			&& ft_check_link(task->cmd[i]) == 0 
+			&& !ft_check_envvar(parse, task, i))
 			n_cmd[++j] = task->cmd[i];
 		else if (ft_check_redirect(task->cmd[i]) == 1
 			|| ft_check_link(task->cmd[i]) == 1)
@@ -99,7 +102,7 @@ static void	ft_cmdcpy(char **n_cmd, t_object *task)
 	task->cmd = n_cmd;
 }
 
-char	**ft_reduce_cmd(t_object *task)
+char	**ft_reduce_cmd(t_parse *parse, t_object *task)
 {
 	size_t	cmd_len;
 	char	**n_cmd;
@@ -117,6 +120,6 @@ char	**ft_reduce_cmd(t_object *task)
 	n_cmd = (char **)ft_calloc(cmd_len + 1, sizeof(char *));
 	if (!n_cmd)
 		return (task->cmd);
-	ft_cmdcpy(n_cmd, task);
+	ft_cmdcpy(parse, n_cmd, task);
 	return (n_cmd);
 }

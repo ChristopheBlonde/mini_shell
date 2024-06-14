@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/05 12:22:17 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/12 14:56:09 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	ft_wait_all(t_parse *parse)
 		waitpid(parse->task[i]->pid, &parse->task[i]->status, 0);
 		i++;
 	}
+	ft_sig_init(1);
 }
 
 bool	ft_execution(t_parse *parse)

@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:59:40 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/31 14:06:14 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/13 08:24:19 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,26 @@ bool	ft_check_end_of_file(char *tmp, char *line, char *limiter)
 {
 	size_t	i;
 	char	*str;
-	size_t	len;
+	char	*delimiter;
 
 	i = ft_strlen(line);
-	len = ft_strlen(limiter);
-	if (!ft_strncmp(limiter, tmp, len))
+	delimiter = ft_strjoin(limiter, "\n");
+	if (!delimiter)
+		return (false);
+	if (!ft_strncmp(delimiter, tmp, -1))
 		return (true);
 	while (i > 0 && line[i - 1] != '\n')
 		i--;
 	str = ft_strjoin(&line[i], tmp);
 	if (!str)
 		return (false);
-	if (!ft_strncmp(limiter, str, len))
+	if (!ft_strncmp(delimiter, str, -1))
 	{
 		free(str);
 		return (true);
 	}
 	free(str);
+	free(delimiter);
 	return (false);
 }
 
@@ -61,4 +64,22 @@ int	pre_check(int check, char c)
 	if (check == 0 && c == '$')
 		return (1);
 	return (0);
+}
+
+void	ft_fork_heredoc(t_parse *parse, char *line, char *tmp, int index)
+{
+	pid_t	pid;
+	int		status;
+
+	pid = fork();
+	if (pid < 0)
+		perror("minishell");
+	if (pid == 0)
+	{
+		ft_sig_init(2);
+		ft_read_line(parse, line, tmp, index);
+		ft_free_all(parse);
+		exit(0);
+	}
+	waitpid(pid, &status, 0);
 }

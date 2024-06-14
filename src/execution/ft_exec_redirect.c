@@ -6,25 +6,11 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:43:17 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/13 22:48:31 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/14 13:59:50 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	ft_check_if_exist(t_parse *parse, char *file, int index)
-{
-	size_t	i;
-
-	i = 0;
-	while (parse->redirect[i])
-	{
-		if ((int)i != index && !ft_strncmp(parse->redirect[i]->file, file, -1))
-			return (i);
-		i++;
-	}
-	return (-1);
-}
 
 static void	handle_open(t_file_descriptor *file, t_parse *parse, int i)
 {
@@ -34,19 +20,17 @@ static void	handle_open(t_file_descriptor *file, t_parse *parse, int i)
 	if (file->type == READ && parse->task[file->task]->errinfile != 0)
 		return ;
 	if (file->type == READ)
-	{
 		file->fd = open(file->file, O_RDONLY);
-		parse->task[file->task]->erroutfile = errno;
-	}
 	if (file->type == WRITE)
-	{
 		file->fd = open(file->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		parse->task[file->task]->erroutfile = errno;
-	}
 	if (file->type == APPEND)
-	{
 		file->fd = open(file->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		parse->task[file->task]->erroutfile = errno;
+	if (file->fd == -1 && file->type != HEREDOC)
+	{
+		if (file->type == READ && parse->task[file->task]->errinfile == 0)
+			parse->task[file->task]->errinfile = errno;
+		else if (parse->task[file->task]->errinfile == 0)
+			parse->task[file->task]->erroutfile = errno;
 	}
 	if (file->type == HEREDOC)
 		ft_here_doc(parse, i);
@@ -56,7 +40,6 @@ bool	ft_exec_redirect(t_parse *parse)
 {
 	size_t				i;
 	t_file_descriptor	*file;
-	int					exist;
 
 	i = 0;
 	if (!parse->redirect)
@@ -64,10 +47,6 @@ bool	ft_exec_redirect(t_parse *parse)
 	while (parse->redirect[i])
 	{
 		file = (t_file_descriptor *)parse->redirect[i];
-		exist = ft_check_if_exist(parse, file->file, i);
-		if (exist != -1 && exist < (int)i
-			&& file->type != parse->redirect[exist]->type)
-			close(parse->redirect[exist]->fd);
 		handle_open(file, parse, i);
 		i++;
 	}

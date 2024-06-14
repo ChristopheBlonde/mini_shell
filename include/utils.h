@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/13 22:47:01 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/14 13:59:31 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int		pre_check(int check, char c);
 void	handle_quotes(t_list *current, int index, char *quote);
 void	update_quotes_status(t_list *current, size_t i, char *quote);
 int		is_quote(char c);
+void	ft_fork_heredoc(t_parse *parse, char *line, char *tmp, int index);
+void	ft_read_line(t_parse *parse, char *line, char *tmp, int index);
 
 /*	SIGNAL	*/
 void	sig_handler(int sig);

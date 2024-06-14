@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:21:31 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/05 12:23:14 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/11 15:58:52 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	ft_is_fork(t_parse *parse, size_t i)
 	{
 		if (parse->task[i]->builtin == ECHO || parse->task[i]->builtin == ENV)
 			return (true);
-		else if (parse->task[i + 1] && parse->task[i + 1]->link == PIPE)
+		if (parse->task[i + 1] && parse->task[i + 1]->link == PIPE)
 			return (true);
 		else
 			return (false);
