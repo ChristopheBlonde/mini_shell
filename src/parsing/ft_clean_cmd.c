@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_clean_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:13:34 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/11 12:10:06 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/14 16:02:59 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static void	ft_cmdcpy(t_parse *parse, char **n_cmd, t_object *task)
 		if (ft_check_link(task->cmd[i]) == 2)
 			ft_rewrite(task->cmd[i]);
 		if (ft_check_redirect(task->cmd[i]) == 0
-			&& ft_check_link(task->cmd[i]) == 0 
+			&& ft_check_link(task->cmd[i]) == 0
 			&& !ft_check_envvar(parse, task, i))
 			n_cmd[++j] = task->cmd[i];
 		else if (ft_check_redirect(task->cmd[i]) == 1

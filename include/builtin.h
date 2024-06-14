@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:43:25 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/14 12:30:58 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/14 16:00:22 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 /*			ECHO			*/
 void	ft_exec_echo(t_parse *parse, t_object *task);
+void	ft_putstr_fd_until(char *str, int end);
 
 /*			EXPORT			*/
 void	ft_exec_export(t_parse *parse, t_object *task);

@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 16:29:13 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/13 15:29:34 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/14 15:54:05 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static t_list	*process_env_handler(t_list *current, t_parse *parse,
 	*index = z + 1;
 	ft_skip_envchar(current, index);
 	var = ft_substr(current->content, z + 1, (size_t)index - z - 1);
+	if (var[ft_strlen(var) - 1] == '"' || var[ft_strlen(var) - 1] == '\'')
+		var[ft_strlen(var) - 1] = '\0';
 	new = get_new(var, parse, current, z);
 	free(var);
 	return (new);
