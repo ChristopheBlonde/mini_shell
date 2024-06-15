@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:00:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/14 18:54:56 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/15 15:52:49 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	ft_args_dollar(t_object *task)
 		return ;
 	while (task->cmd[i])
 	{
-		if(task->cmd[i][0] != '$'
+		if (task->cmd[i][0] != '$'
 			|| (task->cmd[i][0] == '$' && !task->cmd[i][1]))
 		{
 			n_arr[j] = task->cmd[i];
