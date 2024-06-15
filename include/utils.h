@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/14 16:34:39 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/15 17:55:55 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int		pre_check(int check, char c);
 void	ft_fork_heredoc(t_parse *parse, char *line, char *tmp, int index);
 void	ft_read_line(t_parse *parse, char *line, char *tmp, int index);
 void	ft_del_dollar(t_parse *parse);
+void	ft_clean_dollar(t_parse *parse);
 
 /*	SIGNAL	*/
 void	sig_handler(int sig);
