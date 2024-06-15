@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:43:17 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/11 12:05:22 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/15 16:15:38 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ bool	ft_exec_redirect(t_parse *parse)
 	while (parse->redirect[i])
 	{
 		file = (t_file_descriptor *)parse->redirect[i];
-		handle_open(file, parse, i);
+		if (parse->task[file->task]->errinfile == 0 && parse->task[file->task]->erroutfile == 0)
+			handle_open(file, parse, i);
 		i++;
 	}
 	return (true);
