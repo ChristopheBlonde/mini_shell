@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/11 12:10:58 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/16 09:56:51 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,6 @@ void				ft_init_cmd_lst(t_cmd_lst *s, t_object *task);
 void				ft_cmd_quoted(t_parse *parse, t_object *task, t_cmd_lst *s);
 bool				ft_check_envvar(t_parse *parse, t_object *task,
 						size_t index);
+void				ft_handle_env(t_parse *parse);
 
 #endif
