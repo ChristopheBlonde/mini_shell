@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 19:29:40 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/18 13:33:39 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/18 19:45:21 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ void	ft_handle_env(t_parse *parse)
 	{
 		j = 0;
 		ft_init_he(&he, parse->task[i]);
+		if (!he.lst)
+			return ;
 		while (he.cur)
 		{
 			ft_init_elem(&he.info[j]);
