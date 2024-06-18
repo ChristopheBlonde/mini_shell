@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/18 10:52:54 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/18 11:12:35 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,20 @@ void	ft_sig_init(int mode)
 void	sig_handle_nothing(int sig)
 {
 	(void)sig;
+}
+
+void   ft_sig_exit(int status)
+{
+	if (!WIFEXITED(status) && WTERMSIG(status) == SIGINT)
+	{
+		g_exit_code = 130;
+		ft_putendl_fd("", 2);
+	}
+	else if (!WIFEXITED(status) && WTERMSIG(status) == SIGQUIT)
+	{
+		g_exit_code = 131;
+		ft_putendl_fd("Quit (core dumped)", 2);
+	}
+	else
+		g_exit_code = WEXITSTATUS(status);
 }

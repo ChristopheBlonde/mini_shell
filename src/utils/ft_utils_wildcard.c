@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils_wildcard.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:43:47 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/07 12:41:55 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/18 11:16:20 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,15 @@ void	ft_unquote(t_wc *wc)
 	}
 }
 
+static void	ft_is_current(t_list *tmp, t_list *last, t_list **lst, t_list **ptr)
+{
+	free(tmp->content);
+	if (tmp->next)
+		last->next = tmp->next;
+	free(*lst);
+	*ptr = last;
+}
+
 void	ft_lstinsert(t_list **lst, t_list *addlst, t_list **ptr)
 {
 	t_list	*current;
@@ -76,10 +85,8 @@ void	ft_lstinsert(t_list **lst, t_list *addlst, t_list **ptr)
 	tmp = *ptr;
 	if (*lst == *ptr)
 	{
-		free(tmp->content);
-		free(*lst);
+		ft_is_current(tmp, last, lst, ptr);
 		*lst = addlst;
-		*ptr = last;
 		return ;
 	}
 	if (!addlst)
