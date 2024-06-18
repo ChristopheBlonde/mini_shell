@@ -6,7 +6,7 @@
 #    By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
-#    Updated: 2024/06/14 16:00:53 by tsadouk          ###   ########.fr        #
+#    Updated: 2024/06/18 10:55:59 by tsadouk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,28 +37,29 @@ EXEC = src/execution/
 
 SIGNAL = src/signal/
 
-SRC = src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c\
-	  $(UTILS)ft_arrlen.c\
-	  $(BUILTIN)ft_export.c $(BUILTIN)ft_unset.c $(BUILTIN)ft_get_index_env.c\
-	  $(BUILTIN)ft_getenv.c  $(BUILTIN)ft_echo.c $(BUILTIN)ft_env.c\
-	  $(PARSE)ft_parse_token.c $(EXEC)ft_execution.c $(EXEC)ft_exec_redirect.c\
-	  $(UTILS)ft_strtok.c $(UTILS)ft_get_random.c $(UTILS)ft_tmp_file.c\
-	  $(UTILS)ft_here_doc.c $(UTILS)ft_utils_heredoc.c \
-	  $(PARSE)ft_objectify.c $(PARSE)ft_quote_handler.c $(PARSE)ft_redirect.c\
-	  $(PARSE)ft_utils_quote.c $(UTILS)ft_free_all.c $(UTILS)ft_free_utils.c\
-	  $(PARSE)ft_utils_redirect.c $(PARSE)ft_clean_cmd.c $(UTILS)ft_listdir.c\
-	  $(PARSE)ft_build_wildcard.c $(UTILS)ft_utils_wildcard.c\
-	  $(UTILS)ft_utils_list.c $(UTILS)ft_sortwildcard.c\
-	  $(SYNTAX)ft_and_operator_handler.c $(SYNTAX)ft_or_operator_handler.c\
-	  $(SYNTAX)ft_parenthesis_handler.c $(SYNTAX)ft_prompt_errors.c\
-	  $(SYNTAX)ft_syntax_errors_handler.c $(UTILS)ft_sortarray.c\
-	  $(BUILTIN)ft_checkbuiltin.c $(PARSE)ft_init_data.c\
-	  $(BUILTIN)ft_utils_export.c $(BUILTIN)ft_pwd.c $(BUILTIN)ft_cd.c\
-	  $(SYNTAX)ft_temp.c $(SYNTAX)ft_env_handler.c $(BUILTIN)ft_utils_env_export.c\
-	  $(EXEC)ft_get_path.c $(SYNTAX)ft_utils_env_handler.c $(EXEC)ft_utils_exec.c $(SIGNAL)ft_signal.c \
-	  $(BUILTIN)ft_exit.c $(SYNTAX)ft_env_utils_2.c $(EXEC)ft_utils_exec_builtin.c $(EXEC)ft_fd_utils.c $(PARSE)ft_utils_clean.c\
-	  $(SYNTAX)ft_env_utils_3.c $(SYNTAX)ft_syntax_utils.c $(SYNTAX)ft_env_utils_4.c $(SYNTAX)ft_syntax_checkers.c\
-	  $(BUILTIN)ft_echo_utils.c
+SRC =	src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c\
+		$(UTILS)ft_arrlen.c\
+		$(BUILTIN)ft_export.c $(BUILTIN)ft_unset.c $(BUILTIN)ft_get_index_env.c\
+		$(BUILTIN)ft_getenv.c  $(BUILTIN)ft_echo.c $(BUILTIN)ft_env.c\
+		$(PARSE)ft_parse_token.c $(EXEC)ft_execution.c $(EXEC)ft_exec_redirect.c\
+		$(UTILS)ft_strtok.c $(UTILS)ft_get_random.c $(UTILS)ft_tmp_file.c\
+		$(UTILS)ft_here_doc.c $(UTILS)ft_utils_heredoc.c \
+		$(PARSE)ft_objectify.c $(PARSE)ft_quote_handler.c $(PARSE)ft_redirect.c\
+		$(PARSE)ft_utils_quote.c $(UTILS)ft_free_all.c $(UTILS)ft_free_utils.c\
+		$(PARSE)ft_utils_redirect.c $(PARSE)ft_clean_cmd.c $(UTILS)ft_listdir.c\
+		$(PARSE)ft_build_wildcard.c $(UTILS)ft_utils_wildcard.c\
+		$(UTILS)ft_utils_list.c $(UTILS)ft_sortwildcard.c\
+		$(SYNTAX)ft_and_operator_handler.c $(SYNTAX)ft_or_operator_handler.c\
+		$(SYNTAX)ft_parenthesis_handler.c $(SYNTAX)ft_prompt_errors.c\
+		$(SYNTAX)ft_syntax_errors_handler.c $(UTILS)ft_sortarray.c\
+		$(BUILTIN)ft_checkbuiltin.c $(PARSE)ft_init_data.c\
+		$(BUILTIN)ft_utils_export.c $(BUILTIN)ft_pwd.c $(BUILTIN)ft_cd.c\
+		$(BUILTIN)ft_utils_env_export.c\
+		$(EXEC)ft_get_path.c  $(EXEC)ft_utils_exec.c $(SIGNAL)ft_signal.c \
+		$(EXEC)ft_utils_exec_builtin.c $(EXEC)ft_fd_utils.c $(PARSE)ft_utils_clean.c $(PARSE)ft_handle_env.c \
+		$(BUILTIN)ft_exit.c\
+		$(SYNTAX)ft_syntax_utils.c $(SYNTAX)ft_syntax_checkers.c\
+		$(BUILTIN)ft_echo_utils.c
 	  
 OBJ_DIR = obj/
 
