@@ -6,7 +6,7 @@
 #    By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
-#    Updated: 2024/06/16 09:51:34 by cblonde          ###   ########.fr        #
+#    Updated: 2024/06/18 13:34:27 by cblonde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,9 +51,11 @@ SRC = src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c\
 	  $(SYNTAX)ft_syntax_errors_handler.c $(UTILS)ft_sortarray.c\
 	  $(BUILTIN)ft_checkbuiltin.c $(PARSE)ft_init_data.c\
 	  $(BUILTIN)ft_utils_export.c $(BUILTIN)ft_pwd.c $(BUILTIN)ft_cd.c\
-	  $(SYNTAX)ft_temp.c $(SYNTAX)ft_env_handler.c $(BUILTIN)ft_utils_env_export.c\
-	  $(EXEC)ft_get_path.c $(SYNTAX)ft_utils_env_handler.c $(EXEC)ft_utils_exec.c $(SIGNAL)ft_signal.c \
-	  $(BUILTIN)ft_exit.c $(SYNTAX)ft_env_utils2.c $(EXEC)ft_utils_exec_builtin.c $(EXEC)ft_fd_utils.c $(PARSE)ft_utils_clean.c $(UTILS)ft_del_dollar.c $(PARSE)ft_handle_env.c
+	  $(BUILTIN)ft_utils_env_export.c $(EXEC)ft_get_path.c\
+	  $(EXEC)ft_utils_exec.c $(SIGNAL)ft_signal.c \
+	  $(BUILTIN)ft_exit.c $(EXEC)ft_utils_exec_builtin.c $(EXEC)ft_fd_utils.c\
+	  $(PARSE)ft_utils_clean.c $(UTILS)ft_del_dollar.c $(PARSE)ft_handle_env.c\
+	  $(PARSE)ft_utils_env.c
 	  
 OBJ_DIR = obj/
 
