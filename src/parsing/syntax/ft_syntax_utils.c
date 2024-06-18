@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 13:17:45 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/18 15:49:22 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/18 17:15:50 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	print_good_error_msg(int code_error)
 		" syntax error near unexpected token `;'",
 		" syntax error near unexpected token `newline'",
 		" syntax error near unexpected token `end of file'",
-		" syntax error near unexpected token `>`",
+		" syntax error near unexpected token `>'",
 		" syntax error near unexpected token `>>'",
 		" syntax error near unexpected token `<'",
 		" syntax error near unexpected token `<<'"
