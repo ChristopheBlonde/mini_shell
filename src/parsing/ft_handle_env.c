@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 19:29:40 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/18 10:41:20 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/18 13:45:11 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,8 @@ void	ft_handle_env(t_parse *parse)
 	{
 		j = 0;
 		ft_init_he(&he, parse->task[i]);
+		if (!he.lst || !he.info)
+			return ;
 		while (he.cur)
 		{
 			ft_init_elem(&he.info[j]);

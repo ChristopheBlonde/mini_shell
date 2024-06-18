@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:45:50 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/13 22:43:51 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/18 13:58:21 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ static int	check_line(char *input)
 			continue ;
 		if (input[i] == '|')
 		{
+			int before = check_before_pipe(input, i);
+			if (before)
+				return (before);
 			if (input[i + 1] && (input[i + 1] == '\n' || input[i + 1] == '\0'))
 				return (4);
 			if (check_after_pipe(input, i + 1))

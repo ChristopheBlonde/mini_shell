@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 22:44:09 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/13 22:48:01 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/18 14:25:09 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,14 @@ int	check_after_redirection(char *input, int i)
 int	check_after_pipe(char *input, int i)
 {
 	skip_spaces(input, &i);
+	if (input[i] == '|')
+		return (4);
+	else if (input[i] == '&')
+		return (2);
+	else if (input[i] == ';')
+		return (5);
+	else if (input[i] == '\n' || input[i] == '\0')
+		return (6);
 	if (input[i] == '<' || input[i] == '>')
 	{
 		if (input[i] == '<' && input[i + 1] == '<'

@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/18 11:12:48 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/18 13:56:24 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,6 @@ int		check_after_redirection(char *input, int i);
 int		check_after_spaces_without_pipe(char *input, int i);
 int		check_after_spaces(char *input, int i);
 int		check_after_pipe(char *input, int i);
+int		check_before_pipe(char *input, int i);
 
 #endif
