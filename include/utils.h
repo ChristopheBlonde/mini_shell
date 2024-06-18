@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/18 10:34:54 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/18 11:02:15 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int		ft_here_doc(t_parse *parse, int index);
 bool	ft_check_end_of_file(char *tmp, char *line, char *limiter);
 void	ft_error_heredoc(int n, char *limiter);
 int		ft_fail_open(char *name, char *line, char *tmp);
-void	ft_delete_quotes(t_parse *parse);
 bool	ft_quoted(char *str);
 void	ft_free_file_descriptor(void *ptr);
 void	ft_free_arrstruct(void **arr, void (*f)(void *));
