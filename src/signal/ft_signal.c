@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/18 11:12:35 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/19 10:25:48 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	sig_handle_nothing(int sig)
 	(void)sig;
 }
 
-void   ft_sig_exit(int status)
+void	ft_sig_exit(int status)
 {
 	if (!WIFEXITED(status) && WTERMSIG(status) == SIGINT)
 	{

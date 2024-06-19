@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:45:50 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/18 13:58:21 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/19 10:31:36 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,20 @@ static int	handle_or_operator(char *input, int i, int in_quotes)
 	return (check);
 }
 
+static int	handle_pipe_operator(char *input, int i)
+{
+	if (check_before_pipe(input, i))
+		return (check_before_pipe(input, i));
+	if (input[i + 1] && (input[i + 1] == '\n' || input[i + 1] == '\0'))
+		return (4);
+	if (check_after_pipe(input, i + 1))
+		return (check_after_pipe(input, i + 1));
+	if (input[i + 1] == '|')
+		return (3);
+	i += 1;
+	return (0);
+}
+
 static int	check_line(char *input)
 {
 	int	i;
@@ -51,16 +65,8 @@ static int	check_line(char *input)
 			continue ;
 		if (input[i] == '|')
 		{
-			int before = check_before_pipe(input, i);
-			if (before)
-				return (before);
-			if (input[i + 1] && (input[i + 1] == '\n' || input[i + 1] == '\0'))
-				return (4);
-			if (check_after_pipe(input, i + 1))
-				return (check_after_pipe(input, i + 1));
-			if (input[i + 1] == '|')
-				return (3);
-			i += 1;
+			if (handle_pipe_operator(input, i))
+				return (handle_pipe_operator(input, i));
 		}
 		else if (input[i] == '<' || input[i] == '>')
 			if (check_after_redirection(input, i + 1))
