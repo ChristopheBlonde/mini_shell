@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:15:30 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/14 13:59:59 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/19 14:07:59 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	ft_handle_error_exec(char *str)
 	else if (fd == -1 && folder == NULL)
 		ft_putendl_fd(": No such file or directory", 2);
 	else if (fd == -1 && folder != NULL)
-		ft_putendl_fd(": is a directory", 2);
+		ft_putendl_fd(": Is a directory", 2);
 	if (folder)
 		closedir(folder);
 	if (fd != -1)

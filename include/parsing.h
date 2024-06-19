@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/19 10:40:48 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/19 15:14:50 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,6 @@ void				ft_handle_env(t_parse *parse);
 void				ft_init_he(t_he *he, t_object *task);
 void				ft_init_elem(t_elem *elem);
 void				ft_get_variable(t_parse *parse, char *s, t_elem *elem);
+int					is_quoted_single(char *str);
 
 #endif

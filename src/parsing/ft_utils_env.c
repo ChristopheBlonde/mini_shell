@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 13:31:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/19 10:38:27 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/19 15:12:19 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,13 @@ void	ft_get_variable(t_parse *parse, char *s, t_elem *elem)
 	if (!elem->env)
 		elem->env = ft_calloc(1, sizeof(char));
 	free(tmp);
+}
+
+int	is_quoted_single(char *str)
+{
+	if (!str)
+		return (1);
+	if (str[0] == '\'' && strchr(str, '\''))
+		return (0);
+	return (1);
 }
