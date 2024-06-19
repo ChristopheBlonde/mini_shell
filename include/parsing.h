@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/18 10:33:22 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/19 09:57:16 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ typedef struct s_object
 	t_priority	priority;
 }	t_object;
 
-
 int					ft_check_and_operator(char *input);
 int					ft_check_parenthesis(char *input);
 int					ft_check_or_operator(char *input);
@@ -110,6 +109,6 @@ void				ft_init_parse(t_parse *parse);
 bool				ft_init_tasks(t_parse *parse, char **arr);
 bool				ft_check_envvar(t_parse *parse, t_object *task,
 						size_t index);
-void                ft_handle_env(t_parse *parse);
+void				ft_handle_env(t_parse *parse);
 
 #endif

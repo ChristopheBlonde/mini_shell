@@ -6,13 +6,13 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 19:29:40 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/18 17:11:16 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/19 10:01:07 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-typedef struct	s_elem
+typedef struct s_elem
 {
 	t_list	*lst;
 	char	*env;
@@ -20,7 +20,7 @@ typedef struct	s_elem
 	size_t	var_len;
 }	t_elem;
 
-typedef struct	s_handle_env
+typedef struct s_handle_env
 {
 	t_list	*lst;
 	t_list	*cur;
@@ -58,7 +58,7 @@ static void	ft_init_elem(t_elem *elem)
 	elem->var_len = 0;
 }
 
-static void	ft_get_variable(t_parse *parse,char *s, t_elem *elem)
+static void	ft_get_variable(t_parse *parse, char *s, t_elem *elem)
 {
 	size_t	i;
 	char	*tmp;
@@ -113,7 +113,7 @@ static void	ft_join_list(t_elem *elem, char *s, size_t index)
 	size_t	start;
 
 	tmp = NULL;
-	start	= index + 1 + elem->var_len;
+	start = index + 1 + elem->var_len;
 	if (index != 0)
 	{
 		tmp = ft_substr(s, 0, index);
@@ -158,7 +158,7 @@ static void	ft_handle_unquoted(t_he *he, t_elem *elem, char *s, size_t *index)
 	*index += ft_strlen(elem->env) - 1;
 }
 
-static void	ft_handle_dollar(t_parse *parse,t_he *he, t_elem *elem)
+static void	ft_handle_dollar(t_parse *parse, t_he *he, t_elem *elem)
 {
 	size_t	i;
 

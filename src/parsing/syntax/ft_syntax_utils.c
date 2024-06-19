@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 13:17:45 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/18 17:15:50 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/19 10:03:08 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,18 +81,17 @@ int	check_before_operator(char *input, int i)
 			}
 		}
 		return (6);
-	}	
+	}
 	else if (input[i] == '\0')
 		return (7);
 	return (0);
 }
 
-
 int	check_before_pipe(char *input, int i)
 {
-	int index;
-	int double_pipe;
-	int double_ampersand;
+	int	index;
+	int	double_pipe;
+	int	double_ampersand;
 
 	double_pipe = 0;
 	if (input[i] == '|' && input[i + 1] == '|')
@@ -103,7 +102,8 @@ int	check_before_pipe(char *input, int i)
 	index = i - 1;
 	while (ft_isspace(input[index]))
 		index--;
-	if (input[index] == '<' || input[index] == '>' || (input[index] == '|' && input[index + 1] == '|')
+	if (input[index] == '<' || input[index] == '>'
+		|| (input[index] == '|' && input[index + 1] == '|')
 		|| input[index] == ';' || double_ampersand == 1)
 	{
 		if (double_pipe == 1)
