@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 19:29:40 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/20 22:55:25 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/20 23:30:11 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ static size_t	ft_count_dollar(char *s)
 	in_quote(s, &quote, (int)i);
 	while (s[i])
 	{
-		if (s[i] == '$' && (quote == -1 || s[quote] == '"'))
+		if (s[i] == '$' && (quote == -1 || s[quote] == '"') && ft_isalnum(s[i + 1]))
 			count++;
 		i++;
 	}
