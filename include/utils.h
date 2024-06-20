@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/18 13:56:24 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/20 22:54:41 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,14 @@ void	ft_delete_quotes(t_parse *parse);
 void	in_quote(char *input, int *quote, int i);
 void	skip_spaces(char *input, int *i);
 char	**ft_strsort_arr(char **arr);
-int		count_dollar(char *str);
+t_list	*ft_suppdouble(t_list *lst);
 char	*ft_replace_var(t_parse *parse, char *line, char *str, char *var);
 int		pre_check(int check, char c);
 int		is_quote(char c);
 void	ft_fork_heredoc(t_parse *parse, char *line, char *tmp, int index);
 void	ft_read_line(t_parse *parse, char *line, char *tmp, int index);
+void	ft_del_dollar(t_parse *parse);
+void	ft_clean_dollar(t_parse *parse);
 void	ft_del_dollar(t_parse *parse);
 void	ft_clean_dollar(t_parse *parse);
 

@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:00:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/19 15:11:54 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/20 22:56:06 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,17 @@ static void	ft_args_dollar(t_object *task)
 		return ;
 	while (task->cmd[i])
 	{
-		if (is_quoted_single(task->cmd[i]))
-			n_arr[j++] = task->cmd[i];
-		else if (task->cmd[i][0] != '$'
-				|| (task->cmd[i][0] == '$' && (!task->cmd[i][1]
-				|| !ft_isalnum(task->cmd[i][1]))))
-			n_arr[j++] = task->cmd[i];
+		if (task->cmd[i][0] != '$'
+			|| (task->cmd[i][0] == '$'
+			&& (!task->cmd[i][1] || !ft_isalnum(task->cmd[i][1]))))
+		{
+			n_arr[j] = task->cmd[i];
+			j++;
+		}
 		else
 			free(task->cmd[i]);
 		i++;
 	}
-	n_arr[j] = NULL;
 	free(task->cmd);
 	task->cmd = n_arr;
 }

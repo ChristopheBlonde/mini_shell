@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 11:01:13 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/14 14:00:13 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/20 22:55:36 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	ft_redirection(t_parse *parse)
 		j = 0;
 		if (!ft_redirect_end(parse, &i, &j, &k))
 			return ;
-		ft_reduce_cmd(parse, parse->task[i]);
+		ft_reduce_cmd(parse->task[i]);
 		i++;
 	}
 }
