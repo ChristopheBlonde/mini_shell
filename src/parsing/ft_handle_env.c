@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 19:29:40 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/18 13:33:39 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/20 08:57:31 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ static void	ft_join_list(t_elem *elem, char *s, size_t index)
 		tmp = ft_substr(s, start, ft_strlen(&s[start]));
 		if (!tmp)
 			return ;
-		last->content = ft_strfjoin(last->content, tmp, 3);
+		if (!elem->lst)
+			ft_lstadd_back(&elem->lst, ft_lstnew(tmp));
+		else
+			last->content = ft_strfjoin(last->content, tmp, 3);
 	}
 }
 
@@ -124,6 +127,8 @@ void	ft_handle_env(t_parse *parse)
 	{
 		j = 0;
 		ft_init_he(&he, parse->task[i]);
+		if (!he.lst)
+			return ;
 		while (he.cur)
 		{
 			ft_init_elem(&he.info[j]);
