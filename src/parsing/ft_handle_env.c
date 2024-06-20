@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 19:29:40 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/20 10:02:35 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/20 10:38:40 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	ft_handle_quoted(char **s, t_elem *elem, size_t *index)
 	char	*str;
 	size_t	start;
 
-	if (!ft_isalnum((*s)[*index + 1]))
+	if (!ft_isalnum((*s)[*index + 1]) && ((*s)[*index + 1] != '?' && (*s)[*index + 1] != '_'))
 		return ;
 	str = ft_calloc(1, sizeof(char));
 	if (!str)
