@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 19:29:40 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/20 08:57:31 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/20 12:42:54 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static void	ft_handle_quoted(char **s, t_elem *elem, size_t *index)
 	char	*str;
 	size_t	start;
 
-	if (!ft_isalnum((*s)[*index + 1]))
+	if (!ft_isalnum((*s)[*index + 1])
+		&& ((*s)[*index + 1] != '?' && (*s)[*index + 1] != '_'))
 		return ;
 	str = ft_calloc(1, sizeof(char));
 	if (!str)
@@ -110,20 +111,42 @@ static void	ft_handle_dollar(t_parse *parse, t_he *he, t_elem *elem)
 				&& ((char *)(he->cur->content))[elem->quoted] == '"')
 				ft_handle_quoted((char **)&he->cur->content, elem, &i);
 			else
+			{
 				ft_handle_unquoted(he, elem, (char *)(he->cur->content), &i);
+				break ;
+			}
 		}
 		i++;
 	}
 }
 
-void	ft_handle_env(t_parse *parse)
+static size_t	ft_count_dollar(char *s)
 {
 	size_t	i;
+	int		quote;
+	size_t	count;
+
+	i = 0;
+	quote = -1;
+	count = 0;
+	in_quote(s, &quote, (int)i);
+	while (s[i])
+	{
+		if (s[i] == '$' && (quote == -1 || s[quote] == '"'))
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+void	ft_handle_env(t_parse *parse)
+{
+	int		i;
 	size_t	j;
 	t_he	he;
 
-	i = 0;
-	while (parse->task[i])
+	i = -1;
+	while (parse->task[++i])
 	{
 		j = 0;
 		ft_init_he(&he, parse->task[i]);
@@ -132,12 +155,15 @@ void	ft_handle_env(t_parse *parse)
 		while (he.cur)
 		{
 			ft_init_elem(&he.info[j]);
+			he.cur_count = ft_count_dollar(he.cur->content);
 			ft_handle_dollar(parse, &he, &he.info[j]);
-			he.cur = he.cur->next;
-			j++;
+			if (he.cur_count == 0)
+			{
+				he.cur = he.cur->next;
+				j++;
+			}
 		}
 		ft_lstto_arr(parse->task[i], he.lst);
 		free(he.info);
-		i++;
 	}
 }
