@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 19:29:40 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/20 12:42:54 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/21 15:14:07 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void	ft_handle_unquoted(t_he *he, t_elem *elem, char *s, size_t *index)
 	}
 	ft_free_array((void **)arr);
 	ft_join_list(elem, s, *index);
-	ft_lstinsert(&he->lst, elem->lst, &he->cur);
+	ft_check_insertion(he, elem);
 	*index += ft_strlen(elem->env) - 1;
 }
 
@@ -120,50 +120,31 @@ static void	ft_handle_dollar(t_parse *parse, t_he *he, t_elem *elem)
 	}
 }
 
-static size_t	ft_count_dollar(char *s)
-{
-	size_t	i;
-	int		quote;
-	size_t	count;
-
-	i = 0;
-	quote = -1;
-	count = 0;
-	in_quote(s, &quote, (int)i);
-	while (s[i])
-	{
-		if (s[i] == '$' && (quote == -1 || s[quote] == '"'))
-			count++;
-		i++;
-	}
-	return (count);
-}
-
 void	ft_handle_env(t_parse *parse)
 {
-	int		i;
-	size_t	j;
+	int		i[2];
 	t_he	he;
 
-	i = -1;
-	while (parse->task[++i])
+	i[0] = -1;
+	while (parse->task[++i[0]])
 	{
-		j = 0;
-		ft_init_he(&he, parse->task[i]);
+		i[1] = 0;
+		ft_init_he(&he, parse->task[i[0]]);
 		if (!he.lst)
 			return ;
 		while (he.cur)
 		{
-			ft_init_elem(&he.info[j]);
+			ft_init_elem(&he.info[i[1]]);
 			he.cur_count = ft_count_dollar(he.cur->content);
-			ft_handle_dollar(parse, &he, &he.info[j]);
-			if (he.cur_count == 0)
+			if (he.cur_count != 0)
+				ft_handle_dollar(parse, &he, &he.info[i[1]]);
+			if (he.cur_count == 0 && he.cur)
 			{
 				he.cur = he.cur->next;
-				j++;
+				i[1]++;
 			}
 		}
-		ft_lstto_arr(parse->task[i], he.lst);
+		ft_lstto_arr(parse->task[i[0]], he.lst);
 		free(he.info);
 	}
 }

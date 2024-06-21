@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 13:31:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/20 12:40:24 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/21 15:14:07 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_get_variable(t_parse *parse, char *s, t_elem *elem)
 	tmp = NULL;
 	if (!s)
 		return ;
-	while (s[i] && (ft_isalnum(s[i]) ||  s[i] == '_'))
+	while (s[i] && (ft_isalnum(s[i]) || s[i] == '_'))
 		i++;
 	if (s[i] == '?')
 		i++;
@@ -66,4 +66,51 @@ void	ft_get_variable(t_parse *parse, char *s, t_elem *elem)
 	if (!elem->env)
 		elem->env = ft_calloc(1, sizeof(char));
 	free(tmp);
+}
+
+size_t	ft_count_dollar(char *s)
+{
+	size_t	i;
+	int		quote;
+	size_t	count;
+
+	i = 0;
+	quote = -1;
+	count = 0;
+	in_quote(s, &quote, (int)i);
+	while (s[i])
+	{
+		if (s[i] == '$' && (quote == -1 || s[quote] == '"')
+			&& (ft_isalnum(s[i + 1]) || s[i + 1] == '?'))
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+void	ft_check_insertion(t_he *he, t_elem *elem)
+{
+	t_list	*prev;
+	t_list	*tmp;
+
+	tmp = he->cur;
+	if (elem->lst)
+		ft_lstinsert(&he->lst, elem->lst, &he->cur);
+	else
+	{
+		if (he->lst == he->cur)
+		{
+			he->lst = he->lst->next;
+		}
+		else
+		{
+			prev = he->lst;
+			while (prev->next != he->cur)
+				prev = prev->next;
+			prev->next = he->cur->next;
+		}
+		he->cur = he->cur->next;
+		free(tmp->content);
+		free(tmp);
+	}
 }
