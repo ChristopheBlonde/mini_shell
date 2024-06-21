@@ -6,13 +6,13 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/14 13:59:40 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/21 17:33:19 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_exit_code = 0;
+int			g_exit_code = 0;
 
 static int	ft_usage(char **argv)
 {

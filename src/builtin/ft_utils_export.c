@@ -89,30 +89,46 @@ static bool	ft_replace_append(t_parse *parse, size_t i, char **name, char *new)
 	return (true);
 }
 
-bool	ft_replace_env(t_parse *parse, char *new)
+bool	ft_del_append(t_parse *parse, size_t i, char *name, char *new)
 {
-	char	*name;
-	size_t	i;
-	size_t	len;
+    size_t	len;
 
-	i = 0;
-	name = ft_getkey_env(new);
-	if (!name)
-		return (true);
 	len = ft_strlen(name);
-	while (parse->env[i])
+	if (!new[len] && parse->env[i][len] == '=')
 	{
-		if (!ft_strncmp(parse->env[i], name, len)
-			&& !ft_isalnum(parse->env[i][len]))
-		{
-			if (ft_replace_append(parse, i, &name, new))
-			{
-				free(name);
-				return (true);
-			}
-		}
-		i++;
+	    parse->env[i][len + 1] = '\0';
+	    free(name);
+	    return (true);
 	}
-	free(name);
+	if (ft_replace_append(parse, i, &name, new))
+	{
+	    free(name);
+	    return (true);
+	}
 	return (false);
+}
+
+bool    ft_replace_env(t_parse *parse, char *new)
+{
+    char    *name;
+    size_t  i;
+    size_t  len;
+
+    name = ft_getkey_env(new);
+    if (!name)
+        return true;
+    len = ft_strlen(name);
+    i = 0;
+    while (parse->env[i])
+    {
+        if (!ft_strncmp(parse->env[i], name, len)
+			&& !ft_isalnum(parse->env[i][len]))
+        {
+            if (ft_del_append(parse, i, name, new))
+                return (true);
+        }
+        i++;
+    }
+    free(name);
+    return (false);
 }
