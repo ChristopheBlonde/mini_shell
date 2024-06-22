@@ -6,18 +6,11 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 13:25:34 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/14 12:30:36 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/21 17:08:55 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-
-void	ft_error_env(char *env)
-{
-	ft_putstr_fd("export: `", 2);
-	ft_putstr_fd(env, 2);
-	ft_putendl_fd("': not a valid identifier", 2);
-}
 
 char	*ft_getkey_env(char *env)
 {
@@ -89,6 +82,25 @@ static bool	ft_replace_append(t_parse *parse, size_t i, char **name, char *new)
 	return (true);
 }
 
+static bool	ft_del_append(t_parse *parse, char *name, char *new, size_t i)
+{
+	size_t	len;
+
+	len = ft_strlen(name);
+	if (!new[len] && parse->env[i][len] == '=')
+	{
+		parse->env[i][len + 1] = '\0';
+		free(name);
+		return (true);
+	}
+	if (ft_replace_append(parse, i, &name, new))
+	{
+		free(name);
+		return (true);
+	}
+	return (false);
+}
+
 bool	ft_replace_env(t_parse *parse, char *new)
 {
 	char	*name;
@@ -105,11 +117,8 @@ bool	ft_replace_env(t_parse *parse, char *new)
 		if (!ft_strncmp(parse->env[i], name, len)
 			&& !ft_isalnum(parse->env[i][len]))
 		{
-			if (ft_replace_append(parse, i, &name, new))
-			{
-				free(name);
+			if (ft_del_append(parse, name, new, i))
 				return (true);
-			}
 		}
 		i++;
 	}

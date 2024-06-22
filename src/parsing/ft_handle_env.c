@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 19:29:40 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/18 19:45:21 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/22 08:09:53 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static void	ft_handle_quoted(char **s, t_elem *elem, size_t *index)
 	char	*str;
 	size_t	start;
 
-	if (!ft_isalnum((*s)[*index + 1]))
+	if (!ft_isalnum((*s)[*index + 1])
+		&& ((*s)[*index + 1] != '?' && (*s)[*index + 1] != '_'))
 		return ;
 	str = ft_calloc(1, sizeof(char));
 	if (!str)
@@ -58,7 +59,10 @@ static void	ft_join_list(t_elem *elem, char *s, size_t index)
 		tmp = ft_substr(s, start, ft_strlen(&s[start]));
 		if (!tmp)
 			return ;
-		last->content = ft_strfjoin(last->content, tmp, 3);
+		if (!elem->lst)
+			ft_lstadd_back(&elem->lst, ft_lstnew(tmp));
+		else
+			last->content = ft_strfjoin(last->content, tmp, 3);
 	}
 }
 
@@ -86,7 +90,7 @@ static void	ft_handle_unquoted(t_he *he, t_elem *elem, char *s, size_t *index)
 	}
 	ft_free_array((void **)arr);
 	ft_join_list(elem, s, *index);
-	ft_lstinsert(&he->lst, elem->lst, &he->cur);
+	ft_check_insertion(he, elem);
 	*index += ft_strlen(elem->env) - 1;
 }
 
@@ -107,7 +111,10 @@ static void	ft_handle_dollar(t_parse *parse, t_he *he, t_elem *elem)
 				&& ((char *)(he->cur->content))[elem->quoted] == '"')
 				ft_handle_quoted((char **)&he->cur->content, elem, &i);
 			else
+			{
 				ft_handle_unquoted(he, elem, (char *)(he->cur->content), &i);
+				break ;
+			}
 		}
 		i++;
 	}
@@ -115,26 +122,29 @@ static void	ft_handle_dollar(t_parse *parse, t_he *he, t_elem *elem)
 
 void	ft_handle_env(t_parse *parse)
 {
-	size_t	i;
-	size_t	j;
+	int		i[2];
 	t_he	he;
 
-	i = 0;
-	while (parse->task[i])
+	i[0] = -1;
+	while (parse->task[++i[0]])
 	{
-		j = 0;
-		ft_init_he(&he, parse->task[i]);
+		i[1] = 0;
+		ft_init_he(&he, parse->task[i[0]]);
 		if (!he.lst)
 			return ;
 		while (he.cur)
 		{
-			ft_init_elem(&he.info[j]);
-			ft_handle_dollar(parse, &he, &he.info[j]);
-			he.cur = he.cur->next;
-			j++;
+			ft_init_elem(&he.info[i[1]]);
+			he.cur_count = ft_count_dollar(he.cur->content);
+			if (he.cur_count != 0)
+				ft_handle_dollar(parse, &he, &he.info[i[1]]);
+			if (he.cur_count == 0 && he.cur)
+			{
+				he.cur = he.cur->next;
+				i[1]++;
+			}
 		}
-		ft_lstto_arr(parse->task[i], he.lst);
+		ft_lstto_arr(parse->task[i[0]], he.lst);
 		free(he.info);
-		i++;
 	}
 }

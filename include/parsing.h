@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/18 13:35:34 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/21 15:14:55 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct s_handle_env
 {
 	t_list	*lst;
 	t_list	*cur;
+	int		cur_count;
 	size_t	size;
 	t_elem	*info;
 }	t_he;
@@ -116,7 +117,7 @@ char				**ft_split_with_quotes(char *str, char delimiter);
 void				in_quote(char *input, int *quote, int i);
 void				ft_redirect_task(t_object *task, char *input,
 						size_t index);
-char				**ft_reduce_cmd(t_parse *parse, t_object *task);
+char				**ft_reduce_cmd(t_object *task);
 t_file_operation	ft_redirect_type(char *file);
 void				ft_wildcard(t_parse *parse);
 int					ft_syntax_errors_handler(char *input);
@@ -129,5 +130,7 @@ void				ft_handle_env(t_parse *parse);
 void				ft_init_he(t_he *he, t_object *task);
 void				ft_init_elem(t_elem *elem);
 void				ft_get_variable(t_parse *parse, char *s, t_elem *elem);
+size_t				ft_count_dollar(char *s);
+void				ft_check_insertion(t_he *he, t_elem *elem);
 
 #endif
