@@ -94,6 +94,7 @@ void	sig_handler_heredoc(int sig);
 void	ft_sig_exit(int status);
 
 /*ENV*/
+void	ft_error_env(char *env);
 
 /*	SYNTAX	*/
 int		check_before_operator(char *input, int i);
@@ -103,5 +104,6 @@ int		check_after_spaces_without_pipe(char *input, int i);
 int		check_after_spaces(char *input, int i);
 int		check_after_pipe(char *input, int i);
 int		check_before_pipe(char *input, int i);
+int		check_redirection(char *input, int i);
 
 #endif

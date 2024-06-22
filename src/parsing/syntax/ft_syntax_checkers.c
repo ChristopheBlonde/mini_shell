@@ -31,7 +31,7 @@ int	check_after_spaces(char *input, int i)
 	return (0);
 }
 
-// FIX: ne pas mettre ambigous redirect si c est pour un heredoc
+//TODO : FIX FOR THE HEREDOC BECAUSE << * shou
 int	check_after_redirection(char *input, int i)
 {
 	skip_spaces(input, &i);

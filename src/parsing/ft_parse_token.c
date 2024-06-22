@@ -31,7 +31,6 @@ bool	ft_parse_token(t_parse *parse, char *input)
 	ft_builtin(parse);
 	ft_wildcard(parse);
 	ft_delete_quotes(parse);
-	//ft_del_dollar(parse);
 	ft_free_array((void **)arr);
 	return (true);
 }

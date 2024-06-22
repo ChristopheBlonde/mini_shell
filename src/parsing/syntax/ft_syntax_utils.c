@@ -34,57 +34,6 @@ void	print_good_error_msg(int code_error)
 		ft_putendl_fd((char *)error_messages[code_error], 2);
 }
 
-int	check_redirection(char *input, int i)
-{
-	if (input[i + 1] == '>')
-	{
-		if (input[i + 2])
-		{
-			i += 2;
-			skip_spaces(input, &i);
-			if (input[i] == '*')
-				return (12);
-			if (input[i] == '>')
-				return (8);
-			if (input[i] == '\0' || input[i] == '\n')
-				return (6);
-		}
-	}
-	if (input[i + 1] == '<')
-	{
-		if (input[i + 2])
-		{
-			i += 2;
-			skip_spaces(input, &i);
-			if (input[i] == '*')
-				return (12);
-			if (input[i] == '<')
-				return (10);
-			if (input[i] == '\0' || input[i] == '\n')
-				return (6);
-		}
-	}
-	if (input[i] == '>')
-	{
-		i++;
-		skip_spaces(input, &i);
-		if (input[i] == '\0' || input[i] == '\n')
-			return (6);
-		if (input[i] == '*')
-			return (12);
-	}
-	if (input[i] == '<')
-	{
-		i++;
-		skip_spaces(input, &i);
-		if (input[i] == '\0' || input[i] == '\n')
-			return (6);
-		if (input[i] == '*')
-			return (12);
-	}
-	return (6);
-}
-
 int	check_before_operator(char *input, int i)
 {
 	skip_spaces(input, &i);

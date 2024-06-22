@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 13:31:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/21 00:48:45 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/22 08:11:10 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,29 +43,74 @@ void	ft_init_elem(t_elem *elem)
 	elem->var_len = 0;
 }
 
-void    ft_get_variable(t_parse *parse, char *s, t_elem *elem)
+void	ft_get_variable(t_parse *parse, char *s, t_elem *elem)
 {
-    size_t    i;
-    char    *tmp;
+	size_t	i;
+	char	*tmp;
 
-    i = 0;
-    tmp = NULL;
-    if (!s)
-        return ;
-    while (s[i] && (ft_isalnum(s[i]) ||  s[i] == '_'))
-        i++;
-    if (s[i] == '?')
-        i++;
-    if (i == 0)
-        return ;
-    elem->var_len = i;
-    tmp = ft_substr(s, 0, i);
-    if (!tmp)
-        return ;
-    elem->env = ft_getenv(parse, tmp);
-    if (!elem->env)
-        elem->env = ft_calloc(1, sizeof(char));
-    free(tmp);
+	i = 0;
+	tmp = NULL;
+	if (!s)
+		return ;
+	while (s[i] && (ft_isalnum(s[i]) || s[i] == '_'))
+		i++;
+	if (s[i] == '?')
+		i++;
+	if (i == 0)
+		return ;
+	elem->var_len = i;
+	tmp = ft_substr(s, 0, i);
+	if (!tmp)
+		return ;
+	elem->env = ft_getenv(parse, tmp);
+	if (!elem->env)
+		elem->env = ft_calloc(1, sizeof(char));
+	free(tmp);
 }
 
-// TODO : fix echo "$$", $ + un truc qui existe pas
+size_t	ft_count_dollar(char *s)
+{
+	size_t	i;
+	int		quote;
+	size_t	count;
+
+	i = 0;
+	quote = -1;
+	count = 0;
+	in_quote(s, &quote, (int)i);
+	while (s[i])
+	{
+		if (s[i] == '$' && (quote == -1 || s[quote] == '"')
+			&& (ft_isalnum(s[i + 1]) || s[i + 1] == '?'))
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+void	ft_check_insertion(t_he *he, t_elem *elem)
+{
+	t_list	*prev;
+	t_list	*tmp;
+
+	tmp = he->cur;
+	if (elem->lst)
+		ft_lstinsert(&he->lst, elem->lst, &he->cur);
+	else
+	{
+		if (he->lst == he->cur)
+		{
+			he->lst = he->lst->next;
+		}
+		else
+		{
+			prev = he->lst;
+			while (prev->next != he->cur)
+				prev = prev->next;
+			prev->next = he->cur->next;
+		}
+		he->cur = he->cur->next;
+		free(tmp->content);
+		free(tmp);
+	}
+}

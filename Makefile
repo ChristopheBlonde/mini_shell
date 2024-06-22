@@ -59,7 +59,8 @@ SRC =	src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c\
 		$(EXEC)ft_utils_exec_builtin.c $(EXEC)ft_fd_utils.c $(PARSE)ft_utils_clean.c $(PARSE)ft_handle_env.c \
 		$(BUILTIN)ft_exit.c\
 		$(SYNTAX)ft_syntax_utils.c $(SYNTAX)ft_syntax_checkers.c\
-		$(UTILS)ft_del_dollar.c $(PARSE)ft_utils_env.c
+		$(UTILS)ft_del_dollar.c $(PARSE)ft_utils_env.c $(PARSE)ft_error_env.c\
+		$(SYNTAX)ft_redirect_utils.c
 	  
 OBJ_DIR = obj/
 

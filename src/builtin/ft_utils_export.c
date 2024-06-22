@@ -12,13 +12,6 @@
 
 #include "builtin.h"
 
-void	ft_error_env(char *env)
-{
-	ft_putstr_fd("export: `", 2);
-	ft_putstr_fd(env, 2);
-	ft_putendl_fd("': not a valid identifier", 2);
-}
-
 char	*ft_getkey_env(char *env)
 {
 	char	*key;
@@ -91,44 +84,44 @@ static bool	ft_replace_append(t_parse *parse, size_t i, char **name, char *new)
 
 bool	ft_del_append(t_parse *parse, size_t i, char *name, char *new)
 {
-    size_t	len;
+	size_t	len;	
 
 	len = ft_strlen(name);
 	if (!new[len] && parse->env[i][len] == '=')
 	{
-	    parse->env[i][len + 1] = '\0';
-	    free(name);
-	    return (true);
+		parse->env[i][len + 1] = '\0';
+		free(name);
+		return (true);
 	}
 	if (ft_replace_append(parse, i, &name, new))
 	{
-	    free(name);
-	    return (true);
+		free(name);
+		return (true);
 	}
 	return (false);
 }
 
-bool    ft_replace_env(t_parse *parse, char *new)
+bool	ft_replace_env(t_parse *parse, char *new)
 {
-    char    *name;
-    size_t  i;
-    size_t  len;
+	char	*name;
+	size_t	i;
+	size_t	len;	
 
-    name = ft_getkey_env(new);
-    if (!name)
-        return true;
-    len = ft_strlen(name);
-    i = 0;
-    while (parse->env[i])
-    {
-        if (!ft_strncmp(parse->env[i], name, len)
+	name = ft_getkey_env(new);
+	if (!name)
+		return (true);
+	len = ft_strlen(name);
+	i = 0;
+	while (parse->env[i])
+	{
+		if (!ft_strncmp(parse->env[i], name, len)
 			&& !ft_isalnum(parse->env[i][len]))
-        {
-            if (ft_del_append(parse, i, name, new))
-                return (true);
-        }
-        i++;
-    }
-    free(name);
-    return (false);
+		{
+			if (ft_del_append(parse, i, name, new))
+				return (true);
+		}
+		i++;
+	}
+	free(name);
+	return (false);
 }
