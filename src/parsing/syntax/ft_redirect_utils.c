@@ -16,13 +16,13 @@ int	check_double_redirection(char *input, int *i, char symbol, int return_value)
 {
 	*i += 2;
 	skip_spaces(input, i);
-	if (input[*i] == '*')
+	if (input[*i] == '*' && symbol != '<')
 		return (12);
 	if (input[*i] == symbol)
 		return (return_value);
 	if (input[*i] == '\0' || input[*i] == '\n')
 		return (6);
-	return (6);
+	return (0);
 }
 
 int	check_single_redirection(char *input, int *i)
@@ -33,7 +33,7 @@ int	check_single_redirection(char *input, int *i)
 		return (6);
 	if (input[*i] == '*')
 		return (12);
-	return (6);
+	return (0);
 }
 
 int	check_redirection(char *input, int i)
@@ -46,5 +46,5 @@ int	check_redirection(char *input, int i)
 		return (check_single_redirection(input, &i));
 	if (input[i] == '<')
 		return (check_single_redirection(input, &i));
-	return (6);
+	return (0);
 }

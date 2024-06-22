@@ -34,8 +34,11 @@ int	check_after_spaces(char *input, int i)
 //TODO : FIX FOR THE HEREDOC BECAUSE << * shou
 int	check_after_redirection(char *input, int i)
 {
-	skip_spaces(input, &i);
-	if (input[i] == '*')
+    char    c;
+
+    c = input[i - 1];
+    skip_spaces(input, &i);
+	if (input[i] == '*' && c != '<')
 		return (12);
 	if (input[i] == '>' && input[i + 1] == '>' && input[i + 2]
 		&& (input[i + 2] == '\n' || input[i + 2] == '\0'))
