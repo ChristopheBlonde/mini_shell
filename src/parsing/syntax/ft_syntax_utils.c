@@ -69,20 +69,18 @@ int	check_before_pipe(char *input, int i)
 	int	double_pipe;
 	int	double_ampersand;
 
-	double_pipe = 0;
-	if (input[i] == '|' && input[i + 1] == '|')
-		double_pipe = 1;
-	double_ampersand = 0;
-	if (input[i] == '&' && input[i + 1] == '&')
-		double_ampersand = 1;
 	index = i - 1;
-	while (ft_isspace(input[index]))
+	double_pipe = (input[index] == '|' && input[i] == '|');
+	double_ampersand = (input[index] == '&' && input[i] == '&');
+	if (double_pipe || double_ampersand)
 		index--;
-	if (input[index] == '<' || input[index] == '>'
-		|| (input[index] == '|' && input[index + 1] == '|')
-		|| input[index] == ';' || double_ampersand == 1)
+	while (index >= 0 && ft_isspace(input[index]))
+		index--;
+	if (index >= 0 && (input[index] == '<' || input[index] == '>'
+			|| (input[index] == '|' && input[index + 1] == '|')
+			|| input[index] == ';' || double_ampersand))
 	{
-		if (double_pipe == 1)
+		if (double_pipe)
 			return (3);
 		return (4);
 	}

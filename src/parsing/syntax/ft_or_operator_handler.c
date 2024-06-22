@@ -45,7 +45,7 @@ static int	handle_pipe_operator(char *input, int i)
 		return (4);
 	if (check_after_pipe(input, i + 1))
 		return (check_after_pipe(input, i + 1));
-	if (input[i + 1] == '|')
+	if (input[i + 1] == '|' && (input[i + 2] == '\n' || input[i + 2] == '\0'))
 		return (3);
 	i += 1;
 	return (0);
