@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 13:31:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/22 08:11:10 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/24 16:43:43 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_init_he(t_he *he, t_object *task)
 		return ;
 	he->size = 0;
 	he->lst = NULL;
-	he->cur_count = 0;
 	while (task->cmd[he->size])
 	{
 		ft_lstadd_back(&he->lst, ft_lstnew(ft_strdup(task->cmd[he->size])));
@@ -52,9 +51,8 @@ void	ft_get_variable(t_parse *parse, char *s, t_elem *elem)
 	tmp = NULL;
 	if (!s)
 		return ;
-	while (s[i] && (ft_isalnum(s[i]) || s[i] == '_'))
-		i++;
-	if (s[i] == '?')
+	while (s[i] != '\n' && s[i] != '\0' && s[i] != ' '
+		&& s[i] != '$' && s[i] != '?' && s[i] != '"' && s[i] != '\'')
 		i++;
 	if (i == 0)
 		return ;

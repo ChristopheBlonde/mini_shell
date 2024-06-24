@@ -20,7 +20,7 @@ static void	ft_handle_cd_error(t_parse *parse, char *path, char **pwd,
 	ft_excmd_result(parse, 1);
 	ft_putstr_fd("minishell: cd: ", 2);
 	perror(path);
-	if (*n_path && ft_strncmp(*n_path, path, ft_strlen(*n_path)))
+	if (*n_path && ft_strncmp(*n_path, path, -1))
 		free(*n_path);
 }
 

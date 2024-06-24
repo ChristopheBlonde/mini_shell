@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 19:29:40 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/22 08:09:53 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/24 16:45:47 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ static void	ft_handle_quoted(char **s, t_elem *elem, size_t *index)
 	str = ft_calloc(1, sizeof(char));
 	if (!str)
 		return ;
-	str = ft_strfjoin(str, ft_substr(*s, 0, *index), 1);
+	str = ft_strfjoin(str, ft_substr(*s, 0, *index), 3);
 	if (!str)
 		return ;
 	str = ft_strfjoin(str, elem->env, 1);
 	if (!str)
 		return ;
 	start = *index + 1 + elem->var_len;
-	str = ft_strfjoin(str, ft_substr(*s, start, ft_strlen(&(*s)[start])), 1);
+	str = ft_strfjoin(str, ft_substr(*s, start, ft_strlen(&(*s)[start])), 3);
 	if (!str)
 		return ;
 	free(*s);
