@@ -30,7 +30,7 @@ void	sig_handler_heredoc(int sig)
 	{
 		g_exit_code = 130;
 		ft_putstr_fd("\n", 1);
-		ft_handle_free_heredoc(NULL);
+		ft_handle_free_heredoc(NULL, NULL, NULL);
 		exit(1);
 	}
 }

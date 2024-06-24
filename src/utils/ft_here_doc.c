@@ -109,6 +109,12 @@ void	ft_read_line(t_parse *parse, char *line, char *tmp, int index)
 	ft_write_file(parse, line, index, tmp);
 }
 
+static void free_line_tmp(char *line, char *tmp)
+{
+	free(line);
+	free(tmp);
+}
+
 int	ft_here_doc(t_parse *parse, int index)
 {
 	char	*tmp;
@@ -122,15 +128,17 @@ int	ft_here_doc(t_parse *parse, int index)
 	tmp = (char *)ft_calloc(1, sizeof(char));
 	if (!tmp)
 		free(line);
-	if (!tmp)
-		return (-1);
 	parse->redirect[index]->fd = ft_open_tmp(&name);
 	if (parse->redirect[index]->fd < 0)
+	{
+		free_line_tmp(line, tmp);
 		return (ft_fail_open(name, line, tmp));
+	}
 	ft_fork_heredoc(parse, line, tmp, index);
 	free(parse->redirect[index]->file);
 	parse->redirect[index]->file = name;
 	close(parse->redirect[index]->fd);
 	parse->redirect[index]->fd = open(parse->redirect[index]->file, O_RDONLY);
+	free_line_tmp(line, tmp);
 	return (parse->redirect[index]->fd);
 }

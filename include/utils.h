@@ -83,7 +83,7 @@ void	ft_fork_heredoc(t_parse *parse, char *line, char *tmp, int index);
 void	ft_read_line(t_parse *parse, char *line, char *tmp, int index);
 void	ft_del_dollar(t_parse *parse);
 void	ft_clean_dollar(t_parse *parse);
-void	ft_handle_free_heredoc(t_parse *parse);
+void	ft_handle_free_heredoc(t_parse *parse, char *line, char *tmp);
 
 /*	SIGNAL	*/
 void	sig_handler(int sig);
