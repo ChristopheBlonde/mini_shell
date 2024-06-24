@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:59:40 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/17 15:31:00 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/22 08:42:39 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,24 @@ void	ft_fork_heredoc(t_parse *parse, char *line, char *tmp, int index)
 	{
 		rl_catch_signals = 1;
 		ft_sig_init(2);
+		ft_handle_free_heredoc(parse);
 		ft_read_line(parse, line, tmp, index);
 		ft_free_all(parse);
 		exit(0);
 	}
 	waitpid(pid, &status, 0);
+}
+
+void	ft_handle_free_heredoc(t_parse *parse)
+{
+	static	t_parse	*p;
+
+	p = NULL;
+	if (parse)
+		p = parse;
+	else
+	{
+		ft_free_all(p);
+		p = NULL;
+	}
 }
