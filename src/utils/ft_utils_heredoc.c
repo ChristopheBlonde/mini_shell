@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:59:40 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/17 15:31:00 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/24 11:50:49 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ bool	ft_check_end_of_file(char *tmp, char *line, char *limiter)
 	if (!delimiter)
 		return (false);
 	if (!ft_strncmp(delimiter, tmp, -1))
+	{
+		free(delimiter);
 		return (true);
+	}
 	while (i > 0 && line[i - 1] != '\n')
 		i--;
 	str = ft_strjoin(&line[i], tmp);
@@ -31,11 +34,10 @@ bool	ft_check_end_of_file(char *tmp, char *line, char *limiter)
 		return (false);
 	if (!ft_strncmp(delimiter, str, -1))
 	{
-		free(str);
+		ft_free_end_of_file(str, delimiter);
 		return (true);
 	}
-	free(str);
-	free(delimiter);
+	ft_free_end_of_file(str, delimiter);
 	return (false);
 }
 
@@ -53,9 +55,12 @@ void	ft_error_heredoc(int n, char *limiter)
 
 int	ft_fail_open(char *name, char *line, char *tmp)
 {
-	free(name);
-	free(line);
-	free(tmp);
+	if (name)
+		free(name);
+	if (line)
+		free(line);
+	if (tmp)
+		free(tmp);
 	return (-1);
 }
 
@@ -78,6 +83,7 @@ void	ft_fork_heredoc(t_parse *parse, char *line, char *tmp, int index)
 	{
 		rl_catch_signals = 1;
 		ft_sig_init(2);
+		ft_handle_free_heredoc(parse, line, tmp);
 		ft_read_line(parse, line, tmp, index);
 		ft_free_all(parse);
 		exit(0);

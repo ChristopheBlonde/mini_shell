@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 10:13:03 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/12 16:06:21 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/24 11:40:03 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,15 +122,17 @@ int	ft_here_doc(t_parse *parse, int index)
 	tmp = (char *)ft_calloc(1, sizeof(char));
 	if (!tmp)
 		free(line);
-	if (!tmp)
-		return (-1);
 	parse->redirect[index]->fd = ft_open_tmp(&name);
 	if (parse->redirect[index]->fd < 0)
+	{
+		ft_free_line_tmp(line, tmp);
 		return (ft_fail_open(name, line, tmp));
+	}
 	ft_fork_heredoc(parse, line, tmp, index);
 	free(parse->redirect[index]->file);
 	parse->redirect[index]->file = name;
 	close(parse->redirect[index]->fd);
 	parse->redirect[index]->fd = open(parse->redirect[index]->file, O_RDONLY);
+	ft_free_line_tmp(line, tmp);
 	return (parse->redirect[index]->fd);
 }

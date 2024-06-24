@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 13:25:34 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/14 12:30:36 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/21 17:08:55 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ static bool	ft_replace_append(t_parse *parse, size_t i, char **name, char *new)
 	return (true);
 }
 
-bool	ft_del_append(t_parse *parse, size_t i, char *name, char *new)
+static bool	ft_del_append(t_parse *parse, char *name, char *new, size_t i)
 {
-	size_t	len;	
+	size_t	len;
 
 	len = ft_strlen(name);
 	if (!new[len] && parse->env[i][len] == '=')
@@ -117,7 +117,7 @@ bool	ft_replace_env(t_parse *parse, char *new)
 		if (!ft_strncmp(parse->env[i], name, len)
 			&& !ft_isalnum(parse->env[i][len]))
 		{
-			if (ft_del_append(parse, i, name, new))
+			if (ft_del_append(parse, name, new, i))
 				return (true);
 		}
 		i++;

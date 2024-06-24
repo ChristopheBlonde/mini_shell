@@ -69,22 +69,22 @@ void	ft_free_parsing(t_parse *parse)
 
 void	ft_free_all(t_parse *parse)
 {
-	if (parse->task)
+	if (parse && parse->task)
 	{
 		ft_free_task(parse);
 		parse->task = NULL;
 	}
-	if (parse->redirect)
+	if (parse && parse->redirect)
 	{
 		ft_free_redirect(parse);
 		parse->redirect = NULL;
 	}
-	if (parse->env)
+	if (parse && parse->env)
 	{
 		ft_free_env(parse);
 		parse->env = NULL;
 	}
-	if (parse->input)
+	if (parse && parse->input)
 	{
 		free(parse->input);
 		parse->input = NULL;
