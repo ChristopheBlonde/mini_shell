@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:59:40 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/22 08:42:39 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/24 11:50:49 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,10 @@ bool	ft_check_end_of_file(char *tmp, char *line, char *limiter)
 		return (false);
 	if (!ft_strncmp(delimiter, str, -1))
 	{
-		free(delimiter);
-		free(str);
+		ft_free_end_of_file(str, delimiter);
 		return (true);
 	}
-	free(str);
-	free(delimiter);
+	ft_free_end_of_file(str, delimiter);
 	return (false);
 }
 
@@ -91,28 +89,4 @@ void	ft_fork_heredoc(t_parse *parse, char *line, char *tmp, int index)
 		exit(0);
 	}
 	waitpid(pid, &status, 0);
-}
-
-void	ft_handle_free_heredoc(t_parse *parse, char *line, char *tmp)
-{
-	static	t_parse	*p;
-	static	char	*l;
-	static	char	*t;
-
-	p = NULL;
-	l = NULL;
-	t = NULL;
-	if (parse)
-	{
-		p = parse;
-		l = line;
-		t = tmp;
-	}
-	else
-	{
-		free(line);
-		free(tmp);
-		ft_free_all(p);
-		p = NULL;
-	}
 }
