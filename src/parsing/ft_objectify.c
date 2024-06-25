@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:19:04 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/07 13:13:25 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/06/25 09:51:09 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 static t_link	ft_get_link(char *cmd)
 {
-	if (!ft_strncmp(cmd, "|", 1))
+	if (!ft_strncmp(cmd, "|", -1))
 		return (PIPE);
-	if (!ft_strncmp(cmd, "&&", 2))
+	if (!ft_strncmp(cmd, "&&", -1))
 		return (AND);
-	if (!ft_strncmp(cmd, "||", 2))
+	if (!ft_strncmp(cmd, "||", -1))
 		return (OR);
 	return (NO_LINK);
 }
 
 static t_priority	ft_get_priority(char *cmd)
 {
-	if (!ft_strncmp(cmd, "&&", 2) || !ft_strncmp(cmd, "||", 2))
+	if (!ft_strncmp(cmd, "&&", -1) || !ft_strncmp(cmd, "||", -1))
 		return (MEDIUM);
-	if (!ft_strncmp(cmd, ">", 1) || !ft_strncmp(cmd, ">>", 2)
-		|| !ft_strncmp(cmd, "<", 1) || !ft_strncmp(cmd, "<<", 2))
+	if (!ft_strncmp(cmd, ">", -1) || !ft_strncmp(cmd, ">>", -1)
+		|| !ft_strncmp(cmd, "<", -1) || !ft_strncmp(cmd, "<<", -1))
 		return (HIGH);
 	return (LOW);
 }
