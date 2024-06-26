@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/21 15:14:55 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/26 09:47:05 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ typedef enum e_link
 	OR,
 	AND,
 }	t_link;
-
+/*
 typedef enum e_priority
 {
 	LOW,
 	MEDIUM,
 	HIGH,
 }	t_priority;
-
+*/
 typedef enum e_builtin
 {
 	NO_BUILTIN,
@@ -80,10 +80,10 @@ typedef struct s_object
 	int			status;
 	int			errinfile;
 	int			erroutfile;
+	size_t		lvl;
 	pid_t		pid;
 	t_link		link;
 	t_builtin	builtin;
-	t_priority	priority;
 }	t_object;
 
 typedef struct s_elem
@@ -132,5 +132,6 @@ void				ft_init_elem(t_elem *elem);
 void				ft_get_variable(t_parse *parse, char *s, t_elem *elem);
 size_t				ft_count_dollar(char *s);
 void				ft_check_insertion(t_he *he, t_elem *elem);
+void				ft_get_priority(t_parse *parse);
 
 #endif
