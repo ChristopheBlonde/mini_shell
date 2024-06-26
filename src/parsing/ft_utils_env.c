@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 13:31:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/24 16:43:43 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/26 10:11:04 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ void	ft_get_variable(t_parse *parse, char *s, t_elem *elem)
 	tmp = NULL;
 	if (!s)
 		return ;
-	while (s[i] != '\n' && s[i] != '\0' && s[i] != ' '
-		&& s[i] != '$' && s[i] != '?' && s[i] != '"' && s[i] != '\'')
+	while (s[i] && (ft_isalnum(s[i]) || s[i] == '_'))
+		i++;
+	if (s[i] == '?')
 		i++;
 	if (i == 0)
 		return ;
