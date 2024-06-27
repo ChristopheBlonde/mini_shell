@@ -107,6 +107,8 @@ bool	ft_execution(t_parse *parse)
 	ft_sig_init(0);
 	while (parse->task && parse->task[i])
 	{
+		if (parse->task[i]->cmd[0][0] == '\0')
+			return (false);
 		ft_handle_env(parse, i);
 		ft_wildcard(parse, i);
 		ft_delete_quotes(parse, i);

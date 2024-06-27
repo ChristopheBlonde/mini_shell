@@ -81,10 +81,7 @@ size_t	ft_count_dollar(char *s)
 		in_quote(s, &quote, (int)i);
 		if (s[i] == '$' && (quote == -1 || s[quote] == '"')
 			&& (ft_isalnum(s[i + 1]) || s[i + 1] == '?'))
-		{
 			count++;
-			printf("count = %zu\n", count);
-		}
 		i++;
 	}
 	return (count);

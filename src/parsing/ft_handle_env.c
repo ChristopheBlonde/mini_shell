@@ -69,14 +69,14 @@ static void	ft_join_list(t_elem *elem, char *s, size_t index)
 static void	ft_handle_unquoted(t_he *he, t_elem *elem, char *s, size_t *index)
 {
 	char	**arr;
-	size_t	i;
+	ssize_t	i;
 	char	*tmp;
 
-	i = 0;
+	i = -1;
 	arr = ft_split(elem->env, ' ');
 	if (!arr)
 		return ;
-	while (arr[i])
+	while (arr[++i])
 	{
 		tmp = ft_strdup(arr[i]);
 		if (!tmp)
@@ -86,12 +86,13 @@ static void	ft_handle_unquoted(t_he *he, t_elem *elem, char *s, size_t *index)
 			return ;
 		}
 		ft_lstadd_back(&elem->lst, ft_lstnew(tmp));
-		i++;
 	}
 	ft_free_array((void **)arr);
 	ft_join_list(elem, s, *index);
 	ft_check_insertion(he, elem);
 	*index += ft_strlen(elem->env) - 1;
+	if (elem->env[0] == '\0')
+		free(elem->env);
 }
 
 static void	ft_handle_dollar(t_parse *parse, t_he *he, t_elem *elem)
