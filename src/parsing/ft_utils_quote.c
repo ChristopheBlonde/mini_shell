@@ -32,6 +32,25 @@ bool	check_quote(char *str)
 	return (quote == -1);
 }
 
+int	check_empty_quote(char *str)
+{
+	int	i;
+	int	quoted;
+
+	i = 0;
+	quoted = -1;
+	while (str[i] == '\'' || str[i] == '"')
+	{
+		in_quote(str, &quoted, i);
+		i++;
+	}
+	if (quoted == -1 && (str[i] == '<' || str[i] == '>'
+			|| str[i] == '|' || str[i] == ';'
+			|| str[i] == '\n' || str[i] == '\0'))
+		return (1);
+	return (0);
+}
+
 char	*ft_strqcpy(char *s)
 {
 	char	*result;

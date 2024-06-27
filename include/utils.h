@@ -107,5 +107,6 @@ int		check_after_spaces(char *input, int i);
 int		check_after_pipe(char *input, int i);
 int		check_before_pipe(char *input, int i);
 int		check_redirection(char *input, int i);
+int		check_empty_quote(char *str);
 
 #endif

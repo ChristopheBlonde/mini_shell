@@ -51,7 +51,7 @@ void	ft_get_variable(t_parse *parse, char *s, t_elem *elem)
 	tmp = NULL;
 	if (!s)
 		return ;
-	while (s[i] && (ft_isalnum(s[i]) || s[i] == '_'))
+	while (s[i] && (ft_isalnum(s[i]) || s[i] == '_') && s[i] != '*')
 		i++;
 	if (s[i] == '?')
 		i++;
@@ -76,12 +76,15 @@ size_t	ft_count_dollar(char *s)
 	i = 0;
 	quote = -1;
 	count = 0;
-	in_quote(s, &quote, (int)i);
 	while (s[i])
 	{
+		in_quote(s, &quote, (int)i);
 		if (s[i] == '$' && (quote == -1 || s[quote] == '"')
 			&& (ft_isalnum(s[i + 1]) || s[i + 1] == '?'))
+		{
 			count++;
+			printf("count = %zu\n", count);
+		}
 		i++;
 	}
 	return (count);

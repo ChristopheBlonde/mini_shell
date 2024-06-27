@@ -20,6 +20,12 @@ int	ft_syntax_errors_handler(t_parse *parse, char *input)
 		ft_excmd_result(parse, 2);
 		return (1);
 	}
+	if (check_empty_quote(input))
+	{
+		ft_putendl_fd("Command '' not found", 2);
+		ft_excmd_result(parse, 2);
+		return (1);
+	}
 	if (!check_quote(input))
 	{
 		ft_putendl_fd("Error: unmatched quote", 2);

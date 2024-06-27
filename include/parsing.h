@@ -119,14 +119,14 @@ void				ft_redirect_task(t_object *task, char *input,
 						size_t index);
 char				**ft_reduce_cmd(t_object *task);
 t_file_operation	ft_redirect_type(char *file);
-void				ft_wildcard(t_parse *parse);
+void				ft_wildcard(t_parse *parse, int i);
 int					ft_syntax_errors_handler(t_parse *parse, char *input);
 void				ft_free_parsing(t_parse *parse);
 void				ft_init_parse(t_parse *parse);
 bool				ft_init_tasks(t_parse *parse, char **arr);
 bool				ft_check_envvar(t_parse *parse, t_object *task,
 						size_t index);
-void				ft_handle_env(t_parse *parse);
+void				ft_handle_env(t_parse *parse, int k);
 void				ft_init_he(t_he *he, t_object *task);
 void				ft_init_elem(t_elem *elem);
 void				ft_get_variable(t_parse *parse, char *s, t_elem *elem);

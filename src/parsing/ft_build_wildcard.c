@@ -116,17 +116,11 @@ static t_list	*ft_cmd_to_list(t_object *task)
 	return (lst);
 }
 
-void	ft_wildcard(t_parse *parse)
+void	ft_wildcard(t_parse *parse, int i)
 {
-	size_t	i;
 	t_list	*lst;
 
 	lst = NULL;
-	i = 0;
-	while (parse->task[i])
-	{
-		lst = ft_cmd_to_list(parse->task[i]);
-		ft_lstto_arr(parse->task[i], lst);
-		i++;
-	}
+	lst = ft_cmd_to_list(parse->task[i]);
+	ft_lstto_arr(parse->task[i], lst);
 }

@@ -104,10 +104,12 @@ bool	ft_execution(t_parse *parse)
 
 	i = 0;
 	ft_exec_redirect(parse);
-	ft_get_path(parse);
 	ft_sig_init(0);
 	while (parse->task && parse->task[i])
 	{
+		ft_handle_env(parse, i);
+		ft_wildcard(parse, i);
+		ft_get_path(parse);
 		if (!ft_is_fork(parse, i))
 			ft_exec_builtin(parse, parse->task[i++]);
 		else

@@ -120,31 +120,29 @@ static void	ft_handle_dollar(t_parse *parse, t_he *he, t_elem *elem)
 	}
 }
 
-void	ft_handle_env(t_parse *parse)
+void	ft_handle_env(t_parse *parse, int k)
 {
 	int		i[2];
 	t_he	he;
 
-	i[0] = -1;
-	while (parse->task[++i[0]])
+	i[0] = k;
+	i[1] = 0;
+	ft_init_he(&he, parse->task[i[0]]);
+	if (!he.lst)
+		return ;
+	while (he.cur)
 	{
-		i[1] = 0;
-		ft_init_he(&he, parse->task[i[0]]);
-		if (!he.lst)
-			return ;
-		while (he.cur)
+		ft_init_elem(&he.info[i[1]]);
+		he.cur_count = ft_count_dollar(he.cur->content);
+		if (he.cur_count != 0)
+			ft_handle_dollar(parse, &he, &he.info[i[1]]);
+		if (he.cur_count == 0 && he.cur)
 		{
-			ft_init_elem(&he.info[i[1]]);
-			he.cur_count = ft_count_dollar(he.cur->content);
-			if (he.cur_count != 0)
-				ft_handle_dollar(parse, &he, &he.info[i[1]]);
-			if (he.cur_count == 0 && he.cur)
-			{
-				he.cur = he.cur->next;
-				i[1]++;
-			}
+			he.cur = he.cur->next;
+			i[1]++;
 		}
-		ft_lstto_arr(parse->task[i[0]], he.lst);
-		free(he.info);
 	}
+	ft_lstto_arr(parse->task[i[0]], he.lst);
+	free(he.info);
 }
+
