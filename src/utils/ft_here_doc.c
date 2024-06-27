@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 10:13:03 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/25 16:40:01 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/27 10:06:09 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,19 @@ char	*ft_replace_var(t_parse *parse, char *line, char *str, char *var)
 	return (str);
 }
 
-static void	ft_write_file(t_parse *parse, char *line, int index, char *tmp)
+static void	ft_write_file(t_parse *parse, char **line, int index, char **tmp)
 {
-	if (tmp)
-		free(tmp);
-	ft_putstr_fd(line, parse->redirect[index]->fd);
-	if (line)
-		free(line);
+	if (*tmp)
+	{
+		free(*tmp);
+		*tmp = NULL;
+	}
+	ft_putstr_fd(*line, parse->redirect[index]->fd);
+	if (*line)
+	{
+		free(*line);
+		*line = NULL;
+	}
 	close(parse->redirect[index]->fd);
 }
 
@@ -89,7 +95,7 @@ void	ft_read_line(t_parse *parse, char *line, char *tmp, int index)
 			break ;
 		}
 	}
-	ft_write_file(parse, line, index, tmp);
+	ft_write_file(parse, &line, index, &tmp);
 }
 
 int	ft_here_doc(t_parse *parse, int index)
@@ -108,14 +114,14 @@ int	ft_here_doc(t_parse *parse, int index)
 	parse->redirect[index]->fd = ft_open_tmp(&name);
 	if (parse->redirect[index]->fd < 0)
 	{
-		ft_free_line_tmp(line, tmp);
+		ft_free_line_tmp(&line, &tmp);
 		return (ft_fail_open(name, line, tmp));
 	}
-	ft_fork_heredoc(parse, line, tmp, index);
+	ft_fork_heredoc(parse, (char *[3]){name, line, tmp}, index);
 	free(parse->redirect[index]->file);
 	parse->redirect[index]->file = name;
 	close(parse->redirect[index]->fd);
 	parse->redirect[index]->fd = open(parse->redirect[index]->file, O_RDONLY);
-	ft_free_line_tmp(line, tmp);
+	ft_free_line_tmp(&line, &tmp);
 	return (parse->redirect[index]->fd);
 }

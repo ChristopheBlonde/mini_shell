@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/25 16:46:21 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/27 08:36:11 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ static void	ft_handle_status(t_parse *parse, t_object *task)
 
 void	ft_exec(t_parse *parse, t_object *task, size_t i)
 {
+	if (task->infile != -1)
+		ft_handle_heredoc_var(parse, parse->redirect[task->infile]);
 	pipe(task->pipe);
 	task->pid = fork();
 	if (task->pid < 0)
@@ -117,8 +119,6 @@ void	ft_exec(t_parse *parse, t_object *task, size_t i)
 	if (task->pid == 0)
 	{
 		handle_bad_fd(parse, task, i);
-		if (task->infile != -1)
-			ft_handle_heredoc_var(parse, parse->redirect[task->infile]);
 		ft_handle_child(parse, task, i);
 		if (task->builtin == NO_BUILTIN)
 			if (execve(task->cmd[0], task->cmd, parse->env) == -1)

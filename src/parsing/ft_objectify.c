@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:19:04 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/26 14:08:44 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/26 14:18:07 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ static void	ft_delete_parentheses(t_object *task)
 		if (cmd_len == 1
 			&& (task->cmd[i][0] == '(' || task->cmd[i][0] == ')'))
 		{
+			free(task->cmd[i]);
 			while (task->cmd[j])
 			{
 				task->cmd[j] = task->cmd[j + 1];
