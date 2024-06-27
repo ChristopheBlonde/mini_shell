@@ -71,7 +71,7 @@ t_wc	*ft_init_wc(void);
 void	ft_unquote(t_wc *wc);
 void	ft_free_wc(t_wc *wc);
 void	ft_sortwc(t_list **lst);
-void	ft_delete_quotes(t_parse *parse);
+void	ft_delete_quotes(t_parse *parse, size_t i);
 void	in_quote(char *input, int *quote, int i);
 void	skip_spaces(char *input, int *i);
 char	**ft_strsort_arr(char **arr);

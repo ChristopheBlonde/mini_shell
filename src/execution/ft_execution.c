@@ -109,6 +109,7 @@ bool	ft_execution(t_parse *parse)
 	{
 		ft_handle_env(parse, i);
 		ft_wildcard(parse, i);
+		ft_delete_quotes(parse, i);
 		ft_get_path(parse);
 		if (!ft_is_fork(parse, i))
 			ft_exec_builtin(parse, parse->task[i++]);

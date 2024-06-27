@@ -79,21 +79,15 @@ char	*ft_strqcpy(char *s)
 	return (result);
 }
 
-void	ft_delete_quotes(t_parse *parse)
+void	ft_delete_quotes(t_parse *parse, size_t i)
 {
 	size_t	j;
-	int		i;
-
-	i = -1;
-	while (parse->task[++i])
+	j = 0;
+	while (parse->task[i]->cmd[j])
 	{
-		j = 0;
-		while (parse->task[i]->cmd[j])
-		{
-			if (ft_quoted(parse->task[i]->cmd[j]))
-				parse->task[i]->cmd[j] = ft_strqcpy(parse->task[i]->cmd[j]);
-			j++;
-		}
+		if (ft_quoted(parse->task[i]->cmd[j]))
+			parse->task[i]->cmd[j] = ft_strqcpy(parse->task[i]->cmd[j]);
+		j++;
 	}
 }
 
