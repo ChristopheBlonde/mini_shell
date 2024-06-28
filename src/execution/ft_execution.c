@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/25 10:19:57 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/06/28 14:19:58 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,40 @@ void	ft_wait_all(t_parse *parse)
 bool	ft_execution(t_parse *parse)
 {
 	size_t	i;
+	pid_t	sub_lvl;
+	size_t	cur_sub;
 
 	i = 0;
 	ft_exec_redirect(parse);
 	ft_sig_init(0);
+	cur_sub = 0;
 	while (parse->task && parse->task[i])
 	{
+		if (cur_sub != 0 && (!parse->task[i + 1] || parse->task[i]->lvl < cur_sub))
+		{
+			exit(parse->task[i - 1]->status);
+		}
+		if (cur_sub < parse->task[i]->lvl)
+		{
+			sub_lvl = fork();
+			if (sub_lvl < 0)
+				perror("minishell");
+			else if (sub_lvl == 0)
+			{
+				ft_putstr_fd("\e[0;37mFork: ", 1);
+				ft_putnbr_fd(parse->task[i]->lvl, 1);
+				//ft_putstr_fd(" Status: ", 1);
+				//ft_putnbr_fd(parse->task[i - 1]->status, 1);
+				ft_putstr_fd("\n\e[0m", 1);
+				cur_sub = parse->task[i]->lvl;
+			}
+			else
+			{
+				waitpid(sub_lvl, &parse->task[i]->status, 0);
+			}
+		}
+		while (parse->task[i] && parse->task[i]->lvl != cur_sub)
+			i++;
 		if (parse->task[i]->cmd[0][0] == '\0')
 			return (false);
 		ft_handle_env(parse, i);
@@ -128,6 +156,8 @@ bool	ft_execution(t_parse *parse)
 			i++;
 		}
 	}
+	if (cur_sub != 0)
+		exit(parse->task[i - 1]->status);
 	ft_wait_all(parse);
 	return (true);
 }
