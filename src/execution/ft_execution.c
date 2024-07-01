@@ -6,13 +6,13 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/01 12:34:33 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/01 14:31:40 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_exec_pipe(t_parse *parse, size_t *i)
+void	ft_exec_pipe(t_parse *parse, size_t *i)
 {
 	if (parse->task[*i] && parse->task[*i]->link != OR
 		&& parse->task[*i]->link != AND)
@@ -33,7 +33,7 @@ static void	ft_exec_pipe(t_parse *parse, size_t *i)
 	}
 }
 
-static bool	ft_exec_or(t_parse *parse, size_t *i)
+bool	ft_exec_or(t_parse *parse, size_t *i)
 {
 	if (parse->task[*i] && parse->task[*i]->link == OR)
 	{
@@ -59,7 +59,7 @@ static bool	ft_exec_or(t_parse *parse, size_t *i)
 	return (true);
 }
 
-static bool	ft_exec_and(t_parse *parse, size_t *i)
+bool	ft_exec_and(t_parse *parse, size_t *i)
 {
 	if (parse->task[*i] && parse->task[*i]->link == AND)
 	{
@@ -85,7 +85,7 @@ static bool	ft_exec_and(t_parse *parse, size_t *i)
 	return (true);
 }
 
-void	ft_wait_all(t_parse *parse)
+static void	ft_wait_all(t_parse *parse)
 {
 	size_t	i;
 
@@ -110,48 +110,10 @@ bool	ft_execution(t_parse *parse)
 	cur_sub = 0;
 	while (parse->task && parse->task[i])
 	{
-		if (cur_sub != 0 && (!parse->task[i + 1]
-				|| parse->task[i]->lvl < cur_sub))
-			exit(parse->task[i - 1]->status);
-		if (cur_sub < parse->task[i]->lvl)
-		{
-			sub_lvl = fork();
-			if (sub_lvl < 0)
-				perror("minishell");
-			else if (sub_lvl == 0)
-				cur_sub = parse->task[i]->lvl;
-			else
-				waitpid(sub_lvl, &parse->task[i]->status, 0);
-		}
-		while (parse->task[i]
-			&& parse->task[i]->lvl != cur_sub && parse->task[i + 1])
-			i++;
-		if (parse->task[i] && parse->task[i]->cmd[0]
-			&& parse->task[i]->cmd[0][0] == '\0')
-			return (false);
-		ft_handle_env(parse, i);
-		ft_wildcard(parse, i);
-		if (parse->task[i]->cmd[0] && parse->task[i]->cmd[0][0] == '\0')
-		{
-			ft_putendl_fd("minishell: Command '' not found", 2);
-			ft_excmd_result(parse, 127);
+		if (!ft_is_subexec(parse, &sub_lvl, &cur_sub, &i))
 			return (true);
-		}
-		ft_get_path(parse);
-		if (!ft_is_fork(parse, i))
-			ft_exec_builtin(parse, parse->task[i++]);
-		else
-		{
-			if (parse->task[i] && parse->task[i]->cmd && parse->task[i]->cmd[0])
-			{
-				ft_exec_pipe(parse, &i);
-				if (!ft_exec_or(parse, &i))
-					break ;
-				if (!ft_exec_and(parse, &i))
-					break ;
-			}
-			i++;
-		}
+		if (!ft_exec_cmd(parse, &i))
+			break ;
 	}
 	if (cur_sub != 0)
 		exit(parse->task[i - 1]->status);
