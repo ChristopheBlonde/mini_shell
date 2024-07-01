@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/26 09:47:05 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/01 12:18:07 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,7 @@ typedef enum e_link
 	OR,
 	AND,
 }	t_link;
-/*
-typedef enum e_priority
-{
-	LOW,
-	MEDIUM,
-	HIGH,
-}	t_priority;
-*/
+
 typedef enum e_builtin
 {
 	NO_BUILTIN,

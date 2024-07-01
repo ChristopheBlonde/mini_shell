@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:43:47 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/29 10:17:58 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/01 12:31:51 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ static t_list	*ft_cmd_to_list(t_object *task)
 			ft_unquote(wc);
 			ft_lstinsert(&lst, ft_listdir(wc), &current);
 		}
+		else if (ft_quoted(current->content))
+			current->content = ft_strqcpy(current->content);
 		current = current->next;
 		i++;
 	}

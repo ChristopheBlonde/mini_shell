@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/27 10:06:44 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/01 12:22:33 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ t_wc	*ft_init_wc(void);
 void	ft_unquote(t_wc *wc);
 void	ft_free_wc(t_wc *wc);
 void	ft_sortwc(t_list **lst);
-void	ft_delete_quotes(t_parse *parse, size_t i);
 void	in_quote(char *input, int *quote, int i);
 void	skip_spaces(char *input, int *i);
 char	**ft_strsort_arr(char **arr);
@@ -107,6 +106,5 @@ int		check_after_spaces(char *input, int i);
 int		check_after_pipe(char *input, int i);
 int		check_before_pipe(char *input, int i);
 int		check_redirection(char *input, int i);
-int		check_empty_quote(char *str);
 
 #endif

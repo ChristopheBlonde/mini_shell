@@ -6,7 +6,7 @@
 #    By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
-#    Updated: 2024/06/25 16:47:04 by cblonde          ###   ########.fr        #
+#    Updated: 2024/07/01 12:27:25 by cblonde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ MAKEFLAGS += --silent
 
 CC = cc
 
-CFLAGS = -Werror -Wextra -Wall -gdwarf-4
+CFLAGS = -Werror -Wextra -Wall -gdwarf-4 -Wunused
 
 INCLUDE = -Iinclude -Ilib -I/opt/homebrew/opt/readline/include
 

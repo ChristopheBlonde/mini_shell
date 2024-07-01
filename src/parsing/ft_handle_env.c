@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 19:29:40 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/24 16:45:47 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/01 12:32:25 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,4 +146,3 @@ void	ft_handle_env(t_parse *parse, int k)
 	ft_lstto_arr(parse->task[i[0]], he.lst);
 	free(he.info);
 }
-

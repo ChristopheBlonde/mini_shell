@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:56:25 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/20 22:55:58 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/07/01 12:21:39 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,6 @@ bool	check_quote(char *str)
 		}
 	}
 	return (quote == -1);
-}
-
-int	check_empty_quote(char *str)
-{
-	int	i;
-	int	quoted;
-
-	i = 0;
-	quoted = -1;
-	while (str[i] == '\'' || str[i] == '"')
-	{
-		in_quote(str, &quoted, i);
-		i++;
-	}
-	if (quoted == -1 && (str[i] == '<' || str[i] == '>'
-			|| str[i] == '|' || str[i] == ';'
-			|| str[i] == '\n' || str[i] == '\0'))
-		return (1);
-	return (0);
 }
 
 char	*ft_strqcpy(char *s)
@@ -77,18 +58,6 @@ char	*ft_strqcpy(char *s)
 	}
 	free(s);
 	return (result);
-}
-
-void	ft_delete_quotes(t_parse *parse, size_t i)
-{
-	size_t	j;
-	j = 0;
-	while (parse->task[i]->cmd[j])
-	{
-		if (ft_quoted(parse->task[i]->cmd[j]))
-			parse->task[i]->cmd[j] = ft_strqcpy(parse->task[i]->cmd[j]);
-		j++;
-	}
 }
 
 void	in_quote(char *input, int *quote, int i)
