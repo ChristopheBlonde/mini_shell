@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:15:30 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/19 14:07:59 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/07/02 16:05:44 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	handle_bad_fd(t_parse *parse, t_object *task, size_t index)
 		else if (stock_2 != -1 && (stock_2 < stock_1 || stock_1 == -1))
 			put_error_msg(parse->redirect[stock_2],
 				parse->task[index]->erroutfile);
+		ft_close_fd_task(parse, index);
 		exit(1);
 	}
 }

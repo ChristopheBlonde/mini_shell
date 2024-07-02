@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:39:59 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/31 22:30:26 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/02 16:12:00 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,31 @@ void	ft_free_arrstruct(void **arr, void (*f)(void *))
 		i++;
 	}
 	free(arr);
+}
+
+void	ft_close_std_fd(void)
+{
+	close(0);
+	close(1);
+	close(2);
+}
+
+void	ft_close_fd_task(t_parse *parse, size_t index)
+{
+	size_t	i;
+
+	i = 0;
+	while (parse->redirect[i])
+	{
+		if ((size_t)parse->redirect[i]->task == index)
+		{
+			if (parse->redirect[i]->fd >= 0)
+				close(parse->redirect[i]->fd);
+		}
+		i++;
+	}
+	if (parse->task[index]->pipe[0] >= 0)
+		close(parse->task[index]->pipe[0]);
+	if (parse->task[index]->pipe[1] >= 0)
+		close(parse->task[index]->pipe[1]);
 }

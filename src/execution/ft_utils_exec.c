@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/27 08:36:11 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/02 15:41:32 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ static void	ft_close_fds(t_parse *parse, size_t index)
 	i = 0;
 	while (i <= index)
 	{
-		if (parse->task[i]->pipe[0] > 0)
+		if (parse->task[i]->pipe[0] >= 0)
 			close(parse->task[i]->pipe[0]);
-		if (parse->task[i]->pipe[1] > 0)
+		if (parse->task[i]->pipe[1] >= 0)
 			close(parse->task[i]->pipe[1]);
 		i++;
 	}
@@ -82,12 +82,12 @@ static void	ft_handle_parent(t_parse *parse, t_object *task, size_t i)
 static void	ft_handle_status(t_parse *parse, t_object *task)
 {
 	int	status;
+	DIR	*dir;
 
 	status = 0;
+	dir = NULL;
 	if (!task->cmd || !task->cmd[0])
-	{
 		exit(127);
-	}
 	if (access(task->cmd[0], F_OK) == -1)
 		status = 127;
 	else if (access(task->cmd[0], X_OK) == -1)
@@ -95,13 +95,16 @@ static void	ft_handle_status(t_parse *parse, t_object *task)
 	if (access(task->cmd[0], X_OK) == -1
 		&& task->cmd[0][0] != '.' && task->cmd[0][0] != '/')
 		status = 127;
-	if (opendir(task->cmd[0]))
+	dir = opendir(task->cmd[0]);
+	if (dir)
 		status = 127;
-	if (opendir(task->cmd[0])
-		&& (task->cmd[0][0] == '.' || task->cmd[0][0] == '/'))
+	if (dir && (task->cmd[0][0] == '.' || task->cmd[0][0] == '/'))
 		status = 126;
+	if (dir)
+		closedir(dir);
 	ft_handle_error_exec(task->cmd[0]);
 	ft_free_all(parse);
+	ft_close_std_fd();
 	exit(status);
 }
 
@@ -124,6 +127,7 @@ void	ft_exec(t_parse *parse, t_object *task, size_t i)
 			if (execve(task->cmd[0], task->cmd, parse->env) == -1)
 				ft_handle_status(parse, task);
 		ft_exec_builtin(parse, task);
+		ft_close_std_fd();
 		ft_free_all(parse);
 		exit(0);
 	}

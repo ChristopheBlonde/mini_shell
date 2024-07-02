@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/01 12:22:33 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/02 16:03:10 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void	ft_handle_free_heredoc(t_parse *parse, char *line, char *tmp);
 void	ft_free_line_tmp(char **line, char **tmp);
 void	ft_free_end_of_file(char *str, char *delimiter);
 void	ft_handle_heredoc_var(t_parse *parse, t_file_descriptor *rfd);
+void	ft_close_std_fd(void);
+void	ft_close_fd_task(t_parse *parse, size_t index);
 
 /*	SIGNAL	*/
 void	sig_handler(int sig);

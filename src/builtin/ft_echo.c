@@ -6,11 +6,28 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/19 10:02:07 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/07/02 17:02:34 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
+
+static bool	ft_check_option(char *s)
+{
+	size_t	i;
+
+	i = 0;
+	if (s[i] != '-')
+		return (false);
+	i++;
+	while (s[i])
+	{
+		if (s[i] != 'n')
+			return (false);
+		i++;
+	}
+	return (true);
+}
 
 static int	ft_echo(t_parse *parse, t_object *task)
 {
@@ -21,7 +38,7 @@ static int	ft_echo(t_parse *parse, t_object *task)
 	i = 1;
 	option = 0;
 	if (task->cmd[1] && task->cmd[1][0] != '\0'
-		&& !ft_strncmp(task->cmd[1], "-n", ft_strlen(task->cmd[1])))
+		&& ft_check_option(task->cmd[1]))
 	{
 		option = 1;
 		i++;
