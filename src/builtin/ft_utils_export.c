@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 13:25:34 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/03 10:53:30 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/03 11:53:10 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,14 @@ static bool	ft_del_append(t_parse *parse, char *name, char *new, size_t i)
 	size_t	len;
 
 	len = ft_strlen(name);
-	if (!new[len] && parse->env[i][len] == '=')
+	if (new[len] && new[len] == '=' && !new[len + 1])
 	{
 		parse->env[i][len + 1] = '\0';
+		free(name);
+		return (true);
+	}
+	if (!new[len] && parse->env[i][len] == '=')
+	{
 		free(name);
 		return (true);
 	}

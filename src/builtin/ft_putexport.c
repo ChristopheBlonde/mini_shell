@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 10:50:29 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/03 11:07:56 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/03 11:37:56 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	ft_print_env(char **arr, int i, size_t j)
 {
 	ft_putstr_fd("declare -x ", 1);
-	if (arr[i][j] && arr[i][j + 1])
+	if (arr[i][j] && arr[i][j] == '=')
 	{
 		write(1, arr[i], j + 1);
 		if (arr[i][j] == '=')
