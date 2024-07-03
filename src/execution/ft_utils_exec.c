@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/02 15:41:32 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/02 17:29:25 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	ft_handle_parent(t_parse *parse, t_object *task, size_t i)
 		if (WIFEXITED(task->status))
 			ft_excmd_result(parse, WEXITSTATUS(task->status));
 		if (WIFSIGNALED(task->status))
-			ft_excmd_result(parse, WTERMSIG(task->status));
+			ft_excmd_result(parse, 128 + WTERMSIG(task->status));
 		if (WIFSTOPPED(task->status))
 			ft_excmd_result(parse, WSTOPSIG(task->status));
 		if (WIFCONTINUED(task->status))

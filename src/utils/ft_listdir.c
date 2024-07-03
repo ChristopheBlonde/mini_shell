@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:43:47 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/02 16:40:15 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/03 09:32:47 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,11 @@ t_list	*ft_listdir(t_wc *wc)
 	t_list			*lst;
 
 	pwd = getcwd(NULL, 1024);
+	if (!pwd)
+	{
+		ft_free_wc(wc);
+		return (NULL);
+	}
 	dir = opendir(pwd);
 	current = readdir(dir);
 	lst = NULL;
