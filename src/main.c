@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/21 17:33:19 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/07/03 11:20:03 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ int	main(int argc, char *argv[], char *env[])
 		return (1);
 	while (true)
 	{
-		if (g_exit_code != 0)
-			ft_excmd_result(&parse, g_exit_code);
 		if (!ft_input(&parse))
 			continue ;
 		if (!ft_parse_token(&parse, parse.input))
@@ -98,6 +96,11 @@ int	main(int argc, char *argv[], char *env[])
 			ft_putendl_fd("Error: fail parsing !", 2);
 			ft_free_parsing(&parse);
 			continue ;
+		}
+		if (g_exit_code != 0)
+		{
+			ft_excmd_result(&parse, g_exit_code);
+			g_exit_code = 0;
 		}
 		if (!ft_execution(&parse))
 			break ;

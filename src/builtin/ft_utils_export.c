@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 13:25:34 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/21 17:08:55 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/03 10:53:30 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,35 +24,6 @@ char	*ft_getkey_env(char *env)
 	if (!key)
 		return (NULL);
 	return (key);
-}
-
-void	ft_putexport(char **env)
-{
-	char	**arr;
-	int		i;
-	size_t	j;
-
-	i = -1;
-	arr = ft_strsort_arr(env);
-	if (!arr)
-		return ;
-	while (arr[++i])
-	{
-		if (arr[i][0] == '?' || (arr[i][0] == '_' && arr[i][1] == '='))
-			continue ;
-		j = 0;
-		while (arr[i][j] && arr[i][j] != '=')
-			j++;
-		ft_putstr_fd("declare -x ", 1);
-		write(1, arr[i], j + 1);
-		if (arr[i][j] == '=')
-			ft_putstr_fd("\"", 1);
-		ft_putstr_fd(&arr[i][j + 1], 1);
-		if (arr[i][j] == '=')
-			ft_putstr_fd("\"", 1);
-		ft_putstr_fd("\n", 1);
-	}
-	ft_free_array((void **)arr);
 }
 
 static bool	ft_replace_append(t_parse *parse, size_t i, char **name, char *new)

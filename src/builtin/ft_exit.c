@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 12:18:42 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/14 13:59:45 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/07/03 10:20:17 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,6 @@ int	ft_exit(t_parse *parse, t_object *task)
 	long long	nbr;
 
 	nbr = 0;
-	if (task->cmd[1] && task->cmd[2])
-	{
-		ft_putendl_fd("exit: too many arguments", 2);
-		ft_excmd_result(parse, 1);
-		return (1);
-	}
 	if (task->cmd[1] && !ft_is_number(task->cmd[1]))
 	{
 		ft_putendl_fd("exit", 1);
@@ -92,6 +86,12 @@ int	ft_exit(t_parse *parse, t_object *task)
 		ft_putstr_fd(task->cmd[1], 2);
 		ft_putendl_fd(": numeric argument required", 2);
 		exit(2);
+	}
+	if (task->cmd[1] && task->cmd[2])
+	{
+		ft_putendl_fd("exit: too many arguments", 2);
+		ft_excmd_result(parse, 1);
+		return (1);
 	}
 	if (task->cmd[1])
 		nbr = ft_atol_exit(task->cmd[1]);
