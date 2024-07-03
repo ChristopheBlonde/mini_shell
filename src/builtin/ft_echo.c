@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/02 17:02:34 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/03 16:49:16 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ static int	ft_echo(t_parse *parse, t_object *task)
 
 	i = 1;
 	option = 0;
-	if (task->cmd[1] && task->cmd[1][0] != '\0'
-		&& ft_check_option(task->cmd[1]))
+	while (task->cmd[i] && task->cmd[i][0] != '\0'
+		&& ft_check_option(task->cmd[i]))
 	{
 		option = 1;
 		i++;
