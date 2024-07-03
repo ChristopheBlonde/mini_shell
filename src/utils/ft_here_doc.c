@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 10:13:03 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/27 10:06:09 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/03 15:21:44 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,11 @@ void	ft_read_line(t_parse *parse, char *line, char *tmp, int index)
 			if (!tmp)
 				break ;
 			if (!ft_check_end_of_file(tmp, line, parse->redirect[index]->file))
-			{
 				line = ft_strfjoin(line, tmp, 1);
-				if (!line)
-					break ;
-			}
+			if (!line)
+				break ;
+			if (!ft_check_end_of_file(tmp, line, parse->redirect[index]->file))
+				ft_handle_free_heredoc(NULL, line, NULL);
 			else
 				break ;
 		}

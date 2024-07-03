@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:43:47 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/03 09:32:47 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/03 14:24:04 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ static bool	ft_match_middle(t_list **c, char **file, t_wc *wc, t_list **lst)
 		{
 			*file += len;
 			*c = current->next;
-			if (*c == NULL && !wc->end && !*file)
+			if (*c == NULL && !wc->end && *file[0] == '\0')
 			{
-				ft_putstr_fd("dans middle: ", 1);
-				ft_putendl_fd(wc->str, 1);
 				ft_lstadd_back(lst, ft_lstnew(ft_strdup(wc->str)));
 				return (true);
 			}

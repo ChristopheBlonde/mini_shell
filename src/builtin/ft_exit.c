@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 12:18:42 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/03 10:20:17 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/03 14:50:31 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,14 @@ static void	ft_get_exit_code(long long *nbr)
 		*nbr = *nbr % 256;
 }
 
+static void	ft_display_error(t_object *task)
+{
+	ft_putendl_fd("exit", 1);
+	ft_putstr_fd("minishell: exit: ", 2);
+	ft_putstr_fd(task->cmd[1], 2);
+	ft_putendl_fd(": numeric argument required", 2);
+}
+
 int	ft_exit(t_parse *parse, t_object *task)
 {
 	long long	nbr;
@@ -81,10 +89,8 @@ int	ft_exit(t_parse *parse, t_object *task)
 	nbr = 0;
 	if (task->cmd[1] && !ft_is_number(task->cmd[1]))
 	{
-		ft_putendl_fd("exit", 1);
-		ft_putstr_fd("minishell: exit: ", 2);
-		ft_putstr_fd(task->cmd[1], 2);
-		ft_putendl_fd(": numeric argument required", 2);
+		ft_display_error(task);
+		ft_free_all(parse);
 		exit(2);
 	}
 	if (task->cmd[1] && task->cmd[2])

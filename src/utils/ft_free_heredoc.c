@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 11:36:10 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/27 09:49:45 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/03 15:25:37 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,14 @@ void	ft_handle_free_heredoc(t_parse *parse, char *line, char *tmp)
 	static char		*l;
 	static char		*t;
 
-	if (parse)
+	if (parse || line || tmp)
 	{
-		p = parse;
-		l = line;
-		t = tmp;
+		if (parse)
+			p = parse;
+		if (line)
+			l = line;
+		if (tmp)
+			t = tmp;
 	}
 	else
 	{
@@ -54,8 +57,5 @@ void	ft_handle_free_heredoc(t_parse *parse, char *line, char *tmp)
 			free(t);
 		if (p)
 			ft_free_all(p);
-		p = NULL;
-		l = NULL;
-		t = NULL;
 	}
 }

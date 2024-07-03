@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/01 14:55:36 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/03 14:58:47 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ bool	ft_execution(t_parse *parse)
 	size_t	cur_sub;
 
 	i = 0;
-	ft_exec_redirect(parse);
+	if (!ft_exec_redirect(parse))
+		return (true);
 	ft_sig_init(0);
 	cur_sub = 0;
 	while (parse->task && parse->task[i])
