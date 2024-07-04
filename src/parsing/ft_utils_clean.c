@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 12:09:23 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/04 10:55:16 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/04 12:10:19 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,15 @@ static void	ft_rewrite_operator(char *cmd)
 	}
 }
 
-void	ft_clean_operator(t_parse *parse)
+void	ft_clean_operator(t_object *task)
 {
-	size_t	i;
 	size_t	j;
 
-	i = 0;
-	while (parse->task[i])
+	j = 0;
+	while (task->cmd[j])
 	{
-		j = 0;
-		while (parse->task[i]->cmd[j])
-		{
-			ft_del_operator(parse->task[i]->cmd, parse->task[i]->cmd[j], j);
-			ft_rewrite_operator(parse->task[i]->cmd[j]);
-			j++;
-		}
-		i++;
+		ft_del_operator(task->cmd, task->cmd[j], j);
+		ft_rewrite_operator(task->cmd[j]);
+		j++;
 	}
 }

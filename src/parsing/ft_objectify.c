@@ -6,59 +6,11 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:19:04 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/04 09:19:43 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/04 12:06:54 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_objectify(t_parse *parse)
-{
-	size_t	i;
-
-	i = 0;
-	while (parse->task[i])
-	{
-		if (!parse->task[i]->cmd[0])
-			return ;
-		if (!ft_strncmp(parse->task[i]->cmd[0], "||", 2))
-			parse->task[i]->link = OR;
-		else if (!ft_strncmp(parse->task[i]->cmd[0], "|", 1))
-			parse->task[i]->link = PIPE;
-		else if (!ft_strncmp(parse->task[i]->cmd[0], "&&", 2))
-			parse->task[i]->link = AND;
-		else
-			parse->task[i]->link = NO_LINK;
-		i++;
-	}
-	ft_clean_operator(parse);
-}
-
-static size_t	ft_get_lvl_parentheses(t_object *task, size_t lvl)
-{
-	int		count;
-	size_t	i;
-	size_t	j;
-	size_t	n_lvl;
-
-	count = 0;
-	i = 0;
-	while (task->cmd[i])
-	{
-		j = 0;
-		while (task->cmd[i][j])
-		{
-			if (task->cmd[i][j] == '(')
-				count++;
-			if (task->cmd[i][j] == ')')
-				count--;
-			j++;
-		}
-		i++;
-	}
-	n_lvl = (int)lvl + count;
-	return (n_lvl);
-}
 
 static void	ft_rewrite_cmd(char *str)
 {
@@ -107,6 +59,61 @@ static void	ft_delete_parentheses(t_object *task)
 	}
 }
 
+void	ft_objectify(t_parse *parse)
+{
+	size_t	i;
+
+	i = 0;
+	while (parse->task[i])
+	{
+		if (!parse->task[i]->cmd[0])
+			return ;
+		if (!ft_strncmp(parse->task[i]->cmd[0], "||", 2))
+			parse->task[i]->link = OR;
+		else if (!ft_strncmp(parse->task[i]->cmd[0], "|", 1))
+			parse->task[i]->link = PIPE;
+		else if (!ft_strncmp(parse->task[i]->cmd[0], "&&", 2))
+			parse->task[i]->link = AND;
+		else
+			parse->task[i]->link = NO_LINK;
+		ft_clean_operator(parse->task[i]);
+		ft_delete_parentheses(parse->task[i]);
+		if (!parse->task[i]->cmd[0])
+		{
+			ft_putendl_fd(
+				"minishell: syntax error near unexpected token `)'", 2);
+			ft_excmd_result(parse, 2);
+		}
+		i++;
+	}
+}
+
+static size_t	ft_get_lvl_parentheses(t_object *task, size_t lvl)
+{
+	int		count;
+	size_t	i;
+	size_t	j;
+	size_t	n_lvl;
+
+	count = 0;
+	i = 0;
+	while (task->cmd[i])
+	{
+		j = 0;
+		while (task->cmd[i][j])
+		{
+			if (task->cmd[i][j] == '(')
+				count++;
+			if (task->cmd[i][j] == ')')
+				count--;
+			j++;
+		}
+		i++;
+	}
+	n_lvl = (int)lvl + count;
+	return (n_lvl);
+}
+
 void	ft_get_priority(t_parse *parse)
 {
 	size_t	i;
@@ -124,13 +131,6 @@ void	ft_get_priority(t_parse *parse)
 		else
 			parse->task[i]->lvl = prev_lvl;
 		prev_lvl = lvl;
-		ft_delete_parentheses(parse->task[i]);
-		if (!parse->task[i]->cmd[0])
-		{
-			ft_putendl_fd(
-				"minishell: syntax error near unexpected token `)'", 2);
-			ft_excmd_result(parse, 2);
-		}
 		i++;
 	}
 }
