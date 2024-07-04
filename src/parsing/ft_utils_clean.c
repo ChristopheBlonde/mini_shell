@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 12:09:23 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/04 12:10:19 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/04 13:13:15 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ bool	ft_check_envvar(t_parse *parse, t_object *task, size_t index)
 	return (false);
 }
 
-static void	ft_del_operator(char **arr,char *cmd, size_t j)
+static void	ft_del_operator(char **arr, char *cmd, size_t j)
 {
 	if (!ft_strncmp(cmd, "||", -1)
 		|| !ft_strncmp(cmd, "&&", -1)
 		|| !ft_strncmp(cmd, "|", -1))
 	{
-		while(arr[j])
+		while (arr[j])
 		{
 			arr[j] = arr[j + 1];
 			j++;
