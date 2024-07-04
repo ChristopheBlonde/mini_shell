@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:19:04 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/02 15:42:40 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/04 09:19:43 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	ft_objectify(t_parse *parse)
 			parse->task[i]->link = NO_LINK;
 		i++;
 	}
+	ft_clean_operator(parse);
 }
 
 static size_t	ft_get_lvl_parentheses(t_object *task, size_t lvl)
