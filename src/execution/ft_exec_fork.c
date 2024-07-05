@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:24:36 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/04 19:48:29 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/05 09:47:50 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ bool	ft_parse_befor_exec(t_parse *parse, size_t i)
 {
 	ft_handle_env(parse, i);
 	ft_wildcard(parse, i);
+	if (!parse->task[i]->cmd
+		|| (parse->task[i]->cmd && !parse->task[i]->cmd[0]))
+		return (false);
 	if (parse->task[i]->cmd[0] && parse->task[i]->cmd[0][0] == '\0')
 	{
 		ft_putendl_fd("minishell: Command '' not found", 2);
@@ -56,7 +59,10 @@ bool	ft_is_subexec(t_parse *parse, pid_t *sub_lvl,
 bool	ft_exec_cmd(t_parse *parse, size_t *i)
 {
 	if (!ft_is_fork(parse, *i))
+	{
+		ft_parse_befor_exec(parse, *i);
 		ft_exec_builtin(parse, parse->task[(*i)++]);
+	}
 	else
 	{
 		if (parse->task[*i] && parse->task[*i]->cmd && parse->task[*i]->cmd[0])
