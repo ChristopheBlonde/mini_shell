@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 12:09:23 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/04 13:13:15 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/05 15:42:19 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	ft_del_operator(char **arr, char *cmd, size_t j)
 		|| !ft_strncmp(cmd, "&&", -1)
 		|| !ft_strncmp(cmd, "|", -1))
 	{
+		free(arr[j]);
 		while (arr[j])
 		{
 			arr[j] = arr[j + 1];
