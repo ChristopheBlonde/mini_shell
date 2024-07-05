@@ -73,3 +73,116 @@ char	**ft_split_with_quotes(char *str, char delimiter)
 		return (NULL);
 	return (q.result);
 }
+
+
+
+
+int new_size(char **cmd)
+{
+    int arr_len;
+    int i;
+    int j;
+
+    arr_len = ft_arrlen((void **)cmd);
+    i = 0;
+    while (cmd[i])
+    {
+        j = 0;
+        while (cmd[i][j])
+        {
+            if (cmd[i][j] == '>' || cmd[i][j] == '<')
+            {
+                arr_len++;
+                if (cmd[i][j + 1] == '>' || cmd[i][j + 1] == '<')
+                    j++;
+                if (cmd[i][j + 1])
+                    arr_len++;
+            }
+            j++;
+        }
+        i++;
+    }
+	//printf("new_size = %d\n", arr_len);
+    return arr_len;
+}
+
+char	*ft_strndup(char *s, size_t n)
+{
+	char	*str;
+	size_t	i;
+
+	str = (char *)ft_calloc(n + 1, sizeof(char));
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (i < n)
+	{
+		str[i] = s[i];
+		i++;
+	}
+	return (str);
+}
+
+// On va re split pour chaque redirection
+// From cmd[0] = echo, cmd[1] = a>oui
+// to cmd[0] = echo, cmd[1] = a, cmd[2] = >, cmd[3] = oui
+
+void	new_split(char **cmd)
+{
+	char	**new_cmd;
+	int		i;
+	int		j;
+	int		len;
+	int 	index;
+
+	index = 0;
+	len = new_size(cmd);
+	new_cmd = (char **)ft_calloc(len + 1, sizeof(char *));
+	if (!new_cmd)
+		return ;
+	i = 0;
+	while (cmd[i])
+	{
+		j = 0;
+		
+		if (strchr(cmd[i], '>') == NULL && strchr(cmd[i], '<') == NULL)
+		{
+			new_cmd[index] = ft_strdup(cmd[i]);
+			if (!new_cmd[index])
+				return ;
+			index++;
+			i++;
+			continue;
+		}
+		while (cmd[i][j])
+		{
+			if (cmd[i][j] == '>' || cmd[i][j] == '<')
+			{
+				printf("YO\n");
+				new_cmd[index] = ft_strndup(cmd[i], j);
+				index++;
+				if (cmd[i][j + 1] == '>' || cmd[i][j + 1] == '<')
+				{
+					printf("YO2\n");
+					new_cmd[index] = ft_strndup(&cmd[i][j], 2);
+					index++;
+					j++;
+				}
+				else
+				{
+					new_cmd[index] = ft_strndup(&cmd[i][j], 1);
+					index++;
+				}
+				if (cmd[i][j + 1])
+				{
+					new_cmd[index] = ft_strdup(&cmd[i][j + 1]);
+					index++;
+				}
+			}
+			j++;
+		}
+		i++;
+	}
+	for (int k = 0; new_cmd[k]; k++)
+		printf("new_cmd[%d] = %s\n", k, new_cmd[k]);
+}

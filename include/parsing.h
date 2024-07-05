@@ -127,5 +127,7 @@ size_t				ft_count_dollar(char *s);
 void				ft_check_insertion(t_he *he, t_elem *elem);
 void				ft_get_priority(t_parse *parse);
 void				ft_clean_operator(t_object *task);
+int					new_size(char **cmd);
+void				new_split(char **cmd);
 
 #endif

@@ -24,6 +24,13 @@ bool	ft_parse_token(t_parse *parse, char *input)
 		ft_free_array((void **)arr);
 		return (false);
 	}
+	// for (int i = 0; parse->task[i]; i++)
+	// {
+	// 	for (int j = 0; parse->task[i]->cmd[j]; j++)
+	// 	{
+	// 		printf("task[%d]->cmd[%d] = %s\n", i, j, parse->task[i]->cmd[j]);
+	// 	}
+	// }
 	ft_get_priority(parse);
 	ft_objectify(parse);
 	ft_redirection(parse);

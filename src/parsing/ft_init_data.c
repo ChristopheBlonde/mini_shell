@@ -49,6 +49,10 @@ bool	ft_init_tasks(t_parse *parse, char **arr)
 		if (!parse->task[i])
 			return (false);
 		parse->task[i]->cmd = ft_split_with_quotes(arr[i], ' ');
+		new_size(parse->task[i]->cmd);
+		new_split(parse->task[i]->cmd);
+		for (int k = 0; parse->task[i]->cmd[k]; k++)
+			printf("task[%ld]->cmd[%d] = %s\n", i, k, parse->task[i]->cmd[k]);
 		if (!parse->task[i]->cmd)
 			return (false);
 		ft_init_task(parse->task[i]);
