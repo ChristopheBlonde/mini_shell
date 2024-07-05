@@ -6,21 +6,26 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:24:36 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/01 14:29:50 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/04 19:48:29 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	ft_is_empty_quote(t_parse *parse, size_t i)
+bool	ft_parse_befor_exec(t_parse *parse, size_t i)
 {
+	ft_handle_env(parse, i);
+	ft_wildcard(parse, i);
 	if (parse->task[i]->cmd[0] && parse->task[i]->cmd[0][0] == '\0')
 	{
 		ft_putendl_fd("minishell: Command '' not found", 2);
 		ft_excmd_result(parse, 127);
-		return (true);
+		return (false);
 	}
-	return (false);
+	ft_get_path(parse);
+	if (parse->task[i]->infile != -1)
+		ft_handle_heredoc_var(parse, parse->redirect[parse->task[i]->infile]);
+	return (true);
 }
 
 bool	ft_is_subexec(t_parse *parse, pid_t *sub_lvl,
@@ -45,11 +50,6 @@ bool	ft_is_subexec(t_parse *parse, pid_t *sub_lvl,
 	if (parse->task[*i] && parse->task[*i]->cmd[0]
 		&& parse->task[*i]->cmd[0][0] == '\0')
 		return (false);
-	ft_handle_env(parse, *i);
-	ft_wildcard(parse, *i);
-	if (ft_is_empty_quote(parse, *i))
-		return (false);
-	ft_get_path(parse);
 	return (true);
 }
 
