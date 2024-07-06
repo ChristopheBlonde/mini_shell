@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/04 12:01:02 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/06 13:58:44 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,6 @@ void				ft_check_insertion(t_he *he, t_elem *elem);
 void				ft_get_priority(t_parse *parse);
 void				ft_clean_operator(t_object *task);
 int					new_size(char **cmd);
-void				new_split(char **cmd);
+char				**new_split(char **cmd);
 
 #endif

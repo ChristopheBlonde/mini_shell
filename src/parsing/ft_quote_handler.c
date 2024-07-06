@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:17:21 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/05/06 10:33:55 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/07/06 13:58:17 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,20 @@ char	*ft_strndup(char *s, size_t n)
 // From cmd[0] = echo, cmd[1] = a>oui
 // to cmd[0] = echo, cmd[1] = a, cmd[2] = >, cmd[3] = oui
 
-void	new_split(char **cmd)
+void	free_new_cmd(char **new_cmd)
+{
+	int i;
+
+	i = 0;
+	while (new_cmd[i])
+	{
+		free(new_cmd[i]);
+		i++;
+	}
+	free(new_cmd);
+}
+
+char	**new_split(char **cmd)
 {
 	char	**new_cmd;
 	int		i;
@@ -139,7 +152,7 @@ void	new_split(char **cmd)
 	len = new_size(cmd);
 	new_cmd = (char **)ft_calloc(len + 1, sizeof(char *));
 	if (!new_cmd)
-		return ;
+		return (NULL) ;
 	i = 0;
 	while (cmd[i])
 	{
@@ -149,7 +162,10 @@ void	new_split(char **cmd)
 		{
 			new_cmd[index] = ft_strdup(cmd[i]);
 			if (!new_cmd[index])
-				return ;
+			{
+				free_new_cmd(new_cmd);
+				return (NULL) ;
+			}
 			index++;
 			i++;
 			continue;
@@ -158,24 +174,42 @@ void	new_split(char **cmd)
 		{
 			if (cmd[i][j] == '>' || cmd[i][j] == '<')
 			{
-				printf("YO\n");
 				new_cmd[index] = ft_strndup(cmd[i], j);
+				if (!new_cmd[index])
+				{
+					free_new_cmd(new_cmd);
+					return (NULL) ;
+				}
 				index++;
 				if (cmd[i][j + 1] == '>' || cmd[i][j + 1] == '<')
 				{
-					printf("YO2\n");
 					new_cmd[index] = ft_strndup(&cmd[i][j], 2);
+					if (!new_cmd[index])
+					{
+						free_new_cmd(new_cmd);
+						return (NULL) ;
+					}
 					index++;
 					j++;
 				}
 				else
 				{
 					new_cmd[index] = ft_strndup(&cmd[i][j], 1);
+					if (!new_cmd[index])
+					{
+						free_new_cmd(new_cmd);
+						return (NULL) ;
+					}
 					index++;
 				}
 				if (cmd[i][j + 1])
 				{
 					new_cmd[index] = ft_strdup(&cmd[i][j + 1]);
+					if (!new_cmd[index])
+					{
+						free_new_cmd(new_cmd);
+						return (NULL) ;
+					}
 					index++;
 				}
 			}
@@ -183,6 +217,8 @@ void	new_split(char **cmd)
 		}
 		i++;
 	}
-	for (int k = 0; new_cmd[k]; k++)
-		printf("new_cmd[%d] = %s\n", k, new_cmd[k]);
+	// for (int k = 0; new_cmd[k]; k++)
+	// 	printf("new_cmd[%d] = %s\n", k, new_cmd[k]);
+	free_new_cmd(cmd);
+	return (new_cmd);
 }
