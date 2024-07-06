@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 16:41:22 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/05 16:05:43 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/06 09:18:36 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,11 @@ static void	ft_handle_heredoc_fd(t_parse *parse, t_file_descriptor *rfd,
 	if (str)
 		free(str);
 	close(rfd->fd);
-	unlink(rfd->file);
-	tmp_fd = open(rfd->file, O_RDWR | O_CREAT | O_TRUNC, 0777);
+	tmp_fd = open(rfd->file, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	write(tmp_fd, tmp, ft_strlen(tmp));
 	close(tmp_fd);
-	ft_putendl_fd(tmp, 1);
-	//rfd->fd = open(rfd->file, O_RDONLY);
+	rfd->fd = open(rfd->file, O_RDONLY);
+	unlink(rfd->file);
 	free(tmp);
 }
 

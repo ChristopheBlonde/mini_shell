@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:24:36 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/05 15:55:39 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/06 09:23:43 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,7 @@ bool	ft_parse_befor_exec(t_parse *parse, size_t i)
 	}
 	ft_get_path(parse);
 	if (parse->task[i]->infile != -1)
-	{
 		ft_handle_heredoc_var(parse, parse->redirect[parse->task[i]->infile]);
-		parse->redirect[parse->task[i]->infile]->fd
-			= open(parse->redirect[parse->task[i]->infile]->file, O_RDONLY);
-	}
 	return (true);
 }
 
@@ -47,14 +43,12 @@ bool	ft_is_subexec(t_parse *parse, pid_t *sub_lvl,
 		if (*sub_lvl < 0)
 			perror("minishell");
 		else if (*sub_lvl == 0)
-		{
-			ft_putendl_fd("in fork", 1);
 			*cur_sub = parse->task[*i]->lvl;
-		}
 		else
 			waitpid(*sub_lvl, &parse->task[*i]->status, 0);
 	}
-	while (parse->task[*i] && parse->task[*i]->lvl > *cur_sub && parse->task[*i + 1])
+	while (parse->task[*i]
+		&& parse->task[*i]->lvl > *cur_sub && parse->task[*i + 1])
 		(*i)++;
 	if (*cur_sub != 0 && (!parse->task[*i + 1]
 			|| parse->task[*i]->lvl < *cur_sub))

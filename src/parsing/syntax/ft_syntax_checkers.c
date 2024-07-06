@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 22:44:09 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/18 14:25:09 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/07/06 09:36:44 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@ int	check_after_spaces(char *input, int i)
 	return (0);
 }
 
-//TODO : FIX FOR THE HEREDOC BECAUSE << * shou
 int	check_after_redirection(char *input, int i)
 {
 	char	c;
 
 	c = input[i - 1];
 	skip_spaces(input, &i);
+	if (input[i] == '&')
+		return (1);
 	if (input[i] == '*' && c != '<')
 		return (12);
 	if (input[i] == '>' && input[i + 1] == '>' && input[i + 2]

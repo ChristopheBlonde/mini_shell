@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:47:46 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/08 14:05:15 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/06 08:49:47 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_rand_str(size_t size)
 	base = ft_strdup("abcdefghijklmnopqrstuvwxyz0123456789");
 	if (!base)
 		return (NULL);
-	str = ft_strdup(".tfs");
+	str = ft_strdup("/tmp/.tfs");
 	if (!str)
 		return (NULL);
 	while (i < size)
