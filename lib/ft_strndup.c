@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parse_token.c                                   :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 08:17:08 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/06 23:18:42 by tsadouk          ###   ########.fr       */
+/*   Created: 2024/07/06 23:23:48 by tsadouk           #+#    #+#             */
+/*   Updated: 2024/07/07 00:06:11 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-bool	ft_parse_token(t_parse *parse, char *input)
+char	*ft_strndup(char *s, size_t n)
 {
-	char	**arr;
+	char	*str;
+	size_t	i;
 
-	arr = ft_strtok(input, "|&\n");
-	if (!arr)
-		return (false);
-	if (!ft_init_tasks(parse, arr))
+	str = (char *)ft_calloc(n + 1, sizeof(char));
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (i < n)
 	{
-		ft_free_array((void **)arr);
-		return (false);
+		str[i] = s[i];
+		i++;
 	}
-	ft_get_priority(parse);
-	ft_objectify(parse);
-	ft_redirection(parse);
-	ft_clean_dollar(parse);
-	ft_builtin(parse);
-	ft_free_array((void **)arr);
-	return (true);
+	return (str);
 }
