@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:55:51 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/07 18:44:47 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/07/07 18:57:44 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ bool	ft_init_tasks(t_parse *parse, char **arr)
 		if (!parse->task[i])
 			return (false);
 		parse->task[i]->cmd = ft_split_with_quotes(arr[i], ' ');
+		if (!parse->task[i]->cmd)
+			return (false);
 		if (need_resplit(parse->task[i]->cmd))
 			parse->task[i]->cmd = new_split(parse->task[i]->cmd);
 		if (!parse->task[i]->cmd)
