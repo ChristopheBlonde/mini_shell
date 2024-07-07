@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:24:36 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/06 09:23:43 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/07 18:54:44 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 bool	ft_parse_befor_exec(t_parse *parse, size_t i)
 {
+	if (!ft_exec_redirect(parse, i))
+		return (false);
 	ft_handle_env(parse, i);
 	ft_wildcard(parse, i);
 	if (!parse->task[i]->cmd

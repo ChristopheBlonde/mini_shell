@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:43:17 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/03 15:27:06 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/07 18:34:01 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	handle_open(t_file_descriptor *file, t_parse *parse, int i)
 		ft_here_doc(parse, i);
 }
 
-bool	ft_exec_redirect(t_parse *parse)
+bool	ft_exec_redirect(t_parse *parse, size_t index)
 {
 	size_t				i;
 	t_file_descriptor	*file;
@@ -50,6 +50,11 @@ bool	ft_exec_redirect(t_parse *parse)
 		if (g_exit_code == 130)
 			return (false);
 		file = (t_file_descriptor *)parse->redirect[i];
+		if ((size_t)file->task != index)
+		{
+			i++;
+			continue ;
+		}
 		if (parse->task[file->task]->errinfile == 0
 			&& parse->task[file->task]->erroutfile == 0)
 			handle_open(file, parse, i);
