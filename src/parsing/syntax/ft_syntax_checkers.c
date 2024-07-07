@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 22:44:09 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/18 14:25:09 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/07/07 18:44:37 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,8 @@ int	check_after_spaces(char *input, int i)
 	return (0);
 }
 
-//TODO : FIX FOR THE HEREDOC BECAUSE << * shou
-int	check_after_redirection(char *input, int i)
+static	int	check_bis(char *input, int i)
 {
-	char	c;
-
-	c = input[i - 1];
-	skip_spaces(input, &i);
-	if (input[i] == '*' && c != '<')
-		return (12);
 	if (input[i] == '>' && input[i + 1] == '>' && input[i + 2]
 		&& (input[i + 2] == '\n' || input[i + 2] == '\0'))
 		return (9);
@@ -54,6 +47,27 @@ int	check_after_redirection(char *input, int i)
 		return (10);
 	if (input[i] == '\n' || input[i] == '\0')
 		return (6);
+	return (0);
+}
+
+int	check_after_redirection(char *input, int i)
+{
+	char	c;
+	int		tmp;
+
+	tmp = i;
+	c = input[i - 1];
+	skip_spaces(input, &i);
+	if (input[i] == '*' && c != '<')
+		return (12);
+	if (input[i] == '<' && input[i + 1])
+	{
+		skip_spaces(input, &tmp);
+		if (input[tmp] == '>' || input[tmp] == '<')
+			return (12);
+	}
+	if (check_bis(input, i))
+		return (check_bis(input, i));
 	return (0);
 }
 
