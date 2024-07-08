@@ -6,7 +6,7 @@
 #    By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/30 12:51:32 by cblonde           #+#    #+#              #
-#    Updated: 2024/04/23 15:34:07 by cblonde          ###   ########.fr        #
+#    Updated: 2024/07/06 23:24:33 by tsadouk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ DEPENDENCES = ft_strlen.c ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft
 			  ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_substr.c ft_strjoin.c\
 			  ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c ft_printf.c\
 			  ft_putlchar.c ft_putlnbr_base.c ft_putlstr.c ft_putlhex.c ft_get_next_line.c\
-			  ft_strfjoin.c ft_isspace.c
+			  ft_strfjoin.c ft_isspace.c ft_strndup.c
 DEPENDENCES_BONUS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c\
 					ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
 OBJDIR = obj

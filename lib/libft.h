@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 14:11:31 by cblonde           #+#    #+#             */
-/*   Updated: 2024/04/23 15:34:30 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/06 23:33:27 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ size_t	ft_putlnbr_base(long int nbr, char *base);
 char	*ft_strfjoin(char *s1, char *s2, size_t n);
 char	*ft_get_next_line(int fd);
 int		ft_isspace(int c);
+char	*ft_strndup(char *s, size_t n);
 
 #endif

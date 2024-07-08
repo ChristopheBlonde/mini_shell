@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:55:51 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/06 12:08:26 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/07 18:57:44 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,26 @@ static void	ft_init_task(t_object *task)
 	task->erroutfile = 0;
 }
 
+static bool	need_resplit(char **cmd)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (cmd[i])
+	{
+		j = 0;
+		while (cmd[i][j])
+		{
+			if ((cmd[i][j] == '>' || cmd[i][j] == '<') && j != 0)
+				return (true);
+			j++;
+		}
+		i++;
+	}
+	return (false);
+}
+
 bool	ft_init_tasks(t_parse *parse, char **arr)
 {
 	size_t	i;
@@ -49,6 +69,10 @@ bool	ft_init_tasks(t_parse *parse, char **arr)
 		if (!parse->task[i])
 			return (false);
 		parse->task[i]->cmd = ft_split_with_quotes(arr[i], ' ');
+		if (!parse->task[i]->cmd)
+			return (false);
+		if (need_resplit(parse->task[i]->cmd))
+			parse->task[i]->cmd = new_split(parse->task[i]->cmd);
 		if (!parse->task[i]->cmd)
 			return (false);
 		ft_init_task(parse->task[i]);
