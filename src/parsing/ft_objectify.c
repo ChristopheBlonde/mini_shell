@@ -6,13 +6,13 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:19:04 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/04 12:06:54 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/08 14:07:30 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_rewrite_cmd(char *str)
+static void	ft_rewrite_cmd(char **arr, char *str, size_t *index)
 {
 	size_t	i;
 	size_t	j;
@@ -29,6 +29,15 @@ static void	ft_rewrite_cmd(char *str)
 		i++;
 	}
 	str[j] = '\0';
+	if (str[0] == '\0')
+	{
+		free(str);
+		i = *index - 1;
+		while (arr[++i])
+			arr[i] = arr[i + 1];
+		return ;
+	}
+	(*index)++;
 }
 
 static void	ft_delete_parentheses(t_object *task)
@@ -54,8 +63,9 @@ static void	ft_delete_parentheses(t_object *task)
 			continue ;
 		}
 		else if (task->cmd[i][0] == '(' || task->cmd[i][cmd_len - 1] == ')')
-			ft_rewrite_cmd(task->cmd[i]);
-		i++;
+			ft_rewrite_cmd(task->cmd, task->cmd[i], &i);
+		else
+			i++;
 	}
 }
 
