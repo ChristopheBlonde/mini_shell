@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:24:36 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/07 18:54:44 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/08 11:11:40 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ bool	ft_parse_befor_exec(t_parse *parse, size_t i)
 	return (true);
 }
 
+static void	ft_skip_task(t_parse *parse, size_t *cur_sub, size_t *i)
+{
+	while (parse->task[*i]
+		&& parse->task[*i]->lvl > *cur_sub && parse->task[*i + 1])
+		(*i)++;
+}
+
 bool	ft_is_subexec(t_parse *parse, pid_t *sub_lvl,
 			size_t *cur_sub, size_t *i)
 {
@@ -45,13 +52,15 @@ bool	ft_is_subexec(t_parse *parse, pid_t *sub_lvl,
 		if (*sub_lvl < 0)
 			perror("minishell");
 		else if (*sub_lvl == 0)
-			*cur_sub = parse->task[*i]->lvl;
+		{
+			(*cur_sub)++;
+			if (*cur_sub < parse->task[*i]->lvl)
+				return (true);
+		}
 		else
 			waitpid(*sub_lvl, &parse->task[*i]->status, 0);
 	}
-	while (parse->task[*i]
-		&& parse->task[*i]->lvl > *cur_sub && parse->task[*i + 1])
-		(*i)++;
+	ft_skip_task(parse, cur_sub, i);
 	if (*cur_sub != 0 && (!parse->task[*i + 1]
 			|| parse->task[*i]->lvl < *cur_sub))
 		exit(parse->task[*i - 1]->status);
