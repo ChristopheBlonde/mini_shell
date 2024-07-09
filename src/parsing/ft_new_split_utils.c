@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 23:23:04 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/09 15:05:05 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/09 16:22:24 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	ft_search_end(char *cmd, int *end, int sign)
 static bool	ft_add_str(char **n_cmd, char *cmd, int *index, int range[3])
 {
 	n_cmd[*index] = ft_substr(cmd, range[0], range[1] - range[0]);
-	ft_putendl_fd(n_cmd[*index], 1);
 	if (!n_cmd[*index])
 		return (false);
 	(*index)++;

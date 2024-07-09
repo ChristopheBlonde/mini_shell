@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 14:09:23 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/09 15:05:54 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/09 16:59:14 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	need_split(char *cmd)
 	while (cmd[i])
 	{
 		in_quote(cmd, &quote, i);
-		if (quote == -1 && i != 0 && ((cmd[i] == '>' || cmd[i] == '<')
+		if (quote == -1 && ((cmd[i] == '>' || cmd[i] == '<')
 				|| (cmd[i] == '(' || cmd[i] == ')')))
 			return (true);
 		i++;
@@ -69,7 +69,9 @@ static size_t	new_size(char **cmd)
 	while (cmd[i])
 	{
 		if (need_split(cmd[i]))
+		{
 			arr_len += new_size_arg(cmd[i]);
+		}
 		i++;
 	}
 	return (arr_len);
