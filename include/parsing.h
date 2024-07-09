@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/06 23:34:33 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/07/09 13:02:29 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,8 @@ size_t				ft_count_dollar(char *s);
 void				ft_check_insertion(t_he *he, t_elem *elem);
 void				ft_get_priority(t_parse *parse);
 void				ft_clean_operator(t_object *task);
+bool				need_split(char *cmd);
 char				**new_split(char **cmd);
-int					split_redirections(char *cmd, char **new_cmd,
-						int *index, int *j);
-void				free_new_cmd(char **new_cmd);
+bool				ft_split_args(char *cmd, char **new_cmd, int *index);
 
 #endif
