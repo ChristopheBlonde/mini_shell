@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 21:17:26 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/10 13:55:12 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/10 15:18:10 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static bool	ft_error_cd(t_parse *parse, t_object *task)
 			return (true);
 		}
 		chdir(home);
-		ft_update_env(parse , home, home, false);
+		ft_update_env(parse, home, home, false);
 		ft_excmd_result(parse, 0);
 		return (true);
 	}

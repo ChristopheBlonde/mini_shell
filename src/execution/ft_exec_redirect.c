@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:43:17 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/07 18:34:01 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/10 15:06:02 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	handle_open(t_file_descriptor *file, t_parse *parse, int i)
 		ft_here_doc(parse, i);
 }
 
-bool	ft_exec_redirect(t_parse *parse, size_t index)
+bool	ft_open_heredoc(t_parse *parse)
 {
 	size_t				i;
 	t_file_descriptor	*file;
@@ -50,13 +50,36 @@ bool	ft_exec_redirect(t_parse *parse, size_t index)
 		if (g_exit_code == 130)
 			return (false);
 		file = (t_file_descriptor *)parse->redirect[i];
-		if ((size_t)file->task != index)
+		if (file->type == HEREDOC)
+			handle_open(file, parse, i);
+		i++;
+	}
+	return (true);
+}
+
+bool	ft_exec_redirect(t_parse *parse, int index)
+{
+	size_t				i;
+	t_file_descriptor	*file;
+
+	i = 0;
+	if (!parse->redirect)
+		return (true);
+	if (index == -1 && ft_open_heredoc(parse))
+		return (true);
+	if (index == -1 && g_exit_code == 130)
+		return (false);
+	while (parse->redirect[i])
+	{
+		file = (t_file_descriptor *)parse->redirect[i];
+		if (file->task != index)
 		{
 			i++;
 			continue ;
 		}
 		if (parse->task[file->task]->errinfile == 0
-			&& parse->task[file->task]->erroutfile == 0)
+			&& parse->task[file->task]->erroutfile == 0
+			&& file->type != HEREDOC)
 			handle_open(file, parse, i);
 		i++;
 	}
