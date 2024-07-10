@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:24:36 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/10 12:55:51 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/10 15:35:45 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ bool	ft_exec_cmd(t_parse *parse, size_t *i)
 	}
 	else
 	{
-		if (parse->task[*i] && parse->task[*i]->cmd && parse->task[*i]->cmd[0])
+		if (parse->task[*i] && parse->task[*i]->cmd)
 		{
 			ft_exec_pipe(parse, i);
 			if (!ft_exec_or(parse, i))
