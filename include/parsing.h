@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/09 13:02:29 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/10 10:55:30 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,6 @@ void				ft_clean_operator(t_object *task);
 bool				need_split(char *cmd);
 char				**new_split(char **cmd);
 bool				ft_split_args(char *cmd, char **new_cmd, int *index);
+void				check_for_ambigous_redirect(char *input, int *code);
 
 #endif

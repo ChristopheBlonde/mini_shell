@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/10 09:19:11 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/10 11:49:49 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ bool	ft_execution(t_parse *parse)
 	size_t	i;
 	pid_t	sub_lvl;
 	size_t	cur_sub;
+	int		status;
 
 	i = 0;
 	ft_sig_init(0);
@@ -116,8 +117,9 @@ bool	ft_execution(t_parse *parse)
 	}
 	if (cur_sub != 0)
 	{
+		status = parse->task[i - 1]->status;
 		ft_free_all(parse);
-		exit(parse->task[i - 1]->status);
+		exit(status);
 	}
 	ft_wait_all(parse);
 	return (true);

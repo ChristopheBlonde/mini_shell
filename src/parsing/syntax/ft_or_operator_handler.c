@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:45:50 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/07 18:45:09 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/07/10 10:49:51 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,7 @@ int	ft_check_or_operator(char *input)
 	int	code;
 
 	code = check_before_operator(input, 0);
-	if (ft_strnstr(input, ">>>", -1) || ft_strnstr(input, "<<>", -1))
-		code = 8;
-	if (ft_strnstr(input, "<<<<", -1) || ft_strnstr(input, ">><", -1))
-		code = 10;
+	check_for_ambigous_redirect(input, &code);
 	if (code > 0)
 	{
 		print_good_error_msg(code);

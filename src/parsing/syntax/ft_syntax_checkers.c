@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 22:44:09 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/08 09:00:33 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/10 10:47:57 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,11 @@ static	int	check_bis(char *input, int i)
 int	check_after_redirection(char *input, int i)
 {
 	char	c;
-	int		tmp;
 
-	tmp = i;
 	c = input[i - 1];
 	skip_spaces(input, &i);
 	if (input[i] == '*' && c != '<')
 		return (12);
-	if (input[i] == '<' && input[i + 1])
-	{
-		skip_spaces(input, &tmp);
-		if (input[tmp] == '>' || input[tmp] == '<')
-			return (12);
-	}
 	if (check_bis(input, i))
 		return (check_bis(input, i));
 	return (0);

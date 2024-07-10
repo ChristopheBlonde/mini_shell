@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 21:17:26 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/03 09:19:35 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/10 13:55:12 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,28 @@ static void	ft_update_env(t_parse *parse, char *n_path,
 
 static bool	ft_error_cd(t_parse *parse, t_object *task)
 {
-	if (ft_arrlen((void **)task->cmd) > 2)
+	size_t	arr_len;
+	char	*home;
+
+	arr_len = ft_arrlen((void **)task->cmd);
+	if (arr_len > 2)
 	{
 		ft_putendl_fd("minishell: cd: too many arguments", 2);
 		ft_excmd_result(parse, 1);
+		return (true);
+	}
+	else if (arr_len < 2)
+	{
+		home = ft_getenv(parse, "HOME");
+		if (!home)
+		{
+			ft_putendl_fd("minishell: cd: HOME not set", 2);
+			ft_excmd_result(parse, 1);
+			return (true);
+		}
+		chdir(home);
+		ft_update_env(parse , home, home, false);
+		ft_excmd_result(parse, 0);
 		return (true);
 	}
 	return (false);
