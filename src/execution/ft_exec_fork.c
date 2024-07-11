@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:24:36 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/10 15:35:45 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/11 09:53:43 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,24 @@ static void	ft_skip_task(t_parse *parse, size_t *cur_sub, size_t *i)
 		(*i)++;
 }
 
+static void ft_exit_sublvl(t_parse *parse, size_t *cur_sub, size_t *i)
+{
+	int	status;
+
+	if (*i != 0)
+		status = parse->task[*i - 1]->status;
+	if (*cur_sub != 0 && (!parse->task[*i + 1]
+			|| parse->task[*i]->lvl < *cur_sub))
+	{
+		ft_free_all(parse);
+		exit(status);
+	}
+}
+
 bool	ft_is_subexec(t_parse *parse, pid_t *sub_lvl,
 			size_t *cur_sub, size_t *i)
 {
-	if (*cur_sub != 0 && (!parse->task[*i + 1]
-			|| parse->task[*i]->lvl < *cur_sub))
-		exit(parse->task[*i - 1]->status);
+	ft_exit_sublvl(parse, cur_sub, i);
 	if (*cur_sub < parse->task[*i]->lvl)
 	{
 		*sub_lvl = fork();
@@ -61,9 +73,7 @@ bool	ft_is_subexec(t_parse *parse, pid_t *sub_lvl,
 			waitpid(*sub_lvl, &parse->task[*i]->status, 0);
 	}
 	ft_skip_task(parse, cur_sub, i);
-	if (*cur_sub != 0 && (!parse->task[*i + 1]
-			|| parse->task[*i]->lvl < *cur_sub))
-		exit(parse->task[*i - 1]->status);
+	ft_exit_sublvl(parse, cur_sub, i);
 	if (parse->task[*i] && parse->task[*i]->cmd[0]
 		&& parse->task[*i]->cmd[0][0] == '\0')
 		return (false);

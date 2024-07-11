@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:55:51 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/09 10:20:46 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/11 10:21:09 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	ft_init_parse(t_parse *parse)
 
 static void	ft_init_task(t_object *task)
 {
-	task->unquoted = NULL;
 	task->infile = -1;
 	task->outfile = -1;
 	task->is_quoted = 0;

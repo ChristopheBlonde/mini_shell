@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/10 14:42:55 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/11 10:53:03 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	ft_exec_pipe(t_parse *parse, size_t *i)
 			*i += 1;
 		else
 			return ;
-		while (parse->task[*i] && parse->task[*i]->link == PIPE)
+		while (parse->task[*i] && parse->task[*i]->link == PIPE
+			&& parse->task[*i]->lvl == parse->task[*i - 1]->lvl)
 		{
 			ft_exec(parse, parse->task[*i], *i);
 			if (parse->task[*i + 1] && parse->task[*i + 1]->link == PIPE)
@@ -44,7 +45,8 @@ bool	ft_exec_or(t_parse *parse, size_t *i)
 				*i += 1;
 			else
 				return (true);
-			while (parse->task[*i] && parse->task[*i]->link == PIPE)
+			while (parse->task[*i] && parse->task[*i]->link == PIPE
+				&& parse->task[*i]->lvl == parse->task[*i - 1]->lvl)
 			{
 				ft_exec(parse, parse->task[*i], *i);
 				if (parse->task[*i + 1] && parse->task[*i + 1]->link == PIPE)
@@ -70,7 +72,8 @@ bool	ft_exec_and(t_parse *parse, size_t *i)
 				*i += 1;
 			else
 				return (true);
-			while (parse->task[*i] && parse->task[*i]->link == PIPE)
+			while (parse->task[*i] && parse->task[*i]->link == PIPE
+				&& parse->task[*i]->lvl == parse->task[*i - 1]->lvl)
 			{
 				ft_exec(parse, parse->task[*i], *i);
 				if (parse->task[*i + 1] && parse->task[*i + 1]->link == PIPE)
@@ -113,8 +116,13 @@ bool	ft_execution(t_parse *parse)
 	{
 		if (!ft_is_subexec(parse, &sub_lvl, &cur_sub, &i))
 			return (true);
-		if (!ft_exec_cmd(parse, &i))
-			break ;
+		if (cur_sub == parse->task[i]->lvl)
+		{
+			if (!ft_exec_cmd(parse, &i))
+				break ;
+		}
+		else if (!parse->task[i + 1])
+			i++;
 	}
 	if (cur_sub != 0)
 	{

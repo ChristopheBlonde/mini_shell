@@ -6,13 +6,13 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/10 12:06:45 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/11 10:20:38 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_close_fds(t_parse *parse, size_t index)
+static void	ft_close_fds(t_parse *parse)
 {
 	size_t	i;
 
@@ -22,16 +22,19 @@ static void	ft_close_fds(t_parse *parse, size_t index)
 		if (parse->redirect[i]->fd != -1)
 		{
 			close(parse->redirect[i]->fd);
+			parse->redirect[i]->fd = -1;
 		}
 		i++;
 	}
 	i = 0;
-	while (i <= index)
+	while (parse->task[i])
 	{
-		if (parse->task[i]->pipe[0] >= 0)
+		if (parse->task[i]->pipe[0] != -1)
 			close(parse->task[i]->pipe[0]);
-		if (parse->task[i]->pipe[1] >= 0)
+		parse->task[i]->pipe[0] = -1;
+		if (parse->task[i]->pipe[1] != -1)
 			close(parse->task[i]->pipe[1]);
+		parse->task[i]->pipe[1] = -1;
 		i++;
 	}
 }
@@ -54,7 +57,7 @@ static void	ft_handle_child(t_parse *parse, t_object *task, size_t i)
 		else
 			dup2(task->pipe[1], 1);
 	}
-	ft_close_fds(parse, i);
+	ft_close_fds(parse);
 }
 
 static void	ft_handle_parent(t_parse *parse, t_object *task, size_t i)
