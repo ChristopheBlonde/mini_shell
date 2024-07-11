@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:55:51 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/11 11:53:00 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/11 15:43:33 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_init_parse(t_parse *parse)
 	parse->env = NULL;
 	parse->redirect = NULL;
 	parse->input = NULL;
+	//parse->sub_lvl = NULL;
 }
 
 static void	ft_init_task(t_object *task)
@@ -27,7 +28,6 @@ static void	ft_init_task(t_object *task)
 	task->is_quoted = 0;
 	task->pipe[0] = -1;
 	task->pipe[1] = -1;
-	pipe(task->pipe);
 	task->errinfile = 0;
 	task->erroutfile = 0;
 }

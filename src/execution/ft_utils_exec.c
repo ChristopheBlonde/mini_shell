@@ -6,13 +6,13 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/11 13:05:45 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/11 15:47:24 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_close_fds(t_parse *parse)
+static void	ft_close_fds(t_parse *parse, size_t index)
 {
 	size_t	i;
 
@@ -27,7 +27,7 @@ static void	ft_close_fds(t_parse *parse)
 		i++;
 	}
 	i = 0;
-	while (parse->task[i])
+	while (i <= index)
 	{
 		if (parse->task[i]->pipe[0] != -1)
 			close(parse->task[i]->pipe[0]);
@@ -57,7 +57,7 @@ static void	ft_handle_child(t_parse *parse, t_object *task, size_t i)
 		else
 			dup2(task->pipe[1], 1);
 	}
-	ft_close_fds(parse);
+	ft_close_fds(parse, i);
 }
 
 static void	ft_handle_parent(t_parse *parse, t_object *task, size_t i)
@@ -121,6 +121,7 @@ void	ft_exec(t_parse *parse, t_object *task, size_t i)
 {
 	if (!ft_parse_befor_exec(parse, i))
 		return ;
+	pipe(task->pipe);
 	task->pid = fork();
 	if (task->pid < 0)
 	{

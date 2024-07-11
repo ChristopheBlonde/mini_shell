@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/11 14:19:35 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/11 15:53:45 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ static void	ft_close_sub(t_parse *parse, size_t cur_sub, size_t i, int status)
 {
 	if (cur_sub != 0)
 	{
-		printf("sub level\n");
+		printf("sub level: %zu\n", cur_sub);
 		status = parse->task[i - 1]->status;
-		ft_free_all(parse);
+		//ft_free_all(parse);
 		exit(status);
 	}
 }
