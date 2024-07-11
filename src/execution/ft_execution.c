@@ -6,33 +6,11 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/11 10:53:03 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/11 14:19:35 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_exec_pipe(t_parse *parse, size_t *i)
-{
-	if (parse->task[*i] && parse->task[*i]->link != OR
-		&& parse->task[*i]->link != AND)
-	{
-		ft_exec(parse, parse->task[*i], *i);
-		if (parse->task[*i + 1] && parse->task[*i + 1]->link == PIPE)
-			*i += 1;
-		else
-			return ;
-		while (parse->task[*i] && parse->task[*i]->link == PIPE
-			&& parse->task[*i]->lvl == parse->task[*i - 1]->lvl)
-		{
-			ft_exec(parse, parse->task[*i], *i);
-			if (parse->task[*i + 1] && parse->task[*i + 1]->link == PIPE)
-				*i += 1;
-			else
-				return ;
-		}
-	}
-}
 
 bool	ft_exec_or(t_parse *parse, size_t *i)
 {
@@ -101,12 +79,22 @@ static void	ft_wait_all(t_parse *parse)
 	ft_sig_init(1);
 }
 
+static void	ft_close_sub(t_parse *parse, size_t cur_sub, size_t i, int status)
+{
+	if (cur_sub != 0)
+	{
+		printf("sub level\n");
+		status = parse->task[i - 1]->status;
+		ft_free_all(parse);
+		exit(status);
+	}
+}
+
 bool	ft_execution(t_parse *parse)
 {
 	size_t	i;
 	pid_t	sub_lvl;
 	size_t	cur_sub;
-	int		status;
 
 	i = 0;
 	ft_sig_init(0);
@@ -124,12 +112,7 @@ bool	ft_execution(t_parse *parse)
 		else if (!parse->task[i + 1])
 			i++;
 	}
-	if (cur_sub != 0)
-	{
-		status = parse->task[i - 1]->status;
-		ft_free_all(parse);
-		exit(status);
-	}
+	ft_close_sub(parse, cur_sub, i, 0);
 	ft_wait_all(parse);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:24:36 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/11 12:41:34 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/07/11 14:19:35 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,26 @@ bool	ft_exec_cmd(t_parse *parse, size_t *i)
 		(*i)++;
 	}
 	return (true);
+}
+
+void	ft_exec_pipe(t_parse *parse, size_t *i)
+{
+	if (parse->task[*i] && parse->task[*i]->link != OR
+		&& parse->task[*i]->link != AND)
+	{
+		ft_exec(parse, parse->task[*i], *i);
+		if (parse->task[*i + 1] && parse->task[*i + 1]->link == PIPE)
+			*i += 1;
+		else
+			return ;
+		while (parse->task[*i] && parse->task[*i]->link == PIPE
+			&& parse->task[*i]->lvl == parse->task[*i - 1]->lvl)
+		{
+			ft_exec(parse, parse->task[*i], *i);
+			if (parse->task[*i + 1] && parse->task[*i + 1]->link == PIPE)
+				*i += 1;
+			else
+				return ;
+		}
+	}
 }

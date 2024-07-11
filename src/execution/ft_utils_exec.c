@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/11 10:20:38 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/11 13:05:45 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,18 @@ static void	ft_handle_child(t_parse *parse, t_object *task, size_t i)
 
 static void	ft_handle_parent(t_parse *parse, t_object *task, size_t i)
 {
-	close(task->pipe[1]);
-	if (task->link == PIPE)
+	if (task->pipe[1] != -1)
+		close(task->pipe[1]);
+	task->pipe[1] = -1;
+	if (task->link == PIPE && parse->task[i - 1]->pipe[0] != -1)
+	{
 		close(parse->task[i - 1]->pipe[0]);
+		parse->task[i - 1]->pipe[0] = -1;
+	}
 	if (!parse->task[i + 1] || parse->task[i + 1]->link != PIPE)
 	{
-		close(task->pipe[0]);
+		if (task->pipe[0] != -1)
+			close(task->pipe[0]);
 		waitpid(task->pid, &task->status, 0);
 		if (WIFEXITED(task->status))
 			ft_excmd_result(parse, WEXITSTATUS(task->status));
@@ -115,7 +121,6 @@ void	ft_exec(t_parse *parse, t_object *task, size_t i)
 {
 	if (!ft_parse_befor_exec(parse, i))
 		return ;
-	pipe(task->pipe);
 	task->pid = fork();
 	if (task->pid < 0)
 	{
