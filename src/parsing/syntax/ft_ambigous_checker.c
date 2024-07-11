@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 20:57:20 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/10 10:45:29 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/11 10:58:59 by tsadouk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	check_for_ambigous_redirect(char *input, int *code)
 	else if (ft_strnstr_and_check_quotes(input, ">>>", len)
 		|| ft_strnstr_and_check_quotes(input, "<<>", len)
 		|| ft_strnstr_and_check_quotes(input, "<<>", len)
+		|| ft_strnstr_and_check_quotes(input, "<>", len)
 	)
 		*code = 8;
 	else if (ft_strnstr_and_check_quotes(input, "<<<<", len)
