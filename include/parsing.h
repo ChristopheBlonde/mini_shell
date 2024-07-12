@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/11 10:10:43 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/12 08:08:21 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_parse
 	char						**env;
 	char						*input;
 	struct s_file_descriptor	**redirect;
+	int							(*sub_lvl)[2];
+	int							current_lvl;
 }	t_parse;
 
 typedef struct s_file_descriptor
@@ -130,5 +132,6 @@ bool				need_split(char *cmd);
 char				**new_split(char **cmd);
 bool				ft_split_args(char *cmd, char **new_cmd, int *index);
 void				check_for_ambigous_redirect(char *input, int *code);
+bool				ft_init_lvl(t_parse *parse);
 
 #endif

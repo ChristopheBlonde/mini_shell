@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:55:51 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/11 15:43:33 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/12 07:30:52 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	ft_init_parse(t_parse *parse)
 	parse->env = NULL;
 	parse->redirect = NULL;
 	parse->input = NULL;
-	//parse->sub_lvl = NULL;
+	parse->sub_lvl = NULL;
+	parse->current_lvl = 0;
 }
 
 static void	ft_init_task(t_object *task)

@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:24:36 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/11 14:19:35 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/12 09:00:10 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ bool	ft_is_subexec(t_parse *parse, pid_t *sub_lvl,
 		exit(parse->task[*i - 1]->status);
 	if (*cur_sub < parse->task[*i]->lvl)
 	{
+		pipe(parse->sub_lvl[parse->current_lvl]);
 		*sub_lvl = fork();
 		if (*sub_lvl < 0)
 			perror("minishell");
@@ -58,7 +59,10 @@ bool	ft_is_subexec(t_parse *parse, pid_t *sub_lvl,
 				return (true);
 		}
 		else
+		{
 			waitpid(*sub_lvl, &parse->task[*i]->status, 0);
+			parse->current_lvl++;
+		}
 	}
 	ft_skip_task(parse, cur_sub, i);
 	if (*cur_sub != 0 && (!parse->task[*i + 1]
