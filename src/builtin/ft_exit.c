@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 12:18:42 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/03 14:50:31 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/15 10:07:51 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static long long	ft_atol_exit(char *str)
 			sign = -1;
 		while (str[i] == '-' || str[i] == '+')
 			i++;
+		if (nbr == 922337203685477580 && str[i] == '8' && sign == -1)
+			return (0);
 		if (nbr == 922337203685477580 && str[i] == '8')
 			return (-1);
 		nbr = nbr * 10 + (str[i] - '0');
