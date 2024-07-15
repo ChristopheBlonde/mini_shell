@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 09:10:47 by cblonde           #+#    #+#             */
-/*   Updated: 2024/05/23 17:20:57 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/15 10:51:34 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,21 @@ static bool	ft_cpy_env(t_parse *parse, char **arr, size_t len)
 	return (true);
 }
 
-static bool	ft_syntax_env(char *env)
+bool	ft_syntax_env(char *env, size_t n)
 {
 	size_t	i;
 
 	i = 0;
 	if (!ft_isalpha(env[0]) && env[0] != '_')
 	{
-		ft_error_env(env);
+		ft_error_env(env, n);
 		return (false);
 	}
 	while (env[i] && env[i] != '=' && ft_strncmp(&env[i], "+=", 2))
 	{
 		if (!ft_isalnum(env[i]) && env[i] != '_')
 		{
-			ft_error_env(env);
+			ft_error_env(env, n);
 			return (false);
 		}
 		i++;
@@ -79,7 +79,7 @@ void	ft_export(t_parse *parse, char *new)
 	size_t	i;
 	char	**arr;
 
-	if (!ft_syntax_env(new))
+	if (!ft_syntax_env(new, 0))
 		return (ft_excmd_result(parse, 1));
 	len = ft_arrlen((void **)parse->env);
 	i = len;

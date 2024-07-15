@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/03 15:22:45 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/15 10:49:48 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,6 @@ void	ft_sig_init(int mode);
 void	sig_handle_nothing(int sig);
 void	sig_handler_heredoc(int sig);
 void	ft_sig_exit(int status);
-
-/*ENV*/
-void	ft_error_env(char *env);
 
 /*	SYNTAX	*/
 int		check_before_operator(char *input, int i);

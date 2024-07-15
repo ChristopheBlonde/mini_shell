@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 10:24:36 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/04 11:38:18 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/15 10:46:14 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static void	ft_unset(t_parse *parse, char *var)
 	char	**arr;
 	int		index;
 
+	if (!ft_syntax_env(var, 1))
+		return (ft_excmd_result(parse, 1));
 	len = ft_arrlen((void **)parse->env);
 	index = ft_get_index_env(parse->env, var, len);
 	if (index < 0)
@@ -56,18 +58,37 @@ static void	ft_unset(t_parse *parse, char *var)
 	ft_excmd_result(parse, 0);
 }
 
+static void	ft_invalid_option(t_parse *parse, char *option)
+{
+	ft_putstr_fd("minishell: unset: ", 2);
+	ft_putstr_fd(option, 2);
+	ft_putendl_fd(" :invalid option", 2);
+	ft_excmd_result(parse, 2);
+}
+
 void	ft_exec_unset(t_parse *parse, t_object *task)
 {
 	size_t	i;
+	bool	fail;
 
 	i = 1;
+	fail = false;
 	if (task->builtin != UNSET)
 		return ;
 	if (!task->cmd || !task->cmd[i])
 		return ;
+	if (task->cmd[i][0] == '-')
+	{
+		ft_invalid_option(parse, task->cmd[i]);
+		return ;
+	}
 	while (task->cmd[i])
 	{
 		ft_unset(parse, task->cmd[i]);
+		if (!strncmp(ft_getenv(parse, "?"), "1", -1))
+			fail = true;
 		i++;
 	}
+	if (fail)
+		task->status = 1;
 }
