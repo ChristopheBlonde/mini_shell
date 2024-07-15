@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/12 14:01:55 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/15 09:52:12 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	ft_close_fds(t_parse *parse, size_t index)
 		if (parse->task[i]->pipe[1] != -1)
 			close(parse->task[i]->pipe[1]);
 		i++;
-	}	
+	}
 	i = 0;
 	while ((int)i < parse->current_lvl)
 	{
@@ -43,7 +43,7 @@ static void	ft_close_fds(t_parse *parse, size_t index)
 	}
 }
 
-int ft_task_after_sub(t_parse *parse, size_t i)
+int	ft_task_after_sub(t_parse *parse, size_t i)
 {
 	size_t	lvl;
 

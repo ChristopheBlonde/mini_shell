@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 07:40:19 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/12 08:10:27 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/15 09:53:18 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	ft_init_lvl(t_parse *parse)
 			count++;
 		i++;
 	}
-	parse->sub_lvl = ft_calloc(count + 1, sizeof(int[2]));
+	parse->sub_lvl = ft_calloc(count + 1, sizeof(int [2]));
 	if (!parse->sub_lvl)
 		return (false);
 	i = 0;
