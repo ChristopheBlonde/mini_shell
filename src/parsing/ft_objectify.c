@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:19:04 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/08 14:07:30 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/16 12:37:16 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,28 +100,31 @@ void	ft_objectify(t_parse *parse)
 
 static size_t	ft_get_lvl_parentheses(t_object *task, size_t lvl)
 {
-	int		count;
-	size_t	i;
-	size_t	j;
-	size_t	n_lvl;
+	int	count;
+	int	i;
+	int	j;
+	int	quote;
 
 	count = 0;
-	i = 0;
-	while (task->cmd[i])
+	i = -1;
+	quote = -1;
+	while (task->cmd[++i])
 	{
-		j = 0;
-		while (task->cmd[i][j])
+		j = -1;
+		while (task->cmd[i][++j])
 		{
-			if (task->cmd[i][j] == '(')
+			in_quote(task->cmd[i], &quote, j);
+			if (quote == -1 && task->cmd[i][j] == '(')
+				task->open++;
+			if (quote == -1 && task->cmd[i][j] == '(')
 				count++;
-			if (task->cmd[i][j] == ')')
+			if (quote == -1 && task->cmd[i][j] == ')')
+				task->close++;
+			if (quote == -1 && task->cmd[i][j] == ')')
 				count--;
-			j++;
 		}
-		i++;
-	}
-	n_lvl = (int)lvl + count;
-	return (n_lvl);
+	}	
+	return ((int)lvl + count);
 }
 
 void	ft_get_priority(t_parse *parse)

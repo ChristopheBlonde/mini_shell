@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:41:17 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/12 13:25:21 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/17 09:26:59 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	ft_free_parsing(t_parse *parse)
 		free(parse->sub_lvl);
 		parse->sub_lvl = NULL;
 	}
+	parse->n_sub = 0;
 }
 
 void	ft_free_all(t_parse *parse)

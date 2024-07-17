@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:55:51 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/12 07:30:52 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/17 09:39:50 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_init_parse(t_parse *parse)
 	parse->redirect = NULL;
 	parse->input = NULL;
 	parse->sub_lvl = NULL;
-	parse->current_lvl = 0;
+	parse->n_sub = 0;
 }
 
 static void	ft_init_task(t_object *task)
@@ -31,6 +31,9 @@ static void	ft_init_task(t_object *task)
 	task->pipe[1] = -1;
 	task->errinfile = 0;
 	task->erroutfile = 0;
+	task->open = 0;
+	task->close = 0;
+	task->i_sub = -1;
 }
 
 static bool	need_resplit(char **cmd)

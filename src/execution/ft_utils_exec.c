@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/15 09:52:12 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/15 15:49:41 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ static void	ft_close_fds(t_parse *parse, size_t index)
 		i++;
 	}
 	i = 0;
-	while (i < index)
+	while (i <= index)
 	{
 		if (parse->task[i]->pipe[0] != -1)
 			close(parse->task[i]->pipe[0]);
 		if (parse->task[i]->pipe[1] != -1)
 			close(parse->task[i]->pipe[1]);
 		i++;
-	}
+	}/*
 	i = 0;
 	while ((int)i < parse->current_lvl)
 	{
@@ -40,9 +40,9 @@ static void	ft_close_fds(t_parse *parse, size_t index)
 		if (parse->sub_lvl[i][1] != -1)
 			close(parse->sub_lvl[i][1]);
 		i++;
-	}
+	}*/
 }
-
+/*
 int	ft_task_after_sub(t_parse *parse, size_t i)
 {
 	size_t	lvl;
@@ -55,7 +55,7 @@ int	ft_task_after_sub(t_parse *parse, size_t i)
 	if (parse->task[i] && parse->task[i]->link == PIPE)
 		return (1);
 	return (0);
-}
+}*/
 
 static void	ft_handle_child(t_parse *parse, t_object *task, size_t i)
 {
@@ -64,14 +64,14 @@ static void	ft_handle_child(t_parse *parse, t_object *task, size_t i)
 	else if (task->link == PIPE
 		&& parse->task[i - 1]->lvl == parse->task[i]->lvl)
 		dup2(parse->task[i - 1]->pipe[0], 0);
-	else if (task->link == PIPE)
-		dup2(parse->sub_lvl[parse->current_lvl - 1][0], 0);
+	/*else if (task->link == PIPE)
+		dup2(parse->sub_lvl[parse->current_lvl - 1][0], 0);*/
 	if (!parse->task[i + 1] || parse->task[i + 1]->link != PIPE)
 	{
 		if (task->outfile != -1)
 			dup2(parse->redirect[task->outfile]->fd, 1);
-		if (task->lvl != 0 && ft_task_after_sub(parse, i))
-			dup2(parse->sub_lvl[parse->current_lvl][1], 1);
+		/*if (task->lvl != 0 && ft_task_after_sub(parse, i))
+			dup2(parse->sub_lvl[parse->current_lvl][1], 1);*/
 	}
 	else
 	{
@@ -79,8 +79,8 @@ static void	ft_handle_child(t_parse *parse, t_object *task, size_t i)
 			dup2(parse->redirect[task->outfile]->fd, 1);
 		else if (parse->task[i + 1]->lvl == task->lvl)
 			dup2(task->pipe[1], 1);
-		else
-			dup2(parse->sub_lvl[parse->current_lvl][1], 1);
+		/*else
+			dup2(parse->sub_lvl[parse->current_lvl][1], 1);*/
 	}
 	ft_close_fds(parse, i);
 }
@@ -88,14 +88,22 @@ static void	ft_handle_child(t_parse *parse, t_object *task, size_t i)
 static void	ft_handle_parent(t_parse *parse, t_object *task, size_t i)
 {
 	if (task->pipe[1] != -1)
+	{
 		close(task->pipe[1]);
-	if ((parse->task[i + 1] && parse->task[i + 1]->lvl != task->lvl)
+		task->pipe[1] = -1;
+	}
+/*	if ((parse->task[i + 1] && parse->task[i + 1]->lvl != task->lvl)
 		&& parse->sub_lvl[parse->current_lvl][1] != -1)
+	{
 		close(parse->sub_lvl[parse->current_lvl][1]);
-	if ((i != 0 && parse->task[i - 1]->lvl != task->lvl)
+		parse->sub_lvl[parse->current_lvl][1] = -1;
+	}*/
+/*	if ((i != 0 && parse->task[i - 1]->lvl != task->lvl)
 		&& parse->sub_lvl[parse->current_lvl - 1][1] != -1)
+	{
 		close(parse->sub_lvl[parse->current_lvl - 1][1]);
-	task->pipe[1] = -1;
+		parse->sub_lvl[parse->current_lvl - 1][1] = -1;
+	}*/
 	if (task->link == PIPE && parse->task[i - 1]->pipe[0] != -1)
 	{
 		close(parse->task[i - 1]->pipe[0]);
@@ -105,10 +113,16 @@ static void	ft_handle_parent(t_parse *parse, t_object *task, size_t i)
 		|| parse->task[i + 1]->lvl != task->lvl)
 	{
 		if (task->pipe[0] != -1)
+		{
 			close(task->pipe[0]);
-		if (parse->current_lvl != 0
+			task->pipe[0] = -1;
+		}
+/*		if (parse->current_lvl != 0
 			&& parse->sub_lvl[parse->current_lvl - 1][0] != -1)
+		{
 			close(parse->sub_lvl[parse->current_lvl - 1][0]);
+			parse->sub_lvl[parse->current_lvl - 1][0] = -1;
+		}*/
 		waitpid(task->pid, &task->status, 0);
 		if (WIFEXITED(task->status))
 			ft_excmd_result(parse, WEXITSTATUS(task->status));

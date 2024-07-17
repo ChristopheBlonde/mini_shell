@@ -6,13 +6,79 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 07:40:19 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/15 09:53:18 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/17 10:18:56 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	ft_init_lvl(t_parse *parse)
+static void	ft_def_sub(t_parse *parse, size_t n)
+{
+	size_t	i;
+	size_t	j;
+	t_lvl	lvl;
+
+	i = 0;
+	while (i < n)
+	{
+		lvl = parse->sub_lvl[i];
+		j = lvl.befor + 1;
+		while (j < (size_t)lvl.after)
+		{
+			parse->task[j]->i_sub = i;
+			j++;
+		}
+		i++;
+	}
+}
+
+static void	ft_init_lvl(t_parse *parse, size_t cur_sub, size_t i, size_t cur_o)
+{
+	t_lvl	lvl;
+	int		open;
+	open = cur_o;
+	//pipe(lvl.pipe);
+	lvl.befor = (int)i - 1;
+	while (parse->task[i + 1] && parse->task[i++])
+	{
+		if (parse->task[i]->open != 0)
+			open += parse->task[i]->open;
+		if (parse->task[i]->close != 0)
+			open -= parse->task[i]->close;
+		if (open <= 0)
+			break ;
+	}
+	lvl.after = (int)i + 1;
+	lvl.status = -1;
+//	printf("cur_sub:%zu, befor:%d, afer:%d\n", cur_sub, lvl.befor, lvl.after);
+	parse->sub_lvl[cur_sub] = lvl;
+}
+
+static void	ft_open_sub_lvl(t_parse *parse)
+{
+	int open;
+	int	i;
+	int	cur_sub;
+
+	i = 0;
+	cur_sub = 0;
+	while (parse->task[i])
+	{
+		if (parse->task[i]->open != 0)
+		{
+			open = parse->task[i]->open;
+			while (open > 0)
+			{
+				ft_init_lvl(parse, cur_sub, i, open);
+				cur_sub++;
+				open--;
+			}
+		}
+		i++;
+	}
+}
+
+bool	ft_init_sub_lvl(t_parse *parse)
 {
 	size_t	i;
 	size_t	count;
@@ -21,21 +87,15 @@ bool	ft_init_lvl(t_parse *parse)
 	count = 0;
 	while (parse->task[i])
 	{
-		if (i == 0)
-			count++;
-		else if (parse->task[i]->lvl != parse->task[i - 1]->lvl)
-			count++;
+		if (parse->task[i]->open != 0)
+			count += parse->task[i]->open;
 		i++;
 	}
-	parse->sub_lvl = ft_calloc(count + 1, sizeof(int [2]));
+	parse->sub_lvl = ft_calloc(count + 1, sizeof(t_lvl));
 	if (!parse->sub_lvl)
 		return (false);
-	i = 0;
-	while (i < count)
-	{
-		parse->sub_lvl[i][0] = -1;
-		parse->sub_lvl[i][1] = -1;
-		i++;
-	}
+	parse->n_sub = count;
+	ft_open_sub_lvl(parse);
+	ft_def_sub(parse, count);
 	return (true);
 }

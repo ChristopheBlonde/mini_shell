@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/12 08:08:21 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/17 09:18:07 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,22 @@ typedef enum e_file_operation
 	HEREDOC
 }	t_file_operation;
 
+typedef struct	s_lvl
+{
+	int	pipe[2];
+	int	befor;
+	int	after;
+	int	status;
+}	t_lvl;
+
 typedef struct s_parse
 {
 	struct s_object				**task;
 	char						**env;
 	char						*input;
 	struct s_file_descriptor	**redirect;
-	int							(*sub_lvl)[2];
-	int							current_lvl;
+	t_lvl						*sub_lvl;
+	size_t						n_sub;
 }	t_parse;
 
 typedef struct s_file_descriptor
@@ -78,6 +86,9 @@ typedef struct s_object
 	pid_t		pid;
 	t_link		link;
 	t_builtin	builtin;
+	int			open;
+	int			close;
+	int			i_sub;
 }	t_object;
 
 typedef struct s_elem
@@ -132,6 +143,6 @@ bool				need_split(char *cmd);
 char				**new_split(char **cmd);
 bool				ft_split_args(char *cmd, char **new_cmd, int *index);
 void				check_for_ambigous_redirect(char *input, int *code);
-bool				ft_init_lvl(t_parse *parse);
+bool				ft_init_sub_lvl(t_parse *parse);
 
 #endif
