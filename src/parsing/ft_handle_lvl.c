@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 07:40:19 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/17 16:52:49 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/17 17:00:14 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static void	ft_init_lvl(t_parse *parse, size_t cur_sub, size_t i, size_t cur_o)
 	}
 	lvl.after = (int)i + 1;
 	lvl.status = -1;
-	//pipe(lvl.pipe);
 	parse->sub_lvl[cur_sub] = lvl;
 }
 

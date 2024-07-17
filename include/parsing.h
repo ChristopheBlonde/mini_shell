@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/17 09:18:07 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/17 17:12:10 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef enum e_file_operation
 	HEREDOC
 }	t_file_operation;
 
-typedef struct	s_lvl
+typedef struct s_lvl
 {
 	int	pipe[2];
 	int	befor;
