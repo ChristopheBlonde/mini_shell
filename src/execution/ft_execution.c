@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/17 11:21:23 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/17 16:48:09 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,10 @@ static void	ft_wait_all(t_parse *parse)
 	ft_sig_init(1);
 }
 
-static void	ft_close_sub(t_parse *parse,size_t cur_sub, size_t i, int status)
+static void	ft_close_sub(t_parse *parse, size_t cur_sub, size_t i, int status)
 {
 	if (cur_sub != 0)
 	{
-		printf("exit after while sub lvl[%zu]\n", cur_sub);
 		status = parse->task[i - 1]->status;
 		ft_free_all(parse);
 		exit(status);
@@ -104,10 +103,10 @@ bool	ft_execution(t_parse *parse)
 	{
 		if (!ft_is_subexec(parse, &sub_lvl, &cur_sub, &i))
 			return (true);
-		if (parse->task[i]->open == 0 && cur_sub == parse->task[i]->lvl)
+		if (cur_sub == parse->task[i]->lvl)
 		{
-			if (!ft_exec_cmd(parse, &i))
-					break ;
+			if (!ft_exec_cmd(parse, &i, cur_sub))
+				break ;
 		}
 		else if (!parse->task[i + 1])
 			i++;

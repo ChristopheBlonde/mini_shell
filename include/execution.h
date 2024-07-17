@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:48:47 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/10 15:06:49 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/17 16:55:49 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ void	handle_bad_fd(t_parse *parse, t_object *task, size_t index);
 void	ft_handle_error_exec(char *str);
 bool	ft_is_subexec(t_parse *parse, pid_t *sub_lvl,
 			size_t *cur_sub, size_t *i);
-bool	ft_exec_cmd(t_parse *parse, size_t *i);
+bool	ft_exec_cmd(t_parse *parse, size_t *i, size_t cur_sub);
 void	ft_exec_pipe(t_parse *parse, size_t *i);
 bool	ft_exec_or(t_parse *parse, size_t *i);
 bool	ft_exec_and(t_parse *parse, size_t *i);
 bool	ft_parse_befor_exec(t_parse *parse, size_t i);
+void	ft_exit_forks(t_parse *parse, size_t i, int status, size_t cur_sub);
 
 #endif

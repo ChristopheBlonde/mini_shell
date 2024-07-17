@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 07:40:19 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/17 10:18:56 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/17 16:52:49 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ static void	ft_init_lvl(t_parse *parse, size_t cur_sub, size_t i, size_t cur_o)
 {
 	t_lvl	lvl;
 	int		open;
+
 	open = cur_o;
-	//pipe(lvl.pipe);
 	lvl.befor = (int)i - 1;
 	while (parse->task[i + 1] && parse->task[i++])
 	{
@@ -50,13 +50,13 @@ static void	ft_init_lvl(t_parse *parse, size_t cur_sub, size_t i, size_t cur_o)
 	}
 	lvl.after = (int)i + 1;
 	lvl.status = -1;
-//	printf("cur_sub:%zu, befor:%d, afer:%d\n", cur_sub, lvl.befor, lvl.after);
+	//pipe(lvl.pipe);
 	parse->sub_lvl[cur_sub] = lvl;
 }
 
 static void	ft_open_sub_lvl(t_parse *parse)
 {
-	int open;
+	int	open;
 	int	i;
 	int	cur_sub;
 

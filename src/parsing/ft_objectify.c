@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:19:04 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/16 12:37:16 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/17 16:49:01 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ static size_t	ft_get_lvl_parentheses(t_object *task, size_t lvl)
 			if (quote == -1 && task->cmd[i][j] == ')')
 				count--;
 		}
-	}	
+	}
 	return ((int)lvl + count);
 }
 
