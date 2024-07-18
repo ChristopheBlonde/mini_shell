@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/18 09:01:13 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/18 17:53:55 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ typedef struct s_handle_env
 	int		cur_count;
 	size_t	size;
 	t_elem	*info;
+	bool	need;
 }	t_he;
 
 int					ft_check_and_operator(char *input);
@@ -144,5 +145,6 @@ char				**new_split(char **cmd);
 bool				ft_split_args(char *cmd, char **new_cmd, int *index);
 void				check_for_ambigous_redirect(char *input, int *code);
 bool				ft_init_sub_lvl(t_parse *parse);
+bool				ft_check_wildcard(char *args);
 
 #endif

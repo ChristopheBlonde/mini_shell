@@ -6,13 +6,13 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:43:47 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/18 09:32:50 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/18 16:58:15 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	ft_check_wildcard(char *args)
+bool	ft_check_wildcard(char *args)
 {
 	size_t	i;
 	char	quote;
@@ -110,8 +110,6 @@ static t_list	*ft_cmd_to_list(t_object *task)
 			ft_unquote(wc);
 			ft_lstinsert(&lst, ft_listdir(wc), &current);
 		}
-		else if (ft_quoted(current->content))
-			ft_strqcpy(current->content);
 		current = current->next;
 		i++;
 	}

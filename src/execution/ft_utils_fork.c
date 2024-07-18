@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 16:54:32 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/17 17:10:35 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/18 20:12:54 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_exit_forks(t_parse *parse, size_t i, int status, size_t cur_sub)
 	if (status == 0 && cur_sub != 0
 		&& parse->task[i] && parse->task[i]->close != 0)
 	{
+		printf("sortie apres fork %d task[%s]\n", parse->task[i]->status, parse->task[i]->cmd[0]);
 		status = parse->task[i]->status;
 		ft_free_all(parse);
 		exit(status);

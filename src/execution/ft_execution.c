@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/17 16:48:09 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/18 20:19:22 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ bool	ft_exec_and(t_parse *parse, size_t *i)
 {
 	if (parse->task[*i] && parse->task[*i]->link == AND)
 	{
+		printf("status: %d, command %s\n", parse->task[*i - 1]->status, parse->task[*i - 1]->cmd[0]);
 		if (parse->task[*i - 1]->status == 0)
 		{
 			ft_exec(parse, parse->task[*i], *i);
@@ -83,7 +84,8 @@ static void	ft_close_sub(t_parse *parse, size_t cur_sub, size_t i, int status)
 {
 	if (cur_sub != 0)
 	{
-		status = parse->task[i - 1]->status;
+		printf("sortie boucle: %d\n", parse->task[i]->status);
+		status = parse->task[i]->status;
 		ft_free_all(parse);
 		exit(status);
 	}

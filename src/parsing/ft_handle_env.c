@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 19:29:40 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/05 09:48:38 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/18 20:43:44 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ static void	ft_join_list(t_elem *elem, char *s, size_t index)
 		tmp = ft_substr(s, 0, index);
 		if (!tmp)
 			return ;
-		elem->lst->content = ft_strfjoin(tmp, (char *)elem->lst->content, 3);
+		if(elem->lst && elem->lst->content)
+			elem->lst->content = ft_strfjoin(tmp, (char *)elem->lst->content, 3);
 	}
 	if (s[start])
 	{
@@ -136,9 +137,23 @@ void	ft_handle_env(t_parse *parse, int k)
 		ft_init_elem(&he.info[i[1]]);
 		he.cur_count = ft_count_dollar(he.cur->content);
 		if (he.cur_count != 0)
+		{
+			ft_strqcpy(he.cur->content);
+			he.need = false;
+		}
+//		printf("str:%s need unquote:%s\n", (char *)he.cur->content,he.need ? "true" : "false");
+		if ( he.need
+			&& ft_quoted((char *)he.cur->content)
+			&& !ft_check_wildcard((char *)he.cur->content))
+		{
+//			printf("tu unquote\n");
+			ft_strqcpy(he.cur->content);
+		}
+		if (he.cur_count != 0)
 			ft_handle_dollar(parse, &he, &he.info[i[1]]);
 		if (he.cur_count == 0 && he.cur)
 		{
+			he.need = true;
 			he.cur = he.cur->next;
 			i[1]++;
 		}
