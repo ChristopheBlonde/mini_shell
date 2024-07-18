@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:56:25 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/18 09:56:31 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/18 10:44:37 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,30 +38,24 @@ void	ft_strqcpy(char *s)
 	char	*write;
 	char	quote;
 
-	printf("passe la\n");
 	if (!s)
 		return ;
 	read = s;
 	write = s;
 	quote = '\0';
-	while (read && *read)
+	while (*read)
 	{
 		if (!quote && (*read == '\'' || *read == '"'))
+			quote = *read++;
+		else if (!quote || (*read != quote))
+			*write++ = *read++;
+		else
 		{
-			quote = *read;
+			quote = '\0';
 			read++;
 		}
-		if (!quote || (*read != quote))
-		{
-			*write = *read;
-			write++;
-		}
-		else
-			quote = '\0';
-		read++;
 	}
 	*write = '\0';
-	printf("str: %s$\n", s);
 }
 
 void	in_quote(char *input, int *quote, int i)

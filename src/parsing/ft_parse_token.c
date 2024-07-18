@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 08:17:08 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/17 17:45:41 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/18 10:47:31 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,5 @@ bool	ft_parse_token(t_parse *parse, char *input)
 	ft_clean_dollar(parse);
 	ft_builtin(parse);
 	ft_free_array((void **)arr);
-	for (int i = 0; parse->task[i]; i++)
-		for (int j = 0; parse->task[i]->cmd[j]; j++)
-			printf("task[%d] cmd[%d] value:%s\n", i, j, parse->task[i]->cmd[j]);
 	return (true);
 }
