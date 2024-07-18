@@ -6,13 +6,13 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:47:35 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/04 08:23:14 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/18 11:10:27 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-static void	ft_check_builtin(t_object *task, char *cmd, size_t len)
+void	ft_check_builtin(t_object *task, char *cmd, size_t len)
 {
 	if (!cmd)
 		return ;

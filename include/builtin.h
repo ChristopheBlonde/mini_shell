@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:43:25 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/15 10:48:19 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/18 11:11:23 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int		ft_exit(t_parse *parse, t_object *task);
 int		ft_get_index_env(char **arr, char *var, int arr_len);
 char	*ft_getenv(t_parse *parse, char *var);
 void	ft_builtin(t_parse *parse);
+void	ft_check_builtin(t_object *task, char *cmd, size_t len);
 bool	ft_syntax_env(char *env, size_t n);
 void	ft_error_env(char *env, size_t n);
 
