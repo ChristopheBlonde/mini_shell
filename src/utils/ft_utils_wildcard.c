@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:43:47 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/20 22:56:11 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/07/18 09:33:52 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ void	ft_unquote(t_wc *wc)
 
 	current = wc->middle;
 	if (wc->start && ft_quoted(wc->start))
-		wc->start = ft_strqcpy(wc->start);
+		ft_strqcpy(wc->start);
 	if (wc->end && ft_quoted(wc->end))
-		wc->end = ft_strqcpy(wc->end);
+		ft_strqcpy(wc->end);
 	while (current)
 	{
 		if (ft_quoted(current->content))
-			current->content = ft_strqcpy(current->content);
+			ft_strqcpy(current->content);
 		current = current->next;
 	}
 }

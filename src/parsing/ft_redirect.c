@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 11:01:13 by cblonde           #+#    #+#             */
-/*   Updated: 2024/06/20 22:55:36 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/07/18 09:06:22 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static t_file_descriptor	*ft_create_redirect(char *op,
 	fd->fd = -1;
 	fd->type = ft_redirect_type(op);
 	if (fd->in_quote)
-		fd->file = ft_strqcpy(file);
+		ft_strqcpy(fd->file);
 	fd->task = index;
 	return (fd);
 }

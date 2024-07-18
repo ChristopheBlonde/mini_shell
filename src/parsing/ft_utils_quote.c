@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:56:25 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/01 12:21:39 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/18 09:56:31 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,32 +32,36 @@ bool	check_quote(char *str)
 	return (quote == -1);
 }
 
-char	*ft_strqcpy(char *s)
+void	ft_strqcpy(char *s)
 {
-	char	*result;
-	int		quote;
-	size_t	i;
-	size_t	j;
+	char	*read;
+	char	*write;
+	char	quote;
 
-	result = (char *)ft_calloc(ft_strlen(s) - 1, sizeof(char));
-	if (!result)
-		return (NULL);
-	i = 0;
-	j = 0;
-	quote = -1;
-	while (s[i])
+	printf("passe la\n");
+	if (!s)
+		return ;
+	read = s;
+	write = s;
+	quote = '\0';
+	while (read && *read)
 	{
-		if (quote == -1 && (s[i] == '\'' || s[i] == '\"'))
-			quote = i++;
-		if (quote == -1 || (quote != (int)i && s[i] != s[quote]))
-			result[j++] = s[i];
+		if (!quote && (*read == '\'' || *read == '"'))
+		{
+			quote = *read;
+			read++;
+		}
+		if (!quote || (*read != quote))
+		{
+			*write = *read;
+			write++;
+		}
 		else
-			quote = -1;
-		if (s[i] != '\0')
-			i++;
+			quote = '\0';
+		read++;
 	}
-	free(s);
-	return (result);
+	*write = '\0';
+	printf("str: %s$\n", s);
 }
 
 void	in_quote(char *input, int *quote, int i)

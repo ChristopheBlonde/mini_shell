@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 10:24:36 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/15 10:46:14 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/18 10:06:07 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	ft_exec_unset(t_parse *parse, t_object *task)
 	while (task->cmd[i])
 	{
 		ft_unset(parse, task->cmd[i]);
-		if (!strncmp(ft_getenv(parse, "?"), "1", -1))
+		if (!ft_strncmp(ft_getenv(parse, "?"), "1", -1))
 			fail = true;
 		i++;
 	}

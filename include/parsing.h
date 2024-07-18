@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/17 17:12:10 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/18 09:01:13 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void				ft_objectify(t_parse *parse);
 void				ft_redirection(t_parse *parse);
 bool				check_quote(char *str);
 bool				ft_quoted(char *str);
-char				*ft_strqcpy(char *s);
+void				ft_strqcpy(char *s);
 char				**ft_split_with_quotes(char *str, char delimiter);
 void				in_quote(char *input, int *quote, int i);
 void				ft_redirect_task(t_object *task, char *input,
