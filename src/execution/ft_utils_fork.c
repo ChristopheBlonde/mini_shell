@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 16:54:32 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/18 20:12:54 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/19 12:50:24 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	ft_exit_forks(t_parse *parse, size_t i, int status, size_t cur_sub)
 	if (status == 0 && cur_sub != 0
 		&& parse->task[i] && parse->task[i]->close != 0)
 	{
-		printf("sortie apres fork %d task[%s]\n", parse->task[i]->status, parse->task[i]->cmd[0]);
 		status = parse->task[i]->status;
 		ft_free_all(parse);
 		exit(status);
@@ -43,14 +42,85 @@ void	ft_exit_forks(t_parse *parse, size_t i, int status, size_t cur_sub)
 
 void	ft_handle_exit_parent(t_parse *parse, t_object *task)
 {
+	int res;
+
+	res = task->status;
 	if (WIFEXITED(task->status))
-		ft_excmd_result(parse, WEXITSTATUS(task->status));
+	{ 	res = WEXITSTATUS(task->status);
+		ft_excmd_result(parse, res);
+	}
 	if (WIFSIGNALED(task->status))
-		ft_excmd_result(parse, 128 + WTERMSIG(task->status));
+	{
+		res = 128 + WTERMSIG(task->status);
+		ft_excmd_result(parse, res);
+	}
 	if (WIFSTOPPED(task->status))
-		ft_excmd_result(parse, WSTOPSIG(task->status));
+	{
+		res = WSTOPSIG(task->status);
+		ft_excmd_result(parse, res);
+	}
 	if (WIFCONTINUED(task->status))
 	{
+		res = 0;
 		ft_excmd_result(parse, 0);
 	}
+	task->status = res;
+}
+
+int	ft_and_sublvl(t_parse *parse, size_t *i)
+{
+	printf("-->and task lvl %zu, sub_lvl status %d\n", parse->task[*i - 1]->lvl,
+			parse->sub_lvl[parse->task[*i - 1]->i_sub].status);
+	if (parse->sub_lvl[parse->task[*i - 1]->i_sub].status == -1)
+		return (2);
+	if (parse->task[*i - 1]->lvl != 0
+		&& parse->sub_lvl[parse->task[*i - 1]->i_sub].status == 0)	
+		{
+			ft_exec(parse, parse->task[*i], *i);
+			if (parse->task[*i + 1] && parse->task[*i + 1]->link == PIPE)
+				*i += 1;
+			else
+				return (0);
+			while (parse->task[*i] && parse->task[*i]->link == PIPE
+				&& parse->task[*i]->lvl == parse->task[*i - 1]->lvl)
+			{
+				ft_exec(parse, parse->task[*i], *i);
+				if (parse->task[*i + 1] && parse->task[*i + 1]->link == PIPE)
+					*i += 1;
+				else
+					return (0);
+			}
+		}
+		else
+			return (1);
+	return (2);
+}
+
+int ft_or_sublvl(t_parse *parse, size_t *i)
+{
+	printf("-->or task lvl %zu, sub_lvl status %d\n", parse->task[*i]->lvl,
+			parse->sub_lvl[parse->task[*i]->i_sub].status);
+	if (parse->sub_lvl[parse->task[*i]->i_sub].status == -1)
+		return (2);
+	if (parse->task[*i - 1]->lvl != 0
+		&& parse->sub_lvl[parse->task[*i - 1]->i_sub].status > 0)	
+		{
+			ft_exec(parse, parse->task[*i], *i);
+			if (parse->task[*i + 1] && parse->task[*i + 1]->link == PIPE)
+				*i += 1;
+			else
+				return (0);
+			while (parse->task[*i] && parse->task[*i]->link == PIPE
+				&& parse->task[*i]->lvl == parse->task[*i - 1]->lvl)
+			{
+				ft_exec(parse, parse->task[*i], *i);
+				if (parse->task[*i + 1] && parse->task[*i + 1]->link == PIPE)
+					*i += 1;
+				else
+					return (0);
+			}
+		}
+		else
+			return (1);
+	return (2);
 }
