@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/19 12:48:10 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/19 13:00:02 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,7 @@ bool	ft_exec_or(t_parse *parse, size_t *i)
 
 	if (parse->task[*i] && parse->task[*i]->link == OR)
 	{
-		printf("in OR status: %d, command %s, status fork %d, lvl %zu\n",
-			parse->task[*i - 1]->status, parse->task[*i - 1]->cmd[0],
-			parse->sub_lvl[parse->task[*i - 1]->i_sub].status,
-			parse->task[*i - 1]->lvl);
 		in_sublvl = ft_or_sublvl(parse, i);
-		printf("in_sublvl: %d\n", in_sublvl);
 		if (in_sublvl == 0)
 			return (true);
 		else if (in_sublvl == 1)
@@ -57,10 +52,6 @@ bool	ft_exec_and(t_parse *parse, size_t *i)
 
 	if (parse->task[*i] && parse->task[*i]->link == AND)
 	{
-		printf("in AND status: %d, command %s, status fork %d, lvl %zu\n",
-			parse->task[*i - 1]->status, parse->task[*i - 1]->cmd[0],
-			parse->sub_lvl[parse->task[*i - 1]->i_sub].status,
-			parse->task[*i - 1]->lvl);
 		in_sublvl = ft_and_sublvl(parse, i);
 		if (in_sublvl == 0)
 			return (true);
@@ -106,9 +97,6 @@ static void	ft_close_sub(t_parse *parse, size_t cur_sub, size_t i, int status)
 {
 	if (cur_sub != 0)
 	{
-		printf("sortie boucle: status task %d, status fork %d\n",
-				parse->task[i]->status,
-				parse->sub_lvl[parse->task[i]->i_sub].status);
 		if (parse->task[i]->link == OR)
 			parse->sub_lvl[parse->task[i]->i_sub].status
 				= parse->task[i]->status;

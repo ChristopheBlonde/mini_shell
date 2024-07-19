@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:24:36 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/19 12:41:41 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/19 13:00:55 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,6 @@ bool	ft_is_subexec(t_parse *parse, pid_t *sub_lvl,
 			ft_handle_exit_parent(parse, parse->task[*i]);
 			parse->sub_lvl[parse->task[*i]->i_sub].status
 				= parse->task[*i]->status;
-			printf("exit fork status %d, cmd %s, sub_lvl %zu,\
- i_sub %d, sub_lvl status %d\n",
-				parse->task[*i]->status, parse->task[*i]->cmd[0],
-				parse->task[*i]->lvl, parse->task[*i]->i_sub,
-				parse->sub_lvl[parse->task[*i]->i_sub].status);
 		}
 	}
 	ft_skip_task(parse, cur_sub, i);

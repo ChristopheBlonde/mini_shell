@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 16:54:32 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/19 12:50:24 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/19 13:00:02 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ void	ft_handle_exit_parent(t_parse *parse, t_object *task)
 
 int	ft_and_sublvl(t_parse *parse, size_t *i)
 {
-	printf("-->and task lvl %zu, sub_lvl status %d\n", parse->task[*i - 1]->lvl,
-			parse->sub_lvl[parse->task[*i - 1]->i_sub].status);
 	if (parse->sub_lvl[parse->task[*i - 1]->i_sub].status == -1)
 		return (2);
 	if (parse->task[*i - 1]->lvl != 0
@@ -98,8 +96,6 @@ int	ft_and_sublvl(t_parse *parse, size_t *i)
 
 int ft_or_sublvl(t_parse *parse, size_t *i)
 {
-	printf("-->or task lvl %zu, sub_lvl status %d\n", parse->task[*i]->lvl,
-			parse->sub_lvl[parse->task[*i]->i_sub].status);
 	if (parse->sub_lvl[parse->task[*i]->i_sub].status == -1)
 		return (2);
 	if (parse->task[*i - 1]->lvl != 0
