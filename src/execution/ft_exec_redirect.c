@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:43:17 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/10 15:06:02 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/21 01:04:12 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ bool	ft_open_heredoc(t_parse *parse)
 	i = 0;
 	if (!parse->redirect)
 		return (true);
-	ft_handle_free_heredoc(NULL, NULL, NULL);
 	while (parse->redirect[i])
 	{
+		ft_handle_free_heredoc(NULL, NULL, NULL);
 		if (g_exit_code == 130)
 			return (false);
 		file = (t_file_descriptor *)parse->redirect[i];

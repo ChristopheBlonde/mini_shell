@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/03 15:24:05 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/21 00:44:26 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	sig_handler_heredoc(int sig)
 		g_exit_code = 130;
 		ft_putstr_fd("\n", 1);
 		ft_handle_free_heredoc(NULL, NULL, NULL);
-		exit(1);
+		exit(130);
 	}
 }
 

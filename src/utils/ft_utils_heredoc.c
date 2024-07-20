@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:59:40 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/03 15:23:41 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/21 01:00:30 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,6 @@ void	ft_fork_heredoc(t_parse *parse, char *arr[3], int index)
 		exit(0);
 	}
 	waitpid(pid, &status, 0);
+	if (status != 0)
+		g_exit_code = 130;
 }
