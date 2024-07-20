@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:19:04 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/17 16:49:01 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/20 22:16:58 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,6 @@ void	ft_objectify(t_parse *parse)
 			parse->task[i]->link = NO_LINK;
 		ft_clean_operator(parse->task[i]);
 		ft_delete_parentheses(parse->task[i]);
-		if (!parse->task[i]->cmd[0])
-		{
-			ft_putendl_fd(
-				"minishell: syntax error near unexpected token `)'", 2);
-			ft_excmd_result(parse, 2);
-		}
 		i++;
 	}
 }

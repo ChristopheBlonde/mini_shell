@@ -6,13 +6,13 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:24:36 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/20 16:46:43 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/20 22:18:58 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_skip_task(t_parse *parse, size_t *cur_sub, size_t *i)
+static void	ft_skip_task(t_parse *parse, size_t *cur_sub, size_t *i, int n)
 {
 	size_t	tmp;
 
@@ -20,9 +20,20 @@ static void	ft_skip_task(t_parse *parse, size_t *cur_sub, size_t *i)
 	while (parse->task[*i] && parse->task[*i + 1]
 		&& parse->task[*i]->lvl > *cur_sub)
 	{
-		if (*i != tmp && parse->task[*i]->lvl == *cur_sub + 1
-			&& (parse->sub_lvl[parse->task[*i]->i_sub].after - 1) == (int)*i)
-			break ;
+		if (n == 0)
+		{
+			if (*i != tmp && parse->task[*i]->lvl == *cur_sub + 1
+				&& (parse->sub_lvl[parse->task[*i]->i_sub].after - 1)
+				== (int)*i)
+				break ;
+		}
+		else
+		{
+			if (*i != tmp && parse->task[*i]->open != 0
+				&& (parse->sub_lvl[parse->task[*i]->i_sub].befor + 1)
+				== (int)*i)
+				break ;
+		}
 		(*i)++;
 	}
 }
@@ -30,7 +41,7 @@ static void	ft_skip_task(t_parse *parse, size_t *cur_sub, size_t *i)
 static void	ft_handle_subparent(t_parse *parse, pid_t *sub_lvl,
 	size_t *cur_sub, size_t *i)
 {
-	ft_skip_task(parse, cur_sub, i);
+	ft_skip_task(parse, cur_sub, i, 0);
 	waitpid(*sub_lvl, &parse->task[*i]->status, 0);
 	ft_handle_exit_parent(parse, parse->task[*i]);
 	parse->sub_lvl[parse->task[*i]->i_sub].status
@@ -56,7 +67,7 @@ bool	ft_is_subexec(t_parse *parse, pid_t *sub_lvl,
 		else
 			ft_handle_subparent(parse, sub_lvl, cur_sub, i);
 	}
-	ft_skip_task(parse, cur_sub, i);
+	ft_skip_task(parse, cur_sub, i, 1);
 	ft_exit_forks(parse, *i, 2, *cur_sub);
 	if (parse->task[*i] && parse->task[*i]->cmd[0]
 		&& parse->task[*i]->cmd[0][0] == '\0')
@@ -66,6 +77,9 @@ bool	ft_is_subexec(t_parse *parse, pid_t *sub_lvl,
 
 bool	ft_exec_cmd(t_parse *parse, size_t *i, size_t cur_sub)
 {
+	bool	skip;
+
+	skip = false;
 	if (!ft_is_fork(parse, *i))
 	{
 		if (!ft_parse_befor_exec(parse, *i))
@@ -77,14 +91,15 @@ bool	ft_exec_cmd(t_parse *parse, size_t *i, size_t cur_sub)
 		if (parse->task[*i] && parse->task[*i]->cmd)
 		{
 			if (!ft_exec_pipe(parse, i))
-				return (true);
-			if (!ft_exec_or(parse, i))
+				skip = true;
+			if (!skip && !ft_exec_or(parse, i))
 				return (false);
-			if (!ft_exec_and(parse, i))
+			if (!skip && !ft_exec_and(parse, i))
 				return (false);
 		}
 		ft_exit_forks(parse, *i, 0, cur_sub);
-		(*i)++;
+		if (!skip)
+			(*i)++;
 	}
 	return (true);
 }

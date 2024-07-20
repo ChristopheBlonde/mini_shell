@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/20 14:57:18 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/20 23:50:33 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,12 @@ bool	ft_exec(t_parse *parse, t_object *task, size_t i)
 {
 	if (!ft_parse_befor_exec(parse, i))
 		return (false);
+	if (!parse->task[i]->cmd[0])
+		return (true);
 	pipe(task->pipe);
 	task->pid = fork();
 	if (task->pid < 0)
-	{
 		ft_putendl_fd(strerror(errno), 2);
-		return (false);
-	}
 	if (task->pid == 0)
 	{
 		handle_bad_fd(parse, task, i);

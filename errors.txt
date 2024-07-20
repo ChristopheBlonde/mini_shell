@@ -1,3 +1,5 @@
 Error exit code;
 -------
 (echo a && ls b) && (echo a || echo b) || echo c
+
+Error exit code $EMPTY
