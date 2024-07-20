@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:47:35 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/18 11:10:27 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/20 14:15:47 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_check_builtin(t_object *task, char *cmd, size_t len)
 {
-	if (!cmd)
+	if (!cmd || !cmd[0])
 		return ;
 	if (!ft_strncmp(cmd, "echo", len) && len == 4)
 		task->builtin = ECHO;

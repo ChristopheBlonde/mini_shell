@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:38:45 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/19 13:00:02 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/20 16:48:18 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,14 @@ bool	ft_exec_or(t_parse *parse, size_t *i)
 	if (parse->task[*i] && parse->task[*i]->link == OR)
 	{
 		in_sublvl = ft_or_sublvl(parse, i);
-		if (in_sublvl == 0)
+		if (in_sublvl == 0 || in_sublvl == 3)
 			return (true);
 		else if (in_sublvl == 1)
 			return (false);
 		if (parse->task[*i - 1]->status > 0)
 		{
-			ft_exec(parse, parse->task[*i], *i);
-			if (parse->task[*i + 1] && parse->task[*i + 1]->link == PIPE)
-				*i += 1;
-			else
-				return (true);
-			while (parse->task[*i] && parse->task[*i]->link == PIPE
-				&& parse->task[*i]->lvl == parse->task[*i - 1]->lvl)
-			{
-				ft_exec(parse, parse->task[*i], *i);
-				if (parse->task[*i + 1] && parse->task[*i + 1]->link == PIPE)
-					*i += 1;
-				else
-					return (true);
-			}
+			ft_exec_while_pipe(parse, i);
+			return (true);
 		}
 		else
 			return (false);
@@ -53,26 +41,14 @@ bool	ft_exec_and(t_parse *parse, size_t *i)
 	if (parse->task[*i] && parse->task[*i]->link == AND)
 	{
 		in_sublvl = ft_and_sublvl(parse, i);
-		if (in_sublvl == 0)
+		if (in_sublvl == 0 || in_sublvl == 3)
 			return (true);
 		else if (in_sublvl == 1)
 			return (false);
 		if (parse->task[*i - 1]->status == 0)
 		{
-			ft_exec(parse, parse->task[*i], *i);
-			if (parse->task[*i + 1] && parse->task[*i + 1]->link == PIPE)
-				*i += 1;
-			else
-				return (true);
-			while (parse->task[*i] && parse->task[*i]->link == PIPE
-				&& parse->task[*i]->lvl == parse->task[*i - 1]->lvl)
-			{
-				ft_exec(parse, parse->task[*i], *i);
-				if (parse->task[*i + 1] && parse->task[*i + 1]->link == PIPE)
-					*i += 1;
-				else
-					return (true);
-			}
+			ft_exec_while_pipe(parse, i);
+			return (true);
 		}
 		else
 			return (false);

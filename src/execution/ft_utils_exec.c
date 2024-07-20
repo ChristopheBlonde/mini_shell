@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/18 15:59:28 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/20 14:57:18 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,16 +110,16 @@ static void	ft_handle_status(t_parse *parse, t_object *task)
 	exit(status);
 }
 
-void	ft_exec(t_parse *parse, t_object *task, size_t i)
+bool	ft_exec(t_parse *parse, t_object *task, size_t i)
 {
 	if (!ft_parse_befor_exec(parse, i))
-		return ;
+		return (false);
 	pipe(task->pipe);
 	task->pid = fork();
 	if (task->pid < 0)
 	{
 		ft_putendl_fd(strerror(errno), 2);
-		return ;
+		return (false);
 	}
 	if (task->pid == 0)
 	{
@@ -135,4 +135,5 @@ void	ft_exec(t_parse *parse, t_object *task, size_t i)
 	}
 	else
 		ft_handle_parent(parse, task, i);
+	return (true);
 }

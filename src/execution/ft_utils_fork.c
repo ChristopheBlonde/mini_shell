@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 16:54:32 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/19 13:00:02 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/20 16:50:44 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,12 @@ void	ft_exit_forks(t_parse *parse, size_t i, int status, size_t cur_sub)
 
 void	ft_handle_exit_parent(t_parse *parse, t_object *task)
 {
-	int res;
+	int	res;
 
 	res = task->status;
 	if (WIFEXITED(task->status))
-	{ 	res = WEXITSTATUS(task->status);
+	{
+		res = WEXITSTATUS(task->status);
 		ft_excmd_result(parse, res);
 	}
 	if (WIFSIGNALED(task->status))
@@ -71,52 +72,50 @@ int	ft_and_sublvl(t_parse *parse, size_t *i)
 {
 	if (parse->sub_lvl[parse->task[*i - 1]->i_sub].status == -1)
 		return (2);
-	if (parse->task[*i - 1]->lvl != 0
-		&& parse->sub_lvl[parse->task[*i - 1]->i_sub].status == 0)	
-		{
-			ft_exec(parse, parse->task[*i], *i);
-			if (parse->task[*i + 1] && parse->task[*i + 1]->link == PIPE)
-				*i += 1;
-			else
-				return (0);
-			while (parse->task[*i] && parse->task[*i]->link == PIPE
-				&& parse->task[*i]->lvl == parse->task[*i - 1]->lvl)
-			{
-				ft_exec(parse, parse->task[*i], *i);
-				if (parse->task[*i + 1] && parse->task[*i + 1]->link == PIPE)
-					*i += 1;
-				else
-					return (0);
-			}
-		}
+	if (parse->sub_lvl[parse->task[*i - 1]->i_sub].status == 0)
+	{
+		if (ft_exec_while_pipe(parse, i))
+			return (0);
 		else
-			return (1);
+			return (3);
+	}
+	else
+		return (1);
 	return (2);
 }
 
-int ft_or_sublvl(t_parse *parse, size_t *i)
+int	ft_or_sublvl(t_parse *parse, size_t *i)
 {
-	if (parse->sub_lvl[parse->task[*i]->i_sub].status == -1)
+	if (parse->sub_lvl[parse->task[*i - 1]->i_sub].status == -1)
 		return (2);
-	if (parse->task[*i - 1]->lvl != 0
-		&& parse->sub_lvl[parse->task[*i - 1]->i_sub].status > 0)	
-		{
-			ft_exec(parse, parse->task[*i], *i);
-			if (parse->task[*i + 1] && parse->task[*i + 1]->link == PIPE)
-				*i += 1;
-			else
-				return (0);
-			while (parse->task[*i] && parse->task[*i]->link == PIPE
-				&& parse->task[*i]->lvl == parse->task[*i - 1]->lvl)
-			{
-				ft_exec(parse, parse->task[*i], *i);
-				if (parse->task[*i + 1] && parse->task[*i + 1]->link == PIPE)
-					*i += 1;
-				else
-					return (0);
-			}
-		}
+	if (parse->sub_lvl[parse->task[*i - 1]->i_sub].status > 0)
+	{
+		if (ft_exec_while_pipe(parse, i))
+			return (0);
 		else
-			return (1);
+			return (3);
+	}
+	else
+		return (1);
 	return (2);
+}
+
+bool	ft_exec_while_pipe(t_parse *parse, size_t *i)
+{
+	if (!ft_exec(parse, parse->task[*i], *i))
+		return (false);
+	if (parse->task[*i + 1] && parse->task[*i + 1]->link == PIPE)
+		*i += 1;
+	else
+		return (true);
+	while (parse->task[*i] && parse->task[*i]->link == PIPE
+		&& parse->task[*i]->lvl == parse->task[*i - 1]->lvl)
+	{
+		ft_exec(parse, parse->task[*i], *i);
+		if (parse->task[*i + 1] && parse->task[*i + 1]->link == PIPE)
+			*i += 1;
+		else
+			return (true);
+	}
+	return (true);
 }

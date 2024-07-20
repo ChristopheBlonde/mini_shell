@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:48:47 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/19 11:59:14 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/20 15:57:21 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 bool	ft_execution(t_parse *parse);
 bool	ft_exec_redirect(t_parse *parse, int index);
 void	ft_get_path(t_parse *parse);
-void	ft_exec(t_parse *parse, t_object *task, size_t i);
+bool	ft_exec(t_parse *parse, t_object *task, size_t i);
 void	ft_exec_builtin(t_parse *parse, t_object *task);
 bool	ft_is_fork(t_parse *parse, size_t i);
 void	handle_bad_fd(t_parse *parse, t_object *task, size_t index);
@@ -28,13 +28,14 @@ void	ft_handle_error_exec(char *str);
 bool	ft_is_subexec(t_parse *parse, pid_t *sub_lvl,
 			size_t *cur_sub, size_t *i);
 bool	ft_exec_cmd(t_parse *parse, size_t *i, size_t cur_sub);
-void	ft_exec_pipe(t_parse *parse, size_t *i);
+bool	ft_exec_pipe(t_parse *parse, size_t *i);
 bool	ft_exec_or(t_parse *parse, size_t *i);
 bool	ft_exec_and(t_parse *parse, size_t *i);
 bool	ft_parse_befor_exec(t_parse *parse, size_t i);
 void	ft_exit_forks(t_parse *parse, size_t i, int status, size_t cur_sub);
 void	ft_handle_exit_parent(t_parse *parse, t_object *task);
 int		ft_and_sublvl(t_parse *parse, size_t *i);
-int 	ft_or_sublvl(t_parse *parse, size_t *i);
+int		ft_or_sublvl(t_parse *parse, size_t *i);
+bool	ft_exec_while_pipe(t_parse *parse, size_t *i);
 
 #endif
