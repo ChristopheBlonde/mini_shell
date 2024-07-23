@@ -51,7 +51,7 @@ char	*ft_quote_args(char *args)
 	j = 1;
 	if (!args)
 		return (NULL);
-	tmp = ft_calloc(ft_strlen(args) + 2, sizeof(char));
+	tmp = ft_calloc(ft_strlen(args) + 3, sizeof(char));
 	if (!tmp)
 		return (NULL);
 	tmp[0] = '"';
