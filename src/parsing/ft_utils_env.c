@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 13:31:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/18 17:59:00 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/23 06:34:24 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_init_he(t_he *he, t_object *task)
 		return ;
 	he->size = 0;
 	he->lst = NULL;
-	he->need = true;
 	while (task->cmd[he->size])
 	{
 		ft_lstadd_back(&he->lst, ft_lstnew(ft_strdup(task->cmd[he->size])));

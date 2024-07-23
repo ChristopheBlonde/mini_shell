@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/18 17:53:55 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/23 07:01:42 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_object
 	int			open;
 	int			close;
 	int			i_sub;
+	bool		parsed;
 }	t_object;
 
 typedef struct s_elem
@@ -106,7 +107,6 @@ typedef struct s_handle_env
 	int		cur_count;
 	size_t	size;
 	t_elem	*info;
-	bool	need;
 }	t_he;
 
 int					ft_check_and_operator(char *input);

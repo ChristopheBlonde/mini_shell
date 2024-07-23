@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:24:36 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/20 22:18:58 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/23 07:44:19 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,12 @@ bool	ft_is_subexec(t_parse *parse, pid_t *sub_lvl,
 
 bool	ft_exec_cmd(t_parse *parse, size_t *i, size_t cur_sub)
 {
-	bool	skip;
-
-	skip = false;
 	if (!ft_is_fork(parse, *i))
 	{
-		if (!ft_parse_befor_exec(parse, *i))
-			return (true);
+		if (!parse->task[*i]->parsed)
+			if (!ft_parse_befor_exec(parse, *i))
+				return (true);
+		parse->task[*i]->parsed = false;
 		ft_exec_builtin(parse, parse->task[(*i)++]);
 	}
 	else
@@ -91,14 +90,14 @@ bool	ft_exec_cmd(t_parse *parse, size_t *i, size_t cur_sub)
 		if (parse->task[*i] && parse->task[*i]->cmd)
 		{
 			if (!ft_exec_pipe(parse, i))
-				skip = true;
-			if (!skip && !ft_exec_or(parse, i))
+				parse->task[*i]->parsed = true;
+			if (!parse->task[*i]->parsed && !ft_exec_or(parse, i))
 				return (false);
-			if (!skip && !ft_exec_and(parse, i))
+			if (!parse->task[*i]->parsed && !ft_exec_and(parse, i))
 				return (false);
 		}
 		ft_exit_forks(parse, *i, 0, cur_sub);
-		if (!skip)
+		if (!parse->task[*i]->parsed)
 			(*i)++;
 	}
 	return (true);

@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:43:47 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/18 09:33:52 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/22 08:37:08 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,16 @@ void	ft_lstinsert(t_list **lst, t_list *addlst, t_list **ptr)
 	current = (t_list *)*lst;
 	last = ft_lstlast(addlst);
 	tmp = *ptr;
+	if (!addlst)
+		ft_strqcpy((char *)(*ptr)->content);
+	if (!addlst)
+		return ;
 	if (*lst == *ptr)
 	{
 		ft_is_current(tmp, last, lst, ptr);
 		*lst = addlst;
 		return ;
 	}
-	if (!addlst)
-		return ;
 	if (current != tmp)
 		while (current->next != tmp)
 			current = current->next;

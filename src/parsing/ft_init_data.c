@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:55:51 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/17 09:39:50 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/23 07:05:54 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	ft_init_task(t_object *task)
 	task->open = 0;
 	task->close = 0;
 	task->i_sub = -1;
+	task->parsed = false;
 }
 
 static bool	need_resplit(char **cmd)
