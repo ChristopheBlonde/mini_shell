@@ -26,7 +26,7 @@ void	ft_exec_export(t_parse *parse, t_object *task)
 	while (task->cmd[i])
 	{
 		ft_export(parse, task->cmd[i]);
-		if (!strncmp(ft_getenv(parse, "?"), "1", -1))
+		if (!ft_strncmp(ft_getenv(parse, "?"), "1", -1))
 			fail = true;
 		i++;
 	}
