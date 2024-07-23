@@ -45,6 +45,7 @@ void	ft_free_task(t_parse *parse)
 void	ft_free_env(t_parse *parse)
 {
 	ft_free_array((void **)parse->env);
+	rl_clear_history();
 }
 
 void	ft_free_parsing(t_parse *parse)
