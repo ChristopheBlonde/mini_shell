@@ -75,7 +75,7 @@ static t_list	*ft_cmd_to_list(t_object *task)
 
 	i = -1;
 	lst = NULL;
-	while (task->cmd[++i])
+	while (task->cmd[++i] && task->cmd[i][0])
 		ft_lstadd_back(&lst, ft_lstnew((void *)ft_strdup(task->cmd[i])));
 	current = lst;
 	i = 0;

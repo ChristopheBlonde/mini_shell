@@ -70,7 +70,8 @@ void	ft_handle_exit_parent(t_parse *parse, t_object *task)
 
 int	ft_and_sublvl(t_parse *parse, size_t *i)
 {
-	if (parse->sub_lvl[parse->task[*i - 1]->i_sub].status == -1)
+	if (parse->task[*i - 1]->i_sub == -1
+		|| parse->sub_lvl[parse->task[*i - 1]->i_sub].status == -1)
 		return (2);
 	if (parse->sub_lvl[parse->task[*i - 1]->i_sub].status == 0)
 	{
@@ -86,7 +87,8 @@ int	ft_and_sublvl(t_parse *parse, size_t *i)
 
 int	ft_or_sublvl(t_parse *parse, size_t *i)
 {
-	if (parse->sub_lvl[parse->task[*i - 1]->i_sub].status == -1)
+	if (parse->task[*i - 1]->i_sub == -1
+		|| parse->sub_lvl[parse->task[*i - 1]->i_sub].status == -1)
 		return (2);
 	if (parse->sub_lvl[parse->task[*i - 1]->i_sub].status > 0)
 	{

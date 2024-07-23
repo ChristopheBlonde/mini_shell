@@ -76,7 +76,7 @@ size_t	ft_count_dollar(char *s)
 	i = 0;
 	quote = -1;
 	count = 0;
-	while (s[i])
+	while (s && s[i])
 	{
 		in_quote(s, &quote, (int)i);
 		if (s[i] == '$' && (quote == -1 || s[quote] == '"')
