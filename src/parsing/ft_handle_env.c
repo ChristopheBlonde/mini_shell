@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 19:29:40 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/23 06:42:52 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/24 10:13:22 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ static void	ft_handle_unquoted(t_he *he, t_elem *elem, char *s, size_t *index)
 	ft_join_list(elem, s, *index);
 	ft_check_insertion(he, elem);
 	*index += ft_strlen(elem->env) - 1;
-	if (elem->env && elem->env[0] == '\0')
-		free(elem->env);
 }
 
 static void	ft_handle_dollar(t_parse *parse, t_he *he, t_elem *elem)
