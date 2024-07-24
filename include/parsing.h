@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:35:11 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/23 07:01:42 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/24 11:08:36 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct s_elem
 	char	*env;
 	int		quoted;
 	size_t	var_len;
+	bool	must_free;
 }	t_elem;
 
 typedef struct s_handle_env

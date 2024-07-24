@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 13:31:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/23 06:34:24 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/24 11:09:54 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	ft_init_elem(t_elem *elem)
 	elem->env = NULL;
 	elem->quoted = -1;
 	elem->var_len = 0;
+	elem->must_free = false;
 }
 
 void	ft_get_variable(t_parse *parse, char *s, t_elem *elem)
@@ -63,7 +64,10 @@ void	ft_get_variable(t_parse *parse, char *s, t_elem *elem)
 		return ;
 	elem->env = ft_getenv(parse, tmp);
 	if (!elem->env)
+	{
 		elem->env = ft_calloc(1, sizeof(char));
+		elem->must_free = true;
+	}
 	free(tmp);
 }
 
