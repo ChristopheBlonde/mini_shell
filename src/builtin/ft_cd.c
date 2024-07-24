@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 21:17:26 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/24 14:46:59 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/24 15:43:55 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static void	ft_handle_cd_error(t_parse *parse, char *path, char **n_path)
 		free(*n_path);
 }
 
-static void	ft_getcd_path(bool *modified, char **n_path, char pwd[4096], int *res)
+static void	ft_getcd_path(bool *modified, char **n_path, char pwd[4096],
+	int *res)
 {
 	char	*tmp;
 
