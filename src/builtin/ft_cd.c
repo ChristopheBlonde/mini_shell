@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 21:17:26 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/10 15:18:10 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/24 09:24:30 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,10 @@ void	ft_cd(t_parse *parse, t_object *task, char *path)
 	pwd = getcwd(NULL, 1024);
 	modified = false;
 	if (ft_error_cd(parse, task))
+	{
+		free(pwd);
 		return ;
+	}
 	if (n_path[0] != '/' && ft_strncmp("./", n_path, 2)
 		&& ft_strncmp("../", n_path, 3))
 		ft_getcd_path(&modified, &n_path, &pwd, &res);
