@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:15:06 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/03 08:59:47 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/24 14:47:39 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	ft_pwd(t_parse *parse)
 {
-	char	*pwd;
+	char	pwd[4096];
 
-	pwd = getcwd(NULL, 1024);
-	if (!pwd)
+	pwd[0] = '\0';
+	getcwd(pwd, 4096);
+	if (!pwd[0])
 	{
 		perror("pwd: error retrieving current directory:\
  getcwd: cannot access parent directories");
@@ -25,6 +26,5 @@ void	ft_pwd(t_parse *parse)
 		return ;
 	}
 	ft_putendl_fd(pwd, 1);
-	free(pwd);
 	ft_excmd_result(parse, 0);
 }
