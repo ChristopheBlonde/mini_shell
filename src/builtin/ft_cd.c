@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 21:17:26 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/24 09:24:30 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/24 12:53:41 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	ft_handle_cd_error(t_parse *parse, char *path, char **pwd,
 		free(*n_path);
 }
 
-void	ft_getcd_path(bool *modified, char **n_path, char **pwd, int *res)
+static void	ft_getcd_path(bool *modified, char **n_path, char **pwd, int *res)
 {
 	*modified = true;
 	while (*n_path[0] == '/')
@@ -36,37 +36,33 @@ void	ft_getcd_path(bool *modified, char **n_path, char **pwd, int *res)
 	*res = chdir(*n_path);
 }
 
-static void	ft_update_env(t_parse *parse, char *n_path,
-		char *path, bool modified)
+static void	ft_update_env(t_parse *parse, char *pwd)
 {
-	char	*pwd;
-	char	*result;
 	char	*new_pwd;
 	char	*old_pwd;
+	char	*n_pwd;
 
-	if (modified)
-		result = n_path;
-	else
-		result = path;
-	pwd = ft_getenv(parse, "PWD");
-	if (!ft_strncmp(result, pwd, -1))
+	n_pwd = getcwd(NULL, 1024);
+	if (!n_pwd)
 		return ;
+	if (!ft_strncmp(ft_getenv(parse, "PWD"), n_pwd, -1))
+	{
+		free(n_pwd);
+		return ;
+	}
 	old_pwd = ft_strjoin("OLDPWD=", pwd);
 	if (!old_pwd)
 		return ;
 	ft_export(parse, old_pwd);
-	new_pwd = ft_strjoin("PWD=", result);
-	if (!new_pwd)
-	{
-		free(old_pwd);
-		return ;
-	}
-	ft_export(parse, new_pwd);
 	free(old_pwd);
+	new_pwd = ft_strfjoin("PWD=", n_pwd, 2);
+	if (!new_pwd)
+		return ;
+	ft_export(parse, new_pwd);
 	free(new_pwd);
 }
 
-static bool	ft_error_cd(t_parse *parse, t_object *task)
+static bool	ft_error_cd(t_parse *parse, t_object *task, char *pwd)
 {
 	size_t	arr_len;
 	char	*home;
@@ -88,7 +84,7 @@ static bool	ft_error_cd(t_parse *parse, t_object *task)
 			return (true);
 		}
 		chdir(home);
-		ft_update_env(parse, home, home, false);
+		ft_update_env(parse, pwd);
 		ft_excmd_result(parse, 0);
 		return (true);
 	}
@@ -105,7 +101,7 @@ void	ft_cd(t_parse *parse, t_object *task, char *path)
 	n_path = path;
 	pwd = getcwd(NULL, 1024);
 	modified = false;
-	if (ft_error_cd(parse, task))
+	if (ft_error_cd(parse, task, pwd))
 	{
 		free(pwd);
 		return ;
@@ -117,8 +113,8 @@ void	ft_cd(t_parse *parse, t_object *task, char *path)
 		res = chdir(path);
 	if (res)
 		return (ft_handle_cd_error(parse, path, &pwd, &n_path));
+	ft_update_env(parse, pwd);
 	free(pwd);
-	ft_update_env(parse, n_path, path, modified);
 	if (modified)
 		free(n_path);
 	return (ft_excmd_result(parse, 0));
