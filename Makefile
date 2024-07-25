@@ -6,7 +6,7 @@
 #    By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 12:48:51 by cblonde           #+#    #+#              #
-#    Updated: 2024/07/21 19:22:19 by cblonde          ###   ########.fr        #
+#    Updated: 2024/07/25 11:10:27 by cblonde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ MAKEFLAGS += --silent
 
 CC = cc
 
-CFLAGS = -Werror -Wextra -Wall -gdwarf-4 -Wunused
+CFLAGS = -Werror -Wextra -Wall #-gdwarf-4 -Wunused
 
 INCLUDE = -Iinclude -Ilib -I/opt/homebrew/opt/readline/include
 
@@ -62,7 +62,8 @@ SRC =	src/main.c $(PARSE)ft_parse_env.c $(UTILS)ft_free_array.c\
 		$(SYNTAX)ft_redirect_utils.c $(UTILS)ft_free_heredoc.c $(UTILS)ft_handle_heredoc.c\
 		$(EXEC)ft_exec_fork.c $(BUILTIN)ft_putexport.c $(PARSE)ft_new_split_utils.c\
 		$(PARSE)ft_new_split.c $(SYNTAX)ft_ambigous_checker.c $(PARSE)ft_handle_lvl.c\
-		$(EXEC)ft_utils_fork.c $(EXEC)ft_parse_exec.c $(UTILS)ft_checker_wildcard.c
+		$(EXEC)ft_utils_fork.c $(EXEC)ft_parse_exec.c $(UTILS)ft_checker_wildcard.c\
+		$(UTILS)ft_utils_exit.c
 	  
 OBJ_DIR = obj/
 
@@ -74,7 +75,6 @@ all : $(NAME)
 	@if [ $(INDEX) -eq 0 ]; then \
 		echo "Nothing to compile"; \
 	fi
-
 
 $(LIBFT) :
 	@make bonus -C lib --no-print-directory

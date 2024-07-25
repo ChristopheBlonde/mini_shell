@@ -6,24 +6,13 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/11 12:46:53 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/25 11:05:57 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int			g_exit_code = 0;
-
-static int	ft_usage(char **argv)
-{
-	if (argv[1])
-	{
-		ft_putstr_fd(argv[1], 2);
-		ft_putstr_fd(" is not option !\n", 2);
-	}
-	ft_putendl_fd("\033[1;34mUsage: [ minishell ]\033[m", 2);
-	return (1);
-}
 
 static bool	ft_empty_input(t_parse *parse)
 {
@@ -36,15 +25,21 @@ static bool	ft_empty_input(t_parse *parse)
 	return (true);
 }
 
-static bool	ft_input(t_parse *parse)
+static void	ft_null_input(t_parse *parse, int status)
 {
-	parse->input = readline("minishell> ");
 	if (parse->input == NULL)
 	{
 		printf("exit\n");
+		status = ft_atoi(ft_getenv(parse, "?"));
 		ft_free_all(parse);
-		exit(0);
+		exit(status);
 	}
+}
+
+static bool	ft_input(t_parse *parse)
+{
+	parse->input = readline("minishell> ");
+	ft_null_input(parse, 0);
 	if (!parse->input || parse->input[0] == '\0')
 	{
 		ft_free_parsing(parse);

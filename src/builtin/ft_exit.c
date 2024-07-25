@@ -6,66 +6,47 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 12:18:42 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/15 10:07:51 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/25 10:22:37 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	ft_skip_until(char *str, int *s, size_t *i)
+{
+	while (str[*i] == 32 || (9 <= str[*i] && str[*i] <= 13))
+		(*i)++;
+	if (str[*i] == '-')
+		*s *= -1;
+	if (str[*i] == '-' || str[*i] == '+')
+		(*i)++;
+}
 
 static bool	ft_is_number(char *str)
 {
 	size_t		i;
 	long long	n;
 	int			s;
+	long long	max;
 
 	i = 0;
 	n = 0;
 	s = 1;
-	while (str[i] == 32 || (9 <= str[i] && str[i] <= 13))
-		i++;
+	max = 922337203685477580;
+	ft_skip_until(str, &s, &i);
 	while (str[i])
 	{
-		if (!('0' <= str[i] && str[i] <= '9') && str[i] != '-' && str[i] != '+')
+		if (!('0' <= str[i] && str[i] <= '9'))
 			return (false);
-		if (str[i] == '-')
-			s *= -1;
 		else
 			n = n * 10 + (str[i] - '0');
-		if ((n > 922337203685477580 && str[i + 1])
-			|| (n * s < -922337203685477580 && str[i + 1])
-			|| (n * s == 922337203685477580 && str[i] && str[i + 1] > '7')
-			|| (n * s == -922337203685477580 && str[i] && str[i + 1] > '8'))
+		if ((n > max && str[i + 1]) || (n * s < -(max) && str[i + 1])
+			|| (n * s == max && str[i] && str[i + 1] > '7')
+			|| (n * s == -(max) && str[i] && str[i + 1] > '8'))
 			return (false);
 		i++;
 	}
 	return (true);
-}
-
-static long long	ft_atol_exit(char *str)
-{
-	long long	nbr;
-	int			sign;
-	size_t		i;
-
-	sign = 1;
-	nbr = 0;
-	i = 0;
-	while (str[i] == 32 || (9 <= str[i] && str[i] <= 13))
-		i++;
-	while (str[i])
-	{
-		if (str[i] == '-')
-			sign = -1;
-		while (str[i] == '-' || str[i] == '+')
-			i++;
-		if (nbr == 922337203685477580 && str[i] == '8' && sign == -1)
-			return (0);
-		if (nbr == 922337203685477580 && str[i] == '8')
-			return (-1);
-		nbr = nbr * 10 + (str[i] - '0');
-		i++;
-	}
-	return (nbr * sign);
 }
 
 static void	ft_get_exit_code(long long *nbr)
