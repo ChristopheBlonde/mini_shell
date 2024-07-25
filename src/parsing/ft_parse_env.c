@@ -25,7 +25,7 @@ static char	**ft_build_env(void)
 		ft_free_array((void **)arr_env);
 		return (NULL);
 	}
-	arr_env[1] = ft_strfjoin("PWD=", getcwd(NULL, 0), 2);
+	arr_env[1] = ft_strfjoin("PWD=", getcwd(NULL, 4096), 2);
 	if (!arr_env[1])
 	{
 		ft_free_array((void **)arr_env);
@@ -84,4 +84,5 @@ void	ft_parse_env(t_parse *parse, char *env[])
 			return ;
 	}
 	parse->env = arr_env;
+	ft_export(parse, "OLDPWD");
 }

@@ -49,17 +49,20 @@ static void	ft_update_env(t_parse *parse, char *pwd)
 	getcwd(n_pwd, 4096);
 	if (!n_pwd[0])
 		return ;
-	if (!ft_strncmp(ft_getenv(parse, "PWD"), n_pwd, -1))
-		return ;
+	if (ft_getenv(parse, "PWD"))
+		if (!ft_strncmp(ft_getenv(parse, "PWD"), n_pwd, -1))
+			return ;
 	old_pwd = ft_strjoin("OLDPWD=", pwd);
 	if (!old_pwd)
 		return ;
-	ft_export(parse, old_pwd);
+	if (ft_getenv(parse, "OLDPWD"))
+		ft_export(parse, old_pwd);
 	free(old_pwd);
 	new_pwd = ft_strjoin("PWD=", n_pwd);
 	if (!new_pwd)
 		return ;
-	ft_export(parse, new_pwd);
+	if (ft_getenv(parse, "PWD"))
+		ft_export(parse, new_pwd);
 	free(new_pwd);
 }
 
