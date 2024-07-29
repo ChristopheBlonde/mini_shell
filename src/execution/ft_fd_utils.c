@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:15:30 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/05 08:15:28 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/29 16:46:06 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,11 @@ void	ft_handle_error_exec(char *str)
 	int	fd;
 	DIR	*folder;
 
+	if (!ft_strncmp(str, ".", -1))
+	{
+		print_good_error_msg(13);
+		return ;
+	}
 	fd = open(str, O_WRONLY);
 	folder = opendir(str);
 	ft_putstr_fd("minishell: ", 2);

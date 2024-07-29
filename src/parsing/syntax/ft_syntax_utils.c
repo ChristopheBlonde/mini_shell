@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 13:17:45 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/06/19 10:22:12 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/07/29 16:45:02 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@ void	print_good_error_msg(int code_error)
 		" syntax error near unexpected token `>>'",
 		" syntax error near unexpected token `<'",
 		" syntax error near unexpected token `<<'",
-		" ambiguous redirect"
+		" ambiguous redirect",
+		"minishell: .: filename argument required\n\
+.: usage: . filename [arguments]"
 	};
 
-	if (code_error >= 1 && code_error <= 12)
+	if (code_error >= 1 && code_error <= 13)
 		ft_putendl_fd((char *)error_messages[code_error], 2);
 }
 
