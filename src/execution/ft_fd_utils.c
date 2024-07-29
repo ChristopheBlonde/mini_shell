@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:15:30 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/29 16:46:06 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/29 17:02:20 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	ft_erroutfile(t_parse *parse, t_object *task, size_t index, int *s2)
 	}
 }
 
-void	handle_bad_fd(t_parse *parse, t_object *task, size_t index)
+bool	handle_bad_fd(t_parse *parse, t_object *task, size_t index)
 {
 	int	stock_1;
 	int	stock_2;
@@ -86,6 +86,7 @@ void	handle_bad_fd(t_parse *parse, t_object *task, size_t index)
 		ft_close_std_fd();
 		exit(1);
 	}
+	return (true);
 }
 
 void	ft_handle_error_exec(char *str)

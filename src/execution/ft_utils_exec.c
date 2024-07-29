@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/29 16:41:01 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/29 17:04:21 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ static void	ft_handle_status(t_parse *parse, t_object *task)
 bool	ft_exec(t_parse *parse, t_object *task, size_t i)
 {
 	if (!parse->task[i]->parsed)
-		if (!ft_parse_befor_exec(parse, i))
+		if (!ft_parse_befor_exec(parse, i) && handle_bad_fd(parse, task, i))
 			return (false);
 	parse->task[i]->parsed = false;
 	if (!parse->task[i]->cmd[0])
