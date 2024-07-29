@@ -6,7 +6,7 @@
 /*   By: cblonde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 10:24:36 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/18 10:06:07 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/29 16:10:30 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ static void	ft_unset(t_parse *parse, char *var)
 	char	**arr;
 	int		index;
 
-	if (!ft_syntax_env(var, 1))
-		return (ft_excmd_result(parse, 1));
 	len = ft_arrlen((void **)parse->env);
 	index = ft_get_index_env(parse->env, var, len);
 	if (index < 0)
