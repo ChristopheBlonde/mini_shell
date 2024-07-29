@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:43 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/03 16:49:16 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/29 10:14:27 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static bool	ft_check_option(char *s)
 			return (false);
 		i++;
 	}
+	if (i == 1)
+		return (false);
 	return (true);
 }
 
