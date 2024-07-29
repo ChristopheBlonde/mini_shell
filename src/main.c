@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:21:50 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/25 11:05:57 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/29 18:35:13 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ static void	ft_null_input(t_parse *parse, int status)
 	if (parse->input == NULL)
 	{
 		printf("exit\n");
-		status = ft_atoi(ft_getenv(parse, "?"));
+		if (g_exit_code != 0)
+			status = g_exit_code;
+		else
+			status = ft_atoi(ft_getenv(parse, "?"));
 		ft_free_all(parse);
 		exit(status);
 	}

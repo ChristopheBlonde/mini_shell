@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 11:36:33 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/29 17:04:21 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/29 17:40:08 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static void	ft_handle_status(t_parse *parse, t_object *task)
 		status = 126;
 	if (dir)
 		closedir(dir);
-	ft_handle_error_exec(task->cmd[0]);
+	ft_handle_error_exec(parse, task->cmd[0]);
 	ft_free_all(parse);
 	ft_close_std_fd();
 	exit(status);
@@ -113,7 +113,7 @@ static void	ft_handle_status(t_parse *parse, t_object *task)
 bool	ft_exec(t_parse *parse, t_object *task, size_t i)
 {
 	if (!parse->task[i]->parsed)
-		if (!ft_parse_befor_exec(parse, i) && handle_bad_fd(parse, task, i))
+		if (!ft_parse_befor_exec(parse, i) && handle_bad_fd(parse, task, i, 0))
 			return (false);
 	parse->task[i]->parsed = false;
 	if (!parse->task[i]->cmd[0])
@@ -124,7 +124,7 @@ bool	ft_exec(t_parse *parse, t_object *task, size_t i)
 		ft_putendl_fd(strerror(errno), 2);
 	if (task->pid == 0)
 	{
-		handle_bad_fd(parse, task, i);
+		handle_bad_fd(parse, task, i, 1);
 		ft_handle_child(parse, task, i);
 		if (task->builtin == NO_BUILTIN)
 			if (execve(task->cmd[0], task->cmd, parse->env) == -1)

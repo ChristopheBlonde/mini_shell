@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:15:30 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/29 17:02:20 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/29 17:42:50 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	ft_erroutfile(t_parse *parse, t_object *task, size_t index, int *s2)
 	}
 }
 
-bool	handle_bad_fd(t_parse *parse, t_object *task, size_t index)
+bool	handle_bad_fd(t_parse *parse, t_object *task, size_t index, int n)
 {
 	int	stock_1;
 	int	stock_2;
@@ -82,23 +82,24 @@ bool	handle_bad_fd(t_parse *parse, t_object *task, size_t index)
 			put_error_msg(parse->redirect[stock_2],
 				parse->task[index]->erroutfile);
 		ft_close_fd_task(parse, index);
+		if (n == 0)
+			ft_excmd_result(parse, 1);
+		if (n == 0)
+			return (true);
 		ft_free_all(parse);
 		ft_close_std_fd();
 		exit(1);
 	}
-	return (true);
+	return (false);
 }
 
-void	ft_handle_error_exec(char *str)
+void	ft_handle_error_exec(t_parse *parse, char *str)
 {
 	int	fd;
 	DIR	*folder;
 
 	if (!ft_strncmp(str, ".", -1))
-	{
-		print_good_error_msg(13);
-		return ;
-	}
+		ft_exit_dot(parse);
 	fd = open(str, O_WRONLY);
 	folder = opendir(str);
 	ft_putstr_fd("minishell: ", 2);
