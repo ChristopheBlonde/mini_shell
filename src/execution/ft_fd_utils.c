@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:15:30 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/29 17:42:50 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/29 19:16:00 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ bool	handle_bad_fd(t_parse *parse, t_object *task, size_t index, int n)
 		ft_close_std_fd();
 		exit(1);
 	}
-	return (false);
+	return (true);
 }
 
 void	ft_handle_error_exec(t_parse *parse, char *str)

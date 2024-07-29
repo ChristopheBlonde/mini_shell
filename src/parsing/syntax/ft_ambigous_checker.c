@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 20:57:20 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/11 10:58:59 by tsadouk          ###   ########.fr       */
+/*   Updated: 2024/07/29 19:01:06 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,35 @@ static int	line_check(char *input)
 	return (0);
 }
 
+static int	utils_ambigous(char *input, int *code)
+{
+	int	i;
+
+	i = -1;
+	while (input[++i])
+	{
+		if (input[i] == '<' || input[i] == '>')
+		{
+			while (input[i] == '<' || input[i] == '>')
+				i++;
+			skip_spaces(input, &i);
+			if (input[i] == '<' || input[i] == '>')
+			{
+				*code = 8;
+				return (1);
+			}
+		}
+	}
+	return (0);
+}
+
 void	check_for_ambigous_redirect(char *input, int *code)
 {
 	int	len;
 
 	len = ft_strlen(input);
+	if (utils_ambigous(input, code))
+		return ;
 	if (line_check(input))
 		*code = line_check(input);
 	else if (ft_strnstr_and_check_quotes(input, ">>>", len)
