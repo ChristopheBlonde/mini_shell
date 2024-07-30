@@ -6,7 +6,7 @@
 /*   By: tsadouk <tsadouk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 20:57:20 by tsadouk           #+#    #+#             */
-/*   Updated: 2024/07/29 19:01:06 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/30 09:26:17 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,14 @@ static int	line_check(char *input)
 static int	utils_ambigous(char *input, int *code)
 {
 	int	i;
+	int	quote;
 
 	i = -1;
+	quote = -1;
 	while (input[++i])
 	{
-		if (input[i] == '<' || input[i] == '>')
+		in_quote(input, &quote, i);
+		if (quote == -1 && (input[i] == '<' || input[i] == '>'))
 		{
 			while (input[i] == '<' || input[i] == '>')
 				i++;

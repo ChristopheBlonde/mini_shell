@@ -6,7 +6,7 @@
 /*   By: cblonde <cblonde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 16:05:49 by cblonde           #+#    #+#             */
-/*   Updated: 2024/07/23 06:33:48 by cblonde          ###   ########.fr       */
+/*   Updated: 2024/07/30 09:06:44 by cblonde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,13 @@ char	*ft_quote_args(char *args)
 	j = 1;
 	if (!args)
 		return (NULL);
+	if (ft_check_wildcard(args))
+	{
+		tmp = ft_strdup(args);
+		if (!tmp)
+			return (NULL);
+		return (tmp);
+	}
 	tmp = ft_calloc(ft_strlen(args) + 3, sizeof(char));
 	if (!tmp)
 		return (NULL);
